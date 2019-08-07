@@ -21,3 +21,5 @@ They should be plug-and-play, assuming that you have installed the add-on that a
 - Add "game path" section to config file - currently is set in each file to C:\Program Files\Guild Wars 2, but some may have GW2 installed elsewhere
 - Make one head script to run all the individual scripts so all add-ons can be updated by running the head script
 - See if the above head script can include a command that schedules it to run every so often in order to be an auto-check for updates
+
+###### Disclaimer: I am not affiliated with any of the add-ons shown here or their authors. If you are the author of one of the add-ons and wish for the update script for your add-on to be removed for whatever reason, <a href="mailto:fmmmlee@gmail.com">send an email</a> or send an in-game mail to admiralnerf.1853 and I'll reply as soon as I can.
