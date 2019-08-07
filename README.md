@@ -1,5 +1,5 @@
 # GW2-Updater-Scripts
-A few convenience scripts to update some GW2 add-ons without having to manually go to each website, check version numbers, download and rename dlls, etc.
+A few convenience scripts to update some Guild Wars 2 add-ons without having to manually go to each website, check version numbers, download and rename dlls, etc.
 
 ## Requirements:
 - **Windows**
@@ -25,4 +25,4 @@ They should be plug-and-play, assuming that you have installed the add-on that a
 
 &nbsp;
 
-###### Disclaimer: I am not affiliated with any of the add-ons shown here or their authors. If you are the author of one of the add-ons and wish for the update script for your add-on to be removed for whatever reason, <a href="mailto:fmmmlee@gmail.com">send an email</a> or send an in-game mail to admiralnerf.1853 and I'll reply as soon as I can.
+###### Disclaimer: I am not affiliated with any of the add-ons shown here or their authors. If you are the author of one of the add-ons and wish for the update script for your add-on to be removed for whatever reason, <a href="mailto:fmmmlee@gmail.com">send an email</a> or send an in-game mail to admiralnerf.1853 and I'll reply and take care of the issue as soon as I can.
