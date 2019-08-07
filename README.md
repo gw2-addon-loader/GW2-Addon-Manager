@@ -15,7 +15,7 @@ They should be plug-and-play, assuming that you have installed the add-on that a
 
 ### The Versions
 - **Standalone**: You should be able to download and use a single .ps1 file from this folder and have it work properly. To set naming preferences, game path, etc, you need to edit the script itself.
-- **Configured**: The scripts in this folder rely on the dll_config.ini file. They should still work independently of each other, but they all require the config file. Currently, the config file is just an easy way to choose how to name the respective dlls of each add-on.
+- **Configurable**: The scripts in this folder rely on the dll_config.ini file. They should still work independently of each other, but they all require the config file. Currently, the config file is just an easy way to choose how to name the respective dlls of each add-on.
 
 #### To-Do:
 - Add "game path" section to config file - currently is hardcoded individually in each script to be C:\Program Files\Guild Wars 2, but some may have GW2 installed elsewhere and this would be useful in those cases
