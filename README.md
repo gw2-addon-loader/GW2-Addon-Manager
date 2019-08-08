@@ -1,4 +1,4 @@
-# GW2-Updater-Scripts
+# GW2-Addon-Updater
 A few convenience scripts to update some Guild Wars 2 add-ons without having to manually go to each website, check version numbers, download and rename dlls, etc.
 
 ## Requirements:
