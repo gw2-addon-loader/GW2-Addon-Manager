@@ -16,11 +16,11 @@ They should be plug-and-play, assuming that you have installed the add-on that a
 If things don't work, please open an issue describing the problem and include the error message (if applicable) and what add-ons you have installed.
 
 ### The Versions
-- **Standalone**: You should be able to download and use a single .ps1 file from this folder and have it work properly. To set naming preferences, game path, etc, you need to edit the script itself.
 - **Configurable**: The scripts in this folder can be run individually or all at once. They rely on the `dll_config.ini` file to get various settings used within. Using `update_all.bat` to perform all updates at once is recommended.
+- **Standalone**: You should be able to download and run a single powershell script from this folder and have it work properly. To set naming preferences, game path, etc, you need to edit the script itself. These are meant more for testing or for those who don't care about an interface, or those who want to play with and edit the scripts without messing with a configuration file.
 
 #### To-Do:
-- Add simple UI to `update_all.ps1` to have options to edit the fields in `dll_config.ini` and provide status reports on the updates.
+- Add option to specify what add-ons are installed and automatically determine the right names for their dlls
 - See if it's possible to schedule the full update to run every so often in order for it to be an auto-check for updates
 
 
