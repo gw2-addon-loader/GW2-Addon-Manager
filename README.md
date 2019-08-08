@@ -3,7 +3,7 @@ A few convenience scripts to update some Guild Wars 2 add-ons without having to 
 
 ## Requirements:
 - **Windows**
-- **Powershell**
+- **Powershell 3.0 or above**
 
 ### Currently Supported Add-Ons:
 - <a href="https://github.com/megai2/d912pxy">**d912pxy**</a>
