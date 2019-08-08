@@ -5,17 +5,19 @@
 
 
 ### CONFIG/PREFS ###
-#Guild Wars 2 directory
-$GuildWars2Path = "C:\Program Files\Guild Wars 2"
+#location script is run from
+$rootRunPath = (Split-Path $PSScriptRoot -Parent)
 #config file
-$configs = Get-Content "$GuildWars2Path\updater_scripts\dll_config.ini" | ConvertFrom-Json
+$configs = Get-Content "$rootRunPath\dll_config.ini" | ConvertFrom-Json
+#Guild Wars 2 directory
+$GuildWars2Path = $configs.game_path
 #preferred name for the dll file in /Guild Wars 2/bin64 - e.g. d3d9.dll, d3d9_chainload.dll, etc. Can change in dll_configs.ini file.
 $dll_name = $configs.gw2Radial
 ####################
 
 ###### PATHS ######
 #path to store the version number
-$version_path = "$GuildWars2Path\updater_scripts\GW2Radial\version.txt"
+$version_path = "$GuildWars2Path\updater_scripts\configurable\GW2Radial\version.txt"
 #GW2 bin64 folder
 $bin64 = "$GuildWars2Path\bin64"
 #locations to download and unzip gw2radial before copying the dll into bin64
@@ -66,4 +68,3 @@ if(-NOT($currentVersion -eq $releaseNo))
 {
     update
 }
-

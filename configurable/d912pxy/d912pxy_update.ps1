@@ -5,12 +5,14 @@
 
 
 ##########PREFERENCES###########
+#location script is run from
+$rootRunPath = (Split-Path $PSScriptRoot -Parent)
 #place to temporarily store the zipped download version before extracting into game directory
-$updatedVersionPath = "C:\Users\$env:username\Downloads\d912pxy_latest.zip"
-#Guild Wars 2 directory
-$GuildWars2Path = "C:\Program Files\Guild Wars 2"
+$updatedVersionPath = "$rootRunPath\d912pxy\d912pxy_latest.zip"
 #config file
-$configs = Get-Content "$GuildWars2Path\updater_scripts\dll_config.ini" | ConvertFrom-Json
+$configs = Get-Content "$rootRunPath\dll_config.ini" | ConvertFrom-Json
+#Guild Wars 2 directory
+$GuildWars2Path = $configs.game_path
 #preferred name for the dll file in /Guild Wars 2/bin64 - e.g. d3d9.dll, d3d9_chainload.dll, etc. Can change in dll_configs.ini file.
 $dll_name = $configs.d912pxy
 ################################
