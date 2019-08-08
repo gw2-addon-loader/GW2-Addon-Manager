@@ -54,4 +54,3 @@ if(-NOT ($releaseNo -eq $currentVersion))
 {
 	update
 }
-
