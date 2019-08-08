@@ -11,8 +11,8 @@ A tool to update some Guild Wars 2 add-ons without having to manually go to each
 - <a href="https://github.com/Friendly0Fire/GW2Radial">**GW2Radial**</a>
 
 ### Using the Tool
-Make sure your system meets the **Requirements** are met and that you have installed the add-ons in the list above (I'll add an option to specify which add-ons you have in the near future).
-Running `update_all.bat` will check for updates and for the addons and install them, if there are any. On the first run, some add-ons may be redownloaded even if they are up-to-date as they do not include files that state their versions by default, so those files must be created. Subsequent runs should only download new files if your version of an add-on is not the same as the latest release.
+Make sure your system meets the **Requirements** and that you have installed the add-ons in the list above (I'll add an option to specify which add-ons you have in the near future).
+Running `update_all.bat` will check for updates for the addons and install them, if there are any. On the first run, some add-ons may be redownloaded even if they are up-to-date, as they do not include files that state their versions by default, so those files must be created. Subsequent runs should only download new files if your version of an add-on is not the same as the latest release.
 
 If something doesn't work, please open an issue describing the problem and include the error message (if applicable) and what add-ons you have installed.
 
