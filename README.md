@@ -1,5 +1,5 @@
 # GW2-Addon-Updater
-A few convenience scripts to update some Guild Wars 2 add-ons without having to manually go to each website, check version numbers, download and rename dlls, etc.
+A tool to update some Guild Wars 2 add-ons without having to manually go to each website, check version numbers, download and rename dlls, etc.
 
 ## Requirements:
 - **Windows**
@@ -10,14 +10,15 @@ A few convenience scripts to update some Guild Wars 2 add-ons without having to 
 - <a href="https://www.deltaconnected.com/arcdps/">**arcDPS**</a>
 - <a href="https://github.com/Friendly0Fire/GW2Radial">**GW2Radial**</a>
 
-### Using the Scripts
-They should be plug-and-play, assuming that you have installed the add-on that a script is intended to update and you understand the **Versions** and **Requirements** sections of this Readme. On the first run, some add-ons may be redownloaded even if they are up-to-date as they do not include files that state their versions by default and those files must be created.
+### Using the Tool
+Make sure your system meets the **Requirements** are met and that you have installed the add-ons in the list above (I'll add an option to specify which add-ons you have in the near future).
+Running `update_all.bat` will check for updates and for the addons and install them, if there are any. On the first run, some add-ons may be redownloaded even if they are up-to-date as they do not include files that state their versions by default, so those files must be created. Subsequent runs should only download new files if your version of an add-on is not the same as the latest release.
 
-If things don't work, please open an issue describing the problem and include the error message (if applicable) and what add-ons you have installed.
+If something doesn't work, please open an issue describing the problem and include the error message (if applicable) and what add-ons you have installed.
 
-### The Versions
-- **Configurable**: The scripts in this folder can be run individually or all at once. They rely on the `dll_config.ini` file to get various settings used within. Using `update_all.bat` to perform all updates at once is recommended.
-- **Standalone**: You should be able to download and run a single powershell script from this folder and have it work properly. To set naming preferences, game path, etc, you need to edit the script itself. These are meant more for testing or for those who don't care about an interface, or those who want to play with and edit the scripts without messing with a configuration file.
+### Variants
+- **Configurable**: This is the release variant. The scripts in this folder can be run individually or all at once, and each relies on the `dll_config.ini` file to get various settings used within the scripts. Using `update_all.bat` to perform all updates at once is recommended.
+- **Standalone**: You should be able to download and run a single powershell script from this folder and have it work properly (assuming your script execution policy is set to allow them to run). To set naming preferences, game path, etc, you need to edit each individual script itself. These are meant more for testing or for those who don't care about an interface, or those who want to play with and edit the scripts without messing with a configuration file.
 
 #### To-Do:
 - Add option to specify what add-ons are installed and automatically determine the right names for their dlls
