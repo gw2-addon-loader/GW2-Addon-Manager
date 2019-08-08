@@ -17,7 +17,7 @@ $dll_name = $configs.gw2Radial
 
 ###### PATHS ######
 #path to store the version number
-$version_path = "$GuildWars2Path\updater_scripts\configurable\GW2Radial\version.txt"
+$version_path = "$GuildWars2Path\addons\gw2radial\version.txt"
 #GW2 bin64 folder
 $bin64 = "$GuildWars2Path\bin64"
 #locations to download and unzip gw2radial before copying the dll into bin64

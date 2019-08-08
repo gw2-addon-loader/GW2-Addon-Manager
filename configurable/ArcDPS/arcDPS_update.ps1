@@ -16,7 +16,7 @@ $arc_name = $configs.arcDPS
 #name of build templates dll - leave as is unless directions on arcDPS website indicate a different name
 $buildtemplates_name = $configs.arcDPS_buildTemplates
 #path to store md5
-$md5_path = "$GuildWars2Path\d3d9.dll.md5sum"
+$md5_path = "$GuildWars2Path\addons\arcdps\d3d9.dll.md5sum"
 #GW2 bin64 folder
 $bin64 = "$GuildWars2Path\bin64"
 ####     ###     ####
