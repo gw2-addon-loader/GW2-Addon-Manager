@@ -1,0 +1,34 @@
+﻿<Page x:Class="GW2_Addon_Updater.Updating"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GW2_Addon_Updater"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="500"
+      Title="GW2AOU - Updating"
+      ShowsNavigationUI="False"
+      Background="White">
+
+    <Grid Margin="10,0,10,10">
+        <Label FontWeight="Bold" FontSize="36" Margin="0,10,0,0" FontFamily="Gabriola">
+            Guild Wars 2 Add-On Updater
+        </Label>
+        <Label Margin="20,125,0,0" Content="ArcDPS"/>
+        <ProgressBar Width="350" Height="20" Name="arcDPS_progressBar" HorizontalAlignment="Left" Margin="20,150,0,0" VerticalAlignment="Top"/>
+        <Label Margin="20,165,0,0" Content="ArcDPS - Build Templates"/>
+        <ProgressBar Width="350" Height="20" Name="arcDPS_buildTemplates_progressBar" HorizontalAlignment="Left" Margin="20,190,0,0" VerticalAlignment="Top"/>
+        <Label Margin="20,205,0,0" Content="GW2 Radial"/>
+        <ProgressBar Width="350" Height="20" Name="gw2Radial_progressBar" HorizontalAlignment="Left" Margin="20,230,0,0" VerticalAlignment="Top"/>
+        <Label Margin="20,245,0,0" Content="d912pxy"/>
+        <ProgressBar Width="350" Height="20" Name="d912pxy_progressBar" HorizontalAlignment="Left" Margin="20,270,0,0" VerticalAlignment="Top"/>
+
+
+        <Button x:Name="nextPage" Height="20" Width="100" Content="Finish" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10" Click="finish_button_clicked">
+
+        </Button>
+        <DockPanel>
+            <Frame x:Name="_NavigationFrame" NavigationUIVisibility="Hidden"/>
+        </DockPanel>
+    </Grid>
+</Page>

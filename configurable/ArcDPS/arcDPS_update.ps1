@@ -45,12 +45,10 @@ wget $md5_hash_url -outfile $rootRunPath\d3d9.dll.md5sum
 if(-NOT(Test-Path $md5_path))
 {
     update
-    echo "exists"
 }
 elseif(-NOT((Get-Content $md5_path) -eq (Get-Content $rootRunPath\d3d9.dll.md5sum)))
 {
     update
-    echo "not match"
 }
 
 Remove-Item $rootRunPath\d3d9.dll.md5sum

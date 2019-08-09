@@ -1,0 +1,12 @@
+﻿<Application x:Class="GW2_Addon_Updater.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:GW2_Addon_Updater"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <system:Boolean x:Key="ArcDPS"/>
+        <system:Boolean x:Key="GW2Radial"/>
+        <system:Boolean x:Key="d912pxy"/>
+    </Application.Resources>
+</Application>
