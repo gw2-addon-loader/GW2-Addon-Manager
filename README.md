@@ -19,11 +19,12 @@ If something doesn't work, please open an issue describing the problem and inclu
 ### Variants
 - **Configurable**: This is the release variant. The scripts in this folder can be run individually or all at once, and each relies on the `dll_config.ini` file to get various settings used within the scripts. Using `update_all.bat` to perform all updates at once is recommended.
 - **Standalone**: You should be able to download and run a single powershell script from this folder and have it work properly (assuming your script execution policy is set to allow them to run). To set naming preferences, game path, etc, you need to edit each individual script itself. These are meant more for testing or for those who don't care about an interface, or those who want to play with and edit the scripts without messing with a configuration file.
+- **Application**: This will hopefully be a convenient executable file to do everything the scripts can do and more. It's currently a work in progress.
 
 #### To-Do:
 - Add option to specify what add-ons are installed and automatically determine the right names for their dlls
 - See if it's possible to schedule the full update to run every so often in order for it to be an auto-check for updates
-
+- Complete the C# WPF application and fix the various broken parts throughout it
 
 &nbsp;
 
