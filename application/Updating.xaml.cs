@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
+using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -88,8 +89,7 @@ namespace GW2_Addon_Updater
                 /* setting gw2Radial variables */
                 version_path = game_path + "\\addons\\gw2radial\\version.txt";
                 zip_path = Path.Combine(Path.GetTempPath(), "gw2radial.zip");
-                //TODO: Fix below to be Path.GetTempPath() again - the current value is for testing purposes only
-                expanded_path = @"C:\\Users\\Matthew Lee\\AppData\\Local\\Temp\\gw2radial";
+                expanded_path = Path.Combine(Path.GetTempPath(), "gw2radial");
 
                 download_radial();
             }
@@ -97,7 +97,7 @@ namespace GW2_Addon_Updater
             if ((bool)Application.Current.Properties["d912pxy"])
             {
                 d912pxy_zip_path = Path.Combine(Path.GetTempPath(), "d912pxy.zip");
-                d912pxy_expanded_path = Path.Combine(Path.GetTempPath(), "d912pxy");
+                d912pxy_expanded_path = Path.Combine(game_path, "d912pxy");
                 update_d912pxy();
             }
         }
@@ -174,8 +174,8 @@ namespace GW2_Addon_Updater
             string downloadUrl = release_info.assets[0].browser_download_url;
             if (!File.Exists(version_path) || File.ReadAllText(version_path) != radial_releaseNo)
             {
+                client.DownloadFileCompleted += new AsyncCompletedEventHandler(gw2radial_DownloadCompleted);
                 client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(gw2radial_DownloadProgressChanged);
-                client.DownloadDataCompleted += new DownloadDataCompletedEventHandler(gw2radial_DownloadCompleted);
                 client.DownloadFileAsync(new System.Uri(downloadUrl), zip_path);
             }
             else
@@ -187,7 +187,11 @@ namespace GW2_Addon_Updater
 
         public void install_radial()
         {
+            if (File.Exists(expanded_path));
+                Directory.Delete(expanded_path, true);
+
             ZipFile.ExtractToDirectory(zip_path, expanded_path);
+
             File.Copy(expanded_path + "\\d3d9.dll", game_path + "\\bin64\\" + gw2radial_name, true);
             File.WriteAllText(version_path, radial_releaseNo);
         }
@@ -197,7 +201,7 @@ namespace GW2_Addon_Updater
             gw2Radial_progressBar.Value = e.ProgressPercentage;
         }
 
-        void gw2radial_DownloadCompleted(object sender, DownloadDataCompletedEventArgs e)
+        void gw2radial_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
             radial_download_complete = true;
             install_radial();
@@ -222,7 +226,7 @@ namespace GW2_Addon_Updater
             if (!File.Exists(d912pxy_log_path) || d912pxy_releaseNo != d912pxy_versionRegex.Match(File.ReadAllText(d912pxy_log_path)).ToString())
             {
                 client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(d912pxy_DownloadProgressChanged);
-                client.DownloadDataCompleted += new DownloadDataCompletedEventHandler(d912pxy_DownloadCompleted);
+                client.DownloadFileCompleted += new AsyncCompletedEventHandler(d912pxy_DownloadCompleted);
                 client.DownloadFileAsync(new System.Uri(downloadUrl), d912pxy_zip_path);
             }
             else
@@ -236,7 +240,7 @@ namespace GW2_Addon_Updater
             d912pxy_progressBar.Value = e.ProgressPercentage;
         }
 
-        void d912pxy_DownloadCompleted(object sender, DownloadDataCompletedEventArgs e)
+        void d912pxy_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
             d912pxy_download_complete = true;
             install_d912pxy();
@@ -245,11 +249,19 @@ namespace GW2_Addon_Updater
         public void install_d912pxy()
         {
             string d912pxy_log_path = game_path + "\\d912pxy\\log.txt";
-            ZipFile.ExtractToDirectory(d912pxy_zip_path, d912pxy_expanded_path);
-            FileSystem.CopyDirectory(d912pxy_expanded_path, game_path);
-            File.Copy(game_path + "\\d912pxy\\dll\release\\d3d9.dll", game_path + "\\bin64\\" + d912pxy_name, true);
+            string dll_destination = game_path + "\\bin64\\" + d912pxy_name;
+            string dll_release_location = game_path +  "\\d912pxy\\dll\\release\\d3d9.dll";
             string updated_log = Regex.Replace(File.ReadAllText(d912pxy_log_path), d912pxy_versionRegex.ToString(), d912pxy_releaseNo);
-            File.WriteAllText(d912pxy_log_path, updated_log);
+
+            if (Directory.Exists(d912pxy_expanded_path))
+            {
+                Directory.Delete(d912pxy_expanded_path, true);
+            }
+                
+            ZipFile.ExtractToDirectory(d912pxy_zip_path, game_path);
+            //FileSystem.CopyDirectory(d912pxy_expanded_path, game_path);
+            File.Copy(dll_release_location, dll_destination, true);
+            
             File.WriteAllText(d912pxy_log_path, updated_log);
         }
     }

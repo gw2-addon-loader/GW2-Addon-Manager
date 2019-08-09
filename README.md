@@ -24,7 +24,9 @@ If something doesn't work, please open an issue describing the problem and inclu
 #### To-Do:
 - Add option to specify what add-ons are installed and automatically determine the right names for their dlls
 - See if it's possible to schedule the full update to run every so often in order for it to be an auto-check for updates
-- Complete the C# WPF application and fix the various broken parts throughout it
+- Add greyed-out "finish" button until all updates are finished
+- Make only progress bars for selected add-ons appear
+- Add application logic for selection to determine appropriate .dll filenames
 
 &nbsp;
 
