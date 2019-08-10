@@ -2,8 +2,12 @@
 A tool to update some Guild Wars 2 add-ons without having to manually go to each website, check version numbers, download and rename dlls, etc.
 
 ## Requirements:
+#### Scripts
 - **Windows**
 - **Powershell 3.0 or above**
+#### Executable Application
+- **Windows**
+- **.NET Framework**
 
 ### Currently Supported Add-Ons:
 - <a href="https://github.com/megai2/d912pxy">**d912pxy**</a>
@@ -22,11 +26,7 @@ If something doesn't work, please open an issue describing the problem and inclu
 - **Application**: This will hopefully be a convenient executable file to do everything the scripts can do and more. It's currently a work in progress.
 
 #### To-Do:
-- Add option to specify what add-ons are installed and automatically determine the right names for their dlls
 - See if it's possible to schedule the full update to run every so often in order for it to be an auto-check for updates
-- Add greyed-out "finish" button until all updates are finished
-- Make only progress bars for selected add-ons appear
-- Add application logic for selection to determine appropriate .dll filenames
 
 &nbsp;
 
