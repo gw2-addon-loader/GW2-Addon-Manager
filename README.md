@@ -1,4 +1,4 @@
-# GW2-Addon-Updater
+# GW2-Addon-Updater [![Current Version](https://img.shields.io/badge/version-0.2.0-blue)](https://github.com/fmmmlee/GW2-Addon-Updater/releases)
 A tool to update some Guild Wars 2 add-ons without having to manually go to each website, check version numbers, download and rename dlls, etc.
 
 ## Requirements:
