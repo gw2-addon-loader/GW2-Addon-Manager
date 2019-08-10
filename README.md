@@ -30,8 +30,11 @@ If something doesn't work, please open an issue describing the problem and inclu
 
 #### To-Do:
 - Make the application GUI look presentable
-- Look into adding TACO, GW2Hook, and Reshade
-- See if it's possible to schedule the full update to run every so often in order for it to be an auto-check for updates
+- Look into adding support for TACO, GW2Hook, and Reshade
+- Add ability to install selected add-on if it doesn't already exist/check to see how much of that works already with the current version
+- Add option to delete selected add-ons instead of updating/installing them, and make it be able to resolve dll chainloading conflicts that may be created by the deletion
+- Change d912pxy archive extraction to extract files individually with overwrite=true instead of deleting the old directory and extracting the new one in its place wholesale, in order to hopefully preserve cached shaders
+- See if it's possible to configure and schedule an update to run every so often in order for it to be an auto-check for updates
 
 &nbsp;
 
