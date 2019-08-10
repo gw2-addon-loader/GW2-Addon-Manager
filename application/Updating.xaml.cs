@@ -74,18 +74,53 @@ namespace GW2_Addon_Updater
             arc_templates_name = config_obj.arcDPS_buildTemplates;
             d912pxy_name = config_obj.d912pxy;
             gw2radial_name = config_obj.gw2Radial;
+
+            //determining dll names if arc is installed
+            if ((bool)Application.Current.Properties["ArcDPS"])
+            {
+                arc_name = "d3d9.dll";
+
+                if ((bool)Application.Current.Properties["GW2Radial"])
+                {
+                    gw2radial_name = "d3d9_chainload.dll";
+                }
+                else if ((bool)Application.Current.Properties["d912pxy"])
+                {
+                    d912pxy_name = "d3d9_chainload.dll";
+                }
+            }
+            else if ((bool)Application.Current.Properties["GW2Radial"])
+            {
+                gw2radial_name = "d3d9.dll";
+                d912pxy_name = "d912pxy.dll";
+            }
+            else if ((bool)Application.Current.Properties["d912pxy"])
+            {
+                d912pxy_name = "d3d9.dll";
+            }
+
         }
 
         public void Update()
         {
-            if ((bool) Application.Current.Properties["ArcDPS"])
+            if ((bool)Application.Current.Properties["ArcDPS"])
             {
-                update_arc();
-                
-            }
+                if (arc_download_complete)
+                {
+                    currentTask.Content = "Updating ArcDPS Build Templates";
+                    update_arc_buildTemplates();
+                }
+                else
+                {
+                    currentTask.Content = "Updating ArcDPS";
+                    update_arc();
+                }
 
-            if ((bool)Application.Current.Properties["GW2Radial"])
+
+            }
+            else if ((bool)Application.Current.Properties["GW2Radial"])
             {
+                currentTask.Content = "Updating GW2Radial";
                 /* setting gw2Radial variables */
                 version_path = game_path + "\\addons\\gw2radial\\version.txt";
                 zip_path = Path.Combine(Path.GetTempPath(), "gw2radial.zip");
@@ -93,13 +128,22 @@ namespace GW2_Addon_Updater
 
                 download_radial();
             }
-
-            if ((bool)Application.Current.Properties["d912pxy"])
+            else if ((bool)Application.Current.Properties["d912pxy"])
             {
+                currentTask.Content = "Updating d912pxy";
                 d912pxy_zip_path = Path.Combine(Path.GetTempPath(), "d912pxy.zip");
                 d912pxy_expanded_path = Path.Combine(game_path, "d912pxy");
                 update_d912pxy();
             }
+            else
+            {
+                currentTask.Content = "Complete";
+                overall_progressBar.Value = 100;
+                //enable "finish" button
+                closeProgram.IsEnabled = true;
+            }
+
+            
         }
 
         public void finish_button_clicked(Object sender, RoutedEventArgs e)
@@ -118,28 +162,29 @@ namespace GW2_Addon_Updater
             /* if md5 files do not match or there is no md5 file at path, download new arcDPS version */
             if (!File.Exists(arc_md5_path) || md5 != File.ReadAllText(arc_md5_path))
             {
-                update_arc_buildTemplates();
                 client.DownloadProgressChanged += arc_DownloadProgressChanged;
-                client.DownloadDataCompleted += arc_DownloadCompleted;
+                client.DownloadFileCompleted += arc_DownloadCompleted;
                 client.DownloadFileAsync(new System.Uri(arc_url), game_path + "\\bin64\\" + arc_name);
                 File.WriteAllText(arc_md5_path, md5);
+                
             }
             else
             {
-                arcDPS_buildTemplates_progressBar.Value = 100;
-                arcDPS_progressBar.Value = 100;
                 arc_download_complete = true;
+                Application.Current.Properties["ArcDPS"] = false;
+                Update();
             }
         }
 
         void arc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            arcDPS_progressBar.Value = e.ProgressPercentage;
+            overall_progressBar.Value = e.ProgressPercentage;
         }
 
-        void arc_DownloadCompleted(object sender, DownloadDataCompletedEventArgs e)
+        void arc_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
             arc_download_complete = true;
+            Update();
         }
 
         /***************************** ArcDPS Build Templates *****************************/
@@ -147,25 +192,26 @@ namespace GW2_Addon_Updater
         {
             var client = new WebClient();
             client.DownloadProgressChanged += arc_buildTemplates_DownloadProgressChanged;
-            client.DownloadDataCompleted += arc_buildTemplates_DownloadCompleted;
+            client.DownloadFileCompleted += arc_buildTemplates_DownloadCompleted;
             client.DownloadFileAsync(new System.Uri(arc_url), game_path + "\\bin64\\" + arc_templates_name);
         }
 
         void arc_buildTemplates_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            arcDPS_buildTemplates_progressBar.Value = e.ProgressPercentage;
+            overall_progressBar.Value = e.ProgressPercentage;
         }
 
-        void arc_buildTemplates_DownloadCompleted(object sender, DownloadDataCompletedEventArgs e)
+        void arc_buildTemplates_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
             arc_buildTemplates_download_complete = true;
+            Application.Current.Properties["ArcDPS"] = false;
+            Update();
         }
 
 
         /***************************** GW2Radial *****************************/
         public void download_radial()
         {
-            gw2Radial_progressBar.Maximum = 100;
             var client = new WebClient();
             client.Headers.Add("User-Agent", "request");
             string release_info_json = client.DownloadString(git_radial_url);
@@ -180,8 +226,9 @@ namespace GW2_Addon_Updater
             }
             else
             {
-                gw2Radial_progressBar.Value = 100;
                 radial_download_complete = true;
+                Application.Current.Properties["GW2Radial"] = false;
+                Update();
             }
         }
 
@@ -198,13 +245,15 @@ namespace GW2_Addon_Updater
 
         void gw2radial_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            gw2Radial_progressBar.Value = e.ProgressPercentage;
+            overall_progressBar.Value = e.ProgressPercentage;
         }
 
         void gw2radial_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
             radial_download_complete = true;
             install_radial();
+            Application.Current.Properties["GW2Radial"] = false;
+            Update();
         }
 
 
@@ -231,19 +280,22 @@ namespace GW2_Addon_Updater
             }
             else
             {
-                d912pxy_progressBar.Value = 100;
                 d912pxy_download_complete = true;
+                Application.Current.Properties["d912pxy"] = false;
+                Update();
             }
         }
         void d912pxy_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            d912pxy_progressBar.Value = e.ProgressPercentage;
+            overall_progressBar.Value = e.ProgressPercentage;
         }
 
         void d912pxy_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
             d912pxy_download_complete = true;
+            Application.Current.Properties["d912pxy"] = false;
             install_d912pxy();
+            Update();
         }
 
         public void install_d912pxy()
@@ -253,6 +305,7 @@ namespace GW2_Addon_Updater
             string dll_release_location = game_path +  "\\d912pxy\\dll\\release\\d3d9.dll";
             string updated_log = Regex.Replace(File.ReadAllText(d912pxy_log_path), d912pxy_versionRegex.ToString(), d912pxy_releaseNo);
 
+            //change to archive extraction/overwrite instead of deletion
             if (Directory.Exists(d912pxy_expanded_path))
             {
                 Directory.Delete(d912pxy_expanded_path, true);

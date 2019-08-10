@@ -5,28 +5,28 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GW2_Addon_Updater"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="500"
+      d:DesignHeight="450" d:DesignWidth="700"
       Title="GW2AOU - Add-On Selector"
       ShowsNavigationUI="False"
       Background="White">
 
-    <Grid Margin="10,0,10,10">
-        <Label FontWeight="Bold" FontSize="36" Margin="0,10,0,0" FontFamily="Gabriola">
+    <Grid Margin="10,10,10,10">
+        <Label FontWeight="Bold" FontSize="40" Margin="25,0,0,0" FontFamily="Gabriola">
             Guild Wars 2 Add-On Updater
         </Label>
-        <StackPanel Width="200" Height="250" Margin="280,70,0,0" VerticalAlignment="Top" Background="WhiteSmoke">
+        <StackPanel Width="200" Height="275" Margin="415,50,0,0" VerticalAlignment="Top" Background="WhiteSmoke">
             
-            <Label FontWeight="Bold">
+            <Label FontWeight="Bold" FontSize="18" FontFamily="Sitka Subheading">
                 Installed Add-Ons
             </Label>
             <TextBlock Width="195" Height="50" Margin="5,0,0,0">
                 Select all the add-ons you currently <LineBreak/> have installed for Guild Wars 2.
             </TextBlock>
-            <CheckBox Name="ArcDPS" Checked="Box_Checked" Margin="5,5,5,5">ArcDPS</CheckBox>
-            <CheckBox Name="GW2Radial" Checked="Box_Checked" Margin="5,5,5,5">GW2Radial</CheckBox>
-            <CheckBox Name="d912pxy" Checked="Box_Checked" Margin="5,5,5,5">d912pxy</CheckBox>
+            <CheckBox Name="ArcDPS" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14">ArcDPS</CheckBox>
+            <CheckBox Name="GW2Radial" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14">GW2Radial</CheckBox>
+            <CheckBox Name="d912pxy" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14">d912pxy</CheckBox>
         </StackPanel>
-        <Button x:Name="nextPage" Height="20" Width="100" Content="Update" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10" Click="update_button_clicked">
+        <Button x:Name="nextPage" Height="25" Width="100" Content="Update" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,25,25" Click="update_button_clicked">
 
         </Button>
         <DockPanel>
