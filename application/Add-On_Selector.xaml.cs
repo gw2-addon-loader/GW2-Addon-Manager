@@ -34,6 +34,27 @@ namespace GW2_Addon_Updater
             
         }
 
+
+        /***************************** Titlebar Window Drag *****************************/
+        private void TitleBar_MouseHeld(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                Application.Current.MainWindow.DragMove();
+            }
+        }
+
+        /***************************** Button Controls *****************************/
+        private void close_clicked(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
+
+        private void minimize_clicked(object sender, RoutedEventArgs e)
+        {
+            (this.Parent as Window).WindowState = WindowState.Minimized;
+        }
+
         private void update_button_clicked(object sender, RoutedEventArgs e)
         {
             if (ArcDPS.IsChecked ?? false)

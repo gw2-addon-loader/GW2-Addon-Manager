@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GW2_Addon_Updater"
         mc:Ignorable="d"
-        Title="GW2 Add-On Updater" Height="450" Width="700" Source="Add-On_Selector.xaml" ResizeMode="NoResize">
-
+        Title="GW2 Add-On Updater" Height="450" Width="700" Source="Add-On_Selector.xaml" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True">
+    <NavigationWindow.Background>
+        <ImageBrush ImageSource="C:\Users\Matthew Lee\source\repos\GW2 Addon Updater\GW2 Addon Updater\Resources\GW2-AO-Updater-Background.png"/>
+    </NavigationWindow.Background>
 </NavigationWindow>

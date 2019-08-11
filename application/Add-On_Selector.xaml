@@ -8,15 +8,88 @@
       d:DesignHeight="450" d:DesignWidth="700"
       Title="GW2AOU - Add-On Selector"
       ShowsNavigationUI="False"
-      Background="White">
+      >
+    <Page.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFFF4747"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="Xbutton" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
-    <Grid Margin="10,10,10,10">
-        <Label FontWeight="Bold" FontSize="40" Margin="25,0,0,0" FontFamily="Gabriola">
-            Guild Wars 2 Add-On Updater
+    <Grid Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="65"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" x:Name="windowControls" DockPanel.Dock="Top" VerticalAlignment="Bottom" Height="20">
+            <Button x:Name="close" Content="x" Click="close_clicked" Width="20" DockPanel.Dock="Right" Background="Transparent" Foreground="White" FontSize="14" Margin="0,0,10,0" BorderThickness="0" Style="{DynamicResource Xbutton}"/>
+            <Button x:Name="minimize" Content="-" Click="minimize_clicked" Width="20" DockPanel.Dock="Right" HorizontalAlignment="Right" Background="Transparent" Foreground="White" FontSize="14" BorderThickness="0"/>
+            <Label PreviewMouseDown="TitleBar_MouseHeld"/>
+        </DockPanel>
+
+        <Label Grid.Row = "1" FontWeight="Bold" FontSize="40" Margin="25,0,0,0" FontFamily="Microsoft JhengHei UI Light" Width="Auto" HorizontalAlignment="Left" Foreground="#FFFDFDFD">
+            GW2-UOAOU
         </Label>
-        <StackPanel Width="200" Height="275" Margin="415,50,0,0" VerticalAlignment="Top" Background="WhiteSmoke">
-            
-            <Label FontWeight="Bold" FontSize="18" FontFamily="Sitka Subheading">
+        <TextBlock Grid.Row="1" Margin="35,51,0,0" Foreground="White" FontFamily="Microsoft YaHei UI Light"> Guild Wars 2 - Unofficial Add-On Updater</TextBlock>
+
+        <StackPanel Grid.Row ="2" Width="200" Height="275" HorizontalAlignment="Right" Margin="0,0,50,0" Background="WhiteSmoke">
+
+            <Label FontSize="18" FontFamily="Microsoft YaHei UI">
                 Installed Add-Ons
             </Label>
             <TextBlock Width="195" Height="50" Margin="5,0,0,0">
@@ -26,11 +99,7 @@
             <CheckBox Name="GW2Radial" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14">GW2Radial</CheckBox>
             <CheckBox Name="d912pxy" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14">d912pxy</CheckBox>
         </StackPanel>
-        <Button x:Name="nextPage" Height="25" Width="100" Content="Update" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,25,25" Click="update_button_clicked">
+        <Button Grid.Row="3" x:Name="nextPage" Height="25" Width="100" Content="Update" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,20,50,25" Click="update_button_clicked"/>
 
-        </Button>
-        <DockPanel>
-            <Frame x:Name="_NavigationFrame" NavigationUIVisibility="Hidden"/>
-        </DockPanel>
     </Grid>
 </Page>

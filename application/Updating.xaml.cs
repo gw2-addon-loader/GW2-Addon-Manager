@@ -7,8 +7,9 @@ using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.VisualBasic.FileIO;
 using Path = System.IO.Path;
+using System.Windows.Input;
+using System.Diagnostics;
 
 namespace GW2_Addon_Updater
 {
@@ -144,6 +145,27 @@ namespace GW2_Addon_Updater
             }
 
             
+        }
+
+        /***************************** Titlebar Window Drag *****************************/
+        private void TitleBar_MouseHeld(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                Application.Current.MainWindow.DragMove();
+            }
+        }
+
+        /***************************** Button Controls *****************************/
+
+        private void close_clicked(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
+
+        private void minimize_clicked(object sender, RoutedEventArgs e)
+        {
+            (this.Parent as Window).WindowState = WindowState.Minimized;
         }
 
         public void finish_button_clicked(Object sender, RoutedEventArgs e)
@@ -316,6 +338,14 @@ namespace GW2_Addon_Updater
             File.Copy(dll_release_location, dll_destination, true);
             
             File.WriteAllText(d912pxy_log_path, updated_log);
+        }
+
+
+        /***** Hyperlink Handler *****/
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 }
