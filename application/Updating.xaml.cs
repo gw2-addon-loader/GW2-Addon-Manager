@@ -215,7 +215,7 @@ namespace GW2_Addon_Updater
             var client = new WebClient();
             client.DownloadProgressChanged += arc_buildTemplates_DownloadProgressChanged;
             client.DownloadFileCompleted += arc_buildTemplates_DownloadCompleted;
-            client.DownloadFileAsync(new System.Uri(arc_url), game_path + "\\bin64\\" + arc_templates_name);
+            client.DownloadFileAsync(new System.Uri(buildtemplates_url), game_path + "\\bin64\\" + arc_templates_name);
         }
 
         void arc_buildTemplates_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
