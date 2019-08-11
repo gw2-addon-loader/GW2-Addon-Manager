@@ -1,4 +1,4 @@
-# GW2-Addon-Updater [![Current Version](https://img.shields.io/badge/version-0.2.0-blue)](https://github.com/fmmmlee/GW2-Addon-Updater/releases)
+# GW2-Addon-Updater [![Current Version](https://img.shields.io/badge/version-0.2.1-blue)](https://github.com/fmmmlee/GW2-Addon-Updater/releases)
 A tool to update some Guild Wars 2 add-ons without having to manually go to each website, check version numbers, download and rename dlls, etc.
 
 ## Requirements:
@@ -34,7 +34,6 @@ If something doesn't work, please open an issue describing the problem and inclu
 - <a href="https://www.newtonsoft.com/json">JSON.Net</a> (bundled with executable)
 
 #### To-Do:
-- Make the application GUI look presentable
 - Look into adding support for TACO, GW2Hook, and Reshade
 - Add ability to install selected add-on if it doesn't already exist/check to see how much of that works already with the current version
 - Add option to delete selected add-ons instead of updating/installing them, and make it be able to resolve dll chainloading conflicts that may be created by the deletion
@@ -44,4 +43,4 @@ If something doesn't work, please open an issue describing the problem and inclu
 
 &nbsp;
 
-###### Disclaimer: I am not affiliated with any of the add-ons shown here or their authors. If you are the author of one of the add-ons and wish for the update script for your add-on to be removed for whatever reason, <a href="mailto:fmmmlee@gmail.com">send an email</a> or send an in-game mail to admiralnerf.1853 and I'll reply and take care of the issue as soon as I can.
+###### Disclaimer: I am not affiliated with any of the add-ons shown here or their authors. If you are the author of one of the add-ons and wish for your add-on to be removed from the options for whatever reason, <a href="mailto:fmmmlee@gmail.com">send an email</a> or send an in-game mail to admiralnerf.1853 and I'll reply and take care of the issue as soon as I can.
