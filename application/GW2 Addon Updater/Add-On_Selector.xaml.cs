@@ -22,6 +22,11 @@ namespace GW2_Addon_Updater
     public partial class Add_On_Selector : Page
     {
 
+        string no_d912pxy_and_gw2hook_msg = "d912pxy and Gw2 Hook are currently not compatible. " +
+            "Using this configuration will most likely result in the game crashing on launch. Are you sure you want to continue?";
+        string no_d912pxy_and_gw2hook_title = "Incompatible Add-Ons Warning";
+
+
         public Add_On_Selector()
         {
             InitializeComponent();
@@ -57,6 +62,24 @@ namespace GW2_Addon_Updater
 
         private void update_button_clicked(object sender, RoutedEventArgs e)
         {
+
+            /* 
+            if ((d912pxy.IsChecked ?? false) && (gw2hook.IsChecked ?? false))
+            {
+                MessageBoxResult decision = MessageBox.Show(no_d912pxy_and_gw2hook_msg, no_d912pxy_and_gw2hook_title, MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                switch (decision)
+                {
+                    case MessageBoxResult.OK:
+                        
+                        break;
+                    case MessageBoxResult.Cancel:
+                        return;
+                }
+            }*/
+
+
+
+
             if (ArcDPS.IsChecked ?? false)
             {
                 Application.Current.Properties["ArcDPS"] = true;
@@ -83,6 +106,15 @@ namespace GW2_Addon_Updater
             {
                 Application.Current.Properties["d912pxy"] = false;
             }
+
+            /*if (gw2hook.IsChecked ?? false)
+            {
+                Application.Current.Properties["gw2hook"] = true;
+            }
+            else
+            {
+                Application.Current.Properties["gw2hook"] = false;
+            }*/
 
             this.NavigationService.Navigate(new Uri("Updating.xaml", UriKind.Relative));
         }
