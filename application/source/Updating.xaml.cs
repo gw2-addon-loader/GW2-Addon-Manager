@@ -31,32 +31,6 @@ namespace GW2_Addon_Updater
         string d912pxy_name;
         string gw2radial_name;
 
-        /* arc URLs */
-        string arc_url = "https://www.deltaconnected.com/arcdps/x64/d3d9.dll";
-        string buildtemplates_url = "https://www.deltaconnected.com/arcdps/x64/buildtemplates/d3d9_arcdps_buildtemplates.dll";
-        string md5_hash_url = "https://www.deltaconnected.com/arcdps/x64/d3d9.dll.md5sum";
-
-       
-
-        /* gw2radial variables */
-        string version_path;
-        string zip_path;
-        string expanded_path;
-        string radial_releaseNo;
-        bool radial_download_complete = false;
-
-        /* d912pxy github release url */
-        
-
-        /* d912pxy variables */
-        
-        string d912pxy_releaseNo;
-        bool d912pxy_download_complete = false;
-        string d912pxy_zip_path;
-        string d912pxy_expanded_path;
-
-        
-
         UpdatingView view;
 
         public Updating()

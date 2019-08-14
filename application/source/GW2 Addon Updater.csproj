@@ -176,10 +176,14 @@
     <Resource Include="Resources\BetterSmokyLogo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\GW2-AO-Updater-Background.png" />
+    <Content Include="Resources\GitHub-Mark-32px.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\GitHub-Mark-32px.png" />
+    <Content Include="Resources\GW2-UOAOU-UI.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

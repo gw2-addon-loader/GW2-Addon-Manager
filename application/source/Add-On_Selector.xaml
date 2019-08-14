@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="700"
+      d:DesignHeight="600" d:DesignWidth="1130"
       Title="GW2AOU - Add-On Selector"
       ShowsNavigationUI="False"
       >
@@ -68,38 +68,63 @@
 
     <Grid Margin="0,0,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="65"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
 
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="0" x:Name="windowControls" DockPanel.Dock="Top" VerticalAlignment="Bottom" Height="20">
-            <Button x:Name="close" Content="x" Click="close_clicked" Width="20" DockPanel.Dock="Right" Background="Transparent" Foreground="White" FontSize="14" Margin="0,0,10,0" BorderThickness="0" Style="{DynamicResource Xbutton}"/>
-            <Button x:Name="minimize" Content="-" Click="minimize_clicked" Width="20" DockPanel.Dock="Right" HorizontalAlignment="Right" Background="Transparent" Foreground="White" FontSize="14" BorderThickness="0"/>
+        <DockPanel Grid.Row="0" x:Name="windowControls" DockPanel.Dock="Top" VerticalAlignment="Top" Height="40" Margin="0,20,0,0">
+            <Button x:Name="close" Content="x" Click="close_clicked" Width="20" Height = "25" DockPanel.Dock="Right" Background="Transparent" Foreground="Black" FontSize="16" Margin="0,0,60,0" BorderThickness="0" Style="{DynamicResource Xbutton}" FontFamily="Leelawadee UI"/>
+            <Button x:Name="minimize" Content="-" Click="minimize_clicked" Width="20" Height = "25" DockPanel.Dock="Right" HorizontalAlignment="Right" Background="Transparent" Foreground="Black" FontSize="16" BorderThickness="0" FontFamily="Leelawadee UI"/>
             <Label PreviewMouseDown="TitleBar_MouseHeld"/>
         </DockPanel>
 
-        <Label Grid.Row = "1" FontWeight="Bold" FontSize="40" Margin="25,0,0,0" FontFamily="Microsoft JhengHei UI Light" Width="Auto" HorizontalAlignment="Left" Foreground="#FFFDFDFD">
+        <Label Grid.Row = "1" FontWeight="Bold" FontSize="60" Foreground="DimGray" Margin="30,0,0,0" FontFamily="Microsoft JhengHei UI Light" Width="Auto" HorizontalAlignment="Left">
             GW2-UOAOU
         </Label>
-        <TextBlock Grid.Row="1" Margin="35,51,0,0" Foreground="White" FontFamily="Microsoft YaHei UI Light"> Guild Wars 2 - Unofficial Add-On Updater</TextBlock>
+        <TextBlock Grid.Row="1" Margin="40,75,0,0" FontSize ="16" Foreground="DimGray" FontFamily="Microsoft YaHei UI Light"> Guild Wars 2 - Unofficial Add-On Updater</TextBlock>
 
-        <StackPanel Grid.Row ="2" Width="200" Height="275" HorizontalAlignment="Right" Margin="0,0,50,0" Background="WhiteSmoke">
+        <Border Grid.Row="2" Width="200" Height="300" HorizontalAlignment="Left" Margin="40,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
+            <StackPanel Width="200" Height="275" HorizontalAlignment="Left">
 
-            <Label FontSize="18" FontFamily="Microsoft YaHei UI">
-                Installed Add-Ons
-            </Label>
-            <TextBlock Width="195" Height="50" Margin="5,0,0,0">
-                Select all the add-ons you currently <LineBreak/> have installed for Guild Wars 2.
-            </TextBlock>
-            <CheckBox Name="ArcDPS" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14">ArcDPS</CheckBox>
-            <CheckBox Name="GW2Radial" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14">GW2Radial</CheckBox>
-            <CheckBox Name="d912pxy" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14">d912pxy</CheckBox>
-            <!--<CheckBox Name="gw2hook" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14">Gw2 Hook</CheckBox>-->
-        </StackPanel>
-        <Button Grid.Row="3" x:Name="nextPage" Height="25" Width="100" Content="Update" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,20,50,25" Click="update_button_clicked"/>
+                <Label FontSize="18" FontFamily="Microsoft YaHei UI" Margin="0,5,0,10" HorizontalAlignment="Center" Foreground="DimGray">
+                    Installed Add-Ons
+                </Label>
+                <TextBlock Width="195" Height="50" Margin="5,0,0,0" FontFamily="Microsoft YaHei UI Light">
+                    Select all the add-ons you currently <LineBreak/> have installed for Guild Wars 2.
+                </TextBlock>
+                <CheckBox Name="ArcDPS" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14" Foreground="Black" FontFamily="Microsoft YaHei UI Light">ArcDPS</CheckBox>
+                <CheckBox Name="GW2Radial" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14" Foreground="Black" FontFamily="Microsoft YaHei UI Light">GW2Radial</CheckBox>
+                <CheckBox Name="d912pxy" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14" Foreground="Black" FontFamily="Microsoft YaHei UI Light">d912pxy</CheckBox>
+                <!--<CheckBox Name="gw2hook" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14">Gw2 Hook</CheckBox>-->
+            </StackPanel>
+        </Border>
+        <Button Grid.Row="3" x:Name="nextPage" Height="45" Width="120" Content="UPDATE"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Margin="0,50,175,25"
+                Foreground="White"
+                Click="update_button_clicked"
+                FontFamily="Footlight MT Light"
+                FontSize="16"
+                BorderThickness="1"
+                BorderBrush="#ff8787"
+                >
+            <Button.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color= "Red" Offset="0.5"/>
+                </LinearGradientBrush>
+                <!--<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color= "#ffffff" Offset="0"/>
+                    <GradientStop Color= "#f54242" Offset="0.25"/>
+                    <GradientStop Color= "Red" Offset="0.5"/>
+                    <GradientStop Color= "#f54242" Offset="0.75"/>
+                    <GradientStop Color= "#ffffff" Offset="1"/>
+                </LinearGradientBrush>-->
+            </Button.Background>
+        </Button>
 
     </Grid>
 </Page>
