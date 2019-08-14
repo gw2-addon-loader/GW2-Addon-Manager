@@ -17,7 +17,7 @@ Make sure your system meets the **Requirements** and that you don't have any uns
 
 Run "GW2 Addon Updater.exe". A snapshot of the opening UI screen is here:
 
-![0 2 1-UI](https://user-images.githubusercontent.com/30479162/62828601-6b8b5b80-bb9f-11e9-9ed6-aeb4a1b97fc5.jpg)
+![0.2.2-UI](https://user-images.githubusercontent.com/30479162/62994682-07240280-be12-11e9-8ac6-56897ba88212.JPG)
 
 On the first run, some add-ons may be redownloaded even if they are up-to-date, as they do not come with files that state their versions. When the program is run and the add-ons are downloaded again, a few files are created in order to track the currently installed version, so subsequent runs should only download new files if your version of an add-on is not the same as their latest release.
 
