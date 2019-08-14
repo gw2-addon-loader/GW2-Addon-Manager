@@ -17,7 +17,7 @@ Make sure your system meets the **Requirements** and that you don't have any uns
 
 Run "GW2 Addon Updater.exe". A snapshot of the opening UI screen is here:
 
-![0.2.2-UI](https://user-images.githubusercontent.com/30479162/62994682-07240280-be12-11e9-8ac6-56897ba88212.JPG)
+![0.2.3-UI](https://user-images.githubusercontent.com/30479162/63056441-eb197300-be9c-11e9-9c0e-c21bb0e3da36.jpg)
 
 On the first run, some add-ons may be redownloaded even if they are up-to-date, as they do not come with files that state their versions. When the program is run and the add-ons are downloaded again, a few files are created in order to track the currently installed version, so subsequent runs should only download new files if your version of an add-on is not the same as their latest release.
 
@@ -33,11 +33,10 @@ If something doesn't work, please open an issue describing the problem and inclu
 - <a href="https://www.newtonsoft.com/json">JSON.Net</a> (bundled with executable)
 
 #### To-Do:
+- fix slow check for updates for arcDPS
 - Add ability to install selected add-on if it doesn't already exist/check to see how much of that works already with the current version
 - Add option to delete selected add-ons instead of updating/installing them, and make it be able to resolve dll chainloading conflicts that may be created by the deletion
-- Change d912pxy archive extraction to extract files individually with overwrite=true instead of deleting the old directory and extracting the new one in its place wholesale, in order to hopefully preserve cached shaders
 - Make arcDPS build templates update independently of arcDPS, as build templates updates are more infrequent than updates to the dps meter
-- See if it's possible to configure and schedule an update to run every so often in order for it to be an auto-check for updates
 
 &nbsp;
 
