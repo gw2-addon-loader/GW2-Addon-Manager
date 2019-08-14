@@ -11,6 +11,7 @@ using Path = System.IO.Path;
 using System.Windows.Input;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace GW2_Addon_Updater
 {
@@ -19,10 +20,10 @@ namespace GW2_Addon_Updater
     /// </summary>
     public partial class Updating : Page
     {
-        
 
-        static string working_directory = Directory.GetCurrentDirectory();
-        static string config_file_path = working_directory + "\\config.ini";
+
+        static string working_directory;
+        static string config_file_path;
 
         string game_path;
 
@@ -36,10 +37,13 @@ namespace GW2_Addon_Updater
         public Updating()
         {
             InitializeComponent();
+            working_directory = Directory.GetCurrentDirectory();
+            config_file_path = working_directory + "\\config.ini";
             view = new UpdatingView { label = "Updating Add-Ons" };
             DataContext = view;
+            view.closeButtonEnabled = false;
             getPreferences();
-            Update();
+            Task.Run(() => Update());       //running the update method in the background so UI updates immediately
         }
 
         public void getPreferences()
@@ -93,6 +97,7 @@ namespace GW2_Addon_Updater
             if ((bool)Application.Current.Properties["ArcDPS"])
             {
                 arcdps arc = new arcdps(arc_name, arc_templates_name, view);
+                
                 await arc.update();
                 await arc.update_templates();
                 Update();
@@ -121,7 +126,7 @@ namespace GW2_Addon_Updater
                 view.label = "Complete";
                 view.showProgress = 100;
                 //enable "finish" button
-                closeProgram.IsEnabled = true;
+                view.closeButtonEnabled = true;
             }
         }
 

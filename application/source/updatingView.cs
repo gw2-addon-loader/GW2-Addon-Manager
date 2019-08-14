@@ -15,6 +15,16 @@ namespace GW2_Addon_Updater
 
         string message;
         int progress;
+        bool _closeButtonEnabled;
+
+        public bool closeButtonEnabled
+        {
+            get {return _closeButtonEnabled;}
+            set {
+                _closeButtonEnabled = value;
+                propertyChanged("closeButtonEnabled");
+            }
+        }
 
         public string label
         {

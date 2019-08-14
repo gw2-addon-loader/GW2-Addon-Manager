@@ -64,6 +64,43 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="BigContentButtons" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <Grid Margin="0,0,0,0">
@@ -79,13 +116,47 @@
             <Button x:Name="close" Content="x" Click="close_clicked" Width="20" Height = "25" DockPanel.Dock="Right" Background="Transparent" Foreground="Black" FontSize="16" Margin="0,0,60,0" BorderThickness="0" Style="{DynamicResource Xbutton}" FontFamily="Leelawadee UI"/>
             <Button x:Name="minimize" Content="-" Click="minimize_clicked" Width="20" Height = "25" DockPanel.Dock="Right" HorizontalAlignment="Right" Background="Transparent" Foreground="Black" FontSize="16" BorderThickness="0" FontFamily="Leelawadee UI"/>
             <Label PreviewMouseDown="TitleBar_MouseHeld"/>
+            <!--<Button x:Name="settings" Content="Settings" HorizontalAlignment="Left" Height="20" Background="Transparent" BorderThickness="0" Margin="35,0,0,0" FontFamily="Microsoft YaHei Light"/>-->
         </DockPanel>
 
         <Label Grid.Row = "1" FontWeight="Bold" FontSize="60" Foreground="DimGray" Margin="30,0,0,0" FontFamily="Microsoft JhengHei UI Light" Width="Auto" HorizontalAlignment="Left">
             GW2-UOAOU
         </Label>
         <TextBlock Grid.Row="1" Margin="40,75,0,0" FontSize ="16" Foreground="DimGray" FontFamily="Microsoft YaHei UI Light"> Guild Wars 2 - Unofficial Add-On Updater</TextBlock>
-
+        <TextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="300,0,0,37" FontFamily="Microsoft YaHei UI Light" FontSize="14">
+            Game Path
+        </TextBlock>
+        <Button x:Name="set_gamepath"
+                Click="Set_gamepath_Click"
+                Grid.Row="2"
+                Margin="705,0,0,9"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Content="SET"
+                Background="Red"
+                Foreground="White"
+                FontSize="14"
+                FontFamily="Footlight MT Light"
+                Height="25"
+                Width="40"
+                BorderThickness="1"
+                BorderBrush="#ff8787"
+                Style="{DynamicResource BigContentButtons}"
+            />
+        <TextBox x:Name="game_path"
+                 Grid.Row="2"
+                 Margin="300,0,0,10"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Bottom"
+                 Width="400"
+                 Height="23"
+                 Background="LightGray"
+                 BorderThickness="0"
+                 FontSize="16"
+                 FontFamily="Microsoft JhengHei Light"
+                 >
+           
+        </TextBox>
         <Border Grid.Row="2" Width="200" Height="300" HorizontalAlignment="Left" Margin="40,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
             <StackPanel Width="200" Height="275" HorizontalAlignment="Left">
 
@@ -110,7 +181,8 @@
                 FontFamily="Footlight MT Light"
                 FontSize="16"
                 BorderThickness="1"
-                BorderBrush="#ff8787"
+                BorderBrush="#ff8787" Style="{DynamicResource BigContentButtons}"
+                
                 >
             <Button.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">

@@ -1,4 +1,4 @@
-# GW2-UOAOU [![Current Version](https://img.shields.io/badge/version-0.2.1-blue)](https://github.com/fmmmlee/GW2-Addon-Updater/releases)
+# GW2-UOAOU [![Current Version](https://img.shields.io/badge/version-0.2.3-blue)](https://github.com/fmmmlee/GW2-Addon-Updater/releases)
 ##### Guild Wars 2 Unofficial Add-On Updater
 
 A tool to update some Guild Wars 2 add-ons without having to manually go to each website, check version numbers, download and rename dlls, etc.

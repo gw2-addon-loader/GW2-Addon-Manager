@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace GW2_Addon_Updater
 {
@@ -39,9 +40,8 @@ namespace GW2_Addon_Updater
         /***************************** ArcDPS *****************************/
         public async Task update()
         {
-
             /* display message over progress bar */
-            theView.label = "Updating ArcDPS";
+            theView.label = "Updating ArcDPS";  
 
             /* download md5 file from arc website */
             var client = new WebClient();

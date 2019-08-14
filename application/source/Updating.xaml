@@ -28,6 +28,7 @@
         <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
         <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
         <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background2" Color="LightGray"/>
         <Style x:Key="Xbutton" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -122,7 +123,8 @@
                 BorderThickness="1"
                 BorderBrush="#ff8787"
                 Click="finish_button_clicked"
-                IsEnabled="false">
+                IsEnabled="{Binding closeButtonEnabled}"
+                >
             <Button.Background>
                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                     

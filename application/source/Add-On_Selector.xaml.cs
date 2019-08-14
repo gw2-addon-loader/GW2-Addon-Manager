@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +23,8 @@ namespace GW2_Addon_Updater
     /// </summary>
     public partial class Add_On_Selector : Page
     {
+        static string working_directory = Directory.GetCurrentDirectory();
+        static string config_file_path = working_directory + "\\config.ini";
 
         string no_d912pxy_and_gw2hook_msg = "d912pxy and Gw2 Hook are currently not compatible. " +
             "Using this configuration will most likely result in the game crashing on launch. Are you sure you want to continue?";
@@ -30,9 +34,8 @@ namespace GW2_Addon_Updater
         public Add_On_Selector()
         {
             InitializeComponent();
+            game_path.Text = get_default_gamepath();
         }
-
-
 
         private void Box_Checked(object sender, RoutedEventArgs e)
         {
@@ -117,6 +120,23 @@ namespace GW2_Addon_Updater
             }*/
 
             this.NavigationService.Navigate(new Uri("Updating.xaml", UriKind.Relative));
+        }
+
+        private void Set_gamepath_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Properties["game_path"] = game_path.Text.Replace("\\", "\\\\");
+            string config_file = File.ReadAllText(config_file_path);
+            dynamic config_obj = JsonConvert.DeserializeObject(config_file);
+            config_obj.game_path = Application.Current.Properties["game_path"].ToString().Replace("\\\\","\\");
+            string edited_config_file = JsonConvert.SerializeObject(config_obj);
+            File.WriteAllText(config_file_path, edited_config_file);
+        }
+
+        private string get_default_gamepath()
+        {
+            string config_file = File.ReadAllText(config_file_path);
+            dynamic config_obj = JsonConvert.DeserializeObject(config_file);
+            return config_obj.game_path;
         }
     }
 }
