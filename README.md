@@ -12,20 +12,27 @@ A tool to update some Guild Wars 2 add-ons without having to manually go to each
 - <a href="https://www.deltaconnected.com/arcdps/">**arcDPS**</a>
 - <a href="https://github.com/Friendly0Fire/GW2Radial">**GW2Radial**</a>
 
-### Using the Tool
-Make sure your system meets the **Requirements** and that you don't have any unsupported add-ons (I should be expanding the list in the near future).
+### Getting Started
+Make sure your system meets the **Requirements** and that you don't have any unsupported add-ons (I hope to expand the list in the near future).
 
-Run "GW2 Addon Updater.exe". A snapshot of the opening UI screen is here:
+- Download the ![latest release](https://github.com/fmmmlee/GW2-Addon-Updater/releases)
+- Extract the zip file to any location you like
+- Run "GW2 Addon Updater.exe" (see below for info about the first run)
+
+A snapshot of the opening UI screen is here:
 
 ![0.2.3-UI](https://user-images.githubusercontent.com/30479162/63056441-eb197300-be9c-11e9-9c0e-c21bb0e3da36.jpg)
 
-On the first run, some add-ons may be redownloaded even if they are up-to-date, as they do not come with files that state their versions. When the program is run and the add-ons are downloaded again, a few files are created in order to track the currently installed version, so subsequent runs should only download new files if your version of an add-on is not the same as their latest release.
+#### First Time Setup
+Make sure that the game path is set correctly (the default is C:\Program Files\Guild Wars 2).
+The first time GW2-UOAOU is run, some add-ons may be redownloaded even if they are up-to-date, as they do not come with files that state their versions. When this program is run for the first time and the add-ons are downloaded again, a few files are created in order to track the currently installed version, so subsequent runs should only download new files if your version of an add-on is not the same as their latest release.
 
-If something doesn't work, please open an issue describing the problem and include the error message (if applicable) and what add-ons you have installed.
+#### Issues
+If something doesn't work, please open an issue describing the problem and include the error message (if applicable) as well as what add-ons you have installed.
 
-### Variants
-- **Application**: This is the release variant (currently a pre-release, see the "releases" section of the repository for more details). It's a work in progress.
-- **Powershell Scripts** (requires Powershell 3.0, does not require .NET)
+#### Variants
+- **Application**: This is the release variant and what I'm focusing on (currently a pre-release, see the "releases" section of the repository for more details). It's a work in progress.
+- Powershell Scripts (requires Powershell 3.0, does not require .NET)
   - Configurable: The scripts in this folder can be run individually or all at once, and each relies on the `dll_config.ini` file to get various settings used within the scripts. Using `update_all.bat` to perform all updates at once is recommended, though it requires Arc, GW2Radial, and d912pxy to all be installed.
   - Standalone: You should be able to download and run a single powershell script from this folder and have it work properly (assuming your script execution policy is set to allow them to run). To set naming preferences, game path, etc, you need to edit each individual script itself. These are meant more for testing or for those who don't care about an interface, or those who want to play with and edit the scripts without messing with a configuration file.
 
@@ -34,9 +41,10 @@ If something doesn't work, please open an issue describing the problem and inclu
 
 #### To-Do:
 - fix slow check for updates for arcDPS
+- add settings panel with options to manually set .dll filenames and override the auto-naming
 - Add ability to install selected add-on if it doesn't already exist/check to see how much of that works already with the current version
 - Add option to delete selected add-ons instead of updating/installing them, and make it be able to resolve dll chainloading conflicts that may be created by the deletion
-- Make arcDPS build templates update independently of arcDPS, as build templates updates are more infrequent than updates to the dps meter
+- Make arcDPS build templates update check independent of arcDPS, as build templates updates are more infrequent than updates to the dps meter
 
 &nbsp;
 
