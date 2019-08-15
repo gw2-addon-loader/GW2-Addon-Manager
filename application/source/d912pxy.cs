@@ -77,9 +77,9 @@ namespace GW2_Addon_Updater
             string d912pxy_log_path = game_path + "\\d912pxy\\log.txt";
             string dll_destination = game_path + "\\bin64\\" + dll_name;
             string dll_release_location = game_path + "\\d912pxy\\dll\\release\\d3d9.dll";
-            string updated_log = Regex.Replace(File.ReadAllText(d912pxy_log_path), versionRegex.ToString(), latestRelease);
 
-            if (File.Exists(d912pxy_expanded_path)) ;
+
+            if (Directory.Exists(d912pxy_expanded_path))
                 Directory.Delete(d912pxy_expanded_path, true);
 
             ZipFile.ExtractToDirectory(d912pxy_zip_path, d912pxy_expanded_path);
@@ -87,7 +87,12 @@ namespace GW2_Addon_Updater
 
             File.Copy(dll_release_location, dll_destination, true);
 
-            File.WriteAllText(d912pxy_log_path, updated_log);
+            if (File.Exists(d912pxy_log_path))
+            {
+                string updated_log = Regex.Replace(File.ReadAllText(d912pxy_log_path), versionRegex.ToString(), latestRelease);
+                File.WriteAllText(d912pxy_log_path, updated_log);
+            }
+
         }
     }
 }
