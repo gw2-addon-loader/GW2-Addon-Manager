@@ -59,8 +59,8 @@ namespace GW2_Addon_Updater
 
         public void install()
         {
-            if (File.Exists(expanded_path));
-            Directory.Delete(expanded_path, true);
+            if (File.Exists(expanded_path))
+                Directory.Delete(expanded_path, true);
 
             ZipFile.ExtractToDirectory(zip_path, expanded_path);
 
