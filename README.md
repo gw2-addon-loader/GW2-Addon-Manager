@@ -39,9 +39,10 @@ If something doesn't work, please open an issue describing the problem and inclu
 - <a href="https://www.newtonsoft.com/json">JSON.Net</a> (bundled with executable)
 
 #### To-Do:
+- write working arcDPS build templates update check
 - add settings panel with options to manually set .dll filenames and override the auto-naming
 - Add option to delete selected add-ons instead of updating/installing them, and make it be able to resolve dll chainloading conflicts that may be created by the deletion
-- Make arcDPS build templates update check independent of arcDPS, as build templates updates are more infrequent than updates to the dps meter
+- make the names in the add-on selection be links to their respective websites
 
 &nbsp;
 
