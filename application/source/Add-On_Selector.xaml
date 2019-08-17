@@ -120,9 +120,9 @@
         </DockPanel>
 
         <Label Grid.Row = "1" FontWeight="Bold" FontSize="60" Foreground="DimGray" Margin="30,0,0,0" FontFamily="Microsoft JhengHei UI Light" Width="Auto" HorizontalAlignment="Left">
-            GW2-UOAOU
+            GW2-UOAOM
         </Label>
-        <TextBlock Grid.Row="1" Margin="40,75,0,0" FontSize ="16" Foreground="DimGray" FontFamily="Microsoft YaHei UI Light"> Guild Wars 2 - Unofficial Add-On Updater</TextBlock>
+        <TextBlock Grid.Row="1" Margin="40,75,0,0" FontSize ="16" Foreground="DimGray" FontFamily="Microsoft YaHei UI Light"> Guild Wars 2 - Unofficial Add-On Manager</TextBlock>
         <TextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="300,0,0,37" FontFamily="Microsoft YaHei UI Light" FontSize="14">
             Game Path
         </TextBlock>
@@ -161,10 +161,10 @@
             <StackPanel Width="200" Height="275" HorizontalAlignment="Left">
 
                 <Label FontSize="18" FontFamily="Microsoft YaHei UI" Margin="0,5,0,10" HorizontalAlignment="Center" Foreground="DimGray">
-                    Installed Add-Ons
+                    Add-Ons
                 </Label>
                 <TextBlock Width="195" Height="50" Margin="5,0,0,0" FontFamily="Microsoft YaHei UI Light">
-                    Select all the add-ons you currently <LineBreak/> have installed for Guild Wars 2.
+                    Select all currently installed add- <LineBreak/>ons for Guild Wars 2 as well as any <LineBreak/>you wish to install.
                 </TextBlock>
                 <CheckBox Name="ArcDPS" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14" Foreground="Black" FontFamily="Microsoft YaHei UI Light">ArcDPS</CheckBox>
                 <CheckBox Name="GW2Radial" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14" Foreground="Black" FontFamily="Microsoft YaHei UI Light">GW2Radial</CheckBox>
