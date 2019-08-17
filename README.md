@@ -1,7 +1,7 @@
 # GW2-UOAOU [![Current Version](https://img.shields.io/badge/version-0.2.3-blue)](https://github.com/fmmmlee/GW2-Addon-Updater/releases)
 ##### Guild Wars 2 Unofficial Add-On Updater
 
-A tool to update some Guild Wars 2 add-ons without having to manually go to each website, check version numbers, download and rename dlls, etc.
+A tool to install and update some Guild Wars 2 add-ons without having to manually visit each website, check version numbers, download and rename dlls, etc.
 
 ### Application Requirements:
 - **Windows**
@@ -42,7 +42,6 @@ If something doesn't work, please open an issue describing the problem and inclu
 #### To-Do:
 - fix slow check for updates for arcDPS
 - add settings panel with options to manually set .dll filenames and override the auto-naming
-- Add ability to install selected add-on if it doesn't already exist/check to see how much of that works already with the current version
 - Add option to delete selected add-ons instead of updating/installing them, and make it be able to resolve dll chainloading conflicts that may be created by the deletion
 - Make arcDPS build templates update check independent of arcDPS, as build templates updates are more infrequent than updates to the dps meter
 
