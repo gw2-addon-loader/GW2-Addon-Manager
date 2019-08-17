@@ -1,6 +1,5 @@
-# GW2-UOAOU [![Current Version](https://img.shields.io/badge/version-0.2.3-blue)](https://github.com/fmmmlee/GW2-Addon-Updater/releases)
-##### Guild Wars 2 Unofficial Add-On Updater
-
+# GW2-UOAOM [![Current Version](https://img.shields.io/badge/version-0.2.4-blue)](https://github.com/fmmmlee/GW2-Addon-Updater/releases)
+##### Guild Wars 2 Unofficial Add-On Manager
 A tool to install and update some Guild Wars 2 add-ons without having to manually visit each website, check version numbers, download and rename dlls, etc.
 
 ### Application Requirements:
@@ -17,15 +16,15 @@ Make sure your system meets the **Requirements** and that you don't have any uns
 
 - Download the ![latest release](https://github.com/fmmmlee/GW2-Addon-Updater/releases)
 - Extract the zip file to any location you like
-- Run "GW2 Addon Updater.exe" (see below for info about the first run)
+- Run "GW2 Addon Manager.exe" (see below for info about the first run)
 
 A snapshot of the opening UI screen is here:
 
-![0.2.3-UI](https://user-images.githubusercontent.com/30479162/63056441-eb197300-be9c-11e9-9c0e-c21bb0e3da36.jpg)
+![0 2 4-UI](https://user-images.githubusercontent.com/30479162/63207572-65085280-c07d-11e9-98db-4cae3f46d08b.JPG)
 
 #### First Time Setup
 Make sure that the game path is set correctly (the default is C:\Program Files\Guild Wars 2).
-The first time GW2-UOAOU is run, some add-ons may be redownloaded even if they are up-to-date, as they do not come with files that state their versions. When this program is run for the first time and the add-ons are downloaded again, a few files are created in order to track the currently installed version, so subsequent runs should only download new files if your version of an add-on is not the same as their latest release.
+The first time GW2-UOAOM is run, some add-ons may be redownloaded even if they are up-to-date, as they do not come with files that state their versions. When this program is run for the first time and the add-ons are downloaded again, a few files are created in order to track the currently installed version, so subsequent runs should only download new files if your version of an add-on is not the same as their latest release.
 
 #### Issues
 If something doesn't work, please open an issue describing the problem and include the error message (if applicable) as well as what add-ons you have installed.
@@ -40,7 +39,6 @@ If something doesn't work, please open an issue describing the problem and inclu
 - <a href="https://www.newtonsoft.com/json">JSON.Net</a> (bundled with executable)
 
 #### To-Do:
-- fix slow check for updates for arcDPS
 - add settings panel with options to manually set .dll filenames and override the auto-naming
 - Add option to delete selected add-ons instead of updating/installing them, and make it be able to resolve dll chainloading conflicts that may be created by the deletion
 - Make arcDPS build templates update check independent of arcDPS, as build templates updates are more infrequent than updates to the dps meter
