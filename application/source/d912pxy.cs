@@ -56,6 +56,7 @@ namespace GW2_Addon_Updater
                 client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(d912pxy_DownloadProgressChanged);
                 client.DownloadFileCompleted += new AsyncCompletedEventHandler(d912pxy_DownloadCompleted);
                 await client.DownloadFileTaskAsync(new System.Uri(downloadUrl), d912pxy_zip_path);
+                install();
             }
             else
             {

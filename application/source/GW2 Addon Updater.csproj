@@ -173,7 +173,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\BetterSmokyLogo.ico" />
+    <Resource Include="Resources\BetterSmokyLogo.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\GitHub-Mark-32px.png">

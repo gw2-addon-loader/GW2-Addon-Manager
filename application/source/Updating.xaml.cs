@@ -106,14 +106,12 @@ namespace GW2_Addon_Updater
             {
                 gw2radial radial = new gw2radial(gw2radial_name, view);
                 await radial.update();
-                radial.install();
                 Update();
             }
             else if ((bool)Application.Current.Properties["d912pxy"])
             {
                 d912pxy d912 = new d912pxy(d912pxy_name, view);
                 await d912.update();
-                d912.install();
                 Update();
             }
             /*else if ((bool)Application.Current.Properties["gw2hook"])

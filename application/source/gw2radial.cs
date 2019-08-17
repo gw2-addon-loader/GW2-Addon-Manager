@@ -50,6 +50,7 @@ namespace GW2_Addon_Updater
                 client.DownloadFileCompleted += new AsyncCompletedEventHandler(gw2radial_DownloadCompleted);
                 client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(gw2radial_DownloadProgressChanged);
                 await client.DownloadFileTaskAsync(new System.Uri(downloadUrl), zip_path);
+                install();
             }
             else
             {
@@ -59,7 +60,7 @@ namespace GW2_Addon_Updater
 
         public void install()
         {
-            if (File.Exists(expanded_path))
+            if (Directory.Exists(expanded_path))
                 Directory.Delete(expanded_path, true);
 
             ZipFile.ExtractToDirectory(zip_path, expanded_path);
