@@ -4,7 +4,7 @@ A tool to install and update some Guild Wars 2 add-ons without having to manuall
 
 ### Application Requirements:
 - **Windows**
-- **.NET Framework**
+- **.NET Framework** (included in Windows 10)
 
 ### Currently Supported Add-Ons:
 - <a href="https://github.com/megai2/d912pxy">**d912pxy**</a>
