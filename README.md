@@ -42,7 +42,6 @@ If something doesn't work, please open an issue describing the problem and inclu
 - indicate whether add-on is currently installed or not on the selection screen
 - add settings panel with options to manually set .dll filenames and override the auto-naming
 - add option for add-on delete to resolve dll chainloading conflicts that may be created by the deletion
-- fix arc build templates always downloading
 
 &nbsp;
 
