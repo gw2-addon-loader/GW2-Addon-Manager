@@ -168,10 +168,46 @@
                 </TextBlock>
                 <CheckBox Name="ArcDPS" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14" Foreground="Black" FontFamily="Microsoft YaHei UI Light">ArcDPS</CheckBox>
                 <CheckBox Name="GW2Radial" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14" Foreground="Black" FontFamily="Microsoft YaHei UI Light">GW2Radial</CheckBox>
-                <CheckBox Name="d912pxy" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14" Foreground="Black" FontFamily="Microsoft YaHei UI Light">d912pxy</CheckBox>
+                <CheckBox Name="D912PXY" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14" Foreground="Black" FontFamily="Microsoft YaHei UI Light">d912pxy</CheckBox>
+                
+                
                 <!--<CheckBox Name="gw2hook" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14">Gw2 Hook</CheckBox>-->
             </StackPanel>
         </Border>
+        <Button Name="set_default_addons"
+                Grid.Row="3"
+                Click="Set_default_addons_Click"
+                Content="Make Default"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="40,5,5,5"
+                Width="100"
+                Height="25"
+                Background="Red"
+                Foreground="White"
+                FontSize="14"
+                FontFamily="Microsoft YaHei UI Light"
+                BorderThickness="1"
+                BorderBrush="#ff8787"
+                Style="{DynamicResource BigContentButtons}"
+                />
+        <Button Name="delete"
+                Grid.Row="3"
+                Click="Delete_Click"
+                Content="Delete"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="190,5,5,5"
+                Width="50"
+                Height="25"
+                Background="Red"
+                Foreground="White"
+                FontSize="13"
+                FontFamily="Microsoft YaHei UI Light"
+                BorderThickness="1"
+                BorderBrush="#ff8787"
+                Style="{DynamicResource BigContentButtons}"
+                />
         <Button Grid.Row="3" x:Name="nextPage" Height="45" Width="120" Content="UPDATE"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Right"

@@ -1,20 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using GW2_Addon_Manager;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GW2_Addon_Updater
 {
@@ -23,18 +14,18 @@ namespace GW2_Addon_Updater
     /// </summary>
     public partial class Add_On_Selector : Page
     {
-        static string working_directory = Directory.GetCurrentDirectory();
-        static string config_file_path = working_directory + "\\config.ini";
+        static string config_file_path = "config.ini";
 
         string no_d912pxy_and_gw2hook_msg = "d912pxy and Gw2 Hook are currently not compatible. " +
             "Using this configuration will most likely result in the game crashing on launch. Are you sure you want to continue?";
         string no_d912pxy_and_gw2hook_title = "Incompatible Add-Ons Warning";
 
-
+        /* page initialization */
         public Add_On_Selector()
         {
             InitializeComponent();
             game_path.Text = get_default_gamepath();
+            apply_default_config();
         }
 
         private void Box_Checked(object sender, RoutedEventArgs e)
@@ -42,8 +33,21 @@ namespace GW2_Addon_Updater
             
         }
 
+        /***************************** Reading Default Settings *****************************/
+        private void apply_default_config()
+        {
+            dynamic config_obj = configuration.getConfig();
 
-        /***************************** Titlebar Window Drag *****************************/
+            if ((bool)config_obj.default_configuration.arcdps)
+                ArcDPS.IsChecked = true;
+            if ((bool)config_obj.default_configuration.gw2radial)
+                GW2Radial.IsChecked = true;
+            if ((bool)config_obj.default_configuration.d912pxy)
+                D912PXY.IsChecked = true;
+        }
+
+
+        /***************************** NAV BAR *****************************/
         private void TitleBar_MouseHeld(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -52,7 +56,7 @@ namespace GW2_Addon_Updater
             }
         }
 
-        /***************************** Button Controls *****************************/
+        
         private void close_clicked(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
@@ -63,11 +67,68 @@ namespace GW2_Addon_Updater
             (this.Parent as Window).WindowState = WindowState.Minimized;
         }
 
+        /*****************************   ***   *****************************/
+
+
+
+
+
+        /******************* BUTTON HANDLERS *******************/
+
+        /***** set addon config as default *****/
+        private void Set_default_addons_Click(object sender, RoutedEventArgs e)
+        {
+            dynamic config_obj = configuration.getConfig();
+
+            if (ArcDPS.IsChecked ?? false)
+                config_obj.default_configuration.arcdps = true;
+            else
+                config_obj.default_configuration.arcdps = false;
+
+            if (GW2Radial.IsChecked ?? false)
+                config_obj.default_configuration.gw2radial = true;
+            else
+                config_obj.default_configuration.gw2radial = false;
+
+            if (D912PXY.IsChecked ?? false)
+                config_obj.default_configuration.d912pxy = true;
+            else
+                config_obj.default_configuration.d912pxy = false;
+
+            configuration.setConfig(config_obj);
+        }
+
+        /***** set default gamepath *****/
+        private void Set_gamepath_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Properties["game_path"] = game_path.Text.Replace("\\", "\\\\");
+            dynamic config_obj = configuration.getConfig();
+            config_obj.game_path = Application.Current.Properties["game_path"].ToString().Replace("\\\\", "\\");
+            configuration.setConfig(config_obj);
+        }
+
+        /***** delete selected add-ons ******/
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            String deletemsg = "This will delete the selected add-ons and all associated data! Are you sure you wish to continue?";
+            if (MessageBox.Show(deletemsg, "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                string gamePath = get_default_gamepath();
+                if (ArcDPS.IsChecked ?? false)
+                    arcdps.delete(gamePath);
+                if (GW2Radial.IsChecked ?? false)
+                    gw2radial.delete(gamePath);
+                if (D912PXY.IsChecked ?? false)
+                    d912pxy.delete(gamePath);
+            }
+        }
+
+        /***** UPDATE button *****/
         private void update_button_clicked(object sender, RoutedEventArgs e)
         {
 
             /* 
-            if ((d912pxy.IsChecked ?? false) && (gw2hook.IsChecked ?? false))
+            if ((D912PXY.IsChecked ?? false) && (gw2hook.IsChecked ?? false))
             {
                 MessageBoxResult decision = MessageBox.Show(no_d912pxy_and_gw2hook_msg, no_d912pxy_and_gw2hook_title, MessageBoxButton.OKCancel, MessageBoxImage.Error);
                 switch (decision)
@@ -79,8 +140,6 @@ namespace GW2_Addon_Updater
                         return;
                 }
             }*/
-
-
 
 
             if (ArcDPS.IsChecked ?? false)
@@ -101,7 +160,7 @@ namespace GW2_Addon_Updater
                 Application.Current.Properties["GW2Radial"] = false;
             }
 
-            if (d912pxy.IsChecked ?? false)
+            if (D912PXY.IsChecked ?? false)
             {
                 Application.Current.Properties["d912pxy"] = true;
             }
@@ -122,21 +181,23 @@ namespace GW2_Addon_Updater
             this.NavigationService.Navigate(new Uri("Updating.xaml", UriKind.Relative));
         }
 
-        private void Set_gamepath_Click(object sender, RoutedEventArgs e)
+        /******************* *************** *******************/
+
+
+        /***** Hyperlink Handler *****/
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-            Application.Current.Properties["game_path"] = game_path.Text.Replace("\\", "\\\\");
-            string config_file = File.ReadAllText(config_file_path);
-            dynamic config_obj = JsonConvert.DeserializeObject(config_file);
-            config_obj.game_path = Application.Current.Properties["game_path"].ToString().Replace("\\\\","\\");
-            string edited_config_file = JsonConvert.SerializeObject(config_obj);
-            File.WriteAllText(config_file_path, edited_config_file);
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
 
+        /***** config.ini helpers *****/
         private string get_default_gamepath()
         {
-            string config_file = File.ReadAllText(config_file_path);
-            dynamic config_obj = JsonConvert.DeserializeObject(config_file);
+            dynamic config_obj = configuration.getConfig();
             return config_obj.game_path;
         }
+
+        
     }
 }

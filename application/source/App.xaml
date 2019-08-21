@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:GW2_Addon_Updater"
-             StartupUri="MainWindow.xaml">
+             StartupUri="MainWindow.xaml"
+             Startup="Application_Startup">
     <Application.Resources>
         <local:UpdatingView x:Key="updating_view"/>
         <system:Boolean x:Key="ArcDPS"/>
