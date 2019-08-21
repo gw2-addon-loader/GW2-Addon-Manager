@@ -28,12 +28,6 @@ Make sure that the game path is set correctly (the default is C:\Program Files\G
 #### Issues
 If something doesn't work, please open an issue describing the problem and include the error message (if applicable) as well as what add-ons you have installed.
 
-#### Variants
-- **Application**: This is the release variant and what I'm focusing on (currently a pre-release, see the "releases" section of the repository for more details). It's a work in progress.
-- Powershell Scripts (requires Powershell 3.0, does not require .NET)
-  - Configurable: The scripts in this folder can be run individually or all at once, and each relies on the `dll_config.ini` file to get various settings used within the scripts. Using `update_all.bat` to perform all updates at once is recommended, though it requires Arc, GW2Radial, and d912pxy to all be installed.
-  - Standalone: You should be able to download and run a single powershell script from this folder and have it work properly (assuming your script execution policy is set to allow them to run). To set naming preferences, game path, etc, you need to edit each individual script itself. These are meant more for testing or for those who don't care about an interface, or those who want to play with and edit the scripts without messing with a configuration file.
-
 ### Uses
 - <a href="https://www.newtonsoft.com/json">JSON.Net</a> (bundled with executable)
 
