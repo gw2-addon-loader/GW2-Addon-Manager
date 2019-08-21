@@ -23,7 +23,7 @@ A snapshot of the opening UI screen is here:
 ![GW2-UOAOM-v0.3.0-UI](https://user-images.githubusercontent.com/30479162/63399630-f598a880-c385-11e9-9367-d022eca3615a.JPG)
 
 #### First Time Setup
-Make sure that the game path is set correctly (the default is C:\Program Files\Guild Wars 2). The first time GW2-UOAOM is run, **all selected add-ons will be redownloaded**. See release page for details. Subsequent runs should only download new files if your version of an add-on is not the same as their latest release.
+Make sure that the game path is set correctly (the default is C:\Program Files\Guild Wars 2). The first time GW2-UOAOM is run, **all selected add-ons will be redownloaded**. This is due to the way the application keeps track of what add-ons are installed and the version of each. Subsequent runs should only download new files if your version of an add-on is not the same as their latest release.
 
 #### Issues
 If something doesn't work, please open an issue describing the problem and include the error message (if applicable) as well as what add-ons you have installed.
