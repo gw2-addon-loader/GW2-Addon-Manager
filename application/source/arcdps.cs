@@ -88,7 +88,10 @@ namespace GW2_Addon_Updater
 
             /* build templates - temporary, just checks for file existence */
             if (!File.Exists(game_path + "\\bin64\\" + arc_templates_name))
+            {
                 await update_templates();
+            }
+                
         }
 
         void arc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)

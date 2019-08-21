@@ -97,9 +97,7 @@ namespace GW2_Addon_Updater
             if ((bool)Application.Current.Properties["ArcDPS"])
             {
                 arcdps arc = new arcdps(arc_name, arc_templates_name, view);
-                
                 await arc.update();
-                await arc.update_templates();
                 Update();
             }
             else if ((bool)Application.Current.Properties["GW2Radial"])
