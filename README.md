@@ -12,7 +12,7 @@ A tool to install and update some Guild Wars 2 add-ons without having to manuall
 - <a href="https://github.com/Friendly0Fire/GW2Radial">**GW2Radial**</a>
 
 ### Getting Started
-Make sure your system meets the **Requirements** and that you don't have any unsupported add-ons (I hope to expand the list in the near future).
+Make sure your system meets the **Requirements** and that you don't have any unsupported add-ons (I hope to expand the list in the near future). Don't run the program while GW2 or the GW2 launcher is running, as the program needs to access files that are locked while the game is active.
 
 - Download the ![latest release](https://github.com/fmmmlee/GW2-Addon-Manager/releases)
 - Extract the zip file to any location you like
