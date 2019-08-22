@@ -1,11 +1,12 @@
 ﻿using GW2_Addon_Manager;
-using Newtonsoft.Json;
+using IWshRuntimeLibrary;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using File = System.IO.File;
 
 namespace GW2_Addon_Updater
 {
@@ -44,6 +45,15 @@ namespace GW2_Addon_Updater
                 GW2Radial.IsChecked = true;
             if ((bool)config_obj.default_configuration.d912pxy)
                 D912PXY.IsChecked = true;
+
+            if (config_obj.version.arcdps != null)
+                ArcDPS.Content = "ArcDPS (installed)";
+
+            if (config_obj.version.gw2radial != null)
+                GW2Radial.Content = "GW2 Radial (" + config_obj.version.gw2radial + " installed)";
+
+            if (config_obj.version.d912pxy != null)
+                D912PXY.Content = "d912pxy (" + config_obj.version.d912pxy + " installed)";
         }
 
 
@@ -123,6 +133,32 @@ namespace GW2_Addon_Updater
             }
         }
 
+
+        /***** add shortcut to start menu *****/
+        //see the accepted answer at https://stackoverflow.com/questions/25024785/how-to-create-start-menu-shortcut
+        private void Add_to_startmenu_Click(object sender, RoutedEventArgs e)
+        {
+            string appPath = Directory.GetCurrentDirectory();
+            string startMenuPath = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
+            string appShortcutPath = Path.Combine(startMenuPath, @"GW2-UOAOM");
+            string shortcutNamePath = Path.Combine(appShortcutPath, "GW2 Addon Manager" + ".lnk");
+
+            if (!Directory.Exists(appShortcutPath))
+                Directory.CreateDirectory(appShortcutPath);
+
+            if (!File.Exists(shortcutNamePath))
+            {
+                WshShell quickShell = new WshShell();
+                IWshShortcut shortcut = (IWshShortcut)quickShell.CreateShortcut(shortcutNamePath);
+                shortcut.Description = "The Guild Wars 2 Unofficial Add-On Manager";
+                shortcut.IconLocation = Path.Combine(appPath, "resources\\logo.ico");
+                shortcut.WorkingDirectory = appPath;
+                shortcut.TargetPath = Path.Combine(appPath, "GW2 Addon Manager" + ".exe");
+                shortcut.Save();
+            }
+        }
+
+
         /***** UPDATE button *****/
         private void update_button_clicked(object sender, RoutedEventArgs e)
         {
@@ -197,7 +233,5 @@ namespace GW2_Addon_Updater
             dynamic config_obj = configuration.getConfig();
             return config_obj.game_path;
         }
-
-        
     }
 }
