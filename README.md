@@ -4,6 +4,15 @@ A tool to install and update some Guild Wars 2 add-ons without having to manuall
 
 ![GW2-UOAOM-v0 3 0-updated](https://user-images.githubusercontent.com/30479162/63564235-337a0600-c519-11e9-97aa-45dfb819b5e8.JPG)
 
+## Getting Started
+Make sure your system meets the **Requirements** and that you don't have any unsupported add-ons (I hope to eventually expand the list). Don't run the program while GW2 or the GW2 launcher is running, as the program needs to access files that are locked while the game is active.
+
+- Download the ![latest release](https://github.com/fmmmlee/GW2-Addon-Manager/releases)
+- Extract the zip file to any location you like
+- Run "GW2 Addon Manager.exe" (see below for info about the first run)
+
+#### First Time Setup
+Make sure that the game path is set correctly (the default is C:\Program Files\Guild Wars 2). The first time GW2-UOAOM is run, **all selected add-ons will be redownloaded**. This is due to the way the application keeps track of what add-ons are installed and the version of each. Subsequent runs should only download new files if your version of an add-on is not the same as their latest release.
 
 ### Application Requirements:
 - **Windows**
@@ -13,16 +22,6 @@ A tool to install and update some Guild Wars 2 add-ons without having to manuall
 - <a href="https://github.com/megai2/d912pxy">**d912pxy**</a>
 - <a href="https://www.deltaconnected.com/arcdps/">**arcDPS**</a>
 - <a href="https://github.com/Friendly0Fire/GW2Radial">**GW2Radial**</a>
-
-### Getting Started
-Make sure your system meets the **Requirements** and that you don't have any unsupported add-ons (I hope to expand the list in the near future). Don't run the program while GW2 or the GW2 launcher is running, as the program needs to access files that are locked while the game is active.
-
-- Download the ![latest release](https://github.com/fmmmlee/GW2-Addon-Manager/releases)
-- Extract the zip file to any location you like
-- Run "GW2 Addon Manager.exe" (see below for info about the first run)
-
-#### First Time Setup
-Make sure that the game path is set correctly (the default is C:\Program Files\Guild Wars 2). The first time GW2-UOAOM is run, **all selected add-ons will be redownloaded**. This is due to the way the application keeps track of what add-ons are installed and the version of each. Subsequent runs should only download new files if your version of an add-on is not the same as their latest release.
 
 #### Issues
 If something doesn't work, please open an issue describing the problem and include the error message (if applicable) as well as what add-ons you have installed.
