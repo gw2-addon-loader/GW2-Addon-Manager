@@ -2,6 +2,8 @@
 ##### Guild Wars 2 Unofficial Add-On Manager
 A tool to install and update some Guild Wars 2 add-ons without having to manually visit each website, check version numbers, download and rename dlls, etc.
 
+![GW2-UOAOM-v0.3.0-UI](https://user-images.githubusercontent.com/30479162/63399630-f598a880-c385-11e9-9367-d022eca3615a.JPG)
+
 ### Application Requirements:
 - **Windows**
 - **.NET Framework** (included in Windows 10)
@@ -18,10 +20,6 @@ Make sure your system meets the **Requirements** and that you don't have any uns
 - Extract the zip file to any location you like
 - Run "GW2 Addon Manager.exe" (see below for info about the first run)
 
-A snapshot of the opening UI screen is here:
-
-![GW2-UOAOM-v0.3.0-UI](https://user-images.githubusercontent.com/30479162/63399630-f598a880-c385-11e9-9367-d022eca3615a.JPG)
-
 #### First Time Setup
 Make sure that the game path is set correctly (the default is C:\Program Files\Guild Wars 2). The first time GW2-UOAOM is run, **all selected add-ons will be redownloaded**. This is due to the way the application keeps track of what add-ons are installed and the version of each. Subsequent runs should only download new files if your version of an add-on is not the same as their latest release.
 
@@ -32,11 +30,10 @@ If something doesn't work, please open an issue describing the problem and inclu
 - <a href="https://www.newtonsoft.com/json">JSON.Net</a> (bundled with executable)
 
 #### To-Do:
-- add button to create start menu shortcut
 - add settings panel with options to manually set .dll filenames and override the auto-naming
 - add option for add-on delete to resolve dll chainloading conflicts that may be created by the deletion
 - add option to clear config.ini and start anew (for if it gets corrupted or messed up somehow)
-- split the powershell scripts into a separate repository, as they're no longer a focus
+- add ability to clean /bin64/ of all non-default .dlls
 
 &nbsp;
 
