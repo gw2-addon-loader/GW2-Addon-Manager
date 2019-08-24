@@ -1,4 +1,4 @@
-# GW2-UOAOM [![Current Version](https://img.shields.io/badge/version-0.3.0-blue)](https://github.com/fmmmlee/GW2-Addon-Manager/releases)
+# GW2-UOAOM [![Current Version](https://img.shields.io/badge/version-0.3.1-blue)](https://github.com/fmmmlee/GW2-Addon-Manager/releases)
 ##### Guild Wars 2 Unofficial Add-On Manager
 A tool to install and update some Guild Wars 2 add-ons without having to manually visit each website, check version numbers, download and rename dlls, etc.
 
@@ -7,7 +7,7 @@ A tool to install and update some Guild Wars 2 add-ons without having to manuall
 ## Getting Started
 Make sure your system meets the **Requirements** and that you don't have any unsupported add-ons (I hope to eventually expand the list). Don't run the program while GW2 or the GW2 launcher is running, as the program needs to access files that are locked while the game is active.
 
-- Download the ![latest release](https://github.com/fmmmlee/GW2-Addon-Manager/releases)
+- Download the [latest release](https://github.com/fmmmlee/GW2-Addon-Manager/releases)
 - Extract the zip file to any location you like
 - Run "GW2 Addon Manager.exe" (see below for info about the first run)
 
@@ -27,7 +27,9 @@ Make sure that the game path is set correctly (the default is C:\Program Files\G
 If something doesn't work, please open an issue describing the problem and include the error message (if applicable) as well as what add-ons you have installed.
 
 ### Uses
-- <a href="https://www.newtonsoft.com/json">JSON.Net</a> (bundled with executable)
+
+- <a href="https://www.newtonsoft.com/json">JSON.Net</a> 
+- [Mvvm Light](http://www.mvvmlight.net/) 
 
 #### To-Do:
 - add settings panel with options to manually set .dll filenames and override the auto-naming

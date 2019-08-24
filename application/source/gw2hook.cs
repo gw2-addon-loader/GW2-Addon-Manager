@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
-namespace GW2_Addon_Updater
+namespace GW2_Addon_Manager
 {
     //GW2Hook only works on my system as d3d9.dll itself or as ReShade64 with GW2Radial as the ONLY other add-on. It did run with d912pxy but I assume the latter didn't work
     //(it also killed the radial menu - I'll have to check to see if it improved performance at all).
 
     class gw2hook
     {
-        UpdatingView currentView;
+        UpdatingViewModel currentView;
         string game_path;
         string dll_name;
 
@@ -28,7 +23,7 @@ namespace GW2_Addon_Updater
         string gw2hook_expanded_path;
         string gw2hook_version = "";
 
-        public gw2hook(string gw2hook_name, UpdatingView view)
+        public gw2hook(string gw2hook_name, UpdatingViewModel view)
         {
             game_path = (string)Application.Current.Properties["game_path"];
             dll_name = gw2hook_name;

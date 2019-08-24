@@ -1,21 +1,20 @@
-﻿using GW2_Addon_Manager;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace GW2_Addon_Updater
+namespace GW2_Addon_Manager
 {
-    class gw2radial
+    /// <summary>
+    /// The <c>gw2radial</c> class deals with all operations involving the GW2 Radial add-on and its plugin.
+    /// </summary>
+    public class gw2radial
     {
-        UpdatingView currentView;     //view of "updating" screen
+        UpdatingViewModel currentView;     //view of "updating" screen
         string game_path;             //game folder
         string version_path;          //location of version.txt
         string zip_path;              //place to download zip
@@ -24,8 +23,12 @@ namespace GW2_Addon_Updater
         string git_radial_url = "https://api.github.com/repos/Friendly0Fire/Gw2Radial/releases/latest"; // gw2radial github release url
         string dll_name;
 
-
-        public gw2radial(String gw2radial_name, UpdatingView view)
+        /// <summary>
+        /// The constructor sets several values to be used and also updates the UI to indicate that GW2 Radial is the current task.
+        /// </summary>
+        /// <param name="gw2radial_name">The name of the GW2 Radial plugin file.</param>
+        /// <param name="view">An instance of the <typeparamref>UpdatingViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
+        public gw2radial(String gw2radial_name, UpdatingViewModel view)
         {
             dll_name = gw2radial_name;
             game_path = (string)Application.Current.Properties["game_path"];
@@ -37,6 +40,10 @@ namespace GW2_Addon_Updater
         }
 
         /***************************** DELETING *****************************/
+        /// <summary>
+        /// Deletes the GW2 Radial plugin as well as the /addons/gw2radial game subfolder.
+        /// </summary>
+        /// <param name="game_path">The Guild Wars 2 game path.</param>
         public static void delete(string game_path)
         {
             /* if the /addons/ subdirectory exists for this add-on, delete it */
@@ -56,6 +63,10 @@ namespace GW2_Addon_Updater
 
 
         /***************************** UPDATING *****************************/
+        /// <summary>
+        /// Asynchronously checks for and installs updates for GW2 Radial.
+        /// </summary>
+        /// <returns>A <c>Task</c> that can be awaited.</returns>
         public async Task update()
         {
             currentView.showProgress = 0;
@@ -81,6 +92,10 @@ namespace GW2_Addon_Updater
             }
         }
 
+        /***************************** INSTALLING *****************************/
+        /// <summary>
+        /// Performs file operations such as archive extraction and copying the plugin into the game folder.
+        /// </summary>
         public void install()
         {
             currentView.label = "Installing GW2Radial " + latestRelease;

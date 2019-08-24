@@ -6,7 +6,7 @@
  * Guild Wars 2 Add-On Updater
  */
 
-namespace GW2_Addon_Updater
+namespace GW2_Addon_Manager
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

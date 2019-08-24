@@ -1,22 +1,18 @@
-﻿using GW2_Addon_Manager;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 
-namespace GW2_Addon_Updater
+namespace GW2_Addon_Manager
 {
+    /// <summary>
+    /// The <c>arcpds</c> class deals with all operations involving the ArcDPS add-on and its plugins.
+    /// </summary>
     public class arcdps
     {
         string game_path;
 
-        string arc_md5_path;
         string arc_templates_name;
         string arc_name;
 
@@ -25,23 +21,32 @@ namespace GW2_Addon_Updater
         string buildtemplates_url = "https://www.deltaconnected.com/arcdps/x64/buildtemplates/d3d9_arcdps_buildtemplates.dll";
         string md5_hash_url = "https://www.deltaconnected.com/arcdps/x64/d3d9.dll.md5sum";
 
-        UpdatingView theView;
+        UpdatingViewModel theView;
 
-        public arcdps(string arc_name, string arc_templates_name, UpdatingView view)
+        /// <summary>
+        /// The constructor sets several values to be used and also updates the UI to indicate that ArcDPS is the current task.
+        /// </summary>
+        /// <param name="arc_name">The name of the arcdps plugin file.</param>
+        /// <param name="arc_templates_name">The name of the arcdps build templates plugin file.</param>
+        /// <param name="viewModel">An instance of the <typeparamref>UpdatingViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
+        public arcdps(string arc_name, string arc_templates_name, UpdatingViewModel viewModel)
         {
-            theView = view;
+            theView = viewModel;
             theView.showProgress = 0;
             /* display message over progress bar */
             theView.label = "Checking for ArcDPS updates";
             game_path = (string)Application.Current.Properties["game_path"];
             this.arc_name = arc_name;
             this.arc_templates_name = arc_templates_name;
-            arc_md5_path = game_path + "\\addons\\arcdps\\d3d9.dll.md5sum";
         }
 
 
 
         /***************************** DELETING *****************************/
+        /// <summary>
+        /// Deletes the ArcDPS and ArcDPS build templates plugins as well as the /addons/arcdps game subfolder.
+        /// </summary>
+        /// <param name="game_path">The Guild Wars 2 game path.</param>
         public static void delete(string game_path)
         {
             /* if the /addons/ subdirectory exists for this add-on, delete it */
@@ -61,6 +66,10 @@ namespace GW2_Addon_Updater
 
 
         /***************************** UPDATING *****************************/
+        /// <summary>
+        /// Asynchronously checks for and installs updates for ArcDPS and checks to ensure that ArcDPS Build Templates are installed.
+        /// </summary>
+        /// <returns>A <c>Task</c> that can be awaited.</returns>
         public async Task update()
         {
             /* download md5 file from arc website */
@@ -74,7 +83,6 @@ namespace GW2_Addon_Updater
                 client.DownloadProgressChanged += arc_DownloadProgressChanged;
                 client.DownloadFileCompleted += arc_DownloadCompleted;
                 await client.DownloadFileTaskAsync(new System.Uri(arc_url), game_path + "\\bin64\\" + arc_name);
-                File.WriteAllText(arc_md5_path, md5);
 
                 config_obj.installed.arcdps = arc_name;
                 config_obj.version.arcdps = md5;
@@ -105,6 +113,10 @@ namespace GW2_Addon_Updater
         }
 
         /***************************** ArcDPS Build Templates *****************************/
+        /// <summary>
+        /// Downloads the ArcDPS Build Templates plugin to the game's /bin64/ folder.
+        /// </summary>
+        /// <returns>A <c>Task</c> that can be awaited.</returns>
         //currently doesn't version check, just downloads
         public async Task update_templates()
         {

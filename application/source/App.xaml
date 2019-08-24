@@ -1,8 +1,8 @@
-﻿<Application x:Class="GW2_Addon_Updater.App"
+﻿<Application x:Class="GW2_Addon_Manager.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             xmlns:local="clr-namespace:GW2_Addon_Updater"
+             xmlns:local="clr-namespace:GW2_Addon_Manager"
              StartupUri="MainWindow.xaml"
              Startup="Application_Startup">
     <Application.Resources>
@@ -10,7 +10,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Components/dropdown.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <local:UpdatingView x:Key="updating_view"/>
             <system:Boolean x:Key="ArcDPS"/>
             <system:Boolean x:Key="GW2Radial"/>
             <system:Boolean x:Key="d912pxy"/>

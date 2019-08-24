@@ -1,23 +1,21 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.VisualBasic.FileIO;
+using Newtonsoft.Json;
 using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Net;
-using System.Text;
-using Microsoft.VisualBasic.FileIO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
-using GW2_Addon_Manager;
 
-namespace GW2_Addon_Updater
+namespace GW2_Addon_Manager
 {
+    /// <summary>
+    /// The <c>d912pxy</c> class deals with all operations involving d912pxy add-on and its associated files.
+    /// </summary>
     class d912pxy
     {
-        UpdatingView currentView;
+        UpdatingViewModel currentView;
         string dll_name;
         string game_path;
         string latestRelease;
@@ -26,8 +24,12 @@ namespace GW2_Addon_Updater
         string d912pxy_expanded_path;
         Regex versionRegex = new Regex("v\\d+\\.\\d+\\.*\\d*");
 
-
-        public d912pxy(string d912pxy_name, UpdatingView view)
+        /// <summary>
+        /// The constructor sets several values to be used and also updates the UI to indicate that d912pxy is the current task.
+        /// </summary>
+        /// <param name="d912pxy_name">The name of the d912pxy plugin file.</param>
+        /// <param name="view">An instance of the <typeparamref>UpdatingViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
+        public d912pxy(string d912pxy_name, UpdatingViewModel view)
         {
             game_path = (string)Application.Current.Properties["game_path"];
             currentView = view;
@@ -45,6 +47,10 @@ namespace GW2_Addon_Updater
 
 
         /***************************** DELETING *****************************/
+        /// <summary>
+        /// Deletes the d912pxy plugin as well as the /d912pxy/ game subfolder.
+        /// </summary>
+        /// <param name="game_path">The Guild Wars 2 game path.</param>
         public static void delete(string game_path)
         {
             /* if the /d912pxy/ game subfolder exists, delete it */
@@ -64,9 +70,12 @@ namespace GW2_Addon_Updater
 
 
         /***************************** UPDATING *****************************/
+        /// <summary>
+        /// Asynchronously checks for and installs updates for d912pxy.
+        /// </summary>
+        /// <returns>A <c>Task</c> that can be awaited.</returns>
         public async Task update()
         {
-
             var client = new WebClient();
             client.Headers.Add("User-Agent", "request");
 
@@ -99,6 +108,10 @@ namespace GW2_Addon_Updater
             Application.Current.Properties["d912pxy"] = false;
         }
 
+        /***************************** INSTALLING *****************************/
+        /// <summary>
+        /// Performs file operations such as archive extraction, directory copying, etc.
+        /// </summary>
         public void install()
         {
             string dll_destination = game_path + "\\bin64\\" + dll_name;

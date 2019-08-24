@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace GW2_Addon_Updater
+namespace GW2_Addon_Manager
 {
     /// <summary>
     /// Interaction logic for App.xaml
