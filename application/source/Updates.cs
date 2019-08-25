@@ -81,25 +81,27 @@ namespace GW2_Addon_Manager
         /// </summary>
         public async void Update()
         {
+            dynamic config_obj = configuration.getConfig();
+
             /* Will this lead to stack overflow w/ too many recursions? */
             /* Note: I have this weird if-else-if-else w/ application properties due to the execution going to the end and setting
             the label to completed and stuff while the async functions were still running before. I've made changes since then but
             I'm not sure if they fix that issue. Not really a priority atm but may test it when I feel like diving down that rabbit
             hole again */
 
-            if ((bool)Application.Current.Properties["ArcDPS"])
+            if ((bool)Application.Current.Properties["ArcDPS"] && !(bool)config_obj.disabled.arcdps)
             {
                 arcdps arc = new arcdps(arc_name, arc_templates_name, view);
                 await arc.update();
                 Update();
             }
-            else if ((bool)Application.Current.Properties["GW2Radial"])
+            else if ((bool)Application.Current.Properties["GW2Radial"] && !(bool)config_obj.disabled.gw2radial)
             {
                 gw2radial radial = new gw2radial(gw2radial_name, view);
                 await radial.update();
                 Update();
             }
-            else if ((bool)Application.Current.Properties["d912pxy"])
+            else if ((bool)Application.Current.Properties["d912pxy"] && !(bool)config_obj.disabled.d912pxy)
             {
                 d912pxy d912 = new d912pxy(d912pxy_name, view);
                 await d912.update();

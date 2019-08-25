@@ -40,6 +40,33 @@ namespace GW2_Addon_Manager
             this.arc_templates_name = arc_templates_name;
         }
 
+        /// <summary>
+        /// Disables ArcDPS by moving its plugin into the 'Disabled Plugins' application subfolder.
+        /// </summary>
+        /// <param name="game_path">The Guild Wars 2 game path.</param>
+        public static void disable(string game_path)
+        {
+            dynamic config_obj = configuration.getConfig();
+            if (config_obj.installed.arcdps != null)
+                File.Move(game_path + "\\bin64\\" + config_obj.installed.arcdps, "Disabled Plugins\\arcdps.dll");
+
+            config_obj.disabled.arcdps = true;
+            configuration.setConfig(config_obj);
+        }
+
+        /// <summary>
+        /// Enables ArcDPS by moving its plugin back into the game's /bin64/ folder.
+        /// </summary>
+        /// <param name="game_path">The Guild Wars 2 game path.</param>
+        public static void enable(string game_path)
+        {
+            dynamic config_obj = configuration.getConfig();
+            if ((bool)config_obj.disabled.arcdps && config_obj.installed.arcdps != null)
+                File.Move("Disabled Plugins\\arcdps.dll", game_path + "\\bin64\\" + config_obj.installed.arcdps);
+
+            config_obj.disabled.arcdps = false;
+            configuration.setConfig(config_obj);
+        }
 
 
         /***************************** DELETING *****************************/
@@ -57,7 +84,15 @@ namespace GW2_Addon_Manager
 
             /* if a .dll is associated with the add-on, delete it */
             if (config_obj.installed.arcdps != null)
+            {
                 File.Delete(game_path + "\\bin64\\" + config_obj.installed.arcdps);
+                File.Delete(game_path + "\\bin64\\" + config_obj.arcdps_buildTemplates);
+            }
+                
+
+            /* if the .dll is in the 'Disabled Plugins' folder, delete it */
+            if (File.Exists("Disabled Plugins\\arcdps.dll"))
+                File.Delete("Disabled Plugins\\arcdps.dll");
 
             config_obj.version.arcdps = null;       //no installed version
             config_obj.installed.arcdps = null;     //no installed .dll name

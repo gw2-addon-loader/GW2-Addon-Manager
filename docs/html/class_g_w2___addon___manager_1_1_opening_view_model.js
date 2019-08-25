@@ -8,6 +8,8 @@ var class_g_w2___addon___manager_1_1_opening_view_model =
     [ "d912pxy_CheckBox", "class_g_w2___addon___manager_1_1_opening_view_model.html#a34029955015bf527aca337c797af5073", null ],
     [ "d912pxy_Content", "class_g_w2___addon___manager_1_1_opening_view_model.html#a13bebf4d4ea75611c6c7e9c8d857836c", null ],
     [ "DeleteSelected", "class_g_w2___addon___manager_1_1_opening_view_model.html#a49ac11eb2e97a05e7f107b1bf65de7a2", null ],
+    [ "DisableSelected", "class_g_w2___addon___manager_1_1_opening_view_model.html#a39967b1d244a35ae0fc09e9d2388a73f", null ],
+    [ "EnableSelected", "class_g_w2___addon___manager_1_1_opening_view_model.html#a94aac9aaa051193ca94e33ee398d681c", null ],
     [ "GamePath", "class_g_w2___addon___manager_1_1_opening_view_model.html#a01de9d4d1d2389ad602418af9aed8721", null ],
     [ "GW2Radial_CheckBox", "class_g_w2___addon___manager_1_1_opening_view_model.html#a5be7632a2f5a4bcbd979ec38b8d362a7", null ],
     [ "GW2Radial_Content", "class_g_w2___addon___manager_1_1_opening_view_model.html#ad7ff0c48cd36dfc198796e121e424dcb", null ],

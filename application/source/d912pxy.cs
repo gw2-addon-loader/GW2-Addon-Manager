@@ -43,8 +43,33 @@ namespace GW2_Addon_Manager
             d912pxy_expanded_path = Path.Combine(Path.GetTempPath(), "d912pxy");
         }
 
+        /// <summary>
+        /// Disables d912pxy by moving its plugin into the 'Disabled Plugins' application subfolder.
+        /// </summary>
+        /// <param name="game_path">The Guild Wars 2 game path.</param>
+        public static void disable(string game_path)
+        {
+            dynamic config_obj = configuration.getConfig();
+            if (config_obj.installed.d912pxy != null)
+                File.Move(game_path + "\\bin64\\" + config_obj.installed.d912pxy, "Disabled Plugins\\d912pxy.dll");
 
+            config_obj.disabled.d912pxy = true;
+            configuration.setConfig(config_obj);
+        }
 
+        /// <summary>
+        /// Enables d912pxy by moving its plugin back into the game's /bin64/ folder.
+        /// </summary>
+        /// <param name="game_path">The Guild Wars 2 game path.</param>
+        public static void enable(string game_path)
+        {
+            dynamic config_obj = configuration.getConfig();
+            if ((bool)config_obj.disabled.d912pxy && config_obj.installed.d912pxy != null)
+                File.Move("Disabled Plugins\\d912pxy.dll", game_path + "\\bin64\\" + config_obj.installed.d912pxy);
+
+            config_obj.disabled.d912pxy = false;
+            configuration.setConfig(config_obj);
+        }
 
         /***************************** DELETING *****************************/
         /// <summary>

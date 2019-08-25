@@ -39,6 +39,35 @@ namespace GW2_Addon_Manager
             expanded_path = Path.Combine(Path.GetTempPath(), "gw2radial");
         }
 
+        /// <summary>
+        /// Disables GW2 Radial by moving its plugin into the 'Disabled Plugins' application subfolder.
+        /// </summary>
+        /// <param name="game_path">The Guild Wars 2 game path.</param>
+        public static void disable(string game_path)
+        {
+            dynamic config_obj = configuration.getConfig();
+            if (config_obj.installed.gw2radial != null)
+                File.Move(game_path + "\\bin64\\" + config_obj.installed.gw2radial, "Disabled Plugins\\gw2radial.dll");
+
+            config_obj.disabled.gw2radial = true;
+            configuration.setConfig(config_obj);
+        }
+
+        /// <summary>
+        /// Enables GW2 Radial by moving its plugin back into the game's /bin64/ folder.
+        /// </summary>
+        /// <param name="game_path">The Guild Wars 2 game path.</param>
+        public static void enable(string game_path)
+        {
+            dynamic config_obj = configuration.getConfig();
+            if((bool)config_obj.disabled.gw2radial && config_obj.installed.gw2radial != null)
+                File.Move("Disabled Plugins\\gw2radial.dll", game_path + "\\bin64\\" + config_obj.installed.gw2radial);
+
+            config_obj.disabled.gw2radial = false;
+            configuration.setConfig(config_obj);
+        }
+
+
         /***************************** DELETING *****************************/
         /// <summary>
         /// Deletes the GW2 Radial plugin as well as the /addons/gw2radial game subfolder.

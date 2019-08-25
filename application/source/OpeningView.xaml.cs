@@ -1,5 +1,4 @@
-﻿using GW2_Addon_Manager;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,6 +15,7 @@ namespace GW2_Addon_Manager
         /* page initialization */
         public AddOnSelector()
         {
+            configuration.SelfVersionStatus();
             theViewModel = new OpeningViewModel();
             DataContext = theViewModel;
             InitializeComponent();
@@ -40,6 +40,8 @@ namespace GW2_Addon_Manager
         }
 
         /*****************************   ***   *****************************/
+
+
 
 
 

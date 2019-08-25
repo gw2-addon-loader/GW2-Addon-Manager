@@ -124,10 +124,10 @@
     <Compile Include="arcdps.cs" />
     <Compile Include="configuration.cs" />
     <Compile Include="d912pxy.cs" />
-    <Compile Include="GitReleaseInfo.cs" />
     <Compile Include="gw2hook.cs" />
     <Compile Include="gw2radial.cs" />
     <Compile Include="OpeningViewModel.cs" />
+    <Compile Include="PluginManagement.cs" />
     <Compile Include="Updates.cs" />
     <Compile Include="UpdatingView.xaml.cs">
       <DependentUpon>UpdatingView.xaml</DependentUpon>

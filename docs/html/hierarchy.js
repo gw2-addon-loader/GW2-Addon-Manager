@@ -19,5 +19,6 @@ var hierarchy =
       [ "GW2_Addon_Manager::AddOnSelector", "class_g_w2___addon___manager_1_1_add_on_selector.html", null ],
       [ "GW2_Addon_Manager::UpdatingView", "class_g_w2___addon___manager_1_1_updating_view.html", null ]
     ] ],
+    [ "GW2_Addon_Manager.PluginManagement", "class_g_w2___addon___manager_1_1_plugin_management.html", null ],
     [ "GW2_Addon_Manager.Updates", "class_g_w2___addon___manager_1_1_updates.html", null ]
 ];

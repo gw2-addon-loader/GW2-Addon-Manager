@@ -1,5 +1,4 @@
 ﻿using GalaSoft.MvvmLight.Command;
-using GW2_Addon_Manager;
 using IWshRuntimeLibrary;
 using System;
 using System.ComponentModel;
@@ -93,7 +92,9 @@ namespace GW2_Addon_Manager
             set { _d912pxy_content = value; propertyChanged("d912pxy_Content"); }
         }
 
-        /* game path */
+        /// <summary>
+        /// The Guild Wars 2 Game Path, displayed in the text box on the opening page.
+        /// </summary>
         public string GamePath { get; set; }
 
 
@@ -119,35 +120,29 @@ namespace GW2_Addon_Manager
         }
 
         /// <summary>
-        /// Handles the delete selected addons button.
-        /// <see cref="ds_logic"/>
+        /// Handles the disable selected addons button.
         /// </summary>
-        public ICommand DeleteSelected
+        public ICommand DisableSelected
         {
-            get { return new RelayCommand<object>(param => ds_logic(), true); }
+            get { return new RelayCommand<object>(param =>PluginManagement.DisableSelected(this), true); }
         }
 
         /// <summary>
-        /// Deletes the currently selected addons.
-        /// <see cref="DeleteSelected"/>
-        /// <see cref="arcdps.delete(string)"/>
-        /// <see cref="gw2radial.delete(string)"/>
-        /// <see cref="d912pxy.delete(string)"/>
+        /// Handles the enable selected addons button.
         /// </summary>
-        private void ds_logic()
+        public ICommand EnableSelected
         {
-            string deletemsg = "This will delete any add-ons that are selected and all data associated with them! Are you sure you wish to continue?";
-            if (MessageBox.Show(deletemsg, "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
-            {
-                string gamePath = configuration.getConfig().game_path;
-                if (ArcDPS_CheckBox)
-                    arcdps.delete(gamePath);
-                if (GW2Radial_CheckBox)
-                    gw2radial.delete(gamePath);
-                if (d912pxy_CheckBox)
-                    d912pxy.delete(gamePath);
-            }
+            get { return new RelayCommand<object>(param => PluginManagement.EnableSelected(this), true); }
         }
+
+        /// <summary>
+        /// Handles the delete selected addons button.
+        /// </summary>
+        public ICommand DeleteSelected
+        {
+            get { return new RelayCommand<object>(param => PluginManagement.DeleteSelected(this), true); }
+        }
+        
 
         /// <summary>
         /// Handles the create shortcut button under the options menu. <see cref="cs_logic"/>
