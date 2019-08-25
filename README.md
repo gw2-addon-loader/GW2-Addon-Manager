@@ -1,4 +1,4 @@
-# GW2-UOAOM [![Current Version](https://img.shields.io/badge/version-0.3.1-blue)](https://github.com/fmmmlee/GW2-Addon-Manager/releases)
+# GW2-UOAOM [![Current Version](https://img.shields.io/badge/version-0.3.1-blue)](https://github.com/fmmmlee/GW2-Addon-Manager/releases) [![Github All Releases](https://img.shields.io/github/downloads/fmmmlee/GW2-Addon-Manager/total.svg)]()
 ##### Guild Wars 2 Unofficial Add-On Manager
 A tool to install and update some Guild Wars 2 add-ons without having to manually visit each website, check version numbers, download and rename dlls, etc.
 
