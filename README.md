@@ -15,7 +15,7 @@ Make sure your system meets the **Requirements** and that you don't have any uns
 Make sure that the game path is set correctly (the default is C:\Program Files\Guild Wars 2). The first time GW2-UOAOM is run, **all selected add-ons will be redownloaded**. This is due to the way the application keeps track of what add-ons are installed and the version of each. Subsequent runs should only download new files if your version of an add-on is not the same as their latest release.
 
 ### Application Requirements:
-- **Windows**
+- **Windows** (64-bit)
 - **.NET Framework** (included in Windows 10)
 
 ### Currently Supported Add-Ons:
