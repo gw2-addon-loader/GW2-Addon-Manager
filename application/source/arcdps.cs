@@ -61,8 +61,26 @@ namespace GW2_Addon_Manager
         public static void enable(string game_path)
         {
             dynamic config_obj = configuration.getConfig();
+            string bin64 = game_path + "\\bin64\\";
+            //Reminder: Make addon template class
             if ((bool)config_obj.disabled.arcdps && config_obj.installed.arcdps != null)
-                File.Move("Disabled Plugins\\arcdps.dll", game_path + "\\bin64\\" + config_obj.installed.arcdps);
+            {
+                /* moving other addons to be chainloaded by arc */
+                if (!(bool)config_obj.disabled.gw2radial && config_obj.installed.gw2radial != null)
+                {
+                    File.Move(bin64 + config_obj.installed.gw2radial, bin64 + "d3d9_chainload.dll");
+                    config_obj.installed.gw2radial = "d3d9_chainload.dll";
+                    //don't need to move d912pxy since gw2radial handles the chainload for that
+                } else if (!(bool)config_obj.disabled.d912pxy && config_obj.installed.d912pxy != null)
+                {
+                    File.Move(bin64 + config_obj.installed.d912pxy, bin64 + "d3d9_chainload.dll");
+                    config_obj.installed.d912pxy = "d3d9_chainload.dll";
+                }
+                /* end chainload resolution section */
+
+                File.Move("Disabled Plugins\\arcdps.dll", bin64 + config_obj.installed.arcdps);
+            }
+                
 
             config_obj.disabled.arcdps = false;
             configuration.setConfig(config_obj);

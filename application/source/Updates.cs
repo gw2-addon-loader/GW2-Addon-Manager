@@ -69,6 +69,12 @@ namespace GW2_Addon_Manager
             {
                 d912pxy_name = "d3d9.dll";
             }
+
+            config_obj.installed.arcdps = arc_name;
+            config_obj.installed.gw2radial = gw2radial_name;
+            config_obj.installed.d912pxy = d912pxy_name;
+
+            configuration.setConfig(config_obj);
             /*else if ((bool)Application.Current.Properties["gw2hook"])
             {
                 gw2hook_name = "d3d9.dll";

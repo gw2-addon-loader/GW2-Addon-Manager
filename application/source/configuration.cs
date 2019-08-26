@@ -14,6 +14,8 @@ namespace GW2_Addon_Manager
         static string config_file_path = "config.ini";
         static string config_template_path = "resources\\config_template.ini";
 
+        static string applicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
+
         /// <summary>
         /// <c>getConfig</c> accesses a configuration file found at <c>config_file_path</c>, which should adhere to proper Json syntax.
         /// </summary>
@@ -28,7 +30,7 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// <c>getConfigAsJObject</c> accesses a configuration file found at <c>config_file_path</c>, which should adhere to proper Json syntax.
         /// </summary>
-        /// <returns> a <c>JObject</C> representing the configuration file as converted from Json using JObject.Parse() </returns>
+        /// <returns> a <c>JObject</c> representing the configuration file as converted from Json using JObject.Parse() </returns>
         public static JObject getConfigAsJObject()
         {
             string config_file = File.ReadAllText(config_file_path);
@@ -178,7 +180,7 @@ namespace GW2_Addon_Manager
                     /* copy info from old config to template */
                     foreach (var property in current_config)
                     {
-                        if (template_config.ContainsKey(property.Key))
+                        if (template_config.ContainsKey(property.Key) && property.Key != "application_version")
                         {
                             template_config[property.Key] = property.Value;
                             Console.WriteLine(property.Key);
@@ -205,8 +207,25 @@ namespace GW2_Addon_Manager
                 Application.Current.Properties["newinstall"] = true;
                 return;
             }
+        }
 
-            
+        /// <summary>
+        /// Checks if there is a new version of the application available.
+        /// </summary>
+        /// <param name="viewModel">An instance of the <typeparamref>OpeningViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
+        public static void CheckSelfUpdates(OpeningViewModel viewModel)
+        {
+            string thisVersion = getConfig().application_version;
+            string latestVersion;
+
+            dynamic release_info = UpdateHelpers.GitReleaseInfo(applicationRepoUrl);
+            latestVersion = release_info.tag_name;
+
+            if (latestVersion != thisVersion)
+            {
+                viewModel.UpdateAvailable = latestVersion + " available!";
+                viewModel.UpdateLinkVisibility = "Visible";
+            }
         }
     }
 }

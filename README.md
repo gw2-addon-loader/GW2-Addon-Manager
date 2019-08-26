@@ -1,4 +1,4 @@
-# GW2-UOAOM [![Current Version](https://img.shields.io/badge/version-0.3.1-blue)](https://github.com/fmmmlee/GW2-Addon-Manager/releases) [![Github All Releases](https://img.shields.io/github/downloads/fmmmlee/GW2-Addon-Manager/total.svg)]()
+# GW2-UOAOM [![Current Version](https://img.shields.io/badge/version-0.3.2-blue)](https://github.com/fmmmlee/GW2-Addon-Manager/releases) [![Github All Releases](https://img.shields.io/github/downloads/fmmmlee/GW2-Addon-Manager/total.svg)]()
 ##### Guild Wars 2 Unofficial Add-On Manager
 A tool to install and update some Guild Wars 2 add-ons without having to manually visit each website, check version numbers, download and rename dlls, etc.
 
@@ -24,7 +24,7 @@ Make sure that the game path is set correctly (the default is C:\Program Files\G
 - <a href="https://github.com/Friendly0Fire/GW2Radial">**GW2Radial**</a>
 
 #### Issues
-If something doesn't work, please open an issue describing the problem and include the error message (if applicable) as well as what add-ons you have installed.
+If something doesn't work, please open an issue describing the problem and include what you were trying to do, the error message (if applicable), and a copy of your config.ini file.
 
 ### Uses
 
@@ -33,7 +33,6 @@ If something doesn't work, please open an issue describing the problem and inclu
 
 #### To-Do:
 - add settings panel with options to manually set .dll filenames and override the auto-naming
-- add option for add-on delete to resolve dll chainloading conflicts that may be created by the deletion
 - add option to clear config.ini and start anew (for if it gets corrupted or messed up somehow)
 - add ability to clean /bin64/ of all non-default .dlls
 

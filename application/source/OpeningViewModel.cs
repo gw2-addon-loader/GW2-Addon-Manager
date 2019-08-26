@@ -3,7 +3,6 @@ using IWshRuntimeLibrary;
 using System;
 using System.ComponentModel;
 using System.IO;
-using System.Windows;
 using System.Windows.Input;
 using File = System.IO.File;
 
@@ -40,11 +39,18 @@ namespace GW2_Addon_Manager
             d912pxy_CheckBox = false;
             d912pxy_Content = "d912pxy";
 
-            GamePath = configuration.getConfig().game_path;
+            UpdateLinkVisibility = "Hidden";
+
+            GamePath = configuration.getConfig().game_path;  
 
             /* applying any values from config.ini */
             configuration.ApplyDefaultConfig(this);
         }
+
+
+        /* Application Update Available */
+        public string UpdateAvailable { get; set; }
+        public string UpdateLinkVisibility { get; set; }
 
         /* ARC */
         private bool _arc_box;

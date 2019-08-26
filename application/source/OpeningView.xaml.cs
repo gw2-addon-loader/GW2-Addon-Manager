@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,9 +16,10 @@ namespace GW2_Addon_Manager
         /* page initialization */
         public AddOnSelector()
         {
-            configuration.SelfVersionStatus();
+            configuration.SelfVersionStatus();          
             theViewModel = new OpeningViewModel();
             DataContext = theViewModel;
+            configuration.CheckSelfUpdates(theViewModel);
             InitializeComponent();
         }
 
@@ -64,6 +66,13 @@ namespace GW2_Addon_Manager
                 Application.Current.Properties["d912pxy"] = false;
 
             this.NavigationService.Navigate(new Uri("UpdatingView.xaml", UriKind.Relative));
+        }
+
+        /***** Hyperlink Handler *****/
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 }

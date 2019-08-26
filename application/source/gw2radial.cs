@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
@@ -16,11 +15,10 @@ namespace GW2_Addon_Manager
     {
         UpdatingViewModel currentView;     //view of "updating" screen
         string game_path;             //game folder
-        string version_path;          //location of version.txt
         string zip_path;              //place to download zip
         string expanded_path;         //place to extract zip
         string latestRelease;         //version # of latest release
-        string git_radial_url = "https://api.github.com/repos/Friendly0Fire/Gw2Radial/releases/latest"; // gw2radial github release url
+        string gitUrl = "https://api.github.com/repos/Friendly0Fire/Gw2Radial/releases/latest"; // gw2radial github release url
         string dll_name;
 
         /// <summary>
@@ -34,7 +32,6 @@ namespace GW2_Addon_Manager
             game_path = (string)Application.Current.Properties["game_path"];
             currentView = view;
             currentView.label = "Checking for GW2Radial updates";
-            version_path = game_path + "\\addons\\gw2radial\\version.txt";
             zip_path = Path.Combine(Path.GetTempPath(), "gw2radial.zip");
             expanded_path = Path.Combine(Path.GetTempPath(), "gw2radial");
         }
@@ -60,8 +57,38 @@ namespace GW2_Addon_Manager
         public static void enable(string game_path)
         {
             dynamic config_obj = configuration.getConfig();
-            if((bool)config_obj.disabled.gw2radial && config_obj.installed.gw2radial != null)
-                File.Move("Disabled Plugins\\gw2radial.dll", game_path + "\\bin64\\" + config_obj.installed.gw2radial);
+            string bin64 = game_path + "\\bin64\\";
+
+            if ((bool)config_obj.disabled.gw2radial && config_obj.installed.gw2radial != null)
+            {
+                /*if arc is installed + not disabled  */
+                if (!(bool)config_obj.disabled.arcdps && config_obj.installed.arcdps != null)
+                {
+                    /* chainloading gw2radial with arc */
+                    config_obj.installed.gw2radial = "d3d9_chainload.dll";
+
+                    /* moving d912pxy to be chainloaded by gw2radial */
+                    if (!(bool)config_obj.disabled.d912pxy && config_obj.installed.d912pxy != null)
+                    {
+                        File.Move(bin64 + config_obj.installed.d912pxy, bin64 + "d912pxy.dll");
+                        config_obj.installed.d912pxy = "d912pxy.dll";
+                    }
+                }
+                else //if arc not installed, gw2radial becomes d3d9
+                {
+                    config_obj.installed.gw2radial = "d3d9.dll";
+
+                    /* moving d912pxy to be chainloaded by gw2radial */
+                    if (!(bool)config_obj.disabled.d912pxy && config_obj.installed.d912pxy != null)
+                    {
+                        File.Move(bin64 + config_obj.installed.d912pxy, bin64 + "d912pxy.dll");
+                        config_obj.installed.d912pxy = "d912pxy.dll";
+                    }
+                }
+                /* end chainload resolution section */
+               
+                File.Move("Disabled Plugins\\gw2radial.dll", bin64 + config_obj.installed.gw2radial);
+            }
 
             config_obj.disabled.gw2radial = false;
             configuration.setConfig(config_obj);
@@ -101,8 +128,8 @@ namespace GW2_Addon_Manager
             currentView.showProgress = 0;
             var client = new WebClient();
             client.Headers.Add("User-Agent", "request");
-            string release_info_json = client.DownloadString(git_radial_url);
-            dynamic release_info = JsonConvert.DeserializeObject(release_info_json);
+
+            dynamic release_info = UpdateHelpers.GitReleaseInfo(gitUrl);
             latestRelease = release_info.tag_name;
             string downloadUrl = release_info.assets[0].browser_download_url;
 
@@ -135,7 +162,6 @@ namespace GW2_Addon_Manager
             ZipFile.ExtractToDirectory(zip_path, expanded_path);
 
             File.Copy(expanded_path + "\\d3d9.dll", game_path + "\\bin64\\" + dll_name, true);
-            File.WriteAllText(version_path, latestRelease);
 
 
             dynamic config_obj = configuration.getConfig();

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Windows;
 
 namespace GW2_Addon_Manager
@@ -29,7 +25,77 @@ namespace GW2_Addon_Manager
                     gw2radial.delete(gamePath);
                 if (viewModel.d912pxy_CheckBox)
                     d912pxy.delete(gamePath);
+
+                RenamePlugins();
             }
+            configuration.DisplayAddonStatus(viewModel);
+        }
+
+        /// <summary>
+        /// Names and moves plugins based on the current installation configuration.
+        /// </summary>
+        public static void RenamePlugins()
+        {
+            string d912pxy_name = null;
+            string arcdps_name = null;
+            string gw2radial_name = null;
+            dynamic config = configuration.getConfig();
+
+            string bin64 = config.game_path + "\\bin64\\";
+
+            if (config.installed.arcdps != null && !(bool)config.disabled.arcdps)
+            {
+                arcdps_name = "d3d9.dll";
+                if (config.installed.d912pxy != null && !(bool)config.disabled.d912pxy)
+                {
+                    if (config.installed.gw2radial == null || (bool)config.disabled.gw2radial)
+                    { d912pxy_name = "d3d9_chainload.dll"; }
+                    else
+                    { d912pxy_name = "d912pxy.dll"; gw2radial_name = "d3d9_chainload.dll"; }
+                }
+                else if (config.installed.gw2radial != null && !(bool)config.disabled.gw2radial)
+                {
+                    gw2radial_name = "d3d9_chainload.dll";
+                }
+            }
+            else if (config.installed.gw2radial != null && !(bool)config.disabled.gw2radial)
+            {
+                gw2radial_name = "d3d9.dll";
+                if (config.installed.d912pxy != null && !(bool)config.disabled.d912pxy)
+                {
+                    d912pxy_name = "d912pxy.dll";
+                }
+            }
+
+            if (arcdps_name != null)
+            {
+                if (File.Exists(bin64 + arcdps_name) && (config.installed.arcdps != arcdps_name))
+                    File.Delete(bin64 + arcdps_name);
+
+                File.Move(bin64 + config.installed.arcdps, bin64 + arcdps_name);
+                config.installed.arcdps = arcdps_name;  //editing config file to match new plugin location
+            }
+
+            if (gw2radial_name != null)
+            {
+                if (File.Exists(bin64 + gw2radial_name) && (config.installed.gw2radial != gw2radial_name))
+                    File.Delete(bin64 + gw2radial_name);
+
+                File.Move(bin64 + config.installed.gw2radial, bin64 + gw2radial_name);
+                config.installed.gw2radial = gw2radial_name;    //editing config file to match new plugin location
+            }
+
+            if (d912pxy_name != null)
+            {
+                if (File.Exists(bin64 + d912pxy_name) && (config.installed.d912pxy != d912pxy_name))
+                    File.Delete(bin64 + d912pxy_name);
+
+                File.Move(bin64 + config.installed.d912pxy, bin64 + d912pxy_name);
+                config.installed.d912pxy = d912pxy_name;    //editing config file to match new plugin location
+            }
+
+            configuration.setConfig(config);    //writing updated config file
+
         }
 
         /// <summary>
@@ -52,6 +118,8 @@ namespace GW2_Addon_Manager
                     gw2radial.disable(gamePath);
                 if (viewModel.d912pxy_CheckBox)
                     d912pxy.disable(gamePath);
+
+                RenamePlugins();
             }
 
             configuration.DisplayAddonStatus(viewModel);
@@ -78,10 +146,11 @@ namespace GW2_Addon_Manager
                 if (viewModel.d912pxy_CheckBox)
                     d912pxy.enable(gamePath);
 
+                RenamePlugins();
                 configuration.DisplayAddonStatus(viewModel);
             }
-
-            configuration.DisplayAddonStatus(viewModel);
         }
+
+        //TODO: Write a function that just returns the right plugin names for arc, gw2radial, and d912pxy given the current configuration
     }
 }

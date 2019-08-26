@@ -149,6 +149,28 @@
             />
             </ComboBoxItem>
         </ComboBox>
+        <TextBlock Text="{Binding UpdateAvailable}"
+                   Grid.Row="1"
+                   Margin="120,-6,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   FontFamily="Microsoft YaHei UI Light"
+                   FontSize="12"
+                   Foreground="DimGray"
+                   Height="25"
+                   Width="auto"
+                   >
+        </TextBlock>
+        <TextBlock Grid.Row = "1"
+                   Margin="215,-6,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Visibility="{Binding UpdateLinkVisibility}"     
+                   >
+            <Hyperlink NavigateUri="https://github.com/fmmmlee/GW2-Addon-Manager/releases" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None">
+                  <Image Source="/Resources/GitHub-Mark-32px.png" Height="16" IsEnabled="{Binding UpdateLinkEnabled}"/>
+             </Hyperlink>
+        </TextBlock>
         <TextBlock DataContext="{Binding ElementName=settings_list, Path=SelectedItem}"
                    Grid.Row="1"
                    Margin="45,-6,0,0"

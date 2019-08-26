@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualBasic.FileIO;
-using Newtonsoft.Json;
 using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
@@ -19,7 +18,7 @@ namespace GW2_Addon_Manager
         string dll_name;
         string game_path;
         string latestRelease;
-        string git_url = "https://api.github.com/repos/megai2/d912pxy/releases/latest";
+        string gitUrl = "https://api.github.com/repos/megai2/d912pxy/releases/latest";
         string d912pxy_zip_path;
         string d912pxy_expanded_path;
         Regex versionRegex = new Regex("v\\d+\\.\\d+\\.*\\d*");
@@ -64,9 +63,25 @@ namespace GW2_Addon_Manager
         public static void enable(string game_path)
         {
             dynamic config_obj = configuration.getConfig();
-            if ((bool)config_obj.disabled.d912pxy && config_obj.installed.d912pxy != null)
-                File.Move("Disabled Plugins\\d912pxy.dll", game_path + "\\bin64\\" + config_obj.installed.d912pxy);
 
+            if ((bool)config_obj.disabled.d912pxy && config_obj.installed.d912pxy != null)
+            {
+                /* if gw2radial installed + enabled */
+                if (!(bool)config_obj.disabled.gw2radial && config_obj.installed.gw2radial != null)
+                {
+                    config_obj.installed.d912pxy = "d912pxy.dll";
+                }   /* if arcdps installed + enabled but not gw2radial */
+                else if (!(bool)config_obj.disabled.arcdps && config_obj.installed.arcdps != null)
+                {
+                    config_obj.installed.d912pxy = "d3d9_chainload.dll";
+                }   /* if d912pxy the only addon that will be installed + enabled */
+                else
+                {
+                    config_obj.installed.d912pxy = "d3d9.dll";
+                }
+                File.Move("Disabled Plugins\\d912pxy.dll", game_path + "\\bin64\\" + config_obj.installed.d912pxy);
+            }
+            
             config_obj.disabled.d912pxy = false;
             configuration.setConfig(config_obj);
         }
@@ -104,8 +119,7 @@ namespace GW2_Addon_Manager
             var client = new WebClient();
             client.Headers.Add("User-Agent", "request");
 
-            string release_info_json = client.DownloadString(git_url);
-            dynamic release_info = JsonConvert.DeserializeObject(release_info_json);
+            dynamic release_info = UpdateHelpers.GitReleaseInfo(gitUrl);
             latestRelease = release_info.tag_name;
             string downloadUrl = release_info.assets[0].browser_download_url;
 
