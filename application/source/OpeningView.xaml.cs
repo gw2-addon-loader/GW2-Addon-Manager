@@ -7,19 +7,22 @@ using System.Windows.Input;
 namespace GW2_Addon_Manager
 {
     /// <summary>
-    /// 
+    /// Code-behind for OpeningView.xaml.
     /// </summary>
     public partial class AddOnSelector : Page
     {
         OpeningViewModel theViewModel;
 
-        /* page initialization */
+        /// <summary>
+        /// This constructor deals with creating or expanding the configuration file, setting the DataContext, and checking for application updates.
+        /// </summary>
         public AddOnSelector()
         {
-            configuration.SelfVersionStatus();          
+            configuration.ConfigFileStatus();          
             theViewModel = new OpeningViewModel();
             DataContext = theViewModel;
             configuration.CheckSelfUpdates(theViewModel);
+            configuration.DetermineSystemType();
             InitializeComponent();
         }
 

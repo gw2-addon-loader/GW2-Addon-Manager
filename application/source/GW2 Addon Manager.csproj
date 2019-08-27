@@ -124,7 +124,6 @@
     <Compile Include="arcdps.cs" />
     <Compile Include="configuration.cs" />
     <Compile Include="d912pxy.cs" />
-    <Compile Include="gw2hook.cs" />
     <Compile Include="gw2radial.cs" />
     <Compile Include="OpeningViewModel.cs" />
     <Compile Include="PluginManagement.cs" />
@@ -153,7 +152,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Resources\Components\dropdown.xaml">
+    <Page Include="Resources\Components\styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

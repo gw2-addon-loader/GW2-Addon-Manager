@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">GW2-UOAOM
-   &#160;<span id="projectnumber">v0.3.0</span>
+   &#160;<span id="projectnumber">v0.3.3</span>
    </div>
    <div id="projectbrief">A tool that handles installation and management of several Guild Wars 2 Add-Ons.</div>
   </td>
@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('class_g_w2___addon___manager_1_1config
 </div><!--header-->
 <div class="contents">
 
-<p>The <code>configuration</code> class contains various functions accessing and modifying the configuration file.  
+<p>The <code>configuration</code> class contains various functions accessing and modifying the configuration file and the configuration file template.  
  <a href="class_g_w2___addon___manager_1_1configuration.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -109,14 +109,14 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a06f0071996521913bf143b88a45fb6eb"><td class="memItemLeft" align="right" valign="top">static dynamic&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_w2___addon___manager_1_1configuration.html#a06f0071996521913bf143b88a45fb6eb">getTemplateConfig</a> ()</td></tr>
 <tr class="memdesc:a06f0071996521913bf143b88a45fb6eb"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>getTemplateConfig</code> accesses the configuration file template found at <code>config_template_path</code>, which should adhere to proper Json syntax.  <a href="class_g_w2___addon___manager_1_1configuration.html#a06f0071996521913bf143b88a45fb6eb">More...</a><br /></td></tr>
 <tr class="separator:a06f0071996521913bf143b88a45fb6eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41406e208b67612c5eca467d85d39694"><td class="memItemLeft" align="right" valign="top"><a id="a41406e208b67612c5eca467d85d39694"></a>
-static JObject&#160;</td><td class="memItemRight" valign="bottom"><b>getTemplateConfigAsJObject</b> ()</td></tr>
+<tr class="memitem:a41406e208b67612c5eca467d85d39694"><td class="memItemLeft" align="right" valign="top">static JObject&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_w2___addon___manager_1_1configuration.html#a41406e208b67612c5eca467d85d39694">getTemplateConfigAsJObject</a> ()</td></tr>
+<tr class="memdesc:a41406e208b67612c5eca467d85d39694"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>getTemplateConfigAsJObject</code> accesses the configuration file template found at <code>config_template_path</code>, which should adhere to proper Json syntax.  <a href="class_g_w2___addon___manager_1_1configuration.html#a41406e208b67612c5eca467d85d39694">More...</a><br /></td></tr>
 <tr class="separator:a41406e208b67612c5eca467d85d39694"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4e35b7fa70f690102c4b9aca403e6cd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_w2___addon___manager_1_1configuration.html#ad4e35b7fa70f690102c4b9aca403e6cd">setConfig</a> (dynamic config_obj)</td></tr>
 <tr class="memdesc:ad4e35b7fa70f690102c4b9aca403e6cd"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>setConfig</code> overwrites the configuration file found at <code>config_file_path</code> with a Json string created by serializing<em>config_obj</em> .  <a href="class_g_w2___addon___manager_1_1configuration.html#ad4e35b7fa70f690102c4b9aca403e6cd">More...</a><br /></td></tr>
 <tr class="separator:ad4e35b7fa70f690102c4b9aca403e6cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87e93700dcc2c786ded175ea2231711f"><td class="memItemLeft" align="right" valign="top"><a id="a87e93700dcc2c786ded175ea2231711f"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>setConfigTemplate</b> (dynamic config_obj)</td></tr>
+<tr class="memitem:a87e93700dcc2c786ded175ea2231711f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_w2___addon___manager_1_1configuration.html#a87e93700dcc2c786ded175ea2231711f">setConfigTemplate</a> (dynamic config_obj)</td></tr>
+<tr class="memdesc:a87e93700dcc2c786ded175ea2231711f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites the configuration file template in the application's /resources/ folder with a string created by serializing <em>config_obj</em> .  <a href="class_g_w2___addon___manager_1_1configuration.html#a87e93700dcc2c786ded175ea2231711f">More...</a><br /></td></tr>
 <tr class="separator:a87e93700dcc2c786ded175ea2231711f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6a887db85d5499a64c95d8bb362bd19"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_w2___addon___manager_1_1configuration.html#af6a887db85d5499a64c95d8bb362bd19">ApplyDefaultConfig</a> (<a class="el" href="class_g_w2___addon___manager_1_1_opening_view_model.html">OpeningViewModel</a> viewModel)</td></tr>
 <tr class="memdesc:af6a887db85d5499a64c95d8bb362bd19"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>ApplyDefaultConfig</code> reads the configuration file found at <code>config_file_path</code> and uses the information within to set properties across <em>viewModel</em> .  <a href="class_g_w2___addon___manager_1_1configuration.html#af6a887db85d5499a64c95d8bb362bd19">More...</a><br /></td></tr>
@@ -130,12 +130,18 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setConfigTempl
 <tr class="memitem:ad2b8f1441064c07b88057e58385942ed"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_w2___addon___manager_1_1configuration.html#ad2b8f1441064c07b88057e58385942ed">SetGamePath</a> (string path)</td></tr>
 <tr class="memdesc:ad2b8f1441064c07b88057e58385942ed"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>SetGamePath</code> both sets the game path for the current application session to <em>path</em>  and records it in the configuration file.  <a href="class_g_w2___addon___manager_1_1configuration.html#ad2b8f1441064c07b88057e58385942ed">More...</a><br /></td></tr>
 <tr class="separator:ad2b8f1441064c07b88057e58385942ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bcde902cb36656ff300ba592e46171c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_w2___addon___manager_1_1configuration.html#a6bcde902cb36656ff300ba592e46171c">SelfVersionStatus</a> ()</td></tr>
-<tr class="memdesc:a6bcde902cb36656ff300ba592e46171c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>SelfVersionStatus</code> either creates config.ini according to the template in /resources/, copies data from a previous installation to an updated configuration file template and then overwrites config.ini, or does nothing, depending on the user's installation.  <a href="class_g_w2___addon___manager_1_1configuration.html#a6bcde902cb36656ff300ba592e46171c">More...</a><br /></td></tr>
-<tr class="separator:a6bcde902cb36656ff300ba592e46171c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5754405e387d359dfc5c9637b0febaa5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_w2___addon___manager_1_1configuration.html#a5754405e387d359dfc5c9637b0febaa5">ConfigFileStatus</a> ()</td></tr>
+<tr class="memdesc:a5754405e387d359dfc5c9637b0febaa5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>SelfVersionStatus</code> either creates config.ini according to the template in /resources/, copies data from a previous installation to an updated configuration file template and then overwrites config.ini, or does nothing, depending on the user's installation.  <a href="class_g_w2___addon___manager_1_1configuration.html#a5754405e387d359dfc5c9637b0febaa5">More...</a><br /></td></tr>
+<tr class="separator:a5754405e387d359dfc5c9637b0febaa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae62fa4db19a81358aa325a4e6cae8608"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_w2___addon___manager_1_1configuration.html#ae62fa4db19a81358aa325a4e6cae8608">CheckSelfUpdates</a> (<a class="el" href="class_g_w2___addon___manager_1_1_opening_view_model.html">OpeningViewModel</a> viewModel)</td></tr>
+<tr class="memdesc:ae62fa4db19a81358aa325a4e6cae8608"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if there is a new version of the application available.  <a href="class_g_w2___addon___manager_1_1configuration.html#ae62fa4db19a81358aa325a4e6cae8608">More...</a><br /></td></tr>
+<tr class="separator:ae62fa4db19a81358aa325a4e6cae8608"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb830de0cb18012230d68eb142a6af87"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_w2___addon___manager_1_1configuration.html#adb830de0cb18012230d68eb142a6af87">DetermineSystemType</a> ()</td></tr>
+<tr class="memdesc:adb830de0cb18012230d68eb142a6af87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to read the game folder and determine whether the game is running on a 64 or 32-bit system. Based on that, sets the 'bin_folder' property in the configuration file.  <a href="class_g_w2___addon___manager_1_1configuration.html#adb830de0cb18012230d68eb142a6af87">More...</a><br /></td></tr>
+<tr class="separator:adb830de0cb18012230d68eb142a6af87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <code>configuration</code> class contains various functions accessing and modifying the configuration file. </p>
+<div class="textblock"><p>The <code>configuration</code> class contains various functions accessing and modifying the configuration file and the configuration file template. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="af6a887db85d5499a64c95d8bb362bd19"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af6a887db85d5499a64c95d8bb362bd19">&#9670;&nbsp;</a></span>ApplyDefaultConfig()</h2>
@@ -202,6 +208,94 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setConfigTempl
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ae62fa4db19a81358aa325a4e6cae8608"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae62fa4db19a81358aa325a4e6cae8608">&#9670;&nbsp;</a></span>CheckSelfUpdates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void GW2_Addon_Manager.configuration.CheckSelfUpdates </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_g_w2___addon___manager_1_1_opening_view_model.html">OpeningViewModel</a>&#160;</td>
+          <td class="paramname"><em>viewModel</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if there is a new version of the application available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">viewModel</td><td>An instance of the <a class="el" href="class_g_w2___addon___manager_1_1_opening_view_model.html" title="OpeningViewModel serves as the DataContext for OpeningView.xaml, which is the first screen encountere...">OpeningViewModel</a> class serving as the DataContext for the application UI.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5754405e387d359dfc5c9637b0febaa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5754405e387d359dfc5c9637b0febaa5">&#9670;&nbsp;</a></span>ConfigFileStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void GW2_Addon_Manager.configuration.ConfigFileStatus </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><code>SelfVersionStatus</code> either creates config.ini according to the template in /resources/, copies data from a previous installation to an updated configuration file template and then overwrites config.ini, or does nothing, depending on the user's installation. </p>
+
+</div>
+</div>
+<a id="adb830de0cb18012230d68eb142a6af87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb830de0cb18012230d68eb142a6af87">&#9670;&nbsp;</a></span>DetermineSystemType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void GW2_Addon_Manager.configuration.DetermineSystemType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Attempts to read the game folder and determine whether the game is running on a 64 or 32-bit system. Based on that, sets the 'bin_folder' property in the configuration file. </p>
 
 </div>
 </div>
@@ -323,8 +417,8 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setConfigTempl
 
 </div>
 </div>
-<a id="a6bcde902cb36656ff300ba592e46171c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bcde902cb36656ff300ba592e46171c">&#9670;&nbsp;</a></span>SelfVersionStatus()</h2>
+<a id="a41406e208b67612c5eca467d85d39694"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41406e208b67612c5eca467d85d39694">&#9670;&nbsp;</a></span>getTemplateConfigAsJObject()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -333,7 +427,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setConfigTempl
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void GW2_Addon_Manager.configuration.SelfVersionStatus </td>
+          <td class="memname">static JObject GW2_Addon_Manager.configuration.getTemplateConfigAsJObject </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -346,7 +440,8 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setConfigTempl
 </table>
 </div><div class="memdoc">
 
-<p><code>SelfVersionStatus</code> either creates config.ini according to the template in /resources/, copies data from a previous installation to an updated configuration file template and then overwrites config.ini, or does nothing, depending on the user's installation. </p>
+<p><code>getTemplateConfigAsJObject</code> accesses the configuration file template found at <code>config_template_path</code>, which should adhere to proper Json syntax. </p>
+<dl class="section return"><dt>Returns</dt><dd>an instance of <code>JObject</code> representing the default configuration file template as converted from Json using Json.NET </dd></dl>
 
 </div>
 </div>
@@ -378,6 +473,40 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setConfigTempl
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">config_obj</td><td>the dynamic object to be serialized and written to the file </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a87e93700dcc2c786ded175ea2231711f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87e93700dcc2c786ded175ea2231711f">&#9670;&nbsp;</a></span>setConfigTemplate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void GW2_Addon_Manager.configuration.setConfigTemplate </td>
+          <td>(</td>
+          <td class="paramtype">dynamic&#160;</td>
+          <td class="paramname"><em>config_obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Overwrites the configuration file template in the application's /resources/ folder with a string created by serializing <em>config_obj</em> . </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">config_obj</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -419,7 +548,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>setConfigTempl
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Matthew Lee/Documents/GitHub/GW2-Updater-Scripts/application/source/configuration.cs</li>
+<li>C:/Users/Matthew Lee/Documents/GitHub/GW2-UOAOM-Git/application/source/configuration.cs</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

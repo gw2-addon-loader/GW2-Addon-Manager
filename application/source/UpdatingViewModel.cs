@@ -7,13 +7,18 @@ namespace GW2_Addon_Manager
     /// </summary>
     public class UpdatingViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// An event used to indicate that a property's value has changed.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// A method used in notifying that a property's value has changed.
+        /// </summary>
+        /// <param name="propertyName">The name of the property that changed value.</param>
         protected void propertyChanged(string propertyName)
         {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>
@@ -27,6 +32,9 @@ namespace GW2_Addon_Manager
 
         
         bool _closeBtnEnabled;
+        /// <summary>
+        /// Binding for whether the "FINISH" button is enabled.
+        /// </summary>
         public bool closeButtonEnabled
         {
             get {return _closeBtnEnabled;}
@@ -34,6 +42,9 @@ namespace GW2_Addon_Manager
         }
 
         string _msg;
+        /// <summary>
+        /// Binding for the label above the progress bar.
+        /// </summary>
         public string label
         {
             get { return _msg; }
@@ -41,6 +52,9 @@ namespace GW2_Addon_Manager
         }
 
         int _progress;
+        /// <summary>
+        /// Binding for the value shown in the progress bar.
+        /// </summary>
         public int showProgress
         {
             get { return _progress; }

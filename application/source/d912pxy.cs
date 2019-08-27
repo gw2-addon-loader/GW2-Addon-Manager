@@ -17,6 +17,7 @@ namespace GW2_Addon_Manager
         UpdatingViewModel currentView;
         string dll_name;
         string game_path;
+        string bin64;
         string latestRelease;
         string gitUrl = "https://api.github.com/repos/megai2/d912pxy/releases/latest";
         string d912pxy_zip_path;
@@ -31,6 +32,7 @@ namespace GW2_Addon_Manager
         public d912pxy(string d912pxy_name, UpdatingViewModel view)
         {
             game_path = (string)Application.Current.Properties["game_path"];
+            bin64 = game_path + "\\" + configuration.getConfig().bin_folder + "\\";
             currentView = view;
 
             /* emptying progress bar */
@@ -45,24 +47,26 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Disables d912pxy by moving its plugin into the 'Disabled Plugins' application subfolder.
         /// </summary>
-        /// <param name="game_path">The Guild Wars 2 game path.</param>
-        public static void disable(string game_path)
+        public static void disable()
         {
             dynamic config_obj = configuration.getConfig();
+            string game_path = config_obj.game_path;
+            string bin64 = game_path + "\\" + config_obj.bin_folder + "\\"; 
             if (config_obj.installed.d912pxy != null)
-                File.Move(game_path + "\\bin64\\" + config_obj.installed.d912pxy, "Disabled Plugins\\d912pxy.dll");
+                File.Move(bin64 + config_obj.installed.d912pxy, "Disabled Plugins\\d912pxy.dll");
 
             config_obj.disabled.d912pxy = true;
             configuration.setConfig(config_obj);
         }
 
         /// <summary>
-        /// Enables d912pxy by moving its plugin back into the game's /bin64/ folder.
+        /// Enables d912pxy by moving its plugin back into the game's /bin64/ or /bin/ folder.
         /// </summary>
-        /// <param name="game_path">The Guild Wars 2 game path.</param>
-        public static void enable(string game_path)
+        public static void enable()
         {
             dynamic config_obj = configuration.getConfig();
+            string game_path = config_obj.game_path;
+            string bin64 = game_path + "\\" + config_obj.bin_folder + "\\";
 
             if ((bool)config_obj.disabled.d912pxy && config_obj.installed.d912pxy != null)
             {
@@ -79,7 +83,7 @@ namespace GW2_Addon_Manager
                 {
                     config_obj.installed.d912pxy = "d3d9.dll";
                 }
-                File.Move("Disabled Plugins\\d912pxy.dll", game_path + "\\bin64\\" + config_obj.installed.d912pxy);
+                File.Move("Disabled Plugins\\d912pxy.dll", bin64 + config_obj.installed.d912pxy);
             }
             
             config_obj.disabled.d912pxy = false;
@@ -90,18 +94,19 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Deletes the d912pxy plugin as well as the /d912pxy/ game subfolder.
         /// </summary>
-        /// <param name="game_path">The Guild Wars 2 game path.</param>
-        public static void delete(string game_path)
+        public static void delete()
         {
+            dynamic config_obj = configuration.getConfig();
+            string game_path = config_obj.game_path;
+            string bin64 = game_path + "\\" + config_obj.bin_folder + "\\";
+
             /* if the /d912pxy/ game subfolder exists, delete it */
             if (Directory.Exists(game_path + "\\d912pxy"))
                 Directory.Delete(game_path + "\\d912pxy", true);
 
-            dynamic config_obj = configuration.getConfig();
-
             /* if a .dll is associated with the add-on, delete it */
             if (config_obj.installed.d912pxy != null)
-                File.Delete(game_path + "\\bin64\\" + config_obj.installed.d912pxy);
+                File.Delete(bin64 + config_obj.installed.d912pxy);
 
             config_obj.version.d912pxy = null;      //no installed version
             config_obj.installed.d912pxy = null;    //no installed .dll name
@@ -153,7 +158,7 @@ namespace GW2_Addon_Manager
         /// </summary>
         public void install()
         {
-            string dll_destination = game_path + "\\bin64\\" + dll_name;
+            string dll_destination = bin64 + dll_name;
             string dll_release_location = game_path + "\\d912pxy\\dll\\release\\d3d9.dll";
 
             currentView.label = "Installing d912pxy " + latestRelease;

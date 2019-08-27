@@ -7,7 +7,7 @@ using System.Windows;
 namespace GW2_Addon_Manager
 {
     /// <summary>
-    /// The <c>configuration</c> class contains various functions accessing and modifying the configuration file.
+    /// The <c>configuration</c> class contains various functions accessing and modifying the configuration file and the configuration file template.
     /// </summary>
     class configuration
     {
@@ -49,6 +49,10 @@ namespace GW2_Addon_Manager
             return config_obj;
         }
 
+        /// <summary>
+        /// <c>getTemplateConfigAsJObject</c> accesses the configuration file template found at <c>config_template_path</c>, which should adhere to proper Json syntax.
+        /// </summary>
+        /// <returns> an instance of <c>JObject</c> representing the default configuration file template as converted from Json using Json.NET </returns>
         public static JObject getTemplateConfigAsJObject()
         {
             string config_file = File.ReadAllText(config_template_path);
@@ -57,7 +61,8 @@ namespace GW2_Addon_Manager
         }
 
         /// <summary>
-        /// <c>setConfig</c> overwrites the configuration file found at <c>config_file_path</c> with a Json string created by serializing<paramref name="config_obj"/>.
+        /// <c>setConfig</c> overwrites the configuration file found at <c>config_file_path</c>
+        /// with a Json string created by serializing<paramref name="config_obj"/>.
         /// </summary>
         /// <param name="config_obj"> the dynamic object to be serialized and written to the file </param>
         public static void setConfig(dynamic config_obj)
@@ -66,6 +71,11 @@ namespace GW2_Addon_Manager
             File.WriteAllText(config_file_path, edited_config_file);
         }
 
+        /// <summary>
+        /// Overwrites the configuration file template in the application's
+        /// /resources/ folder with a string created by serializing <paramref name="config_obj"/>.
+        /// </summary>
+        /// <param name="config_obj"></param>
         public static void setConfigTemplate(dynamic config_obj)
         {
             string edited_config_file = JsonConvert.SerializeObject(config_obj, Formatting.Indented);
@@ -73,8 +83,8 @@ namespace GW2_Addon_Manager
         }
 
         /// <summary>
-        /// <c>ApplyDefaultConfig</c> reads the configuration file found at <c>config_file_path</c> and uses the information
-        /// within to set properties across <paramref name="viewModel"/>.
+        /// <c>ApplyDefaultConfig</c> reads the configuration file found at <c>config_file_path</c>
+        /// and uses the information within to set properties across <paramref name="viewModel"/>.
         /// </summary>
         /// <param name="viewModel">An instance of the <typeparamref>OpeningViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
         public static void ApplyDefaultConfig(OpeningViewModel viewModel)
@@ -159,6 +169,7 @@ namespace GW2_Addon_Manager
             dynamic config_obj = configuration.getConfig();
             config_obj.game_path = Application.Current.Properties["game_path"].ToString().Replace("\\\\", "\\");
             configuration.setConfig(config_obj);
+            DetermineSystemType();
         }
 
 
@@ -167,7 +178,7 @@ namespace GW2_Addon_Manager
         /// an updated configuration file template and then overwrites config.ini, or does nothing, depending on
         /// the user's installation.
         /// </summary>
-        public static void SelfVersionStatus()
+        public static void ConfigFileStatus()
         {
             if (File.Exists(config_file_path))
             {
@@ -225,6 +236,27 @@ namespace GW2_Addon_Manager
             {
                 viewModel.UpdateAvailable = latestVersion + " available!";
                 viewModel.UpdateLinkVisibility = "Visible";
+            }
+        }
+
+        /// <summary>
+        /// Attempts to read the game folder and determine whether the game is running on a 64 or 32-bit system.
+        /// Based on that, sets the 'bin_folder' property in the configuration file.
+        /// </summary>
+        public static void DetermineSystemType()
+        {
+            dynamic config = getConfig();
+            if (Directory.Exists(config.game_path.ToString()))
+            {
+                if (Directory.Exists(config.game_path.ToString() + "\\bin64"))
+                {
+                    config.bin_folder = "bin64";
+                }
+                else if (Directory.Exists(config.game_path.ToString() + "\\bin"))
+                {
+                    config.bin_folder = "bin";
+                }
+                setConfig(config);
             }
         }
     }

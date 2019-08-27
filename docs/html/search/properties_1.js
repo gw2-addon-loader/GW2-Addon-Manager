@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['deleteselected_74',['DeleteSelected',['../class_g_w2___addon___manager_1_1_opening_view_model.html#a49ac11eb2e97a05e7f107b1bf65de7a2',1,'GW2_Addon_Manager::OpeningViewModel']]],
-  ['disableselected_75',['DisableSelected',['../class_g_w2___addon___manager_1_1_opening_view_model.html#a39967b1d244a35ae0fc09e9d2388a73f',1,'GW2_Addon_Manager::OpeningViewModel']]]
+  ['closebuttonenabled_98',['closeButtonEnabled',['../class_g_w2___addon___manager_1_1_updating_view_model.html#a09ddfbd07abc80fbc758fb233e7e11cf',1,'GW2_Addon_Manager::UpdatingViewModel']]],
+  ['createshortcut_99',['CreateShortcut',['../class_g_w2___addon___manager_1_1_opening_view_model.html#ae309baf9ad67a7afd3e66a17e8818cdc',1,'GW2_Addon_Manager::OpeningViewModel']]]
 ];

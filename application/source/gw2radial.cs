@@ -39,25 +39,25 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Disables GW2 Radial by moving its plugin into the 'Disabled Plugins' application subfolder.
         /// </summary>
-        /// <param name="game_path">The Guild Wars 2 game path.</param>
-        public static void disable(string game_path)
+        public static void disable()
         {
             dynamic config_obj = configuration.getConfig();
+            string game_path = config_obj.game_path;
             if (config_obj.installed.gw2radial != null)
-                File.Move(game_path + "\\bin64\\" + config_obj.installed.gw2radial, "Disabled Plugins\\gw2radial.dll");
+                File.Move(game_path + "\\" + config_obj.bin_folder + "\\" + config_obj.installed.gw2radial, "Disabled Plugins\\gw2radial.dll");
 
             config_obj.disabled.gw2radial = true;
             configuration.setConfig(config_obj);
         }
 
         /// <summary>
-        /// Enables GW2 Radial by moving its plugin back into the game's /bin64/ folder.
+        /// Enables GW2 Radial by moving its plugin back into the game's /bin64/ or /bin/ folder.
         /// </summary>
-        /// <param name="game_path">The Guild Wars 2 game path.</param>
-        public static void enable(string game_path)
+        public static void enable()
         {
             dynamic config_obj = configuration.getConfig();
-            string bin64 = game_path + "\\bin64\\";
+            string game_path = config_obj.game_path;
+            string bin64 = game_path + "\\" + config_obj.bin_folder + "\\";
 
             if ((bool)config_obj.disabled.gw2radial && config_obj.installed.gw2radial != null)
             {
@@ -99,18 +99,19 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Deletes the GW2 Radial plugin as well as the /addons/gw2radial game subfolder.
         /// </summary>
-        /// <param name="game_path">The Guild Wars 2 game path.</param>
-        public static void delete(string game_path)
+        public static void delete()
         {
+            dynamic config_obj = configuration.getConfig();
+            string game_path = config_obj.game_path;
+            string bin64 = game_path + "\\" + config_obj.bin_folder + "\\";
+
             /* if the /addons/ subdirectory exists for this add-on, delete it */
             if (Directory.Exists(game_path + "\\addons\\gw2radial"))
                 Directory.Delete(game_path + "\\addons\\gw2radial", true);
 
-            dynamic config_obj = configuration.getConfig();
-
             /* if a .dll is associated with the add-on, delete it */
             if (config_obj.installed.gw2radial != null)
-                File.Delete(game_path + "\\bin64\\" + config_obj.installed.gw2radial);
+                File.Delete(bin64 + config_obj.installed.gw2radial);
 
             config_obj.version.gw2radial = null;        //no installed version
             config_obj.installed.gw2radial = null;      //no installed .dll name
@@ -161,10 +162,10 @@ namespace GW2_Addon_Manager
 
             ZipFile.ExtractToDirectory(zip_path, expanded_path);
 
-            File.Copy(expanded_path + "\\d3d9.dll", game_path + "\\bin64\\" + dll_name, true);
-
-
             dynamic config_obj = configuration.getConfig();
+            string bin64 = game_path + "\\" + config_obj.bin_folder + "\\";
+            File.Copy(expanded_path + "\\d3d9.dll", bin64 + dll_name, true);
+
             config_obj.installed.gw2radial = dll_name;
             config_obj.version.gw2radial = latestRelease;
             configuration.setConfig(config_obj);

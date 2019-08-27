@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['selfversionstatus_26',['SelfVersionStatus',['../class_g_w2___addon___manager_1_1configuration.html#a6bcde902cb36656ff300ba592e46171c',1,'GW2_Addon_Manager::configuration']]],
-  ['setconfig_27',['setConfig',['../class_g_w2___addon___manager_1_1configuration.html#ad4e35b7fa70f690102c4b9aca403e6cd',1,'GW2_Addon_Manager::configuration']]],
-  ['setdefaultaddons_28',['SetDefaultAddons',['../class_g_w2___addon___manager_1_1_opening_view_model.html#a940c70d165cd848672608d0a8fba9f2a',1,'GW2_Addon_Manager::OpeningViewModel']]],
-  ['setgamepath_29',['SetGamePath',['../class_g_w2___addon___manager_1_1_opening_view_model.html#a4b8436daf09d8184cd05171395eeccf7',1,'GW2_Addon_Manager.OpeningViewModel.SetGamePath()'],['../class_g_w2___addon___manager_1_1configuration.html#ad2b8f1441064c07b88057e58385942ed',1,'GW2_Addon_Manager.configuration.SetGamePath()']]]
+  ['pluginmanagement_36',['PluginManagement',['../class_g_w2___addon___manager_1_1_plugin_management.html',1,'GW2_Addon_Manager']]],
+  ['propertychanged_37',['propertyChanged',['../class_g_w2___addon___manager_1_1_opening_view_model.html#a4605991ac641ae33f6c8e5ddeefdb300',1,'GW2_Addon_Manager.OpeningViewModel.propertyChanged()'],['../class_g_w2___addon___manager_1_1_updating_view_model.html#a3fb3ccda33c0ef00babc9aff1573ede7',1,'GW2_Addon_Manager.UpdatingViewModel.propertyChanged()'],['../class_g_w2___addon___manager_1_1_opening_view_model.html#abe170379989001bacd1afb3db24efbbd',1,'GW2_Addon_Manager.OpeningViewModel.PropertyChanged()'],['../class_g_w2___addon___manager_1_1_updating_view_model.html#a75e743d2a78e3f48ca41656e7552a0eb',1,'GW2_Addon_Manager.UpdatingViewModel.PropertyChanged()']]]
 ];

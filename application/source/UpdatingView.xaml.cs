@@ -13,6 +13,9 @@ namespace GW2_Addon_Manager
     {
         UpdatingViewModel theViewModel;
 
+        /// <summary>
+        /// Sets the page's DataContext, initializes it, and begins the update process.
+        /// </summary>
         public UpdatingView()
         {
             theViewModel = new UpdatingViewModel();
@@ -42,7 +45,7 @@ namespace GW2_Addon_Manager
             (this.Parent as Window).WindowState = WindowState.Minimized;
         }
 
-        public void finish_button_clicked(Object sender, RoutedEventArgs e)
+        private void finish_button_clicked(Object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
         }

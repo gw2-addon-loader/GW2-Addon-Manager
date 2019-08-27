@@ -13,13 +13,18 @@ namespace GW2_Addon_Manager
     /// </summary>
     public class OpeningViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// An event used to indicate that a property's value has changed.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// A method used in notifying that a property's value has changed.
+        /// </summary>
+        /// <param name="propertyName">The name of the property that changed value.</param>
         protected void propertyChanged(string propertyName)
         {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
 
@@ -48,19 +53,30 @@ namespace GW2_Addon_Manager
         }
 
 
-        /* Application Update Available */
+        /// <summary>
+        /// A string that is assigned a value if there is an update available.
+        /// </summary>
         public string UpdateAvailable { get; set; }
+        /// <summary>
+        /// A string representing a visibility value for the Github releases link.
+        /// </summary>
         public string UpdateLinkVisibility { get; set; }
 
         /* ARC */
         private bool _arc_box;
         private string _arc_content;
+        /// <summary>
+        /// The data binding for the ArcDPS checkbox's IsChecked property.
+        /// </summary>
         public bool ArcDPS_CheckBox
         {
             get { return _arc_box; }
             set { _arc_box = value; propertyChanged("ArcDPS_CheckBox"); }
         }
 
+        /// <summary>
+        /// The data binding for the ArcDPS checkbox's Content property.
+        /// </summary>
         public string ArcDPS_Content
         {
             get { return _arc_content; }
@@ -72,11 +88,17 @@ namespace GW2_Addon_Manager
         private bool _radial_box;
         private string _radial_content;
 
+        /// <summary>
+        /// The data binding for the GW2 Radial checkbox's IsChecked property.
+        /// </summary>
         public bool GW2Radial_CheckBox
         {
             get { return _radial_box; }
             set { _radial_box = value; propertyChanged("GW2Radial_CheckBox"); }
         }
+        /// <summary>
+        /// The data binding for the GW2 Radial checkbox's Content property.
+        /// </summary>
         public string GW2Radial_Content
         {
             get { return _radial_content; }
@@ -87,11 +109,17 @@ namespace GW2_Addon_Manager
         /* d912pxy */
         private bool _d912pxy_box;
         private string _d912pxy_content;
+        /// <summary>
+        /// The data binding for the d912pxy checkbox's IsChecked property.
+        /// </summary>
         public bool d912pxy_CheckBox
         {
             get { return _d912pxy_box; }
             set { _d912pxy_box = value; propertyChanged("d912pxy_CheckBox"); }
         }
+        /// <summary>
+        /// The data binding for the d912pxy checkbox's Content property.
+        /// </summary>
         public string d912pxy_Content
         {
             get { return _d912pxy_content; }
@@ -99,7 +127,7 @@ namespace GW2_Addon_Manager
         }
 
         /// <summary>
-        /// The Guild Wars 2 Game Path, displayed in the text box on the opening page.
+        /// Binding for the Content property of the text box displayed on the opening page.
         /// </summary>
         public string GamePath { get; set; }
 

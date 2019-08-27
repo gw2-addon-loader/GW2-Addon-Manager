@@ -13,6 +13,9 @@ namespace GW2_Addon_Manager
     /// </summary>
     public partial class MainWindow : NavigationWindow
     {
+        /// <summary>
+        /// Initializes the application's main window.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();

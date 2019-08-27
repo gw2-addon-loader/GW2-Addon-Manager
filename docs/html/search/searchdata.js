@@ -1,9 +1,10 @@
 var indexSectionsWithContent =
 {
-  0: "acdegimopsu",
+  0: "acdegilmoprsu",
   1: "acdgmopu",
-  2: "acdegiosu",
-  3: "cdegs"
+  2: "acdegioprsu",
+  3: "acdeglsu",
+  4: "p"
 };
 
 var indexSectionNames =
@@ -11,7 +12,8 @@ var indexSectionNames =
   0: "all",
   1: "classes",
   2: "functions",
-  3: "properties"
+  3: "properties",
+  4: "events"
 };
 
 var indexSectionLabels =
@@ -19,6 +21,7 @@ var indexSectionLabels =
   0: "All",
   1: "Classes",
   2: "Functions",
-  3: "Properties"
+  3: "Properties",
+  4: "Events"
 };
 

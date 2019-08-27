@@ -12,6 +12,7 @@ namespace GW2_Addon_Manager
     public class arcdps
     {
         string game_path;
+        string bin64;
 
         string arc_templates_name;
         string arc_name;
@@ -36,6 +37,7 @@ namespace GW2_Addon_Manager
             /* display message over progress bar */
             theView.label = "Checking for ArcDPS updates";
             game_path = (string)Application.Current.Properties["game_path"];
+            bin64 = game_path + "\\" + configuration.getConfig().bin_folder + "\\";
             this.arc_name = arc_name;
             this.arc_templates_name = arc_templates_name;
         }
@@ -43,12 +45,13 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Disables ArcDPS by moving its plugin into the 'Disabled Plugins' application subfolder.
         /// </summary>
-        /// <param name="game_path">The Guild Wars 2 game path.</param>
-        public static void disable(string game_path)
+        public static void disable()
         {
             dynamic config_obj = configuration.getConfig();
+            string game_path = config_obj.game_path;
+            string bin64 = game_path + "\\" + config_obj.bin_folder + "\\";
             if (config_obj.installed.arcdps != null)
-                File.Move(game_path + "\\bin64\\" + config_obj.installed.arcdps, "Disabled Plugins\\arcdps.dll");
+                File.Move(bin64 + config_obj.installed.arcdps, "Disabled Plugins\\arcdps.dll");
 
             config_obj.disabled.arcdps = true;
             configuration.setConfig(config_obj);
@@ -57,11 +60,11 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Enables ArcDPS by moving its plugin back into the game's /bin64/ folder.
         /// </summary>
-        /// <param name="game_path">The Guild Wars 2 game path.</param>
-        public static void enable(string game_path)
+        public static void enable()
         {
             dynamic config_obj = configuration.getConfig();
-            string bin64 = game_path + "\\bin64\\";
+            string game_path = config_obj.game_path;
+            string bin64 = game_path + "\\" + config_obj.bin_folder + "\\";
             //Reminder: Make addon template class
             if ((bool)config_obj.disabled.arcdps && config_obj.installed.arcdps != null)
             {
@@ -91,23 +94,23 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Deletes the ArcDPS and ArcDPS build templates plugins as well as the /addons/arcdps game subfolder.
         /// </summary>
-        /// <param name="game_path">The Guild Wars 2 game path.</param>
-        public static void delete(string game_path)
+        public static void delete()
         {
-            /* if the /addons/ subdirectory exists for this add-on, delete it */
-            if(Directory.Exists(game_path + "\\addons\\arcdps"))
-                Directory.Delete(game_path + "\\addons\\arcdps", true);
-
             dynamic config_obj = configuration.getConfig();
+            string game_path = config_obj.game_path;
+            string bin64 = game_path + "\\" + config_obj.bin_folder + "\\";
+
+            /* if the /addons/ subdirectory exists for this add-on, delete it */
+            if (Directory.Exists(game_path + "\\addons\\arcdps"))
+                Directory.Delete(game_path + "\\addons\\arcdps", true);
 
             /* if a .dll is associated with the add-on, delete it */
             if (config_obj.installed.arcdps != null)
             {
-                File.Delete(game_path + "\\bin64\\" + config_obj.installed.arcdps);
-                File.Delete(game_path + "\\bin64\\" + config_obj.arcdps_buildTemplates);
+                File.Delete(bin64 + config_obj.installed.arcdps);
+                File.Delete(bin64 + config_obj.arcdps_buildTemplates);
             }
                 
-
             /* if the .dll is in the 'Disabled Plugins' folder, delete it */
             if (File.Exists("Disabled Plugins\\arcdps.dll"))
                 File.Delete("Disabled Plugins\\arcdps.dll");
@@ -130,12 +133,13 @@ namespace GW2_Addon_Manager
             string md5 = client.DownloadString(md5_hash_url);
             /* if arc is not installed or recorded timestamp is different from latest release, download it */
             dynamic config_obj = configuration.getConfig();
+
             if (config_obj.version.arcdps == null || config_obj.version.arcdps != md5)
             {
                 theView.label = "Downloading ArcDPS";
                 client.DownloadProgressChanged += arc_DownloadProgressChanged;
                 client.DownloadFileCompleted += arc_DownloadCompleted;
-                await client.DownloadFileTaskAsync(new System.Uri(arc_url), game_path + "\\bin64\\" + arc_name);
+                await client.DownloadFileTaskAsync(new System.Uri(arc_url), bin64 + arc_name);
 
                 config_obj.installed.arcdps = arc_name;
                 config_obj.version.arcdps = md5;
@@ -148,7 +152,7 @@ namespace GW2_Addon_Manager
             }
 
             /* build templates - temporary, just checks for file existence */
-            if (!File.Exists(game_path + "\\bin64\\" + arc_templates_name))
+            if (!File.Exists(bin64 + arc_templates_name))
             {
                 await update_templates();
             }
@@ -178,7 +182,7 @@ namespace GW2_Addon_Manager
 
             client.DownloadProgressChanged += arc_buildTemplates_DownloadProgressChanged;
             client.DownloadFileCompleted += arc_buildTemplates_DownloadCompleted;
-            await client.DownloadFileTaskAsync(new System.Uri(buildtemplates_url), game_path + "\\bin64\\" + arc_templates_name);
+            await client.DownloadFileTaskAsync(new System.Uri(buildtemplates_url), bin64 + arc_templates_name);
             Application.Current.Properties["ArcDPS"] = false;
         }
 

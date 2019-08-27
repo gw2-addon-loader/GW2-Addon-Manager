@@ -8,9 +8,9 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Deletes the currently selected addons.
         /// <seealso cref="OpeningViewModel.DeleteSelected"/>
-        /// <seealso cref="arcdps.delete(string)"/>
-        /// <seealso cref="gw2radial.delete(string)"/>
-        /// <seealso cref="d912pxy.delete(string)"/>
+        /// <seealso cref="arcdps.delete()"/>
+        /// <seealso cref="gw2radial.delete()"/>
+        /// <seealso cref="d912pxy.delete()"/>
         /// </summary>
         /// <param name="viewModel">The DataContext for the application UI.</param>
         public static void DeleteSelected(OpeningViewModel viewModel)
@@ -20,11 +20,11 @@ namespace GW2_Addon_Manager
             {
                 string gamePath = configuration.getConfig().game_path;
                 if (viewModel.ArcDPS_CheckBox)
-                    arcdps.delete(gamePath);
+                    arcdps.delete();
                 if (viewModel.GW2Radial_CheckBox)
-                    gw2radial.delete(gamePath);
+                    gw2radial.delete();
                 if (viewModel.d912pxy_CheckBox)
-                    d912pxy.delete(gamePath);
+                    d912pxy.delete();
 
                 RenamePlugins();
             }
@@ -101,9 +101,9 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Disables the currently selected addons.
         /// <seealso cref="OpeningViewModel.DisableSelected"/>
-        /// <seealso cref="arcdps.disable(string)"/>
-        /// <seealso cref="gw2radial.disable(string)"/>
-        /// <seealso cref="d912pxy.disable(string)"/>
+        /// <seealso cref="arcdps.disable()"/>
+        /// <seealso cref="gw2radial.disable()"/>
+        /// <seealso cref="d912pxy.disable()"/>
         /// </summary>
         /// <param name="viewModel">The DataContext for the application UI.</param>
         public static void DisableSelected(OpeningViewModel viewModel)
@@ -113,11 +113,11 @@ namespace GW2_Addon_Manager
             {
                 string gamePath = configuration.getConfig().game_path;
                 if (viewModel.ArcDPS_CheckBox)
-                    arcdps.disable(gamePath);
+                    arcdps.disable();
                 if (viewModel.GW2Radial_CheckBox)
-                    gw2radial.disable(gamePath);
+                    gw2radial.disable();
                 if (viewModel.d912pxy_CheckBox)
-                    d912pxy.disable(gamePath);
+                    d912pxy.disable();
 
                 RenamePlugins();
             }
@@ -128,9 +128,9 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Enables the currently selected addons.
         /// <seealso cref="OpeningViewModel.EnableSelected"/>
-        /// <seealso cref="arcdps.enable(string)"/>
-        /// <seealso cref="gw2radial.enable(string)"/>
-        /// <seealso cref="d912pxy.enable(string)"/>
+        /// <seealso cref="arcdps.enable()"/>
+        /// <seealso cref="gw2radial.enable()"/>
+        /// <seealso cref="d912pxy.enable()"/>
         /// </summary>
         /// <param name="viewModel">The DataContext for the application UI.</param>
         public static void EnableSelected(OpeningViewModel viewModel)
@@ -140,17 +140,15 @@ namespace GW2_Addon_Manager
             {
                 string gamePath = configuration.getConfig().game_path;
                 if (viewModel.ArcDPS_CheckBox)
-                    arcdps.enable(gamePath);
+                    arcdps.enable();
                 if (viewModel.GW2Radial_CheckBox)
-                    gw2radial.enable(gamePath);
+                    gw2radial.enable();
                 if (viewModel.d912pxy_CheckBox)
-                    d912pxy.enable(gamePath);
+                    d912pxy.enable();
 
                 RenamePlugins();
                 configuration.DisplayAddonStatus(viewModel);
             }
         }
-
-        //TODO: Write a function that just returns the right plugin names for arc, gw2radial, and d912pxy given the current configuration
     }
 }
