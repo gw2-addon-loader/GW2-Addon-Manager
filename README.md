@@ -2,7 +2,9 @@
 ##### Guild Wars 2 Unofficial Add-On Manager
 A tool to install and update some Guild Wars 2 add-ons without having to manually visit each website, check version numbers, download and rename dlls, etc.
 
-![GW2-UOAOM-v0 3 1](https://user-images.githubusercontent.com/30479162/63646348-0e76c600-c6c6-11e9-8f77-6e6075342633.JPG)
+<p align="center">
+<img src="https://user-images.githubusercontent.com/30479162/63755331-4ec37900-c86b-11e9-90e2-2b13a5484047.JPG" alt="v0.3.3 UI" width="750"/>
+</p>
 
 ## Getting Started
 Make sure your system meets the **Requirements** and that you don't have any unsupported add-ons (I hope to eventually expand the list). Don't run the program while GW2 or the GW2 launcher is running, as the program needs to access files that are locked while the game is active.
