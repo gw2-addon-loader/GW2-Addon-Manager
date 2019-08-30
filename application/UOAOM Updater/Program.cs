@@ -14,6 +14,8 @@ namespace UOAOM_Updater
         {
             //race condition handicap. TODO: um, MAKE THIS NOT A RACE CONDITION lol
             //(idk, have another helper process that starts on close button pressed in main app, waits until main app's process is closed, then starts this updater and closes itself?)
+            //
+            //add clause to retry an extraction if it doesn't work?
             System.Threading.Thread.Sleep(3000);
 
             if (Directory.Exists(update_folder))
@@ -26,7 +28,19 @@ namespace UOAOM_Updater
                         if (string.IsNullOrEmpty(entry.Name))
                             Directory.CreateDirectory(entry.FullName);
                         else if (entry.FullName != "UOAOM updater.exe")
-                            entry.ExtractToFile(Path.Combine(Directory.GetCurrentDirectory(), entry.FullName), true);
+                        {
+                            try
+                            {
+                                entry.ExtractToFile(Path.Combine(Directory.GetCurrentDirectory(), entry.FullName), true);
+                            }
+                            catch (IOException e)
+                            {
+                                System.Threading.Thread.Sleep(3000);
+                                entry.ExtractToFile(Path.Combine(Directory.GetCurrentDirectory(), entry.FullName), true);
+                            }
+                            
+                        }
+                            
                     }
                     zip.Close();
                 }

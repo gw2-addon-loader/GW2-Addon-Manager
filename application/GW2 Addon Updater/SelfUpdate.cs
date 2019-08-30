@@ -54,8 +54,6 @@ namespace GW2_Addon_Manager
         {
             viewModel.UpdateDownloadProgress = e.ProgressPercentage;
         }
-
-        //TODO: Add reference to a special method that launches the updater to each place the program exits (x button, finish button, etc)
         public static void startUpdater()
         {
             Process.Start("UOAOM Updater.exe");
