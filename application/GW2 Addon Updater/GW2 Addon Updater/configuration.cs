@@ -235,7 +235,7 @@ namespace GW2_Addon_Manager
             if (latestVersion != thisVersion)
             {
                 viewModel.UpdateAvailable = latestVersion + " available!";
-                viewModel.UpdateLinkVisibility = "Visible";
+                viewModel.UpdateLinkVisibility = Visibility.Visible;
             }
         }
 

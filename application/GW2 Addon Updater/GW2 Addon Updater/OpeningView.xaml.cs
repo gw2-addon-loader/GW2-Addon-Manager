@@ -34,8 +34,10 @@ namespace GW2_Addon_Manager
         }
 
         
+        //race condition with processes
         private void close_clicked(object sender, RoutedEventArgs e)
         {
+            SelfUpdate.startUpdater();
             System.Windows.Application.Current.Shutdown();
         }
 

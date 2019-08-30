@@ -127,6 +127,7 @@
     <Compile Include="gw2radial.cs" />
     <Compile Include="OpeningViewModel.cs" />
     <Compile Include="PluginManagement.cs" />
+    <Compile Include="SelfUpdate.cs" />
     <Compile Include="UpdateHelpers.cs" />
     <Compile Include="Updates.cs" />
     <Compile Include="UpdatingView.xaml.cs">

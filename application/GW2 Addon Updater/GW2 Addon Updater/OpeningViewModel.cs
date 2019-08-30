@@ -3,6 +3,8 @@ using IWshRuntimeLibrary;
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using File = System.IO.File;
 
@@ -44,7 +46,8 @@ namespace GW2_Addon_Manager
             d912pxy_CheckBox = false;
             d912pxy_Content = "d912pxy";
 
-            UpdateLinkVisibility = "Hidden";
+            UpdateLinkVisibility = Visibility.Hidden;
+            UpdateProgressVisibility = Visibility.Hidden;
 
             GamePath = configuration.getConfig().game_path;  
 
@@ -53,14 +56,63 @@ namespace GW2_Addon_Manager
         }
 
 
+        /***** Application Version Status *****/
+
+        string _updateAvailable;
         /// <summary>
         /// A string that is assigned a value if there is an update available.
         /// </summary>
-        public string UpdateAvailable { get; set; }
+        public string UpdateAvailable
+        {
+            get { return _updateAvailable; }
+            set { _updateAvailable = value; propertyChanged("UpdateAvailable"); }
+        }
+
+        Visibility _updateLinkVisibility;
         /// <summary>
         /// A string representing a visibility value for the Github releases link.
         /// </summary>
-        public string UpdateLinkVisibility { get; set; }
+        public Visibility UpdateLinkVisibility
+        {
+            get { return _updateLinkVisibility; }
+            set { _updateLinkVisibility = value; propertyChanged("UpdateLinkVisibility"); }
+        }
+
+        Visibility _updateProgressVisibility;
+        /// <summary>
+        /// A string representing a visibility value for the self-update download progress bar.
+        /// </summary>
+        public Visibility UpdateProgressVisibility
+        {
+            get { return _updateProgressVisibility; }
+            set { _updateProgressVisibility = value; propertyChanged("UpdateProgressVisibility"); }
+        }
+
+        int updateProgress;
+        /// <summary>
+        /// Binding for the value shown in the mini progress bar displayed when downloading a new version of the application.
+        /// </summary>
+        public int UpdateDownloadProgress
+        {
+            get { return updateProgress; }
+            set { updateProgress = value; propertyChanged("UpdateDownloadProgress"); }
+        }
+
+        /// <summary>
+        /// Handler for small button to download application update.
+        /// </summary>
+        public ICommand DownloadSelfUpdate
+        {
+            
+            get
+            {
+                
+                return new RelayCommand<object>(param => Updates.UpdateSelf(this), true);
+            }
+        }
+
+        /***** ************************** *****/
+
 
         /* ARC */
         private bool _arc_box;
@@ -131,6 +183,8 @@ namespace GW2_Addon_Manager
         /// </summary>
         public string GamePath { get; set; }
 
+
+        
 
 
         /***** Button Handlers *****/

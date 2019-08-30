@@ -73,7 +73,7 @@
                 FontSize="16"
                 BorderThickness="1"
                 BorderBrush="#ff8787"
-                Click="finish_button_clicked"
+                Click="close_clicked"
                 IsEnabled="{Binding closeButtonEnabled}"
                 Style="{StaticResource BigContentButton}"
                 />

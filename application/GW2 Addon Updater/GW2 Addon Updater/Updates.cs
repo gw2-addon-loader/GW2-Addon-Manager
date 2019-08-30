@@ -28,6 +28,11 @@ namespace GW2_Addon_Manager
             Task.Run(() => Update()); //running the update method in the background so UI updates immediately
         }
 
+        public static void UpdateSelf(OpeningViewModel viewModel)
+        {
+            SelfUpdate update = new SelfUpdate(viewModel);
+        }
+
         /// <summary>
         /// <c>getPreferences</c> reads the current application properties and determines the naming scheme for the plugin configuration specified.
         /// </summary>

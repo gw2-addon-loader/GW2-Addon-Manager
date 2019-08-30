@@ -37,6 +37,7 @@ namespace GW2_Addon_Manager
 
         private void close_clicked(object sender, RoutedEventArgs e)
         {
+            SelfUpdate.startUpdater();
             System.Windows.Application.Current.Shutdown();
         }
 
@@ -44,12 +45,6 @@ namespace GW2_Addon_Manager
         {
             (this.Parent as Window).WindowState = WindowState.Minimized;
         }
-
-        private void finish_button_clicked(Object sender, RoutedEventArgs e)
-        {
-            System.Windows.Application.Current.Shutdown();
-        }
-
 
 
         /***** Hyperlink Handler *****/
