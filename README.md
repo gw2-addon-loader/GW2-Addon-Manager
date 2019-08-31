@@ -37,7 +37,8 @@ If something doesn't work, please open an issue describing the problem and inclu
 
 #### To-Do:
 - add settings panel with options to manually set .dll filenames and override the auto-naming
-- add ability to clean /bin64/ of all non-default .dlls
+- look into GW2hook support again
+- streamline adding new add-ons, i.e. change some repetitive code to iterate over a collection or something instead of having to add a new piece of code for each add-on
 
 &nbsp;
 
