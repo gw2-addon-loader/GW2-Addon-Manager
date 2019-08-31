@@ -46,6 +46,8 @@ namespace GW2_Addon_Manager
             d912pxy_CheckBox = false;
             d912pxy_Content = "d912pxy";
 
+            //bhud
+
             UpdateLinkVisibility = Visibility.Hidden;
             UpdateProgressVisibility = Visibility.Hidden;
 
@@ -177,6 +179,29 @@ namespace GW2_Addon_Manager
             get { return _d912pxy_content; }
             set { _d912pxy_content = value; propertyChanged("d912pxy_Content"); }
         }
+
+
+        /* arcdps bhud integration */
+        private bool _arcdps_bhud_box;
+        private string _arcdps_bhud_content;
+        /// <summary>
+        /// The data binding for the arcdps bhud checkbox's IsChecked property.
+        /// </summary>
+        public bool arcdps_bhud_CheckBox
+        {
+            get { return _arcdps_bhud_box; }
+            set { _arcdps_bhud_box = value; propertyChanged("arcdps_bhud_CheckBox"); }
+        }
+        /// <summary>
+        /// The data binding for the arcdps bhud checkbox's Content property.
+        /// </summary>
+        public string arcdps_bhud_Content
+        {
+            get { return _arcdps_bhud_content; }
+            set { _arcdps_bhud_content = value; propertyChanged("arcdps_bhud_Content"); }
+        }
+
+
 
         /// <summary>
         /// Binding for the Content property of the text box displayed on the opening page.

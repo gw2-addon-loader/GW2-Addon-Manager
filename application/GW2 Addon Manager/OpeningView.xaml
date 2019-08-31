@@ -165,7 +165,7 @@
                 <CheckBox IsChecked="{Binding ArcDPS_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding ArcDPS_Content}"/>
                 <CheckBox IsChecked="{Binding GW2Radial_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding GW2Radial_Content}"/>
                 <CheckBox IsChecked="{Binding d912pxy_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding d912pxy_Content}"/>
-
+                <CheckBox IsChecked="{Binding arcdps_bhud_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding arcdps_bhud_Content}"/>
 
                 <!--<CheckBox Name="gw2hook" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14">Gw2 Hook</CheckBox>-->
             </StackPanel>

@@ -25,6 +25,8 @@ namespace GW2_Addon_Manager
                     gw2radial.delete();
                 if (viewModel.d912pxy_CheckBox)
                     d912pxy.delete();
+                if (viewModel.arcdps_bhud_CheckBox)
+                    arcdps_bhud.delete();
 
                 RenamePlugins();
             }
@@ -118,6 +120,8 @@ namespace GW2_Addon_Manager
                     gw2radial.disable();
                 if (viewModel.d912pxy_CheckBox)
                     d912pxy.disable();
+                if (viewModel.arcdps_bhud_CheckBox)
+                    arcdps_bhud.disable();
 
                 RenamePlugins();
             }
@@ -145,6 +149,8 @@ namespace GW2_Addon_Manager
                     gw2radial.enable();
                 if (viewModel.d912pxy_CheckBox)
                     d912pxy.enable();
+                if (viewModel.arcdps_bhud_CheckBox)
+                    arcdps_bhud.enable();
 
                 RenamePlugins();
                 configuration.DisplayAddonStatus(viewModel);

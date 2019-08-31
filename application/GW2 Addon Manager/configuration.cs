@@ -97,6 +97,8 @@ namespace GW2_Addon_Manager
                 viewModel.GW2Radial_CheckBox = true;
             if ((bool)config_obj.default_configuration.d912pxy)
                 viewModel.d912pxy_CheckBox = true;
+            if ((bool)config_obj.default_configuration.arcdps_bhud)
+                viewModel.arcdps_bhud_CheckBox = true;
 
             DisplayAddonStatus(viewModel);
         }
@@ -115,6 +117,8 @@ namespace GW2_Addon_Manager
                 viewModel.GW2Radial_Content = "GW2 Radial (" + config_obj.version.gw2radial + " installed)";
             if (config_obj.version.d912pxy != null)
                 viewModel.d912pxy_Content = "d912pxy (" + config_obj.version.d912pxy + " installed)";
+            if (config_obj.version.arcdps_bhud != null)
+                viewModel.arcdps_bhud_Content = "Arcdps bhud (" + config_obj.version.arcdps_bhud + " installed)";
 
             if ((bool)config_obj.disabled.arcdps)
                 viewModel.ArcDPS_Content = "Disabled - ArcDPS" + (config_obj.version.arcdps != null ? " (downloaded)" : "");
@@ -122,6 +126,9 @@ namespace GW2_Addon_Manager
                 viewModel.GW2Radial_Content = "Disabled - GW2 Radial " + config_obj.version.gw2radial;
             if ((bool)config_obj.disabled.d912pxy)
                 viewModel.d912pxy_Content = "Disabled - d912pxy " + config_obj.version.d912pxy;
+            if ((bool)config_obj.disabled.arcdps_bhud)
+                viewModel.arcdps_bhud_Content = "Disabled - Arcdps bhud " + config_obj.version.arcdps_bhud;
+
 
             if (!(bool)config_obj.disabled.arcdps && config_obj.version.arcdps == null)
                 viewModel.ArcDPS_Content = "ArcDPS";
@@ -129,6 +136,9 @@ namespace GW2_Addon_Manager
                 viewModel.GW2Radial_Content = "GW2 Radial";
             if (!(bool)config_obj.disabled.d912pxy && config_obj.version.d912pxy == null)
                 viewModel.d912pxy_Content = "d912pxy";
+            if (!(bool)config_obj.disabled.arcdps_bhud && config_obj.version.arcdps_bhud == null)
+                viewModel.arcdps_bhud_Content = "Arcdps bhud";
+
         }
 
         /// <summary>
@@ -154,6 +164,11 @@ namespace GW2_Addon_Manager
                 config_obj.default_configuration.d912pxy = true;
             else
                 config_obj.default_configuration.d912pxy = false;
+
+            if (viewModel.arcdps_bhud_CheckBox)
+                config_obj.default_configuration.arcdps_bhud = true;
+            else
+                config_obj.default_configuration.arcdps_bhud = false;
 
             setConfig(config_obj);
         }
@@ -193,11 +208,23 @@ namespace GW2_Addon_Manager
                     {
                         if (template_config.ContainsKey(property.Key) && property.Key != "application_version")
                         {
-                            template_config[property.Key] = property.Value;
-                            Console.WriteLine(property.Key);
-                            Console.WriteLine(template_config[property.Key]);
-                        }
+                            if (property.Value.HasValues)
+                            {
+                                JObject child = (JObject)property.Value;
+
+                                foreach (var child_property in child)
+                                {
+                                    template_config[property.Key][child_property.Key] = child_property.Value;
+                                }
+                            }
+                            else
+                            {
+                                template_config[property.Key] = property.Value;
+                            }
                             
+                        }
+
+
                     }
                     /* convert the updated JObject to a dynamic and overwrite config.ini */
                     setConfig(template_config.ToObject<dynamic>());

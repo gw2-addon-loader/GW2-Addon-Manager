@@ -118,11 +118,12 @@ namespace GW2_Addon_Manager
                 await d912.update();
                 Update();
             }
-            /*else if ((bool)Application.Current.Properties["gw2hook"])
+            else if ((bool)Application.Current.Properties["arcdps_bhud"] && !(bool)config_obj.disabled.arcdps_bhud)
             {
-                view.label = "Updating Gw2 Hook";
+                arcdps_bhud bhud = new arcdps_bhud(view);
+                await bhud.update();
                 Update();
-            }*/
+            }
             else
             {
                 view.label = "Complete";

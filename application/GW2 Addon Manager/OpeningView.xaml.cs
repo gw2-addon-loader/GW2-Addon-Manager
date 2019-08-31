@@ -70,6 +70,11 @@ namespace GW2_Addon_Manager
             else
                 Application.Current.Properties["d912pxy"] = false;
 
+            if (theViewModel.arcdps_bhud_CheckBox)
+                Application.Current.Properties["arcdps_bhud"] = true;
+            else
+                Application.Current.Properties["arcdps_bhud"] = false;
+
             this.NavigationService.Navigate(new Uri("UpdatingView.xaml", UriKind.Relative));
         }
 

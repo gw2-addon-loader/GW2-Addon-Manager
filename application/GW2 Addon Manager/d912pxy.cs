@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -22,7 +21,6 @@ namespace GW2_Addon_Manager
         string gitUrl = "https://api.github.com/repos/megai2/d912pxy/releases/latest";
         string d912pxy_zip_path;
         string d912pxy_expanded_path;
-        Regex versionRegex = new Regex("v\\d+\\.\\d+\\.*\\d*");
 
         /// <summary>
         /// The constructor sets several values to be used and also updates the UI to indicate that d912pxy is the current task.
