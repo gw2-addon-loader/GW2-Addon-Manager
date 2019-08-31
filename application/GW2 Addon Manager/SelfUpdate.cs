@@ -18,6 +18,10 @@ namespace GW2_Addon_Manager
 
         OpeningViewModel viewModel;
 
+        /// <summary>
+        /// Sets the viewmodel and starts the download of the latest release.
+        /// </summary>
+        /// <param name="appViewModel"></param>
         public SelfUpdate(OpeningViewModel appViewModel)
         {
             viewModel = appViewModel;
@@ -26,6 +30,10 @@ namespace GW2_Addon_Manager
             Task.Run(() => downloadLatestRelease());
         }
 
+        /// <summary>
+        /// Downloads the latest application release.
+        /// </summary>
+        /// <returns></returns>
         public async Task downloadLatestRelease()
         {
             //perhaps change this to check if downloaded update is latest or not
@@ -48,15 +56,21 @@ namespace GW2_Addon_Manager
         void selfUpdate_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
             viewModel.UpdateAvailable = "Download complete!";
+            Application.Current.Properties["update_self"] = true;
         }
 
         void selfUpdate_DownloadProgress(object sender, DownloadProgressChangedEventArgs e)
         {
             viewModel.UpdateDownloadProgress = e.ProgressPercentage;
         }
+
+        /// <summary>
+        /// Starts the self-updater if an application update has been downloaded.
+        /// </summary>
         public static void startUpdater()
         {
-            Process.Start("UOAOM Updater.exe");
+            if(Application.Current.Properties["update_self"] != null && (bool)Application.Current.Properties["update_self"])
+                Process.Start("UOAOM Updater.exe");
         }
     }
 }
