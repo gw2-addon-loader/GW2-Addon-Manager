@@ -21,9 +21,11 @@ Make sure that the game path is set correctly (the default is C:\Program Files\G
 - **.NET Framework** (included in Windows 10)
 
 ### Currently Supported Add-Ons:
-- <a href="https://github.com/megai2/d912pxy">**d912pxy**</a>
 - <a href="https://www.deltaconnected.com/arcdps/">**arcDPS**</a>
+- <a href="https://github.com/blish-hud/arcdps-bhud">**arcDPS Bhud Integration**</a>
+- <a href="https://github.com/megai2/d912pxy">**d912pxy**</a>
 - <a href="https://github.com/Friendly0Fire/GW2Radial">**GW2Radial**</a>
+
 
 #### Issues
 If something doesn't work, please open an issue describing the problem and include what you were trying to do, the error message (if applicable), and a copy of your config.ini file.
