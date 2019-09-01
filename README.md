@@ -23,6 +23,7 @@ Make sure that the game path is set correctly (the default is C:\Program Files\G
 ### Currently Supported Add-Ons:
 - <a href="https://www.deltaconnected.com/arcdps/">**arcDPS**</a>
 - <a href="https://github.com/blish-hud/arcdps-bhud">**arcDPS Bhud Integration**</a>
+- <a href="http://martionlabs.com/arcdps-mechanics-log-plugin/">**arcDPS mechanics**</a>
 - <a href="https://github.com/megai2/d912pxy">**d912pxy**</a>
 - <a href="https://github.com/Friendly0Fire/GW2Radial">**GW2Radial**</a>
 
