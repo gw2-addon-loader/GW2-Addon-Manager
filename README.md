@@ -3,7 +3,7 @@
 A tool to install and update some Guild Wars 2 add-ons without having to manually visit each website, check version numbers, download and rename dlls, etc.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/30479162/64064587-5dd26000-cbb8-11e9-876a-d4901101b7e0.JPG" alt="v0.3.3 UI" width="750"/>
+<img src="https://user-images.githubusercontent.com/30479162/64070406-85a2e180-cc13-11e9-97ab-8911375cc15c.JPG" alt="v0.4.2 UI" width="750"/>
 </p>
 
 ## Getting Started
