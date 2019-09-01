@@ -50,7 +50,7 @@ namespace GW2_Addon_Manager
             dynamic config_obj = configuration.getConfig();
             string game_path = config_obj.game_path;
             string bin64 = game_path + "\\" + config_obj.bin_folder + "\\"; 
-            if (config_obj.installed.d912pxy != null)
+            if (config_obj.installed.d912pxy != null && File.Exists(bin64 + config_obj.installed.d912pxy))
                 File.Move(bin64 + config_obj.installed.d912pxy, "Disabled Plugins\\d912pxy.dll");
 
             config_obj.disabled.d912pxy = true;

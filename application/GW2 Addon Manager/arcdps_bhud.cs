@@ -44,7 +44,7 @@ namespace GW2_Addon_Manager
             dynamic config_obj = configuration.getConfig();
             string game_path = config_obj.game_path;
             string bin64 = game_path + "\\" + config_obj.bin_folder + "\\";
-            if (config_obj.installed.arcdps_bhud != null)
+            if (config_obj.installed.arcdps_bhud != null && File.Exists(bin64 + config_obj.installed.arcdps_bhud))
                 File.Move(bin64 + config_obj.installed.arcdps_bhud, "Disabled Plugins\\arcdps_bhud.dll");
 
             config_obj.disabled.arcdps_bhud = true;

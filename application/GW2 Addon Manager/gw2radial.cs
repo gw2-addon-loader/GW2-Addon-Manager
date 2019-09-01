@@ -43,7 +43,7 @@ namespace GW2_Addon_Manager
         {
             dynamic config_obj = configuration.getConfig();
             string game_path = config_obj.game_path;
-            if (config_obj.installed.gw2radial != null)
+            if (config_obj.installed.gw2radial != null && File.Exists(game_path + "\\" + config_obj.bin_folder + "\\" + config_obj.installed.gw2radial))
                 File.Move(game_path + "\\" + config_obj.bin_folder + "\\" + config_obj.installed.gw2radial, "Disabled Plugins\\gw2radial.dll");
 
             config_obj.disabled.gw2radial = true;

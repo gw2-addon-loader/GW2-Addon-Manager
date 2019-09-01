@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Net;
+using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -14,7 +16,22 @@ namespace GW2_Addon_Manager
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            Application.Current.DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(AppDispatcherUnhandledException);
+            System.Net.ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            Current.DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(AppDispatcherUnhandledException);
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomainUnhandledException);
+        }
+
+        void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            #if DEBUG
+
+            e.Handled = false;
+
+            #else
+
+            ShowUnhandledException(e);
+
+            #endif
         }
 
         /// <summary>
@@ -52,6 +69,22 @@ namespace GW2_Addon_Manager
         }
 
         /// <summary>
+        /// Displays an error message when an unhandled exception is thrown.
+        /// </summary>
+        /// <param name="e">The exception information.</param>
+        void ShowUnhandledException(UnhandledExceptionEventArgs e)
+        {
+            LogError(logPath, e);
+            Exception exc = (Exception) e.ExceptionObject;
+            string errmsg = "An unhandled exception occurred." + "\n" + exc.Message + (exc.InnerException != null ? "\n" + exc.InnerException.Message : "");
+            if (MessageBox.Show(errmsg, "Critical Error", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+            {
+                Application.Current.Shutdown();
+            }
+
+        }
+
+        /// <summary>
         /// Writes information about unhandled exceptions to a log file.
         /// </summary>
         /// <param name="logfile">The path to the log file to be written to.</param>
@@ -62,6 +95,31 @@ namespace GW2_Addon_Manager
             string exceptionTree = "";
 
             Exception ex = e.Exception;
+            exceptionTree += ex.Message + "\n";
+
+            while (ex.InnerException != null)
+            {
+                ex = ex.InnerException;
+                exceptionTree += ex.Message + "\n";
+            }
+
+            string date = DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToString() + "\n";
+
+            string fullLogMsg = header + date + exceptionTree;
+            File.AppendAllText(logfile, fullLogMsg);
+        }
+
+        /// <summary>
+        /// Writes information about unhandled exceptions to a log file.
+        /// </summary>
+        /// <param name="logfile">The path to the log file to be written to.</param>
+        /// <param name="e">The exception information.</param>
+        void LogError(string logfile, UnhandledExceptionEventArgs e)
+        {
+            string header = "[Log Entry]\n";
+            string exceptionTree = "";
+
+            Exception ex = (Exception)e.ExceptionObject;
             exceptionTree += ex.Message + "\n";
 
             while (ex.InnerException != null)

@@ -49,28 +49,28 @@ namespace GW2_Addon_Manager
             gw2radial_name = config_obj.gw2Radial;
 
             //determining dll names
-            if ((bool)Application.Current.Properties["ArcDPS"] && !(bool)config_obj.disabled.arcdps)
+            if (((bool)Application.Current.Properties["ArcDPS"] || config_obj.installed.arcdps != null) && !(bool)config_obj.disabled.arcdps)
             {
                 arc_name = "d3d9.dll";
 
-                if ((bool)Application.Current.Properties["GW2Radial"] && !(bool)config_obj.disabled.gw2radial)
+                if (((bool)Application.Current.Properties["GW2Radial"] || config_obj.installed.gw2radial != null) && !(bool)config_obj.disabled.gw2radial)
                 {
                     gw2radial_name = "d3d9_chainload.dll";
                     d912pxy_name = "d912pxy.dll";
                     //gw2hook_name = "ReShade64.dll";
                 }
-                else if ((bool)Application.Current.Properties["d912pxy"] && !(bool)config_obj.disabled.d912pxy)
+                else if (((bool)Application.Current.Properties["d912pxy"] || config_obj.installed.d912pxy != null) && !(bool)config_obj.disabled.d912pxy)
                 {
                     d912pxy_name = "d3d9_chainload.dll";
                 }
             }
-            else if ((bool)Application.Current.Properties["GW2Radial"] && !(bool)config_obj.disabled.gw2radial)
+            else if (((bool)Application.Current.Properties["GW2Radial"] || config_obj.installed.gw2radial != null) && !(bool)config_obj.disabled.gw2radial)
             {
                 gw2radial_name = "d3d9.dll";
                 d912pxy_name = "d912pxy.dll";
                 //gw2hook_name = "ReShade64.dll";
             }
-            else if ((bool)Application.Current.Properties["d912pxy"] && !(bool)config_obj.disabled.d912pxy)
+            else if (((bool)Application.Current.Properties["d912pxy"] || config_obj.installed.d912pxy != null) && !(bool)config_obj.disabled.d912pxy)
             {
                 d912pxy_name = "d3d9.dll";
             }
