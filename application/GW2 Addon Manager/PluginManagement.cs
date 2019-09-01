@@ -11,6 +11,8 @@ namespace GW2_Addon_Manager
         /// <seealso cref="arcdps.delete()"/>
         /// <seealso cref="gw2radial.delete()"/>
         /// <seealso cref="d912pxy.delete()"/>
+        /// <seealso cref="arcdps_bhud.delete()"/>
+        /// <seealso cref="arcdps_mechanics.delete()"/>
         /// </summary>
         /// <param name="viewModel">The DataContext for the application UI.</param>
         public static void DeleteSelected(OpeningViewModel viewModel)
@@ -27,6 +29,8 @@ namespace GW2_Addon_Manager
                     d912pxy.delete();
                 if (viewModel.arcdps_bhud_CheckBox)
                     arcdps_bhud.delete();
+                if (viewModel.arcdps_mechanics_CheckBox)
+                    arcdps_mechanics.delete();
 
                 RenamePlugins();
             }
@@ -106,6 +110,8 @@ namespace GW2_Addon_Manager
         /// <seealso cref="arcdps.disable()"/>
         /// <seealso cref="gw2radial.disable()"/>
         /// <seealso cref="d912pxy.disable()"/>
+        /// <seealso cref="arcdps_bhud.disable()"/>
+        /// <seealso cref="arcdps_mechanics.disable()"/>
         /// </summary>
         /// <param name="viewModel">The DataContext for the application UI.</param>
         public static void DisableSelected(OpeningViewModel viewModel)
@@ -122,6 +128,8 @@ namespace GW2_Addon_Manager
                     d912pxy.disable();
                 if (viewModel.arcdps_bhud_CheckBox)
                     arcdps_bhud.disable();
+                if (viewModel.arcdps_mechanics_CheckBox)
+                    arcdps_mechanics.disable();
 
                 RenamePlugins();
             }
@@ -135,6 +143,8 @@ namespace GW2_Addon_Manager
         /// <seealso cref="arcdps.enable()"/>
         /// <seealso cref="gw2radial.enable()"/>
         /// <seealso cref="d912pxy.enable()"/>
+        /// <seealso cref="arcdps_bhud.enable()"/>
+        /// <seealso cref="arcdps_mechanics.enable()"/>
         /// </summary>
         /// <param name="viewModel">The DataContext for the application UI.</param>
         public static void EnableSelected(OpeningViewModel viewModel)
@@ -151,6 +161,8 @@ namespace GW2_Addon_Manager
                     d912pxy.enable();
                 if (viewModel.arcdps_bhud_CheckBox)
                     arcdps_bhud.enable();
+                if (viewModel.arcdps_mechanics_CheckBox)
+                    arcdps_mechanics.enable();
 
                 RenamePlugins();
                 configuration.DisplayAddonStatus(viewModel);

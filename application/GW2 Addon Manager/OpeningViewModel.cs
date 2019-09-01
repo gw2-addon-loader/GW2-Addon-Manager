@@ -137,6 +137,26 @@ namespace GW2_Addon_Manager
             set { _arc_content = value; propertyChanged("ArcDPS_Content"); }
         }
 
+        /* ArcDPS Mechanics Plugin */
+        private bool _arcdps_mechanics_box;
+        private string _arcdps_mechanics_content;
+        /// <summary>
+        /// The data binding for the ArcDPS checkbox's IsChecked property.
+        /// </summary>
+        public bool arcdps_mechanics_CheckBox
+        {
+            get { return _arcdps_mechanics_box; }
+            set { _arcdps_mechanics_box = value; propertyChanged("arcdps_mechanics_CheckBox"); }
+        }
+
+        /// <summary>
+        /// The data binding for the ArcDPS checkbox's Content property.
+        /// </summary>
+        public string arcdps_mechanics_Content
+        {
+            get { return _arcdps_mechanics_content; }
+            set { _arcdps_mechanics_content = value; propertyChanged("arcdps_mechanics_Content"); }
+        }
 
         /* GW2 Radial */
         private bool _radial_box;

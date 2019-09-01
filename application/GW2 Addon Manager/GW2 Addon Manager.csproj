@@ -123,6 +123,7 @@
     </ApplicationDefinition>
     <Compile Include="arcdps.cs" />
     <Compile Include="arcdps_bhud.cs" />
+    <Compile Include="arcdps_mechanics.cs" />
     <Compile Include="configuration.cs" />
     <Compile Include="d912pxy.cs" />
     <Compile Include="gw2radial.cs" />

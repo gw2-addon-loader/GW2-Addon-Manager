@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic.FileIO;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
@@ -32,7 +31,7 @@ namespace GW2_Addon_Manager
             /* emptying progress bar */
             currentView.showProgress = 0;
 
-            currentView.label = "Checking for Arcdps bhud updates";
+            currentView.label = "Checking for updates to ArcDPS for BlishHUD";
             arcdps_bhud_zip_path = Path.Combine(Path.GetTempPath(), "arcdps_bhud.zip");
             arcdps_bhud_expanded_path = Path.Combine(Path.GetTempPath(), "arcdps_bhud");
         }
@@ -81,7 +80,9 @@ namespace GW2_Addon_Manager
             string bin64 = game_path + "\\" + config_obj.bin_folder + "\\";
 
             /* if a .dll is associated with the add-on, delete it */
-            if (config_obj.installed.arcdps_bhud != null)
+            if ((bool)config_obj.disabled.arcdps_bhud)
+                File.Delete("Disabled Plugins\\" + dll_name);
+            else if (config_obj.installed.arcdps_bhud != null)
                 File.Delete(bin64 + config_obj.installed.arcdps_bhud);
 
             config_obj.version.arcdps_bhud = null;      //no installed version
@@ -107,7 +108,7 @@ namespace GW2_Addon_Manager
             dynamic config_obj = configuration.getConfig();
             if (config_obj.version.arcdps_bhud == null || config_obj.version.arcdps_bhud != latestRelease)
             {
-                currentView.label = "Downloading Arcdps bhud " + latestRelease;
+                currentView.label = "Downloading ArcDPS for BlishHUD " + latestRelease;
                 client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(arcdps_bhud_DownloadProgressChanged);
                 client.DownloadFileCompleted += new AsyncCompletedEventHandler(arcdps_bhud_DownloadCompleted);
                 await client.DownloadFileTaskAsync(new System.Uri(downloadUrl), arcdps_bhud_zip_path);

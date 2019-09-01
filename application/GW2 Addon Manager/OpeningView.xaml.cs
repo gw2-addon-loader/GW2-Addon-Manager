@@ -75,6 +75,11 @@ namespace GW2_Addon_Manager
             else
                 Application.Current.Properties["arcdps_bhud"] = false;
 
+            if (theViewModel.arcdps_mechanics_CheckBox)
+                Application.Current.Properties["arcdps_mechanics"] = true;
+            else
+                Application.Current.Properties["arcdps_mechanics"] = false;
+
             this.NavigationService.Navigate(new Uri("UpdatingView.xaml", UriKind.Relative));
         }
 

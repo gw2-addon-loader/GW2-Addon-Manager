@@ -124,6 +124,12 @@ namespace GW2_Addon_Manager
                 await bhud.update();
                 Update();
             }
+            else if ((bool)Application.Current.Properties["arcdps_mechanics"] && !(bool)config_obj.disabled.arcdps_mechanics)
+            {
+                arcdps_mechanics mechanics = new arcdps_mechanics(view);
+                await mechanics.update();
+                Update();
+            }
             else
             {
                 view.label = "Complete";
