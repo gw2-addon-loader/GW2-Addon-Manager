@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -25,7 +24,7 @@ namespace GW2_Addon_Manager
         {
             #if DEBUG
 
-            e.Handled = false;
+            
 
             #else
 

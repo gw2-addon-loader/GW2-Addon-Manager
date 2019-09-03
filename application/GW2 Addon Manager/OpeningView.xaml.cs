@@ -26,6 +26,46 @@ namespace GW2_Addon_Manager
             InitializeComponent();
         }
 
+
+        /**** What Add-On Is Selected ****/
+        public void addOnList_SelectedIndexChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (addOnList.SelectedIndex)
+            {
+                
+                case 0:
+                    AddonInfo arc = UpdateFileReader.getBuiltInInfo("arcdps");
+                    theViewModel.DescriptionText = arc.description;
+                    theViewModel.Developer = arc.developer;
+                    theViewModel.DeveloperVisibility = Visibility.Visible;
+                    break;
+                case 1:
+                    AddonInfo radial = UpdateFileReader.getBuiltInInfo("gw2radial");
+                    theViewModel.DescriptionText = radial.description;
+                    theViewModel.Developer = radial.developer;
+                    theViewModel.DeveloperVisibility = Visibility.Visible;
+                    break;
+                case 2:
+                    AddonInfo d912pxy = UpdateFileReader.getBuiltInInfo("d912pxy");
+                    theViewModel.DescriptionText = d912pxy.description;
+                    theViewModel.Developer = d912pxy.developer;
+                    theViewModel.DeveloperVisibility = Visibility.Visible;
+                    break;
+                case 3:
+                    AddonInfo arcdps_bhud = UpdateFileReader.getBuiltInInfo("arcdps_bhud");
+                    theViewModel.DescriptionText = arcdps_bhud.description;
+                    theViewModel.Developer = arcdps_bhud.developer;
+                    theViewModel.DeveloperVisibility = Visibility.Visible;
+                    break;
+                case 4:
+                    AddonInfo arcdps_mechanics = UpdateFileReader.getBuiltInInfo("arcdps_mechanics");
+                    theViewModel.DescriptionText = arcdps_mechanics.description;
+                    theViewModel.Developer = arcdps_mechanics.developer;
+                    theViewModel.DeveloperVisibility = Visibility.Visible;
+                    break;
+            }
+        }
+
         /***************************** NAV BAR *****************************/
         private void TitleBar_MouseHeld(object sender, MouseButtonEventArgs e)
         {
@@ -34,6 +74,7 @@ namespace GW2_Addon_Manager
         }
 
         
+
         //race condition with processes
         private void close_clicked(object sender, RoutedEventArgs e)
         {

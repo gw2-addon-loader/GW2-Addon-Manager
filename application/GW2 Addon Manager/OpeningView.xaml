@@ -159,16 +159,45 @@
                  />
         <Border Grid.Row="2" Width="250" Height="300" HorizontalAlignment="Left" Margin="40,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
             <StackPanel Width="250" Height="275" HorizontalAlignment="Left">
-
                 <Label FontSize="18" FontFamily="Microsoft YaHei UI" Margin="0,5,0,10" HorizontalAlignment="Center" Foreground="DimGray" Content="Add-Ons"/>
                 <TextBlock Width="225" Height="50" Margin="5,0,0,0" FontFamily="Microsoft YaHei UI Light"><Run Text="Select all currently installed add-ons for"/><LineBreak/><Run Text="Guild Wars 2 as well as any you want"/><LineBreak/><Run Text="to install."/></TextBlock>
-                <CheckBox IsChecked="{Binding ArcDPS_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding ArcDPS_Content}" ToolTip="Offers a DPS meter and build template functionality - by DeltaConnected"/>
-                <CheckBox IsChecked="{Binding GW2Radial_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding GW2Radial_Content}" ToolTip="Provides a menu with access to all unlocked mounts with one keypress - by Friendly0Fire"/>
-                <CheckBox IsChecked="{Binding d912pxy_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding d912pxy_Content}" ToolTip="Translates DirectX 9 calls to DirectX 12 for performance improvements - by Megai2"/>
-                <CheckBox IsChecked="{Binding arcdps_bhud_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding arcdps_bhud_Content}" ToolTip="Uses the ArcDPS Combat API to provide data to Blish HUD - by Greaka"/>
-                <CheckBox IsChecked="{Binding arcdps_mechanics_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding arcdps_mechanics_Content}" ToolTip="Provides information about raid mechanics using the ArcDPS Combat API - by Martion"/>
+                <ListView Name="addOnList"
+                          SelectionChanged="addOnList_SelectedIndexChanged"
+                          Background="WhiteSmoke"
+                          BorderThickness="0"
+                          >
+                    <ListViewItem>
+                        <CheckBox IsChecked="{Binding ArcDPS_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding ArcDPS_Content}" ToolTip="{Binding ArcDPS_Tooltip}"/>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <CheckBox IsChecked="{Binding GW2Radial_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding GW2Radial_Content}" ToolTip="{Binding GW2Radial_Tooltip}"/>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <CheckBox IsChecked="{Binding d912pxy_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding d912pxy_Content}" ToolTip="{Binding d912pxy_Tooltip}"/>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <CheckBox IsChecked="{Binding arcdps_bhud_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding arcdps_bhud_Content}" ToolTip="{Binding arcdps_bhud_Tooltip}"/>
+                    </ListViewItem>
+                    <ListViewItem>
+                        <CheckBox IsChecked="{Binding arcdps_mechanics_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding arcdps_mechanics_Content}" ToolTip="{Binding arcdps_mechanics_Tooltip}"/>
+                    </ListViewItem>
+                </ListView>
                 <!--<CheckBox Name="gw2hook" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14">Gw2 Hook</CheckBox>-->
             </StackPanel>
+        </Border>
+
+        <Border Grid.Row="2" Width="500" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="325,55,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
+            <Grid>
+                <DockPanel Width="500" Height="200" HorizontalAlignment="Left">
+                    <Label FontSize="13" FontFamily="Microsoft YaHei UI" DockPanel.Dock="Right" Width="auto" Margin="0,10,0,0" Padding="0,10,10,10" Foreground="DimGray" Content="{Binding Developer}"/>
+                    <Label FontSize="13" FontFamily="Microsoft YaHei UI" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="0,10,0,0" Padding="10,10,0,10" Visibility="{Binding DeveloperVisibility}" Foreground="DimGray" Content="Developer: "/>
+                </DockPanel>
+                <StackPanel Width="500" Height="200" HorizontalAlignment="Left">
+                    <Label FontSize="18" FontFamily="Microsoft YaHei UI" Margin="15,10,0,10" HorizontalAlignment="Left" Foreground="DimGray" Content="Description"/>
+
+                    <TextBlock Width="455" Height="140" Margin="0,0,0,0" TextWrapping="Wrap" FontFamily="Microsoft YaHei UI Light" Text="{Binding DescriptionText}" />
+                </StackPanel>
+            </Grid>
         </Border>
         <Button Grid.Row="3"
                 Command="{Binding Path=SetDefaultAddons}"

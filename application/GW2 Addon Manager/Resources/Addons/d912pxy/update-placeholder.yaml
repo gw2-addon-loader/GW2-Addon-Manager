@@ -1,0 +1,29 @@
+﻿# Update files are intended to provide information for:
+# Installation
+# Plugin configuration
+# User-Facing information displayed on the UI
+
+# developer of the add-on
+developer: Megai2
+# website where more information about the add-on can be found
+website: https://github.com/megai2/d912pxy
+# name of the add-on
+addon_name: d912pxy
+# descriptive text for the addon
+description: "D912pxy is a tool that allows Guild Wars 2 to use DirectX 12 by translating calls for DirectX 9 to DirectX 12. The developer says: \n\n\"What to expect from this?
+    More stable FPS in general - Higer FPS if you have free CPU and GPU power - Lower FPS if you have no extra CPU power / GPU power - Higher RAM and VRAM usage - 
+    Using eGPU you can expect big improvements due to GPU-CPU bandwith optimization - Some visual bugs and most notable character portraits glitching\""
+
+# tooltip - basically description but in brief
+tooltip: Translates DirectX 9 calls to DirectX 12 for performance improvements - by Megai2
+# the name of the add-on's plugin file or blank if it has no specific name (add-ons that need to be named d3d9.dll, d3d9_chainload.dll, d3d9_mchain.dll etc fall into this category)
+plugin_name:
+# where the plugin file is to be located
+plugin_location: game_path/bin_folder/
+# a list of all other add-ons required for this add-on to function
+requires:
+# a list of all add-ons that prevent this add-on from functioning properly
+conflicts:
+# plugin names to use if an optional add-on can chainload this one
+alternate_plugin_names:
+    - gw2radial: d912pxy.dll

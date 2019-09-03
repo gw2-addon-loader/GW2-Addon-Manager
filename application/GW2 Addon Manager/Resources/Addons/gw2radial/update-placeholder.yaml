@@ -1,0 +1,26 @@
+﻿# Update files are intended to provide information for:
+# Installation
+# Plugin configuration
+# User-Facing information displayed on the UI
+
+# developer of the add-on
+developer: FriendlyFire
+# website where more information about the add-on can be found
+website: https://github.com/Friendly0Fire/GW2Radial
+# name of the add-on
+addon_name: GW2 Radial
+# descriptive text for the addon
+description: "\"An ArenaNET-approved addon to show a convenient, customizable radial menu overlay to select a mount, novelty item and more, on the fly, for Guild Wars 2: Path of Fire.
+This addon is compatible with the Windows client only; it will not work with the Mac client.\" - FriendlyFire"
+# tooltip - basically description but in brief
+tooltip: Provides a menu with access to all unlocked mounts with one keypress - by FriendlyFire
+# the name of the add-on's plugin file or blank if it has no specific name (add-ons that need to be named d3d9.dll, d3d9_chainload.dll, d3d9_mchain.dll etc fall into this category)
+plugin_name:
+# where the plugin file is to be located
+plugin_location: game_path/addons/example-addon-name/
+# a list of all other add-ons required for this add-on to function
+requires:
+# a list of all add-ons that prevent this add-on from functioning properly
+conflicts:
+# plugin names to use if an optional add-on can chainload this one
+alternate_plugin_names:

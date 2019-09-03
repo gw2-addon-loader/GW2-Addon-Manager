@@ -10,7 +10,6 @@ namespace GW2_Addon_Manager
     class arcdps_bhud
     {
         UpdatingViewModel currentView;
-        static string dll_name = "arcdps_bhud.dll";
         string game_path;
         string bin64;
         string latestRelease;
@@ -56,6 +55,7 @@ namespace GW2_Addon_Manager
         /// </summary>
         public static void enable()
         {
+            string dll_name = UpdateFileReader.getBuiltInInfo("arcdps_bhud").plugin_name;
             dynamic config_obj = configuration.getConfig();
             string game_path = config_obj.game_path;
             string bin64 = game_path + "\\" + config_obj.bin_folder + "\\";
@@ -75,6 +75,7 @@ namespace GW2_Addon_Manager
         /// </summary>
         public static void delete()
         {
+            string dll_name = UpdateFileReader.getBuiltInInfo("arcdps_bhud").plugin_name;
             dynamic config_obj = configuration.getConfig();
             string game_path = config_obj.game_path;
             string bin64 = game_path + "\\" + config_obj.bin_folder + "\\";
@@ -135,12 +136,16 @@ namespace GW2_Addon_Manager
         /// </summary>
         public void install()
         {
+            string dll_name = UpdateFileReader.getBuiltInInfo("arcdps_bhud").plugin_name;
             currentView.label = "Installing Arcdps bhud " + latestRelease;
 
             if (Directory.Exists(arcdps_bhud_expanded_path))
                 Directory.Delete(arcdps_bhud_expanded_path, true);
 
             ZipFile.ExtractToDirectory(arcdps_bhud_zip_path, arcdps_bhud_expanded_path);
+
+            UpdateFileReader.CheckForUpdateYaml("arcdps_bhud", arcdps_bhud_expanded_path);
+
             File.Copy(Path.Combine(arcdps_bhud_expanded_path, dll_name), bin64 + dll_name, true);
 
             dynamic config_obj = configuration.getConfig();

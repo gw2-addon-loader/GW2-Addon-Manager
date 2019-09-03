@@ -1,0 +1,27 @@
+﻿# Update files are intended to provide information for:
+# Installation
+# Plugin configuration
+# User-Facing information displayed on the UI
+
+# developer of the add-on
+developer: MarsEdge
+# website where more information about the add-on can be found
+website: http://martionlabs.com/arcdps-mechanics-log-plugin/
+# name of the add-on
+addon_name: ArcDPS Mechanics Plugin
+# descriptive text for the addon
+description: "\"The plugin shows a realtime list of failed mechanics for players. The mechanics are determined by the skill id of the attack a player/npc is hit by. 
+It shows a timestamp in ‘min:sec’ since entering combat and ‘X was hit by Y mechanic’.\" - MarsEdge"
+# tooltip - basically description but in brief
+tooltip: Provides information about raid mechanics using the ArcDPS Combat API - by Martion
+# the name of the add-on's plugin file or blank if it has no specific name (add-ons that need to be named d3d9.dll, d3d9_chainload.dll, d3d9_mchain.dll etc fall into this category)
+plugin_name: d3d9_arcdps_mechanics.dll
+# where the plugin file is to be located
+plugin_location: game_path/bin_folder/
+# a list of all other add-ons required for this add-on to function
+requires:
+    - arcdps
+# a list of all add-ons that prevent this add-on from functioning properly
+conflicts:
+# plugin names to use if an optional add-on can chainload this one
+alternate_plugin_names:

@@ -36,17 +36,23 @@ namespace GW2_Addon_Manager
         /// </summary>
         public OpeningViewModel()
         {
-            /* default values for various properties */
-            ArcDPS_CheckBox = false;
-            ArcDPS_Content = "ArcDPS";
+            AddonInfo arcdps = UpdateFileReader.getBuiltInInfo("arcdps");
+            ArcDPS_Tooltip = arcdps.tooltip;
 
-            GW2Radial_CheckBox = false;
-            GW2Radial_Content = "GW2 Radial";
+            AddonInfo d912pxy = UpdateFileReader.getBuiltInInfo("d912pxy");
+            d912pxy_Tooltip = d912pxy.tooltip;
 
-            d912pxy_CheckBox = false;
-            d912pxy_Content = "d912pxy";
+            AddonInfo gw2radial = UpdateFileReader.getBuiltInInfo("gw2radial");
+            GW2Radial_Tooltip = gw2radial.tooltip;
 
-            //bhud
+            AddonInfo arcdps_mechanics = UpdateFileReader.getBuiltInInfo("arcdps_mechanics");
+            arcdps_mechanics_Tooltip = arcdps_mechanics.tooltip;
+
+            AddonInfo arcdps_bhud = UpdateFileReader.getBuiltInInfo("arcdps_bhud");
+            arcdps_bhud_Tooltip = arcdps_bhud.tooltip;
+
+            DescriptionText = "Select an add-on to see more information about it.";
+            DeveloperVisibility = Visibility.Hidden;
 
             UpdateLinkVisibility = Visibility.Hidden;
             UpdateProgressVisibility = Visibility.Hidden;
@@ -56,6 +62,31 @@ namespace GW2_Addon_Manager
             /* applying any values from config.ini */
             configuration.ApplyDefaultConfig(this);
         }
+
+
+        /***** Description Panel Text *****/
+        private string _description;
+        public string DescriptionText
+        {
+            get { return _description; }
+            set { _description = value; propertyChanged("DescriptionText"); }
+        }
+
+        /***** "Developer" label *****/
+        private string _developer;
+        public string Developer
+        {
+            get { return _developer; }
+            set { _developer = value; propertyChanged("Developer"); }
+        }
+
+        private Visibility _developer_visibility;
+        public Visibility DeveloperVisibility
+        {
+            get { return _developer_visibility; }
+            set { _developer_visibility = value; propertyChanged("DeveloperVisibility"); }
+        }
+
 
 
         /***** Application Version Status *****/
@@ -116,11 +147,13 @@ namespace GW2_Addon_Manager
         /***** ************************** *****/
 
 
-        /* ARC */
+        /************************** ArcDPS **************************/
         private bool _arc_box;
         private string _arc_content;
+        private string _arc_tooltip;
+        private string _arc_desc;
         /// <summary>
-        /// The data binding for the ArcDPS checkbox's IsChecked property.
+        /// Binding for the ArcDPS checkbox's IsChecked property.
         /// </summary>
         public bool ArcDPS_CheckBox
         {
@@ -129,7 +162,7 @@ namespace GW2_Addon_Manager
         }
 
         /// <summary>
-        /// The data binding for the ArcDPS checkbox's Content property.
+        /// Binding for the ArcDPS checkbox's Content property.
         /// </summary>
         public string ArcDPS_Content
         {
@@ -137,9 +170,32 @@ namespace GW2_Addon_Manager
             set { _arc_content = value; propertyChanged("ArcDPS_Content"); }
         }
 
-        /* ArcDPS Mechanics Plugin */
+        /// <summary>
+        /// Binding for the ArcDPS checkbox tooltip.
+        /// </summary>
+        public string ArcDPS_Tooltip
+        {
+            get { return _arc_tooltip;  }
+            set { _arc_tooltip = value; propertyChanged("ArcDPS_Tooltip"); }
+        }
+
+        /// <summary>
+        /// Binding for the ArcDPS description (unused).
+        /// </summary>
+        public string ArcDPS_Description
+        {
+            get { return _arc_desc; }
+            set { _arc_desc = value; propertyChanged("ArcDPS_Description"); }
+        }
+
+
+
+
+        /************************** ArcDPS Mechanics Plugin **************************/
         private bool _arcdps_mechanics_box;
         private string _arcdps_mechanics_content;
+        private string _arcdps_mechanics_tooltip;
+        private string _arcdps_mechanics_desc;
         /// <summary>
         /// The data binding for the ArcDPS checkbox's IsChecked property.
         /// </summary>
@@ -158,9 +214,31 @@ namespace GW2_Addon_Manager
             set { _arcdps_mechanics_content = value; propertyChanged("arcdps_mechanics_Content"); }
         }
 
-        /* GW2 Radial */
+        /// <summary>
+        /// Binding for the ArcDPS mechanics checkbox tooltip.
+        /// </summary>
+        public string arcdps_mechanics_Tooltip
+        {
+            get { return _arcdps_mechanics_tooltip; }
+            set { _arcdps_mechanics_tooltip = value; propertyChanged("arcdps_mechanics_Tooltip"); }
+        }
+
+        /// <summary>
+        /// Binding for the ArcDPS mechanics description (unused).
+        /// </summary>
+        public string arcdps_mechanics_Description
+        {
+            get { return _arcdps_mechanics_desc; }
+            set { _arcdps_mechanics_desc = value; propertyChanged("arcdps_mechanics_Description"); }
+        }
+
+
+
+        /************************** GW2 Radial **************************/
         private bool _radial_box;
         private string _radial_content;
+        private string _radial_tooltip;
+        private string _radial_desc;
 
         /// <summary>
         /// The data binding for the GW2 Radial checkbox's IsChecked property.
@@ -179,10 +257,23 @@ namespace GW2_Addon_Manager
             set { _radial_content = value; propertyChanged("GW2Radial_Content"); }
         }
 
+        public string GW2Radial_Tooltip
+        {
+            get { return _radial_tooltip; }
+            set { _radial_tooltip = value; propertyChanged("GW2Radial_Tooltip"); }
+        }
 
-        /* d912pxy */
+        public string GW2Radial_Description
+        {
+            get { return _radial_desc; }
+            set { _radial_desc = value; propertyChanged("GW2Radial_Description"); }
+        }
+
+        /************************** d912pxy **************************/
         private bool _d912pxy_box;
         private string _d912pxy_content;
+        private string _d912pxy_tooltip;
+        private string _d912pxy_desc;
         /// <summary>
         /// The data binding for the d912pxy checkbox's IsChecked property.
         /// </summary>
@@ -200,10 +291,25 @@ namespace GW2_Addon_Manager
             set { _d912pxy_content = value; propertyChanged("d912pxy_Content"); }
         }
 
+        public string d912pxy_Tooltip
+        {
+            get { return _d912pxy_tooltip; }
+            set { _d912pxy_tooltip = value; propertyChanged("d912pxy_Tooltip"); }
+        }
 
-        /* arcdps bhud integration */
+        public string d912pxy_Description
+        {
+            get { return _d912pxy_desc; }
+            set { _d912pxy_desc = value; propertyChanged("d912pxy_Description"); }
+        }
+
+
+        /************************** arcdps bhud integration **************************/
         private bool _arcdps_bhud_box;
         private string _arcdps_bhud_content;
+        private string _arcdps_bhud_tooltip;
+        private string _arcdps_bhud_desc;
+
         /// <summary>
         /// The data binding for the arcdps bhud checkbox's IsChecked property.
         /// </summary>
@@ -221,7 +327,17 @@ namespace GW2_Addon_Manager
             set { _arcdps_bhud_content = value; propertyChanged("arcdps_bhud_Content"); }
         }
 
+        public string arcdps_bhud_Tooltip
+        {
+            get { return _arcdps_bhud_tooltip; }
+            set { _arcdps_bhud_tooltip = value; propertyChanged("arcdps_bhud_Tooltip"); }
+        }
 
+        public string arcdps_bhud_Description
+        {
+            get { return _arcdps_bhud_desc; }
+            set { _arcdps_bhud_desc = value; propertyChanged("arcdps_bhud_Description"); }
+        }
 
         /// <summary>
         /// Binding for the Content property of the text box displayed on the opening page.

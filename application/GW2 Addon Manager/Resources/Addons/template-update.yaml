@@ -1,0 +1,32 @@
+﻿# Update files are intended to provide information for:
+# Installation
+# Plugin configuration
+# User-Facing information displayed on the UI
+
+# developer of the add-on
+developer: somebody
+# website where more information about the add-on can be found
+website: somewebaddress.com
+# name of the add-on
+addon_name: example name
+# descriptive text for the addon
+description: example text lorem ipsum doret something something
+# tooltip - basically description but in brief
+tooltip: relatively short tooltip text - (this length is fine)
+# the name of the add-on's plugin file or blank if it has no specific name (add-ons that need to be named d3d9.dll, d3d9_chainload.dll, d3d9_mchain.dll etc fall into this category)
+plugin_name: d3d9_example.dll
+# where the plugin file is to be located
+plugin_location: game_path/addons/example-addon-name/
+# a list of all other add-ons required for this add-on to function
+requires:
+    - name1
+    - name2
+    - name3
+# a list of all add-ons that prevent this add-on from functioning properly
+conflicts:
+    - name4
+    - name5
+    - name6
+# plugin names to use if an optional add-on can chainload this one
+alternate_plugin_names:
+    - addon_that_chainloads_this_one: filename_that_it_chainloads

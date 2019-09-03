@@ -115,12 +115,16 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="YamlDotNet, Version=6.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.6.1.2\lib\net45\YamlDotNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddonInfo.cs" />
     <Compile Include="arcdps.cs" />
     <Compile Include="arcdps_bhud.cs" />
     <Compile Include="arcdps_mechanics.cs" />
@@ -130,6 +134,7 @@
     <Compile Include="OpeningViewModel.cs" />
     <Compile Include="PluginManagement.cs" />
     <Compile Include="SelfUpdate.cs" />
+    <Compile Include="UpdateFileReader.cs" />
     <Compile Include="UpdateHelpers.cs" />
     <Compile Include="Updates.cs" />
     <Compile Include="UpdatingView.xaml.cs">
@@ -189,6 +194,15 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Resources\config_template.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\Addons\arcdps\update-placeholder.yaml" />
+    <None Include="Resources\Addons\arcdps_bhud\update-placeholder.yaml" />
+    <None Include="Resources\Addons\arcdps_mechanics\update-placeholder.yaml" />
+    <None Include="Resources\Addons\d912pxy\update-placeholder.yaml" />
+    <None Include="Resources\Addons\gw2radial\update-placeholder.yaml" />
+    <None Include="Resources\Addons\template-update.yaml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -231,9 +245,11 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(TargetDir)resources\plugins"
-move "$(TargetDir)*.dll" "$(TargetDir)resources\plugins"</PostBuildEvent>
+move "$(TargetDir)*.dll" "$(TargetDir)resources\plugins"
+xcopy "$(ProjectDir)\resources\addons" "$(ProjectDir)$(OutDir)\resources\Addons\" /S /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

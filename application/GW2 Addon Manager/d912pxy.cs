@@ -165,6 +165,9 @@ namespace GW2_Addon_Manager
                 Directory.Delete(d912pxy_expanded_path, true);
 
             ZipFile.ExtractToDirectory(d912pxy_zip_path, d912pxy_expanded_path);
+
+            UpdateFileReader.CheckForUpdateYaml("d912pxy", d912pxy_expanded_path);
+
             FileSystem.CopyDirectory(d912pxy_expanded_path, game_path, true);
 
             File.Copy(dll_release_location, dll_destination, true);

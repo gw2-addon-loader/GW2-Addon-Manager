@@ -1,0 +1,26 @@
+﻿# Update files are intended to provide information for:
+# Installation
+# Plugin configuration
+# User-Facing information displayed on the UI
+
+# developer of the add-on
+developer: DeltaConnected
+# website where more information about the add-on can be found
+website: https://www.deltaconnected.com/arcdps/
+# name of the add-on
+addon_name: ArcDPS
+# descriptive text for the addon
+description: "ArcDPS allows the player to see their DPS and also includes a build templates feature.
+By default, these menus are accessed in-game with the keybinds alt+shift+h and alt+shift+d respectively. For more information, visit deltaconnected.com/arcdps."
+# tooltip - basically description but in brief
+tooltip: Offers a DPS meter and build template functionality - by DeltaConnected
+# the name of the add-on's plugin file or blank if it has no specific name (add-ons that need to be named d3d9.dll, d3d9_chainload.dll, d3d9_mchain.dll etc fall into this category)
+plugin_name:
+# where the plugin file is to be located
+plugin_location: game_path\bin_folder\
+# a list of all other add-ons required for this add-on to function
+requires:
+# a list of all add-ons that prevent this add-on from functioning properly
+conflicts:
+# plugin names to use if an optional add-on can chainload this one
+alternate_plugin_names:
