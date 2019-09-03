@@ -1,8 +1,9 @@
 ﻿# Update files are intended to provide information for:
 # Installation
 # Plugin configuration
-# User-Facing information displayed on the UI
+# User-Facing information displayed on the addon manager UI
 
+### USER-FACING INFO ###
 # developer of the add-on
 developer: Greaka
 # website where more information about the add-on can be found
@@ -13,14 +14,26 @@ addon_name: ArcDPS Blish HUD Integration
 description: "\"This is a plugin that uses the Arcdps Combat API and exposes some of the data to Blish HUD.\" - Greaka"
 # tooltip - basically description but in brief
 tooltip: Uses the ArcDPS Combat API to provide data to Blish HUD - by Greaka
-# the name of the add-on's plugin file or blank if it has no specific name (add-ons that need to be named d3d9.dll, d3d9_chainload.dll, d3d9_mchain.dll etc fall into this category)
-plugin_name: arcdps_bhud.dll
-# where the plugin file is to be located
-plugin_location: game_path/bin_folder/
+
+### DOWNLOADING/INSTALLATION ###
+# github or standalone
+host_type: github
+# either github API url or direct URL to file/archive - former is parsed to find latest version and download link,
+# latter is a direct download link to a file/archive
+host_url: https://api.github.com/repositories/187708533/releases/latest
+# for md5sum files and things of that nature; files that exist solely to show what the latest version is. Standalone only.
+version_url: 
+# archive or .dll
+download_type: archive
+# binary or d3d9 - binary leaves plugin name as-is, d3d9 means filename may be changed for chainloading
+install_mode: binary
+
+### CONFIGURATION ###
 # a list of all other add-ons required for this add-on to function
 requires:
     - arcdps
 # a list of all add-ons that prevent this add-on from functioning properly
 conflicts:
 # plugin names to use if an optional add-on can chainload this one
+# I'm considering removing this field - it really only has one use case, that being d912pxy loaded by GW2radial.
 alternate_plugin_names:

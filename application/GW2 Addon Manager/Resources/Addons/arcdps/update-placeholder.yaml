@@ -1,8 +1,9 @@
 ﻿# Update files are intended to provide information for:
 # Installation
 # Plugin configuration
-# User-Facing information displayed on the UI
+# User-Facing information displayed on the addon manager UI
 
+### USER-FACING INFO ###
 # developer of the add-on
 developer: DeltaConnected
 # website where more information about the add-on can be found
@@ -14,13 +15,25 @@ description: "ArcDPS allows the player to see their DPS and also includes a buil
 By default, these menus are accessed in-game with the keybinds alt+shift+h and alt+shift+d respectively. For more information, visit deltaconnected.com/arcdps."
 # tooltip - basically description but in brief
 tooltip: Offers a DPS meter and build template functionality - by DeltaConnected
-# the name of the add-on's plugin file or blank if it has no specific name (add-ons that need to be named d3d9.dll, d3d9_chainload.dll, d3d9_mchain.dll etc fall into this category)
-plugin_name:
-# where the plugin file is to be located
-plugin_location: game_path\bin_folder\
+
+### DOWNLOADING/INSTALLATION ###
+# github or standalone
+host_type: standalone
+# either github API url or direct URL to file/archive - former is parsed to find latest version and download link,
+# latter is a direct download link to a file/archive
+host_url: https://www.deltaconnected.com/arcdps/x64/d3d9.dll
+# for md5sum files and things of that nature; files that exist solely to show what the latest version is. Standalone only.
+version_url: https://www.deltaconnected.com/arcdps/x64/d3d9.dll.md5sum
+# archive or .dll
+download_type: .dll
+# binary or d3d9 - binary leaves plugin name as-is, d3d9 means filename may be changed for chainloading
+install_mode: d3d9
+
+### CONFIGURATION ###
 # a list of all other add-ons required for this add-on to function
 requires:
 # a list of all add-ons that prevent this add-on from functioning properly
 conflicts:
 # plugin names to use if an optional add-on can chainload this one
+# I'm considering removing this field - it really only has one use case, that being d912pxy loaded by GW2radial.
 alternate_plugin_names:

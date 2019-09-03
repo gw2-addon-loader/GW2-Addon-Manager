@@ -12,7 +12,13 @@ namespace GW2_Addon_Manager
         public string description;
         public string tooltip;
 
-        public string plugin_location;
+        public string host_type;
+        public string host_url;
+        public string version_url;
+        public string download_type;
+        public string install_mode;
+
+
 
         public List<string> requires;
         public List<string> conflicts;
