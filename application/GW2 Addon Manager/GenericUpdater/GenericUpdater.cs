@@ -19,7 +19,6 @@ namespace GW2_Addon_Manager
         string addon_install_path;
 
 
-
         public GenericUpdater(string name, UpdatingViewModel aViewModel)
         {
             addon_name = name;
@@ -47,6 +46,42 @@ namespace GW2_Addon_Manager
             }
         }
 
+        /***** UPDATE CHECK *****/
+
+        /// <summary>
+        /// Checks whether an update is required and performs it for an add-on hosted on Github.
+        /// </summary>
+        private void GitCheckUpdate()
+        {
+            var client = new WebClient();
+            client.Headers.Add("User-Agent", "request");
+
+            dynamic release_info = UpdateHelpers.GitReleaseInfo(addon_info.host_url);
+            string latestRelease = release_info.tag_name;
+
+            if (userConfig.version[addon_name] != null && latestRelease == userConfig.version[addon_name])
+                return;
+
+            viewModel.label = "Downloading " + addon_info.addon_name + " " + latestRelease;
+            Download(release_info.assets[0].browser_download_url, client);
+        }
+
+        private void StandaloneUpdate()
+        {
+            var client = new WebClient();
+            string latestVersion = client.DownloadString(addon_info.version_url);
+
+            if (userConfig.version[addon_name] != null && latestVersion == userConfig.version[addon_name])
+                return;
+
+            viewModel.label = "Downloading " + addon_info.addon_name + " " + latestVersion;
+            Download(addon_info.host_url, client);
+        }
+
+
+
+        /***** DOWNLOAD *****/
+
         /// <summary>
         /// Downloads an add-on from the url specified in <paramref name="url"/> using the WebClient provided in <paramref name="client"/>.
         /// </summary>
@@ -63,6 +98,9 @@ namespace GW2_Addon_Manager
 
             Install();
         }
+
+
+        /***** INSTALL *****/
 
         /// <summary>
         /// Performs archive extraction and file IO operations to install the downloaded addon.
@@ -85,25 +123,8 @@ namespace GW2_Addon_Manager
 
         }
 
-        /// <summary>
-        /// Checks whether an update is required and performs it for an add-on hosted on Github.
-        /// </summary>
-        private void GitCheckUpdate()
-        {
-            var client = new WebClient();
-            client.Headers.Add("User-Agent", "request");
 
-            dynamic release_info = UpdateHelpers.GitReleaseInfo(addon_info.host_url);
-            string latestRelease = release_info.tag_name;
-
-            if (userConfig.version[addon_name] != null && latestRelease == userConfig.version[addon_name])
-                return;
-
-            viewModel.label = "Downloading " + addon_info.addon_name + " " + latestRelease;
-            Download(release_info.assets[0].browser_download_url, client);
-        }
-
-
+        /***** DOWNLOAD EVENTS *****/
         void addon_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             viewModel.showProgress = e.ProgressPercentage;
@@ -114,17 +135,7 @@ namespace GW2_Addon_Manager
             
         }
 
-        private void StandaloneUpdate()
-        {
-            var client = new WebClient();
-            string latestVersion = client.DownloadString(addon_info.version_url);
-
-            if (userConfig.version[addon_name] != null && latestVersion == userConfig.version[addon_name])
-                return;
-
-            viewModel.label = "Downloading " + addon_info.addon_name + " " + latestVersion;
-            Download(addon_info.host_url, client);
-        }
+        
 
     }
 }
