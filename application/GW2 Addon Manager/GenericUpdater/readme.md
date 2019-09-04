@@ -12,5 +12,6 @@ How it will most likely work eventually:
 - Application reads from /addons and converts each update.yaml into an AddonInfo object which goes into a List
 - Application UI displays information based on each item in this list
 - If an item is checked off in a checkboxlist in the UI and UPDATE is clicked, an instance of GenericUpdater is created for the addon corresponding to that checkbox and thataddon.Update() is run
+- this update process generally involves downloading an addon to (game folder)/addons/(addon name)/, as well as either copying its update.yaml file to that folder or having it included in the release (for the addon loader to read from)
 - During this process a list of chainloaded addons is recorded, and afterwards any chainloaded plugin configuration occurs
 - Update process is finished
