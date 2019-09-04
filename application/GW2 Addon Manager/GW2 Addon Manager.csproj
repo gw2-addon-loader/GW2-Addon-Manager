@@ -125,12 +125,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AddonInfo.cs" />
-    <Compile Include="arcdps.cs" />
-    <Compile Include="arcdps_bhud.cs" />
-    <Compile Include="arcdps_mechanics.cs" />
+    <Compile Include="HardcodedUpdaters\arcdps.cs" />
+    <Compile Include="HardcodedUpdaters\arcdps_bhud.cs" />
+    <Compile Include="HardcodedUpdaters\arcdps_mechanics.cs" />
+    <Compile Include="config.cs" />
     <Compile Include="configuration.cs" />
-    <Compile Include="d912pxy.cs" />
-    <Compile Include="gw2radial.cs" />
+    <Compile Include="HardcodedUpdaters\d912pxy.cs" />
+    <Compile Include="GenericUpdater.cs" />
+    <Compile Include="HardcodedUpdaters\gw2radial.cs" />
     <Compile Include="OpeningViewModel.cs" />
     <Compile Include="PluginManagement.cs" />
     <Compile Include="SelfUpdate.cs" />
@@ -226,6 +228,9 @@
     <Content Include="Resources\GW2-UOAOU-UI.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\config_template.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\logo.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -245,7 +250,9 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UniversalUpdater\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(TargetDir)resources\plugins"

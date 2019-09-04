@@ -6,7 +6,7 @@ namespace GW2_Addon_Manager
     /// <summary>
     /// Intended to read update.yaml files provided in addons that adhere to a specific set of specifications laid out for use by GW2-UOAOM and GW2-AddOn-Loader.
     /// </summary>
-    class UpdateFileReader
+    class UpdateYamlReader
     {
         /// <summary>
         /// Gets info for an add-on from update.yaml provided by the author or packaged with the application (when the author hasn't written one yet).

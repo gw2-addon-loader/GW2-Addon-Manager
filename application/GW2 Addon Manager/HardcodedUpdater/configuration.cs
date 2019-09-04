@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 using System.Windows;
+using YamlDotNet.Serialization;
 
 namespace GW2_Addon_Manager
 {
@@ -25,6 +26,28 @@ namespace GW2_Addon_Manager
             string config_file = File.ReadAllText(config_file_path);
             dynamic config_obj = JsonConvert.DeserializeObject(config_file);
             return config_obj;
+        }
+
+        public static config getConfigAsConfig()
+        {
+            String updateFile = null;
+            String yamlPath = "config.yaml";
+            String yamlTemplatePath = "resources\\config_template.yaml";
+
+            if (File.Exists(yamlPath))
+                updateFile = File.ReadAllText(yamlPath);
+            else
+                updateFile = File.ReadAllText(yamlTemplatePath);
+
+            Deserializer toDynamic = new Deserializer();
+            config user_config = toDynamic.Deserialize<config>(updateFile);
+            return user_config;
+        }
+
+        public static void setConfigAsConfig(config info)
+        {
+            String yamlPath = "config.yaml";
+            File.WriteAllText(yamlPath, new Serializer().Serialize(info));
         }
 
         /// <summary>

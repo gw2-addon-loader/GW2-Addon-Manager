@@ -36,19 +36,19 @@ namespace GW2_Addon_Manager
         /// </summary>
         public OpeningViewModel()
         {
-            AddonInfo arcdps = UpdateFileReader.getBuiltInInfo("arcdps");
+            AddonInfo arcdps = UpdateYamlReader.getBuiltInInfo("arcdps");
             ArcDPS_Tooltip = arcdps.tooltip;
 
-            AddonInfo d912pxy = UpdateFileReader.getBuiltInInfo("d912pxy");
+            AddonInfo d912pxy = UpdateYamlReader.getBuiltInInfo("d912pxy");
             d912pxy_Tooltip = d912pxy.tooltip;
 
-            AddonInfo gw2radial = UpdateFileReader.getBuiltInInfo("gw2radial");
+            AddonInfo gw2radial = UpdateYamlReader.getBuiltInInfo("gw2radial");
             GW2Radial_Tooltip = gw2radial.tooltip;
 
-            AddonInfo arcdps_mechanics = UpdateFileReader.getBuiltInInfo("arcdps_mechanics");
+            AddonInfo arcdps_mechanics = UpdateYamlReader.getBuiltInInfo("arcdps_mechanics");
             arcdps_mechanics_Tooltip = arcdps_mechanics.tooltip;
 
-            AddonInfo arcdps_bhud = UpdateFileReader.getBuiltInInfo("arcdps_bhud");
+            AddonInfo arcdps_bhud = UpdateYamlReader.getBuiltInInfo("arcdps_bhud");
             arcdps_bhud_Tooltip = arcdps_bhud.tooltip;
 
             DescriptionText = "Select an add-on to see more information about it.";

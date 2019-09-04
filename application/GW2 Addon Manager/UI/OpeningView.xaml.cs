@@ -34,31 +34,31 @@ namespace GW2_Addon_Manager
             {
                 
                 case 0:
-                    AddonInfo arc = UpdateFileReader.getBuiltInInfo("arcdps");
+                    AddonInfo arc = UpdateYamlReader.getBuiltInInfo("arcdps");
                     theViewModel.DescriptionText = arc.description;
                     theViewModel.Developer = arc.developer;
                     theViewModel.DeveloperVisibility = Visibility.Visible;
                     break;
                 case 1:
-                    AddonInfo radial = UpdateFileReader.getBuiltInInfo("gw2radial");
+                    AddonInfo radial = UpdateYamlReader.getBuiltInInfo("gw2radial");
                     theViewModel.DescriptionText = radial.description;
                     theViewModel.Developer = radial.developer;
                     theViewModel.DeveloperVisibility = Visibility.Visible;
                     break;
                 case 2:
-                    AddonInfo d912pxy = UpdateFileReader.getBuiltInInfo("d912pxy");
+                    AddonInfo d912pxy = UpdateYamlReader.getBuiltInInfo("d912pxy");
                     theViewModel.DescriptionText = d912pxy.description;
                     theViewModel.Developer = d912pxy.developer;
                     theViewModel.DeveloperVisibility = Visibility.Visible;
                     break;
                 case 3:
-                    AddonInfo arcdps_bhud = UpdateFileReader.getBuiltInInfo("arcdps_bhud");
+                    AddonInfo arcdps_bhud = UpdateYamlReader.getBuiltInInfo("arcdps_bhud");
                     theViewModel.DescriptionText = arcdps_bhud.description;
                     theViewModel.Developer = arcdps_bhud.developer;
                     theViewModel.DeveloperVisibility = Visibility.Visible;
                     break;
                 case 4:
-                    AddonInfo arcdps_mechanics = UpdateFileReader.getBuiltInInfo("arcdps_mechanics");
+                    AddonInfo arcdps_mechanics = UpdateYamlReader.getBuiltInInfo("arcdps_mechanics");
                     theViewModel.DescriptionText = arcdps_mechanics.description;
                     theViewModel.Developer = arcdps_mechanics.developer;
                     theViewModel.DeveloperVisibility = Visibility.Visible;

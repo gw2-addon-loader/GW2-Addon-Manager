@@ -5,7 +5,6 @@ namespace GW2_Addon_Manager
 {
     class UpdateHelpers
     {
-
         public static dynamic GitReleaseInfo(string gitUrl)
         {
             var client = new WebClient();

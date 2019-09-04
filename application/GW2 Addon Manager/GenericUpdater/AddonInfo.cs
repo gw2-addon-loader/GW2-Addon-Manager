@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace GW2_Addon_Manager
 {
+    /// <summary>
+    /// In-app corollary to update.yaml files.
+    /// </summary>
     class AddonInfo
     {
         public string developer;
@@ -17,8 +20,6 @@ namespace GW2_Addon_Manager
         public string version_url;
         public string download_type;
         public string install_mode;
-
-
 
         public List<string> requires;
         public List<string> conflicts;

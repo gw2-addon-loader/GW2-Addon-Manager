@@ -162,7 +162,7 @@ namespace GW2_Addon_Manager
 
             ZipFile.ExtractToDirectory(zip_path, expanded_path);
 
-            UpdateFileReader.CheckForUpdateYaml("gw2radial", expanded_path);
+            UpdateYamlReader.CheckForUpdateYaml("gw2radial", expanded_path);
 
             dynamic config_obj = configuration.getConfig();
             string bin64 = game_path + "\\" + config_obj.bin_folder + "\\";
