@@ -18,6 +18,8 @@ description: "D912pxy is a tool that allows Guild Wars 2 to use DirectX 12 by tr
 tooltip: Translates DirectX 9 calls to DirectX 12 for performance improvements - by Megai2
 
 ### DOWNLOADING/INSTALLATION ###
+# name of the parent folder this file is to be placed in - e.g. arcdps_bhud for ArcDPS BlishHud Integration
+folder_name: d912pxy
 # github or standalone
 host_type: github
 # either github API url or direct URL to file/archive - former is parsed to find latest version and download link,

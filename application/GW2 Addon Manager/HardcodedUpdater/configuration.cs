@@ -114,16 +114,7 @@ namespace GW2_Addon_Manager
         {
             dynamic config_obj = getConfig();
 
-            if ((bool)config_obj.default_configuration.arcdps)
-                viewModel.ArcDPS_CheckBox = true;
-            if ((bool)config_obj.default_configuration.gw2radial)
-                viewModel.GW2Radial_CheckBox = true;
-            if ((bool)config_obj.default_configuration.d912pxy)
-                viewModel.d912pxy_CheckBox = true;
-            if ((bool)config_obj.default_configuration.arcdps_bhud)
-                viewModel.arcdps_bhud_CheckBox = true;
-            if ((bool)config_obj.default_configuration.arcdps_mechanics)
-                viewModel.arcdps_mechanics_CheckBox = true;
+           
 
             DisplayAddonStatus(viewModel);
         }
@@ -136,38 +127,7 @@ namespace GW2_Addon_Manager
         {
             dynamic config_obj = getConfig();
 
-            if (config_obj.version.arcdps != null)
-                viewModel.ArcDPS_Content = "ArcDPS (installed)";
-            if (config_obj.version.gw2radial != null)
-                viewModel.GW2Radial_Content = "GW2 Radial (" + config_obj.version.gw2radial + " installed)";
-            if (config_obj.version.d912pxy != null)
-                viewModel.d912pxy_Content = "d912pxy (" + config_obj.version.d912pxy + " installed)";
-            if (config_obj.version.arcdps_bhud != null)
-                viewModel.arcdps_bhud_Content = "ArcDPS for BlishHUD (" + config_obj.version.arcdps_bhud + " installed)";
-            if (config_obj.version.arcdps_mechanics != null)
-                viewModel.arcdps_mechanics_Content = "ArcDPS Mechanics plugin (installed)";
-
-            if ((bool)config_obj.disabled.arcdps)
-                viewModel.ArcDPS_Content = "Disabled - ArcDPS" + (config_obj.version.arcdps != null ? " (downloaded)" : "");
-            if ((bool)config_obj.disabled.gw2radial)
-                viewModel.GW2Radial_Content = "Disabled - GW2 Radial " + config_obj.version.gw2radial;
-            if ((bool)config_obj.disabled.d912pxy)
-                viewModel.d912pxy_Content = "Disabled - d912pxy " + config_obj.version.d912pxy;
-            if ((bool)config_obj.disabled.arcdps_bhud)
-                viewModel.arcdps_bhud_Content = "Disabled - ArcDPS for BlishHUD " + config_obj.version.arcdps_bhud;
-            if ((bool)config_obj.disabled.arcdps_mechanics)
-                viewModel.arcdps_mechanics_Content = "Disabled - ArcDPS Mechanics plugin" + (config_obj.version.arcdps_mechanics != null ? "\n(downloaded)" : "");
-
-            if (!(bool)config_obj.disabled.arcdps && config_obj.version.arcdps == null)
-                viewModel.ArcDPS_Content = "ArcDPS";
-            if (!(bool)config_obj.disabled.gw2radial && config_obj.version.gw2radial == null)
-                viewModel.GW2Radial_Content = "GW2 Radial";
-            if (!(bool)config_obj.disabled.d912pxy && config_obj.version.d912pxy == null)
-                viewModel.d912pxy_Content = "d912pxy";
-            if (!(bool)config_obj.disabled.arcdps_bhud && config_obj.version.arcdps_bhud == null)
-                viewModel.arcdps_bhud_Content = "ArcDPS for BlishHUD";
-            if (!(bool)config_obj.disabled.arcdps_mechanics && config_obj.version.arcdps_mechanics == null)
-                viewModel.arcdps_mechanics_Content = "ArcDPS Mechanics plugin";
+            
         }
 
         /// <summary>
@@ -179,31 +139,7 @@ namespace GW2_Addon_Manager
         {
             dynamic config_obj = getConfig();
 
-            if (viewModel.ArcDPS_CheckBox)
-                config_obj.default_configuration.arcdps = true;
-            else
-                config_obj.default_configuration.arcdps = false;
-
-            if (viewModel.GW2Radial_CheckBox)
-                config_obj.default_configuration.gw2radial = true;
-            else
-                config_obj.default_configuration.gw2radial = false;
-
-            if (viewModel.d912pxy_CheckBox)
-                config_obj.default_configuration.d912pxy = true;
-            else
-                config_obj.default_configuration.d912pxy = false;
-
-            if (viewModel.arcdps_bhud_CheckBox)
-                config_obj.default_configuration.arcdps_bhud = true;
-            else
-                config_obj.default_configuration.arcdps_bhud = false;
-
-            if (viewModel.arcdps_mechanics_CheckBox)
-                config_obj.default_configuration.arcdps_mechanics = true;
-            else
-                config_obj.default_configuration.arcdps_mechanics = false;
-
+            
             setConfig(config_obj);
         }
 

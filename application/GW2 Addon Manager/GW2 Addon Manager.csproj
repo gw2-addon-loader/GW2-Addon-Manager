@@ -120,45 +120,46 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="App\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddonInfo.cs" />
-    <Compile Include="HardcodedUpdaters\arcdps.cs" />
-    <Compile Include="HardcodedUpdaters\arcdps_bhud.cs" />
-    <Compile Include="HardcodedUpdaters\arcdps_mechanics.cs" />
-    <Compile Include="config.cs" />
-    <Compile Include="configuration.cs" />
-    <Compile Include="HardcodedUpdaters\d912pxy.cs" />
-    <Compile Include="GenericUpdater.cs" />
-    <Compile Include="HardcodedUpdaters\gw2radial.cs" />
-    <Compile Include="OpeningViewModel.cs" />
-    <Compile Include="PluginManagement.cs" />
-    <Compile Include="SelfUpdate.cs" />
-    <Compile Include="UpdateFileReader.cs" />
-    <Compile Include="UpdateHelpers.cs" />
-    <Compile Include="Updates.cs" />
-    <Compile Include="UpdatingView.xaml.cs">
+    <Compile Include="GenericUpdater\AddonInfo.cs" />
+    <Compile Include="GenericUpdater\AddonList\ApprovedList.cs" />
+    <Compile Include="HardcodedUpdater\Addons\arcdps.cs" />
+    <Compile Include="HardcodedUpdater\Addons\arcdps_bhud.cs" />
+    <Compile Include="HardcodedUpdater\Addons\arcdps_mechanics.cs" />
+    <Compile Include="GenericUpdater\config.cs" />
+    <Compile Include="HardcodedUpdater\configuration.cs" />
+    <Compile Include="HardcodedUpdater\Addons\d912pxy.cs" />
+    <Compile Include="GenericUpdater\GenericUpdater.cs" />
+    <Compile Include="HardcodedUpdater\Addons\gw2radial.cs" />
+    <Compile Include="UI\OpeningViewModel.cs" />
+    <Compile Include="HardcodedUpdater\PluginManagement.cs" />
+    <Compile Include="App\SelfUpdate.cs" />
+    <Compile Include="GenericUpdater\UpdateYamlReader.cs" />
+    <Compile Include="GenericUpdater\UpdateHelpers.cs" />
+    <Compile Include="HardcodedUpdater\Updates.cs" />
+    <Compile Include="UI\UpdatingView.xaml.cs">
       <DependentUpon>UpdatingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UpdatingViewModel.cs" />
-    <Page Include="OpeningView.xaml">
+    <Compile Include="UI\UpdatingViewModel.cs" />
+    <Page Include="UI\OpeningView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="UI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="OpeningView.xaml.cs">
+    <Compile Include="UI\OpeningView.xaml.cs">
       <DependentUpon>OpeningView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="App\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -166,7 +167,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UpdatingView.xaml">
+    <Page Include="UI\UpdatingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -190,8 +191,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="GenericUpdater\readme.md" />
     <None Include="GW2 Addon Updater_TemporaryKey.pfx" />
-    <None Include="packages.config" />
+    <None Include="App\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -207,7 +209,7 @@
     <None Include="Resources\Addons\template-update.yaml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App\App.config" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -250,9 +252,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UniversalUpdater\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(TargetDir)resources\plugins"

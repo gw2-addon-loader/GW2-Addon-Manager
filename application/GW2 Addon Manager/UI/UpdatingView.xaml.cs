@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -21,7 +22,7 @@ namespace GW2_Addon_Manager
             theViewModel = new UpdatingViewModel();
             DataContext = theViewModel;
             InitializeComponent();
-            Updates updater = new Updates(theViewModel);
+            Task.Run(() => UpdateHelpers.UpdateAll(theViewModel));
         }
 
         /***************************** Titlebar Window Drag *****************************/

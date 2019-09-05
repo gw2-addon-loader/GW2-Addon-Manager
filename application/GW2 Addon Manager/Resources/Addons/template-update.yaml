@@ -16,6 +16,8 @@ description: example text lorem ipsum doret something something this can run for
 tooltip: relatively short tooltip text - (this length is fine)
 
 ### DOWNLOADING/INSTALLATION ###
+# name of the parent folder this file is to be placed in - e.g. arcdps_bhud for ArcDPS BlishHud Integration
+folder_name: thisparticularaddon
 # github or standalone
 host_type: github
 # either github API url or direct URL to file/archive - former is parsed to find latest version and download link,

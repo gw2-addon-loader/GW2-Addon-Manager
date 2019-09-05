@@ -161,27 +161,13 @@
             <StackPanel Width="250" Height="275" HorizontalAlignment="Left">
                 <Label FontSize="18" FontFamily="Microsoft YaHei UI" Margin="0,5,0,10" HorizontalAlignment="Center" Foreground="DimGray" Content="Add-Ons"/>
                 <TextBlock Width="225" Height="50" Margin="5,0,0,0" FontFamily="Microsoft YaHei UI Light"><Run Text="Select all currently installed add-ons for"/><LineBreak/><Run Text="Guild Wars 2 as well as any you want"/><LineBreak/><Run Text="to install."/></TextBlock>
-                <ListView Name="addOnList"
-                          SelectionChanged="addOnList_SelectedIndexChanged"
-                          Background="WhiteSmoke"
-                          BorderThickness="0"
-                          >
-                    <ListViewItem>
-                        <CheckBox IsChecked="{Binding ArcDPS_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding ArcDPS_Content}" ToolTip="{Binding ArcDPS_Tooltip}"/>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <CheckBox IsChecked="{Binding GW2Radial_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding GW2Radial_Content}" ToolTip="{Binding GW2Radial_Tooltip}"/>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <CheckBox IsChecked="{Binding d912pxy_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding d912pxy_Content}" ToolTip="{Binding d912pxy_Tooltip}"/>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <CheckBox IsChecked="{Binding arcdps_bhud_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding arcdps_bhud_Content}" ToolTip="{Binding arcdps_bhud_Tooltip}"/>
-                    </ListViewItem>
-                    <ListViewItem>
-                        <CheckBox IsChecked="{Binding arcdps_mechanics_CheckBox}" Margin="5,5,5,5" FontSize="12" Foreground="Black" FontFamily="Microsoft YaHei UI Light" Content="{Binding arcdps_mechanics_Content}" ToolTip="{Binding arcdps_mechanics_Tooltip}"/>
-                    </ListViewItem>
-                </ListView>
+                <ListBox Name="addons" ItemsSource="{Binding AddonList}" SelectionChanged="addOnList_SelectedIndexChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Name="TheCheckBox" Content="{Binding addon_name}" ToolTip="{Binding tooltip}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
                 <!--<CheckBox Name="gw2hook" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14">Gw2 Hook</CheckBox>-->
             </StackPanel>
         </Border>

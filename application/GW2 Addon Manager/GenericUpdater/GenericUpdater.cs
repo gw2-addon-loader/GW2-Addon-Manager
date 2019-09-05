@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace GW2_Addon_Manager
 {
@@ -14,10 +15,11 @@ namespace GW2_Addon_Manager
         AddonInfo addon_info;
         config userConfig;
 
-        string addon_zip_path;
+        string fileName;
         string addon_expanded_path;
         string addon_install_path;
 
+        string latestVersion;
 
         public GenericUpdater(string name, UpdatingViewModel aViewModel)
         {
@@ -25,23 +27,23 @@ namespace GW2_Addon_Manager
             addon_info = UpdateYamlReader.getBuiltInInfo(name);
             viewModel = aViewModel;
             userConfig = configuration.getConfigAsConfig();
-            addon_zip_path = Path.Combine(Path.GetTempPath(), "addon.zip");
+
             addon_expanded_path = Path.Combine(Path.GetTempPath(), name);
             addon_install_path = Path.Combine(configuration.getConfig().game_path, "addons\\" + name);
         }
 
 
-        public void Update()
+        public async Task Update()
         {
             if (!userConfig.disabled[addon_name])
             {
                 if (addon_info.host_type == "github")
                 {
-                    GitCheckUpdate();
+                    await GitCheckUpdate();
                 }
                 else
                 {
-                    StandaloneUpdate();
+                    await StandaloneCheckUpdate();
                 }
             }
         }
@@ -51,31 +53,31 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Checks whether an update is required and performs it for an add-on hosted on Github.
         /// </summary>
-        private void GitCheckUpdate()
+        private async Task GitCheckUpdate()
         {
             var client = new WebClient();
             client.Headers.Add("User-Agent", "request");
 
             dynamic release_info = UpdateHelpers.GitReleaseInfo(addon_info.host_url);
-            string latestRelease = release_info.tag_name;
-
-            if (userConfig.version[addon_name] != null && latestRelease == userConfig.version[addon_name])
-                return;
-
-            viewModel.label = "Downloading " + addon_info.addon_name + " " + latestRelease;
-            Download(release_info.assets[0].browser_download_url, client);
-        }
-
-        private void StandaloneUpdate()
-        {
-            var client = new WebClient();
-            string latestVersion = client.DownloadString(addon_info.version_url);
+            latestVersion = release_info.tag_name;
 
             if (userConfig.version[addon_name] != null && latestVersion == userConfig.version[addon_name])
                 return;
 
             viewModel.label = "Downloading " + addon_info.addon_name + " " + latestVersion;
-            Download(addon_info.host_url, client);
+            await Download(release_info.assets[0].browser_download_url, client);
+        }
+
+        private async Task StandaloneCheckUpdate()
+        {
+            var client = new WebClient();
+            latestVersion = client.DownloadString(addon_info.version_url);
+
+            if (userConfig.version[addon_name] != null && latestVersion == userConfig.version[addon_name])
+                return;
+
+            viewModel.label = "Downloading " + addon_info.addon_name + " " + latestVersion;
+            await Download(addon_info.host_url, client);
         }
 
 
@@ -87,15 +89,17 @@ namespace GW2_Addon_Manager
         /// </summary>
         /// <param name="url"></param>
         /// <param name="client"></param>
-        private async void Download(string url, WebClient client)
+        private async Task Download(string url, WebClient client)
         {
-            if (File.Exists(addon_zip_path))
-                File.Delete(addon_zip_path);
+            fileName = Path.Combine(Path.GetTempPath(), Path.GetFileName(url));
+
+            if (File.Exists(fileName))
+                File.Delete(fileName);
 
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(addon_DownloadProgressChanged);
-            client.DownloadFileCompleted += new AsyncCompletedEventHandler(addon_DownloadCompleted);
-            await client.DownloadFileTaskAsync(new System.Uri(url), addon_zip_path);
-
+            client.DownloadFileCompleted += new AsyncCompletedEventHandler(addon_DownloadCompleted);            
+            
+            await client.DownloadFileTaskAsync(new System.Uri(url), fileName);
             Install();
         }
 
@@ -109,18 +113,25 @@ namespace GW2_Addon_Manager
         {
             viewModel.label = "Installing " + addon_info.addon_name;
 
-            if (Directory.Exists(addon_expanded_path))
-                Directory.Delete(addon_expanded_path);
+            if (addon_info.download_type == "archive")
+            {
+                if (Directory.Exists(addon_expanded_path))
+                    Directory.Delete(addon_expanded_path);
 
-            ZipFile.ExtractToDirectory(addon_zip_path, addon_expanded_path);
+                ZipFile.ExtractToDirectory(fileName, addon_expanded_path);
 
-            FileSystem.CopyDirectory(addon_expanded_path, addon_install_path, true);
+                FileSystem.CopyDirectory(addon_expanded_path, addon_install_path, true);
+            }
+            else
+            {
+                FileSystem.CopyFile(fileName, Path.Combine(addon_install_path, Path.GetFileName(fileName)), true);
+            }
 
-            //if(d3d9 or whatever version is in bin folder)
-            //copy plugin into bin folder
+            userConfig.version[addon_info.folder_name] = latestVersion;
 
-            //set "installed" and "version" fields of relevant property in config.yaml
-
+            //TODO
+            userConfig.installed[addon_info.folder_name] = "";
+            //set config.yaml
         }
 
 
@@ -134,8 +145,5 @@ namespace GW2_Addon_Manager
         {
             
         }
-
-        
-
     }
 }

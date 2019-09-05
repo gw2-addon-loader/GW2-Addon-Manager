@@ -21,16 +21,7 @@ namespace GW2_Addon_Manager
             if (MessageBox.Show(deletemsg, "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
                 string gamePath = configuration.getConfig().game_path;
-                if (viewModel.ArcDPS_CheckBox)
-                    arcdps.delete();
-                if (viewModel.GW2Radial_CheckBox)
-                    gw2radial.delete();
-                if (viewModel.d912pxy_CheckBox)
-                    d912pxy.delete();
-                if (viewModel.arcdps_bhud_CheckBox)
-                    arcdps_bhud.delete();
-                if (viewModel.arcdps_mechanics_CheckBox)
-                    arcdps_mechanics.delete();
+
 
                 RenamePlugins();
             }
@@ -120,16 +111,7 @@ namespace GW2_Addon_Manager
             if (MessageBox.Show(disablemsg, "Disable", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
                 string gamePath = configuration.getConfig().game_path;
-                if (viewModel.ArcDPS_CheckBox)
-                    arcdps.disable();
-                if (viewModel.GW2Radial_CheckBox)
-                    gw2radial.disable();
-                if (viewModel.d912pxy_CheckBox)
-                    d912pxy.disable();
-                if (viewModel.arcdps_bhud_CheckBox)
-                    arcdps_bhud.disable();
-                if (viewModel.arcdps_mechanics_CheckBox)
-                    arcdps_mechanics.disable();
+
 
                 RenamePlugins();
             }
@@ -153,16 +135,7 @@ namespace GW2_Addon_Manager
             if (MessageBox.Show(enablemsg, "Enable", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
                 string gamePath = configuration.getConfig().game_path;
-                if (viewModel.ArcDPS_CheckBox)
-                    arcdps.enable();
-                if (viewModel.GW2Radial_CheckBox)
-                    gw2radial.enable();
-                if (viewModel.d912pxy_CheckBox)
-                    d912pxy.enable();
-                if (viewModel.arcdps_bhud_CheckBox)
-                    arcdps_bhud.enable();
-                if (viewModel.arcdps_mechanics_CheckBox)
-                    arcdps_mechanics.enable();
+
 
                 RenamePlugins();
                 configuration.DisplayAddonStatus(viewModel);

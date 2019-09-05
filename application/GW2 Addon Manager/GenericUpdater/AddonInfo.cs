@@ -6,23 +6,24 @@ namespace GW2_Addon_Manager
     /// <summary>
     /// In-app corollary to update.yaml files.
     /// </summary>
-    class AddonInfo
+    public class AddonInfo
     {
-        public string developer;
-        public string website;
-        public string addon_name;
-        public string plugin_name;
-        public string description;
-        public string tooltip;
+        public string developer { get; set; }
+        public string website { get; set; }
+        public string addon_name { get; set; }
+        public string plugin_name { get; set; }
+        public string description { get; set; }
+        public string tooltip { get; set; }
 
-        public string host_type;
-        public string host_url;
-        public string version_url;
-        public string download_type;
-        public string install_mode;
+        public string folder_name { get; set; }
+        public string host_type { get; set; }
+        public string host_url { get; set; }
+        public string version_url { get; set; }
+        public string download_type { get; set; }
+        public string install_mode { get; set; }
 
-        public List<string> requires;
-        public List<string> conflicts;
-        public List<Dictionary<String, String>> alternate_plugin_names;
+        public List<string> requires { get; set; }
+        public List<string> conflicts { get; set; }
+        public List<Dictionary<String, String>> alternate_plugin_names { get; set; }
     }
 }

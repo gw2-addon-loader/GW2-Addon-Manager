@@ -17,6 +17,8 @@ By default, these menus are accessed in-game with the keybinds alt+shift+h and a
 tooltip: Offers a DPS meter and build template functionality - by DeltaConnected
 
 ### DOWNLOADING/INSTALLATION ###
+# name of the parent folder this file is to be placed in - e.g. arcdps_bhud for ArcDPS BlishHud Integration
+folder_name: arcdps
 # github or standalone
 host_type: standalone
 # either github API url or direct URL to file/archive - former is parsed to find latest version and download link,

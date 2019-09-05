@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using IWshRuntimeLibrary;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
@@ -30,26 +31,24 @@ namespace GW2_Addon_Manager
         }
 
 
+        private ObservableCollection<AddonInfo> _addonList;
+        /// <summary>
+        /// List of Addons
+        /// </summary>
+        public ObservableCollection<AddonInfo> AddonList
+        {
+            get { return _addonList;  }
+            set { _addonList = value; propertyChanged("AddonList"); }
+        }
+
+
         /// <summary>
         /// This constructor initializes various default properties across the class and then
         /// applies any updated values to them using <c>ApplyDefaultConfig</c>.
         /// </summary>
         public OpeningViewModel()
         {
-            AddonInfo arcdps = UpdateYamlReader.getBuiltInInfo("arcdps");
-            ArcDPS_Tooltip = arcdps.tooltip;
-
-            AddonInfo d912pxy = UpdateYamlReader.getBuiltInInfo("d912pxy");
-            d912pxy_Tooltip = d912pxy.tooltip;
-
-            AddonInfo gw2radial = UpdateYamlReader.getBuiltInInfo("gw2radial");
-            GW2Radial_Tooltip = gw2radial.tooltip;
-
-            AddonInfo arcdps_mechanics = UpdateYamlReader.getBuiltInInfo("arcdps_mechanics");
-            arcdps_mechanics_Tooltip = arcdps_mechanics.tooltip;
-
-            AddonInfo arcdps_bhud = UpdateYamlReader.getBuiltInInfo("arcdps_bhud");
-            arcdps_bhud_Tooltip = arcdps_bhud.tooltip;
+            AddonList = ApprovedList.GenerateAddonList();
 
             DescriptionText = "Select an add-on to see more information about it.";
             DeveloperVisibility = Visibility.Hidden;
@@ -145,199 +144,6 @@ namespace GW2_Addon_Manager
         }
 
         /***** ************************** *****/
-
-
-        /************************** ArcDPS **************************/
-        private bool _arc_box;
-        private string _arc_content;
-        private string _arc_tooltip;
-        private string _arc_desc;
-        /// <summary>
-        /// Binding for the ArcDPS checkbox's IsChecked property.
-        /// </summary>
-        public bool ArcDPS_CheckBox
-        {
-            get { return _arc_box; }
-            set { _arc_box = value; propertyChanged("ArcDPS_CheckBox"); }
-        }
-
-        /// <summary>
-        /// Binding for the ArcDPS checkbox's Content property.
-        /// </summary>
-        public string ArcDPS_Content
-        {
-            get { return _arc_content; }
-            set { _arc_content = value; propertyChanged("ArcDPS_Content"); }
-        }
-
-        /// <summary>
-        /// Binding for the ArcDPS checkbox tooltip.
-        /// </summary>
-        public string ArcDPS_Tooltip
-        {
-            get { return _arc_tooltip;  }
-            set { _arc_tooltip = value; propertyChanged("ArcDPS_Tooltip"); }
-        }
-
-        /// <summary>
-        /// Binding for the ArcDPS description (unused).
-        /// </summary>
-        public string ArcDPS_Description
-        {
-            get { return _arc_desc; }
-            set { _arc_desc = value; propertyChanged("ArcDPS_Description"); }
-        }
-
-
-
-
-        /************************** ArcDPS Mechanics Plugin **************************/
-        private bool _arcdps_mechanics_box;
-        private string _arcdps_mechanics_content;
-        private string _arcdps_mechanics_tooltip;
-        private string _arcdps_mechanics_desc;
-        /// <summary>
-        /// The data binding for the ArcDPS checkbox's IsChecked property.
-        /// </summary>
-        public bool arcdps_mechanics_CheckBox
-        {
-            get { return _arcdps_mechanics_box; }
-            set { _arcdps_mechanics_box = value; propertyChanged("arcdps_mechanics_CheckBox"); }
-        }
-
-        /// <summary>
-        /// The data binding for the ArcDPS checkbox's Content property.
-        /// </summary>
-        public string arcdps_mechanics_Content
-        {
-            get { return _arcdps_mechanics_content; }
-            set { _arcdps_mechanics_content = value; propertyChanged("arcdps_mechanics_Content"); }
-        }
-
-        /// <summary>
-        /// Binding for the ArcDPS mechanics checkbox tooltip.
-        /// </summary>
-        public string arcdps_mechanics_Tooltip
-        {
-            get { return _arcdps_mechanics_tooltip; }
-            set { _arcdps_mechanics_tooltip = value; propertyChanged("arcdps_mechanics_Tooltip"); }
-        }
-
-        /// <summary>
-        /// Binding for the ArcDPS mechanics description (unused).
-        /// </summary>
-        public string arcdps_mechanics_Description
-        {
-            get { return _arcdps_mechanics_desc; }
-            set { _arcdps_mechanics_desc = value; propertyChanged("arcdps_mechanics_Description"); }
-        }
-
-
-
-        /************************** GW2 Radial **************************/
-        private bool _radial_box;
-        private string _radial_content;
-        private string _radial_tooltip;
-        private string _radial_desc;
-
-        /// <summary>
-        /// The data binding for the GW2 Radial checkbox's IsChecked property.
-        /// </summary>
-        public bool GW2Radial_CheckBox
-        {
-            get { return _radial_box; }
-            set { _radial_box = value; propertyChanged("GW2Radial_CheckBox"); }
-        }
-        /// <summary>
-        /// The data binding for the GW2 Radial checkbox's Content property.
-        /// </summary>
-        public string GW2Radial_Content
-        {
-            get { return _radial_content; }
-            set { _radial_content = value; propertyChanged("GW2Radial_Content"); }
-        }
-
-        public string GW2Radial_Tooltip
-        {
-            get { return _radial_tooltip; }
-            set { _radial_tooltip = value; propertyChanged("GW2Radial_Tooltip"); }
-        }
-
-        public string GW2Radial_Description
-        {
-            get { return _radial_desc; }
-            set { _radial_desc = value; propertyChanged("GW2Radial_Description"); }
-        }
-
-        /************************** d912pxy **************************/
-        private bool _d912pxy_box;
-        private string _d912pxy_content;
-        private string _d912pxy_tooltip;
-        private string _d912pxy_desc;
-        /// <summary>
-        /// The data binding for the d912pxy checkbox's IsChecked property.
-        /// </summary>
-        public bool d912pxy_CheckBox
-        {
-            get { return _d912pxy_box; }
-            set { _d912pxy_box = value; propertyChanged("d912pxy_CheckBox"); }
-        }
-        /// <summary>
-        /// The data binding for the d912pxy checkbox's Content property.
-        /// </summary>
-        public string d912pxy_Content
-        {
-            get { return _d912pxy_content; }
-            set { _d912pxy_content = value; propertyChanged("d912pxy_Content"); }
-        }
-
-        public string d912pxy_Tooltip
-        {
-            get { return _d912pxy_tooltip; }
-            set { _d912pxy_tooltip = value; propertyChanged("d912pxy_Tooltip"); }
-        }
-
-        public string d912pxy_Description
-        {
-            get { return _d912pxy_desc; }
-            set { _d912pxy_desc = value; propertyChanged("d912pxy_Description"); }
-        }
-
-
-        /************************** arcdps bhud integration **************************/
-        private bool _arcdps_bhud_box;
-        private string _arcdps_bhud_content;
-        private string _arcdps_bhud_tooltip;
-        private string _arcdps_bhud_desc;
-
-        /// <summary>
-        /// The data binding for the arcdps bhud checkbox's IsChecked property.
-        /// </summary>
-        public bool arcdps_bhud_CheckBox
-        {
-            get { return _arcdps_bhud_box; }
-            set { _arcdps_bhud_box = value; propertyChanged("arcdps_bhud_CheckBox"); }
-        }
-        /// <summary>
-        /// The data binding for the arcdps bhud checkbox's Content property.
-        /// </summary>
-        public string arcdps_bhud_Content
-        {
-            get { return _arcdps_bhud_content; }
-            set { _arcdps_bhud_content = value; propertyChanged("arcdps_bhud_Content"); }
-        }
-
-        public string arcdps_bhud_Tooltip
-        {
-            get { return _arcdps_bhud_tooltip; }
-            set { _arcdps_bhud_tooltip = value; propertyChanged("arcdps_bhud_Tooltip"); }
-        }
-
-        public string arcdps_bhud_Description
-        {
-            get { return _arcdps_bhud_desc; }
-            set { _arcdps_bhud_desc = value; propertyChanged("arcdps_bhud_Description"); }
-        }
 
         /// <summary>
         /// Binding for the Content property of the text box displayed on the opening page.
