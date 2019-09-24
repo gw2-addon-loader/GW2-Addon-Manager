@@ -40,11 +40,7 @@ If something doesn't work, please open an issue describing the problem and inclu
 - <a href="https://www.newtonsoft.com/json">JSON.Net</a> 
 - [Mvvm Light](http://www.mvvmlight.net/) 
 
-#### To-Do:
-- add settings panel with options to manually set .dll filenames and override the auto-naming
-- look into GW2hook support again
-- streamline adding new add-ons, i.e. change some repetitive code to iterate over a collection or something instead of having to add a new piece of code for each add-on
-- check up on overwriting or checking for old files on DownloadFileTaskAsync()
+#### [To-Do](https://docs.google.com/document/d/158CAGSGr-tgw4eVIxfYCZMLeeFDtlt89Elgq8K3b7tk/edit?usp=sharing)
 
 &nbsp;
 
