@@ -5,14 +5,11 @@ namespace GW2_Addon_Manager
 {
     class PluginManagement
     {
+        
+
         /// <summary>
         /// Deletes the currently selected addons.
         /// <seealso cref="OpeningViewModel.DeleteSelected"/>
-        /// <seealso cref="arcdps.delete()"/>
-        /// <seealso cref="gw2radial.delete()"/>
-        /// <seealso cref="d912pxy.delete()"/>
-        /// <seealso cref="arcdps_bhud.delete()"/>
-        /// <seealso cref="arcdps_mechanics.delete()"/>
         /// </summary>
         /// <param name="viewModel">The DataContext for the application UI.</param>
         public static void DeleteSelected(OpeningViewModel viewModel)
@@ -20,7 +17,7 @@ namespace GW2_Addon_Manager
             string deletemsg = "This will delete any add-ons that are selected and all data associated with them! Are you sure you wish to continue?";
             if (MessageBox.Show(deletemsg, "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                string gamePath = configuration.getConfig().game_path;
+                string gamePath = configuration.getConfigAsYAML().game_path;
 
 
                 RenamePlugins();
@@ -36,29 +33,29 @@ namespace GW2_Addon_Manager
             string d912pxy_name = null;
             string arcdps_name = null;
             string gw2radial_name = null;
-            dynamic config = configuration.getConfig();
+            config config = configuration.getConfigAsYAML();
 
             string bin64 = config.game_path + "\\bin64\\";
 
-            if (config.installed.arcdps != null && !(bool)config.disabled.arcdps)
+            if (config.installed["arcdps"] != null && !config.disabled["arcdps"])
             {
                 arcdps_name = "d3d9.dll";
-                if (config.installed.d912pxy != null && !(bool)config.disabled.d912pxy)
+                if (config.installed["d912pxy"] != null && !config.disabled["d912pxy"])
                 {
-                    if (config.installed.gw2radial == null || (bool)config.disabled.gw2radial)
+                    if (config.installed["gw2radial"] == null || config.disabled["gw2radial"])
                     { d912pxy_name = "d3d9_chainload.dll"; }
                     else
                     { d912pxy_name = "d912pxy.dll"; gw2radial_name = "d3d9_chainload.dll"; }
                 }
-                else if (config.installed.gw2radial != null && !(bool)config.disabled.gw2radial)
+                else if (config.installed["gw2radial"] != null && !config.disabled["gw2radial"])
                 {
                     gw2radial_name = "d3d9_chainload.dll";
                 }
             }
-            else if (config.installed.gw2radial != null && !(bool)config.disabled.gw2radial)
+            else if (config.installed["gw2radial"] != null && !config.disabled["gw2radial"])
             {
                 gw2radial_name = "d3d9.dll";
-                if (config.installed.d912pxy != null && !(bool)config.disabled.d912pxy)
+                if (config.installed["d912pxy"] != null && !config.disabled["d912pxy"])
                 {
                     d912pxy_name = "d912pxy.dll";
                 }
@@ -66,43 +63,38 @@ namespace GW2_Addon_Manager
 
             if (arcdps_name != null)
             {
-                if (File.Exists(bin64 + arcdps_name) && (config.installed.arcdps != arcdps_name))
+                if (File.Exists(bin64 + arcdps_name) && (config.installed["arcdps"] != arcdps_name))
                     File.Delete(bin64 + arcdps_name);
 
-                File.Move(bin64 + config.installed.arcdps, bin64 + arcdps_name);
-                config.installed.arcdps = arcdps_name;  //editing config file to match new plugin location
+                File.Move(bin64 + config.installed["arcdps"], bin64 + arcdps_name);
+                config.installed["arcdps"] = arcdps_name;  //editing config file to match new plugin location
             }
 
             if (gw2radial_name != null)
             {
-                if (File.Exists(bin64 + gw2radial_name) && (config.installed.gw2radial != gw2radial_name))
+                if (File.Exists(bin64 + gw2radial_name) && (config.installed["gw2radial"] != gw2radial_name))
                     File.Delete(bin64 + gw2radial_name);
 
-                File.Move(bin64 + config.installed.gw2radial, bin64 + gw2radial_name);
-                config.installed.gw2radial = gw2radial_name;    //editing config file to match new plugin location
+                File.Move(bin64 + config.installed["gw2radial"], bin64 + gw2radial_name);
+                config.installed["gw2radial"] = gw2radial_name;    //editing config file to match new plugin location
             }
 
             if (d912pxy_name != null)
             {
-                if (File.Exists(bin64 + d912pxy_name) && (config.installed.d912pxy != d912pxy_name))
+                if (File.Exists(bin64 + d912pxy_name) && (config.installed["d912pxy"] != d912pxy_name))
                     File.Delete(bin64 + d912pxy_name);
 
-                File.Move(bin64 + config.installed.d912pxy, bin64 + d912pxy_name);
-                config.installed.d912pxy = d912pxy_name;    //editing config file to match new plugin location
+                File.Move(bin64 + config.installed["d912pxy"], bin64 + d912pxy_name);
+                config.installed["d912pxy"] = d912pxy_name;    //editing config file to match new plugin location
             }
 
-            configuration.setConfig(config);    //writing updated config file
+            configuration.setConfigAsYAML(config);    //writing updated config file
 
         }
 
         /// <summary>
         /// Disables the currently selected addons.
         /// <seealso cref="OpeningViewModel.DisableSelected"/>
-        /// <seealso cref="arcdps.disable()"/>
-        /// <seealso cref="gw2radial.disable()"/>
-        /// <seealso cref="d912pxy.disable()"/>
-        /// <seealso cref="arcdps_bhud.disable()"/>
-        /// <seealso cref="arcdps_mechanics.disable()"/>
         /// </summary>
         /// <param name="viewModel">The DataContext for the application UI.</param>
         public static void DisableSelected(OpeningViewModel viewModel)
@@ -110,7 +102,7 @@ namespace GW2_Addon_Manager
             string disablemsg = "This will disable the selected add-ons until you choose to re-enable them. Do you wish to continue?";
             if (MessageBox.Show(disablemsg, "Disable", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
-                string gamePath = configuration.getConfig().game_path;
+                string gamePath = configuration.getConfigAsYAML().game_path;
 
 
                 RenamePlugins();
@@ -122,11 +114,6 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Enables the currently selected addons.
         /// <seealso cref="OpeningViewModel.EnableSelected"/>
-        /// <seealso cref="arcdps.enable()"/>
-        /// <seealso cref="gw2radial.enable()"/>
-        /// <seealso cref="d912pxy.enable()"/>
-        /// <seealso cref="arcdps_bhud.enable()"/>
-        /// <seealso cref="arcdps_mechanics.enable()"/>
         /// </summary>
         /// <param name="viewModel">The DataContext for the application UI.</param>
         public static void EnableSelected(OpeningViewModel viewModel)
@@ -134,7 +121,7 @@ namespace GW2_Addon_Manager
             string enablemsg = "This will enable any of the selected add-ons that are disabled. Do you wish to continue?";
             if (MessageBox.Show(enablemsg, "Enable", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
-                string gamePath = configuration.getConfig().game_path;
+                string gamePath = configuration.getConfigAsYAML().game_path;
 
 
                 RenamePlugins();

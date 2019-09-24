@@ -26,10 +26,10 @@ namespace GW2_Addon_Manager
             addon_name = name;
             addon_info = UpdateYamlReader.getBuiltInInfo(name);
             viewModel = aViewModel;
-            userConfig = configuration.getConfigAsConfig();
+            userConfig = configuration.getConfigAsYAML();
 
             addon_expanded_path = Path.Combine(Path.GetTempPath(), name);
-            addon_install_path = Path.Combine(configuration.getConfig().game_path, "addons\\" + name);
+            addon_install_path = Path.Combine(configuration.getConfigAsYAML().game_path, "addons\\" + name);
         }
 
 
@@ -129,11 +129,45 @@ namespace GW2_Addon_Manager
 
             userConfig.version[addon_info.folder_name] = latestVersion;
 
-            //TODO
-            userConfig.installed[addon_info.folder_name] = "";
+            
+            if(addon_info.install_mode == "binary")
+                userConfig.installed[addon_info.folder_name] = addon_info.folder_name;
+            //TODO d3d9
+
             //set config.yaml
+            configuration.setConfigAsYAML(userConfig);
         }
 
+
+        /***** DISABLE *****/
+        public void disable()
+        {
+            config info = configuration.getConfigAsYAML();
+            if (!info.disabled[addon_info.folder_name])
+            {
+                Directory.Move(
+                    Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name),
+                    Path.Combine("Disabled Plugins")
+                    );
+                info.disabled[addon_info.folder_name] = true;
+                configuration.setConfigAsYAML(info);
+            }    
+        }
+
+        /***** ENABLE *****/
+        public void enable()
+        {
+            config info = configuration.getConfigAsYAML();
+            if (info.disabled[addon_info.folder_name])
+            {
+                Directory.Move(
+                    Path.Combine("Disabled Plugins", addon_info.folder_name),
+                    Path.Combine(Path.Combine(info.game_path, "addons"))
+                    );
+                info.disabled[addon_info.folder_name] = false;
+                configuration.setConfigAsYAML(info);
+            }
+        }
 
         /***** DOWNLOAD EVENTS *****/
         void addon_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)

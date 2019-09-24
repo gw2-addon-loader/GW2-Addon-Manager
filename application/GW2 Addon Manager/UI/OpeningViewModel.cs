@@ -4,7 +4,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using File = System.IO.File;
@@ -56,7 +55,7 @@ namespace GW2_Addon_Manager
             UpdateLinkVisibility = Visibility.Hidden;
             UpdateProgressVisibility = Visibility.Hidden;
 
-            GamePath = configuration.getConfig().game_path;  
+            GamePath = configuration.getConfigAsYAML().game_path;  
 
             /* applying any values from config.ini */
             configuration.ApplyDefaultConfig(this);
@@ -65,6 +64,9 @@ namespace GW2_Addon_Manager
 
         /***** Description Panel Text *****/
         private string _description;
+        /// <summary>
+        /// Text content for the description panel.
+        /// </summary>
         public string DescriptionText
         {
             get { return _description; }
@@ -135,12 +137,7 @@ namespace GW2_Addon_Manager
         /// </summary>
         public ICommand DownloadSelfUpdate
         {
-            
-            get
-            {
-                
-                return new RelayCommand<object>(param => Updates.UpdateSelf(this), true);
-            }
+            get { return new RelayCommand<object>(param => UpdateHelpers.UpdateSelf(this), true); }
         }
 
         /***** ************************** *****/

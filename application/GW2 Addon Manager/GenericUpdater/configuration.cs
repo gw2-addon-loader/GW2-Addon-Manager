@@ -17,18 +17,10 @@ namespace GW2_Addon_Manager
 
         static string applicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
 
-        /// <summary>
-        /// <c>getConfig</c> accesses a configuration file found at <c>config_file_path</c>, which should adhere to proper Json syntax.
-        /// </summary>
-        /// <returns> a dynamic object representing the configuration file as converted from Json using Json.NET </returns>
-        public static dynamic getConfig()
-        {
-            string config_file = File.ReadAllText(config_file_path);
-            dynamic config_obj = JsonConvert.DeserializeObject(config_file);
-            return config_obj;
-        }
 
-        public static config getConfigAsConfig()
+        //add convert-to-yaml method
+
+        public static config getConfigAsYAML()
         {
             String updateFile = null;
             String yamlPath = "config.yaml";
@@ -44,10 +36,15 @@ namespace GW2_Addon_Manager
             return user_config;
         }
 
-        public static void setConfigAsConfig(config info)
+        public static void setConfigAsYAML(config info)
         {
             String yamlPath = "config.yaml";
             File.WriteAllText(yamlPath, new Serializer().Serialize(info));
+        }
+
+        public static void setTemplateYAML(config info)
+        {
+            File.WriteAllText(config_template_path, new Serializer().Serialize(info));
         }
 
         /// <summary>
@@ -84,17 +81,6 @@ namespace GW2_Addon_Manager
         }
 
         /// <summary>
-        /// <c>setConfig</c> overwrites the configuration file found at <c>config_file_path</c>
-        /// with a Json string created by serializing<paramref name="config_obj"/>.
-        /// </summary>
-        /// <param name="config_obj"> the dynamic object to be serialized and written to the file </param>
-        public static void setConfig(dynamic config_obj)
-        {
-            string edited_config_file = JsonConvert.SerializeObject(config_obj, Formatting.Indented);
-            File.WriteAllText(config_file_path, edited_config_file);
-        }
-
-        /// <summary>
         /// Overwrites the configuration file template in the application's
         /// /resources/ folder with a string created by serializing <paramref name="config_obj"/>.
         /// </summary>
@@ -112,7 +98,7 @@ namespace GW2_Addon_Manager
         /// <param name="viewModel">An instance of the <typeparamref>OpeningViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
         public static void ApplyDefaultConfig(OpeningViewModel viewModel)
         {
-            dynamic config_obj = getConfig();
+            config config_obj = getConfigAsYAML();
 
            
 
@@ -125,7 +111,7 @@ namespace GW2_Addon_Manager
         /// <param name="viewModel">An instance of the <typeparamref>OpeningViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
         public static void DisplayAddonStatus(OpeningViewModel viewModel)
         {
-            dynamic config_obj = getConfig();
+            config config_obj = getConfigAsYAML();
 
             
         }
@@ -137,10 +123,10 @@ namespace GW2_Addon_Manager
         /// <param name="viewModel">An instance of the <typeparamref>OpeningViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
         public static void ChangeAddonConfig(OpeningViewModel viewModel)
         {
-            dynamic config_obj = getConfig();
+            config config_obj = getConfigAsYAML();
 
             
-            setConfig(config_obj);
+            setConfigAsYAML(config_obj);
         }
 
 
@@ -151,9 +137,9 @@ namespace GW2_Addon_Manager
         public static void SetGamePath(string path)
         {
             Application.Current.Properties["game_path"] = path.Replace("\\", "\\\\");
-            dynamic config_obj = configuration.getConfig();
+            config config_obj = configuration.getConfigAsYAML();
             config_obj.game_path = Application.Current.Properties["game_path"].ToString().Replace("\\\\", "\\");
-            configuration.setConfig(config_obj);
+            setConfigAsYAML(config_obj);
             DetermineSystemType();
         }
 
@@ -223,7 +209,7 @@ namespace GW2_Addon_Manager
         /// <param name="viewModel">An instance of the <typeparamref>OpeningViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
         public static void CheckSelfUpdates(OpeningViewModel viewModel)
         {
-            string thisVersion = getConfig().application_version;
+            string thisVersion = getConfigAsYAML().application_version;
             string latestVersion;
 
             dynamic release_info = UpdateHelpers.GitReleaseInfo(applicationRepoUrl);
@@ -242,7 +228,7 @@ namespace GW2_Addon_Manager
         /// </summary>
         public static void DetermineSystemType()
         {
-            dynamic config = getConfig();
+            config config = getConfigAsYAML();
             if (Directory.Exists(config.game_path.ToString()))
             {
                 if (Directory.Exists(config.game_path.ToString() + "\\bin64"))
@@ -253,7 +239,7 @@ namespace GW2_Addon_Manager
                 {
                     config.bin_folder = "bin";
                 }
-                setConfig(config);
+                setConfigAsYAML(config);
             }
         }
     }

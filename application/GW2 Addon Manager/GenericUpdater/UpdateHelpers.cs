@@ -19,7 +19,6 @@ namespace GW2_Addon_Manager
         {
             List<AddonInfo> addons = (List<AddonInfo>)Application.Current.Properties["Selected"];
             
-            //TODO: keep track of addons that need to have chainload set up
             foreach (AddonInfo addon in addons)
             {
                 GenericUpdater updater = new GenericUpdater(addon.folder_name, viewModel);
@@ -30,6 +29,13 @@ namespace GW2_Addon_Manager
             //config file edit and set
         }
 
-        //TODO: Completely overhaul configuration and pluginmanagement classes
+        /// <summary>
+        /// Self Updater
+        /// </summary>
+        /// <param name="viewModel"></param>
+        public static void UpdateSelf(OpeningViewModel viewModel)
+        {
+            SelfUpdate update = new SelfUpdate(viewModel);
+        }
     }
 }

@@ -126,20 +126,14 @@
     </ApplicationDefinition>
     <Compile Include="GenericUpdater\AddonInfo.cs" />
     <Compile Include="GenericUpdater\AddonList\ApprovedList.cs" />
-    <Compile Include="HardcodedUpdater\Addons\arcdps.cs" />
-    <Compile Include="HardcodedUpdater\Addons\arcdps_bhud.cs" />
-    <Compile Include="HardcodedUpdater\Addons\arcdps_mechanics.cs" />
     <Compile Include="GenericUpdater\config.cs" />
-    <Compile Include="HardcodedUpdater\configuration.cs" />
-    <Compile Include="HardcodedUpdater\Addons\d912pxy.cs" />
+    <Compile Include="GenericUpdater\configuration.cs" />
     <Compile Include="GenericUpdater\GenericUpdater.cs" />
-    <Compile Include="HardcodedUpdater\Addons\gw2radial.cs" />
     <Compile Include="UI\OpeningViewModel.cs" />
-    <Compile Include="HardcodedUpdater\PluginManagement.cs" />
+    <Compile Include="GenericUpdater\PluginManagement.cs" />
     <Compile Include="App\SelfUpdate.cs" />
     <Compile Include="GenericUpdater\UpdateYamlReader.cs" />
     <Compile Include="GenericUpdater\UpdateHelpers.cs" />
-    <Compile Include="HardcodedUpdater\Updates.cs" />
     <Compile Include="UI\UpdatingView.xaml.cs">
       <DependentUpon>UpdatingView.xaml</DependentUpon>
     </Compile>
