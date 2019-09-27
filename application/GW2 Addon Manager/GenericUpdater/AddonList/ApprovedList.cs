@@ -25,7 +25,11 @@ namespace GW2_Addon_Manager
             string[] AddonDirectories = Directory.GetDirectories("resources\\addons");  //Names of addon subdirectories in /resources/addons
 
             foreach (string addonFolderName in AddonDirectories)
-                Addons.Add(UpdateYamlReader.getBuiltInInfo(addonFolderName));       //retrieving info from each addon subdirectory's update.yaml file and adding it to the list
+            {
+                AddonInfo temp = UpdateYamlReader.getBuiltInInfo(addonFolderName);
+                temp.folder_name = addonFolderName;
+                Addons.Add(temp);       //retrieving info from each addon subdirectory's update.yaml file and adding it to the list
+            }
 
             return Addons;
         }

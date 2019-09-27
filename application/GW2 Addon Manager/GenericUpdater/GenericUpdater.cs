@@ -140,7 +140,7 @@ namespace GW2_Addon_Manager
 
 
         /***** DISABLE *****/
-        public void disable()
+        public static void disable(AddonInfo addon_info)
         {
             config info = configuration.getConfigAsYAML();
             if (!info.disabled[addon_info.folder_name])
@@ -155,7 +155,7 @@ namespace GW2_Addon_Manager
         }
 
         /***** ENABLE *****/
-        public void enable()
+        public static void enable(AddonInfo addon_info)
         {
             config info = configuration.getConfigAsYAML();
             if (info.disabled[addon_info.folder_name])
@@ -165,6 +165,28 @@ namespace GW2_Addon_Manager
                     Path.Combine(Path.Combine(info.game_path, "addons"))
                     );
                 info.disabled[addon_info.folder_name] = false;
+                configuration.setConfigAsYAML(info);
+            }
+        }
+
+        /***** DELETE *****/
+        public static void delete(AddonInfo addon_info)
+        {
+            config info = configuration.getConfigAsYAML();
+            if (info.disabled[addon_info.folder_name])
+            {
+                Directory.Delete(Path.Combine("Disabled Plugins", addon_info.folder_name), true);
+                info.disabled[addon_info.folder_name] = false;
+                info.installed[addon_info.folder_name] = null;
+                info.version[addon_info.folder_name] = null;
+                configuration.setConfigAsYAML(info);
+            }
+            else
+            {
+                Directory.Delete(Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name), true);
+                info.disabled[addon_info.folder_name] = false;
+                info.installed[addon_info.folder_name] = null;
+                info.version[addon_info.folder_name] = null;
                 configuration.setConfigAsYAML(info);
             }
         }

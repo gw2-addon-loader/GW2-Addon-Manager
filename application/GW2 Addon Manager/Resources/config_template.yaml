@@ -3,26 +3,26 @@ bin_folder:
 isupdate: true
 game_path: C:\\Program Files\\Guild Wars 2
 default_configuration:
-    - arcdps: false
-    - gw2radial: false
-    - d912pxy: false
-    - arcdps_bhud: false
-    - arcdps_mechanics: false
+    arcdps: false
+    gw2radial: false
+    d912pxy: false
+    arcdps_bhud: false
+    arcdps_mechanics: false
 version:
-    - arcdps:
-    - gw2radial: 
-    - d912pxy:
-    - arcdps_bhud:
-    - arcdps_mechanics:
+    arcdps:
+    gw2radial: 
+    d912pxy:
+    arcdps_bhud:
+    arcdps_mechanics:
 installed:
-    - arcdps:
-    - gw2radial: 
-    - d912pxy:
-    - arcdps_bhud:
-    - arcdps_mechanics:
+    arcdps:
+    gw2radial: 
+    d912pxy:
+    arcdps_bhud:
+    arcdps_mechanics:
 disabled:
-    - arcdps: false
-    - gw2radial: false
-    - d912pxy: false
-    - arcdps_bhud: false
-    - arcdps_mechanics: false
+    arcdps: false
+    gw2radial: false
+    d912pxy: false
+    arcdps_bhud: false
+    arcdps_mechanics: false

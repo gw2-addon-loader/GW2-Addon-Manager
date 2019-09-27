@@ -143,6 +143,16 @@ namespace GW2_Addon_Manager
             DetermineSystemType();
         }
 
+        /// <summary>
+        /// <c>setConfig</c> overwrites the configuration file found at <c>config_file_path</c>
+        /// with a Json string created by serializing<paramref name="config_obj"/>.
+        /// </summary>
+        /// <param name="config_obj"> the dynamic object to be serialized and written to the file </param>
+        public static void setConfigFromDynamicJson(dynamic config_obj)
+        {
+            string edited_config_file = JsonConvert.SerializeObject(config_obj, Formatting.Indented);
+            File.WriteAllText(config_file_path, edited_config_file);
+        }
 
         /// <summary>
         /// <c>SelfVersionStatus</c> either creates config.ini according to the template in /resources/, copies data from a previous installation to
@@ -183,7 +193,7 @@ namespace GW2_Addon_Manager
 
                     }
                     /* convert the updated JObject to a dynamic and overwrite config.ini */
-                    setConfig(template_config.ToObject<dynamic>());
+                    setConfigFromDynamicJson(template_config.ToObject<dynamic>());
 
                     dynamic template_disable_update = getTemplateConfig();  //get the unedited config template
                     template_disable_update.isupdate = false;               //set isupdate to false, so program knows not to re-perform config file swapping

@@ -30,6 +30,16 @@ namespace GW2_Addon_Manager
         }
 
 
+        private ObservableCollection<int> _selectedAddons;
+        /// <summary>
+        /// The indices of the checked boxes in the list of addons displayed on the UI.
+        /// </summary>
+        public ObservableCollection<int> SelectedAddons
+        {
+            get { return _selectedAddons; }
+            set { _selectedAddons = value; propertyChanged("SelectedAddons"); }
+        }
+
         private ObservableCollection<AddonInfo> _addonList;
         /// <summary>
         /// List of Addons
@@ -75,6 +85,9 @@ namespace GW2_Addon_Manager
 
         /***** "Developer" label *****/
         private string _developer;
+        /// <summary>
+        /// The informational text showing the developer of the selected add-on.
+        /// </summary>
         public string Developer
         {
             get { return _developer; }
@@ -82,6 +95,9 @@ namespace GW2_Addon_Manager
         }
 
         private Visibility _developer_visibility;
+        /// <summary>
+        /// Visibility of the informational text showing the developer of the selected add-on.
+        /// </summary>
         public Visibility DeveloperVisibility
         {
             get { return _developer_visibility; }

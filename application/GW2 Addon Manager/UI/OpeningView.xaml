@@ -164,11 +164,10 @@
                 <ListBox Name="addons" ItemsSource="{Binding AddonList}" SelectionChanged="addOnList_SelectedIndexChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox Name="TheCheckBox" Content="{Binding addon_name}" ToolTip="{Binding tooltip}"/>
+                            <CheckBox Name="TheCheckBox" Content="{Binding addon_name}" ToolTip="{Binding tooltip}" Checked="TheCheckBox_Checked"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <!--<CheckBox Name="gw2hook" Checked="Box_Checked" Margin="5,5,5,5" FontSize="14">Gw2 Hook</CheckBox>-->
             </StackPanel>
         </Border>
 

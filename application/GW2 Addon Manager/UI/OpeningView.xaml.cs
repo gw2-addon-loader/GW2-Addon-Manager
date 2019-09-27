@@ -94,5 +94,21 @@ namespace GW2_Addon_Manager
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
         }
+
+        /***** Checkbox checked handler *****/
+        //a bit hacky but should work
+        private void TheCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            ObservableCollection<int> selected = new ObservableCollection<int>();
+            for (int i = 0; i < addons.Items.Count; i++)
+            {
+                CheckBox current = (CheckBox)addons.Items.GetItemAt(i);
+                if ((bool)current.IsChecked)
+                {
+                    selected.Add(i);
+                }
+            }
+            theViewModel.SelectedAddons = selected;
+        }
     }
 }
