@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Windows;
 
 namespace GW2_Addon_Manager
@@ -16,8 +17,8 @@ namespace GW2_Addon_Manager
             string deletemsg = "This will delete any add-ons that are selected and all data associated with them! Are you sure you wish to continue?";
             if (MessageBox.Show(deletemsg, "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                foreach (int index in viewModel.SelectedAddons)
-                    GenericUpdater.delete(viewModel.AddonList[index]);
+                foreach (AddonInfo addon in viewModel.AddonList.Where(add => add.IsSelected == true))
+                    GenericUpdater.delete(addon);
             }
 
             configuration.DisplayAddonStatus(viewModel);

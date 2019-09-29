@@ -21,21 +21,21 @@ namespace GW2_Addon_Manager
 
         string latestVersion;
 
-        public GenericUpdater(string name, UpdatingViewModel aViewModel)
+        public GenericUpdater(AddonInfo addon, UpdatingViewModel aViewModel)
         {
-            addon_name = name;
-            addon_info = UpdateYamlReader.getBuiltInInfo(name);
+            addon_name = addon.folder_name;
+            addon_info = addon;
             viewModel = aViewModel;
             userConfig = configuration.getConfigAsYAML();
 
-            addon_expanded_path = Path.Combine(Path.GetTempPath(), name);
-            addon_install_path = Path.Combine(configuration.getConfigAsYAML().game_path, "addons\\" + name);
+            addon_expanded_path = Path.Combine(Path.GetTempPath(), addon_name);
+            addon_install_path = Path.Combine(configuration.getConfigAsYAML().game_path, "addons\\" + addon_name);
         }
 
 
         public async Task Update()
         {
-            if (!userConfig.disabled[addon_name])
+            if ((userConfig.disabled.ContainsKey(addon_name) && !userConfig.disabled[addon_name]) || !userConfig.disabled.ContainsKey(addon_name))
             {
                 if (addon_info.host_type == "github")
                 {
@@ -130,8 +130,7 @@ namespace GW2_Addon_Manager
             userConfig.version[addon_info.folder_name] = latestVersion;
 
             
-            if(addon_info.install_mode == "binary")
-                userConfig.installed[addon_info.folder_name] = addon_info.folder_name;
+            userConfig.installed[addon_info.folder_name] = addon_info.folder_name;
             //TODO d3d9
 
             //set config.yaml
@@ -143,29 +142,35 @@ namespace GW2_Addon_Manager
         public static void disable(AddonInfo addon_info)
         {
             config info = configuration.getConfigAsYAML();
-            if (!info.disabled[addon_info.folder_name])
+            if (info.installed.ContainsKey(addon_info.folder_name) && info.installed[addon_info.folder_name] != null)
             {
-                Directory.Move(
-                    Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name),
-                    Path.Combine("Disabled Plugins")
-                    );
-                info.disabled[addon_info.folder_name] = true;
-                configuration.setConfigAsYAML(info);
-            }    
+                if (info.disabled.ContainsKey(addon_info.folder_name) && !info.disabled[addon_info.folder_name])
+                {
+                    Directory.Move(
+                        Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name),
+                        Path.Combine("Disabled Plugins")
+                        );
+                    info.disabled[addon_info.folder_name] = true;
+                    configuration.setConfigAsYAML(info);
+                }
+            }
         }
 
         /***** ENABLE *****/
         public static void enable(AddonInfo addon_info)
         {
             config info = configuration.getConfigAsYAML();
-            if (info.disabled[addon_info.folder_name])
+            if (info.installed.ContainsKey(addon_info.folder_name) && info.installed[addon_info.folder_name] != null)
             {
-                Directory.Move(
-                    Path.Combine("Disabled Plugins", addon_info.folder_name),
-                    Path.Combine(Path.Combine(info.game_path, "addons"))
-                    );
-                info.disabled[addon_info.folder_name] = false;
-                configuration.setConfigAsYAML(info);
+                if (info.disabled.ContainsKey(addon_info.folder_name) && info.disabled[addon_info.folder_name])
+                {
+                    Directory.Move(
+                        Path.Combine("Disabled Plugins", addon_info.folder_name),
+                        Path.Combine(Path.Combine(info.game_path, "addons"))
+                        );
+                    info.disabled[addon_info.folder_name] = false;
+                    configuration.setConfigAsYAML(info);
+                }
             }
         }
 
@@ -173,21 +178,24 @@ namespace GW2_Addon_Manager
         public static void delete(AddonInfo addon_info)
         {
             config info = configuration.getConfigAsYAML();
-            if (info.disabled[addon_info.folder_name])
+            if (info.installed.ContainsKey(addon_info.folder_name) && info.installed[addon_info.folder_name] != null)
             {
-                Directory.Delete(Path.Combine("Disabled Plugins", addon_info.folder_name), true);
-                info.disabled[addon_info.folder_name] = false;
-                info.installed[addon_info.folder_name] = null;
-                info.version[addon_info.folder_name] = null;
-                configuration.setConfigAsYAML(info);
-            }
-            else
-            {
-                Directory.Delete(Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name), true);
-                info.disabled[addon_info.folder_name] = false;
-                info.installed[addon_info.folder_name] = null;
-                info.version[addon_info.folder_name] = null;
-                configuration.setConfigAsYAML(info);
+                if (info.disabled.ContainsKey(addon_info.folder_name) && info.disabled[addon_info.folder_name])
+                {
+                    Directory.Delete(Path.Combine("Disabled Plugins", addon_info.folder_name), true);
+                    info.disabled[addon_info.folder_name] = false;
+                    info.installed[addon_info.folder_name] = null;
+                    info.version[addon_info.folder_name] = null;
+                    configuration.setConfigAsYAML(info);
+                }
+                else
+                {
+                    Directory.Delete(Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name), true);
+                    info.disabled[addon_info.folder_name] = false;
+                    info.installed[addon_info.folder_name] = null;
+                    info.version[addon_info.folder_name] = null;
+                    configuration.setConfigAsYAML(info);
+                }
             }
         }
 

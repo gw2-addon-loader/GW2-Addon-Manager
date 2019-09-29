@@ -164,7 +164,7 @@
                 <ListBox Name="addons" ItemsSource="{Binding AddonList}" SelectionChanged="addOnList_SelectedIndexChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox Name="TheCheckBox" Content="{Binding addon_name}" ToolTip="{Binding tooltip}" Checked="TheCheckBox_Checked"/>
+                            <CheckBox Name="TheCheckBox" Content="{Binding addon_name}" ToolTip="{Binding tooltip}" IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

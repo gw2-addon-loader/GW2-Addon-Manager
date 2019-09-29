@@ -206,12 +206,24 @@
     <Content Include="Resources\config_template.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\Addons\arcdps\update-placeholder.yaml" />
-    <None Include="Resources\Addons\arcdps_bhud\update-placeholder.yaml" />
-    <None Include="Resources\Addons\arcdps_mechanics\update-placeholder.yaml" />
-    <None Include="Resources\Addons\d912pxy\update-placeholder.yaml" />
-    <None Include="Resources\Addons\gw2radial\update-placeholder.yaml" />
-    <None Include="Resources\Addons\template-update.yaml" />
+    <None Include="Resources\Addons\arcdps\update-placeholder.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Addons\arcdps_bhud\update-placeholder.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Addons\arcdps_mechanics\update-placeholder.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Addons\d912pxy\update-placeholder.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Addons\gw2radial\update-placeholder.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Addons\template-update.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App\App.config" />

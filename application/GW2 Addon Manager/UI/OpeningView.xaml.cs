@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -73,15 +74,12 @@ namespace GW2_Addon_Manager
         /***** UPDATE button *****/
         private void update_button_clicked(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("UI//UpdatingView.xaml", UriKind.Relative));
+            this.NavigationService.Navigate(new Uri("UI/UpdatingView.xaml", UriKind.Relative));
             List<AddonInfo> selectedAddons = new List<AddonInfo>();
 
-            foreach (ListBoxItem addon in addons.Items)
+            foreach (AddonInfo addon in theViewModel.AddonList.Where(add => add.IsSelected == true))
             {
-                if (addon.IsSelected)
-                {
-                    selectedAddons.Add(theViewModel.AddonList[addons.Items.IndexOf(addon)]);
-                }
+                selectedAddons.Add(addon);
             }
 
             Application.Current.Properties["Selected"] = selectedAddons;
@@ -95,20 +93,5 @@ namespace GW2_Addon_Manager
             e.Handled = true;
         }
 
-        /***** Checkbox checked handler *****/
-        //a bit hacky but should work
-        private void TheCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            ObservableCollection<int> selected = new ObservableCollection<int>();
-            for (int i = 0; i < addons.Items.Count; i++)
-            {
-                CheckBox current = (CheckBox)addons.Items.GetItemAt(i);
-                if ((bool)current.IsChecked)
-                {
-                    selected.Add(i);
-                }
-            }
-            theViewModel.SelectedAddons = selected;
-        }
     }
 }

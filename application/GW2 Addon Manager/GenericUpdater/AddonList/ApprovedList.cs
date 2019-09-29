@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 
@@ -26,8 +27,8 @@ namespace GW2_Addon_Manager
 
             foreach (string addonFolderName in AddonDirectories)
             {
-                AddonInfo temp = UpdateYamlReader.getBuiltInInfo(addonFolderName);
-                temp.folder_name = addonFolderName;
+                AddonInfo temp = UpdateYamlReader.getBuiltInInfo(addonFolderName.Replace("resources\\addons\\", ""));
+                temp.folder_name = addonFolderName.Replace("resources\\addons\\", "");
                 Addons.Add(temp);       //retrieving info from each addon subdirectory's update.yaml file and adding it to the list
             }
 

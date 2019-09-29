@@ -17,8 +17,6 @@ This addon is compatible with the Windows client only; it will not work with the
 tooltip: Provides a menu with access to all unlocked mounts with one keypress - by FriendlyFire
 
 ### DOWNLOADING/INSTALLATION ###
-# name of the parent folder this file is to be placed in - e.g. arcdps_bhud for ArcDPS BlishHud Integration
-folder_name: gw2radial
 # github or standalone
 host_type: github
 # either github API url or direct URL to file/archive - former is parsed to find latest version and download link,

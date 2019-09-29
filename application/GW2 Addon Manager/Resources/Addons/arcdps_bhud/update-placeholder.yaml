@@ -16,8 +16,6 @@ description: "\"This is a plugin that uses the Arcdps Combat API and exposes som
 tooltip: Uses the ArcDPS Combat API to provide data to Blish HUD - by Greaka
 
 ### DOWNLOADING/INSTALLATION ###
-# name of the parent folder this file is to be placed in - e.g. arcdps_bhud for ArcDPS BlishHud Integration
-folder_name: arcdos_bhud
 # github or standalone
 host_type: github
 # either github API url or direct URL to file/archive - former is parsed to find latest version and download link,

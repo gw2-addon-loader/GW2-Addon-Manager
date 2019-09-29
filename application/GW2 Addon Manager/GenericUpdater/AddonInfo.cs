@@ -8,10 +8,12 @@ namespace GW2_Addon_Manager
     /// </summary>
     public class AddonInfo
     {
+        //for xaml
+        public bool IsSelected { get; set; }
+
         public string developer { get; set; }
         public string website { get; set; }
         public string addon_name { get; set; }
-        public string plugin_name { get; set; }
         public string description { get; set; }
         public string tooltip { get; set; }
 

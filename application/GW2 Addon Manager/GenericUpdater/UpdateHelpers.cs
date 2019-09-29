@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Windows;
 
@@ -19,9 +20,9 @@ namespace GW2_Addon_Manager
         {
             List<AddonInfo> addons = (List<AddonInfo>)Application.Current.Properties["Selected"];
             
-            foreach (AddonInfo addon in addons)
+            foreach (AddonInfo addon in addons.Where(add => add != null))
             {
-                GenericUpdater updater = new GenericUpdater(addon.folder_name, viewModel);
+                GenericUpdater updater = new GenericUpdater(addon, viewModel);
                 await updater.Update();
             }
 

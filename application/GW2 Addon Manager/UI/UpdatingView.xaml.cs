@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using YamlDotNet.Serialization;
 
 namespace GW2_Addon_Manager
 {
@@ -22,7 +23,13 @@ namespace GW2_Addon_Manager
             theViewModel = new UpdatingViewModel();
             DataContext = theViewModel;
             InitializeComponent();
-            Task.Run(() => UpdateHelpers.UpdateAll(theViewModel));
+
+            //Task.Run(() => UpdateHelpers.UpdateAll(theViewModel));
+            UpdateHelpers.UpdateAll(theViewModel);
+            //do this AFTER task is finished
+            theViewModel.label = "Finished";
+            theViewModel.showProgress = 100;
+            theViewModel.closeButtonEnabled = true;
         }
 
         /***************************** Titlebar Window Drag *****************************/

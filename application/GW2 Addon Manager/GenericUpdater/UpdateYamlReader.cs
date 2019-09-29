@@ -15,8 +15,8 @@ namespace GW2_Addon_Manager
         /// <returns>An object with the information from update.yaml</returns>
         public static AddonInfo getBuiltInInfo(string name)
         {
-            string yamlPath = name + "\\update.yaml";
-            string placeholderYamlPath = name + "\\update-placeholder.yaml";
+            string yamlPath = "resources\\addons\\" + name + "\\update.yaml";
+            string placeholderYamlPath = "resources\\addons\\" + name + "\\update-placeholder.yaml";
             string updateFile = null;
             if(File.Exists(yamlPath))
                 updateFile = File.ReadAllText(yamlPath);
