@@ -10,8 +10,9 @@ namespace GW2_Addon_Manager
     class config
     {
         public string application_version;
+        public string loader_version;
         public string bin_folder;
-        public string isupdate;
+        public bool isupdate;
         public string game_path;
         public Dictionary<string, bool> default_configuration;
         public Dictionary<string, string> version;

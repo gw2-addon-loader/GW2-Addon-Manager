@@ -24,11 +24,12 @@ namespace GW2_Addon_Manager
             DataContext = theViewModel;
             InitializeComponent();
 
-            //Task.Run(() => UpdateHelpers.UpdateAll(theViewModel));
-            UpdateHelpers.UpdateAll(theViewModel);
+            LoaderSetup settingUp = new LoaderSetup(theViewModel);
+            Task.Run(() => UpdateHelpers.UpdateAll(theViewModel));
+
             //do this AFTER task is finished
-            theViewModel.label = "Finished";
-            theViewModel.showProgress = 100;
+            //theViewModel.label = "Finished";
+            //theViewModel.showProgress = 100;
             theViewModel.closeButtonEnabled = true;
         }
 

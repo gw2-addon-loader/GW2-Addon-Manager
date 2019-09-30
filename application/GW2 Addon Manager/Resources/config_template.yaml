@@ -1,5 +1,6 @@
 application_version: v0.5.0
 bin_folder:
+loader_installed: false
 isupdate: true
 game_path: C:\\Program Files\\Guild Wars 2
 default_configuration:

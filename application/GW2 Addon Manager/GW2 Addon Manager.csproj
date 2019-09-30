@@ -138,6 +138,7 @@
     <Compile Include="GenericUpdater\config.cs" />
     <Compile Include="GenericUpdater\configuration.cs" />
     <Compile Include="GenericUpdater\GenericUpdater.cs" />
+    <Compile Include="LoaderSetup\LoaderSetup.cs" />
     <Compile Include="UI\OpeningViewModel.cs" />
     <Compile Include="GenericUpdater\PluginManagement.cs" />
     <Compile Include="App\SelfUpdate.cs" />
@@ -215,6 +216,7 @@
     <None Include="Resources\Addons\arcdps_mechanics\update-placeholder.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Addons\d3d9_wrapper\update-placeholder.yaml" />
     <None Include="Resources\Addons\d912pxy\update-placeholder.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

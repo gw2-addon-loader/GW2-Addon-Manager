@@ -1,0 +1,35 @@
+﻿# Update files are intended to provide information for:
+# Installation
+# Plugin configuration
+# User-Facing information displayed on the addon manager UI
+
+### USER-FACING INFO ###
+# developer of the add-on
+developer: Megai2
+# website where more information about the add-on can be found
+website: https://github.com/megai2/d912pxy
+# name of the add-on
+addon_name: d3d9 wrapper
+# descriptive text for the addon
+description: "d3d9 wrapper for the addon loader"
+# tooltip - basically description but in brief
+tooltip: 
+
+### DOWNLOADING/INSTALLATION ###
+# github or standalone
+host_type: github
+# either github API url or direct URL to file/archive - former is parsed to find latest version and download link,
+# latter is a direct download link to a file/archive
+host_url: https://api.github.com/repos/gw2-addon-loader/d3d9_wrapper/releases/latest
+# for md5sum files and things of that nature; files that exist solely to show what the latest version is. Standalone only.
+version_url: 
+# archive or .dll
+download_type: archive
+# binary or d3d9 - binary leaves plugin name as-is, d3d9 means filename may be changed for chainloading
+install_mode: binary
+
+### CONFIGURATION ###
+# a list of all other add-ons required for this add-on to function
+requires:
+# a list of all add-ons that prevent this add-on from functioning properly
+conflicts:

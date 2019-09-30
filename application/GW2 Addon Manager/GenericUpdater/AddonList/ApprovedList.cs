@@ -27,9 +27,12 @@ namespace GW2_Addon_Manager
 
             foreach (string addonFolderName in AddonDirectories)
             {
-                AddonInfo temp = UpdateYamlReader.getBuiltInInfo(addonFolderName.Replace("resources\\addons\\", ""));
-                temp.folder_name = addonFolderName.Replace("resources\\addons\\", "");
-                Addons.Add(temp);       //retrieving info from each addon subdirectory's update.yaml file and adding it to the list
+                if (addonFolderName != "resources\\addons\\d3d9_wrapper")
+                {
+                    AddonInfo temp = UpdateYamlReader.getBuiltInInfo(addonFolderName.Replace("resources\\addons\\", ""));
+                    temp.folder_name = addonFolderName.Replace("resources\\addons\\", "");
+                    Addons.Add(temp);       //retrieving info from each addon subdirectory's update.yaml file and adding it to the list
+                }
             }
 
             return Addons;

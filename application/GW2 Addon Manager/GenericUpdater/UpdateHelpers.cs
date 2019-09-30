@@ -18,6 +18,9 @@ namespace GW2_Addon_Manager
 
         public static async void UpdateAll(UpdatingViewModel viewModel)
         {
+            LoaderSetup settingUp = new LoaderSetup(viewModel);
+            await settingUp.handleLoaderInstall();
+
             List<AddonInfo> addons = (List<AddonInfo>)Application.Current.Properties["Selected"];
             
             foreach (AddonInfo addon in addons.Where(add => add != null))

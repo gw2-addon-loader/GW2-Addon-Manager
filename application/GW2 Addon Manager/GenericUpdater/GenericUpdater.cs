@@ -29,7 +29,7 @@ namespace GW2_Addon_Manager
             userConfig = configuration.getConfigAsYAML();
 
             addon_expanded_path = Path.Combine(Path.GetTempPath(), addon_name);
-            addon_install_path = Path.Combine(configuration.getConfigAsYAML().game_path, "addons\\" + addon_name);
+            addon_install_path = Path.Combine(configuration.getConfigAsYAML().game_path, "addons\\");
         }
 
 
@@ -64,8 +64,9 @@ namespace GW2_Addon_Manager
             if (userConfig.version[addon_name] != null && latestVersion == userConfig.version[addon_name])
                 return;
 
+            string download_link = release_info.assets[0].browser_download_url;
             viewModel.label = "Downloading " + addon_info.addon_name + " " + latestVersion;
-            await Download(release_info.assets[0].browser_download_url, client);
+            await Download(download_link, client);
         }
 
         private async Task StandaloneCheckUpdate()
@@ -116,7 +117,7 @@ namespace GW2_Addon_Manager
             if (addon_info.download_type == "archive")
             {
                 if (Directory.Exists(addon_expanded_path))
-                    Directory.Delete(addon_expanded_path);
+                    Directory.Delete(addon_expanded_path, true);
 
                 ZipFile.ExtractToDirectory(fileName, addon_expanded_path);
 
@@ -131,7 +132,6 @@ namespace GW2_Addon_Manager
 
             
             userConfig.installed[addon_info.folder_name] = addon_info.folder_name;
-            //TODO d3d9
 
             //set config.yaml
             configuration.setConfigAsYAML(userConfig);

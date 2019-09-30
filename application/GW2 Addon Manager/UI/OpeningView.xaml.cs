@@ -73,9 +73,12 @@ namespace GW2_Addon_Manager
 
         /***** UPDATE button *****/
         private void update_button_clicked(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new Uri("UI/UpdatingView.xaml", UriKind.Relative));
+        {        
             List<AddonInfo> selectedAddons = new List<AddonInfo>();
+
+            AddonInfo wrapper = UpdateYamlReader.getBuiltInInfo("d3d9_wrapper");
+            wrapper.folder_name = "d3d9_wrapper";
+            selectedAddons.Add(wrapper);
 
             foreach (AddonInfo addon in theViewModel.AddonList.Where(add => add.IsSelected == true))
             {
@@ -84,6 +87,7 @@ namespace GW2_Addon_Manager
 
             Application.Current.Properties["Selected"] = selectedAddons;
 
+            this.NavigationService.Navigate(new Uri("UI/UpdatingView.xaml", UriKind.Relative));
         }
 
         /***** Hyperlink Handler *****/
