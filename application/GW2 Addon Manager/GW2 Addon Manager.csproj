@@ -65,13 +65,13 @@
     </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetZone>LocalIntranet</TargetZone>
+    <TargetZone>Internet</TargetZone>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
