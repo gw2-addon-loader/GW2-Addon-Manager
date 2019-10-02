@@ -1,29 +1,13 @@
-application_version: v0.5.0
+application_version: v1.0.0
+loader_version:
 bin_folder:
-loader_installed: false
 isupdate: true
-game_path: C:\\Program Files\\Guild Wars 2
+game_path: C:\Program Files\Guild Wars 2
 default_configuration:
-    arcdps: false
-    gw2radial: false
-    d912pxy: false
-    arcdps_bhud: false
-    arcdps_mechanics: false
+  d3d9_wrapper: false
 version:
-    arcdps:
-    gw2radial: 
-    d912pxy:
-    arcdps_bhud:
-    arcdps_mechanics:
+  d3d9_wrapper:
 installed:
-    arcdps:
-    gw2radial: 
-    d912pxy:
-    arcdps_bhud:
-    arcdps_mechanics:
+  d3d9_wrapper:
 disabled:
-    arcdps: false
-    gw2radial: false
-    d912pxy: false
-    arcdps_bhud: false
-    arcdps_mechanics: false
+  d3d9_wrapper: false

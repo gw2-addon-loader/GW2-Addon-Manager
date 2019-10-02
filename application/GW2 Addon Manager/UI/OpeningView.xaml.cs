@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +16,7 @@ namespace GW2_Addon_Manager
     public partial class AddOnSelector : Page
     {
         OpeningViewModel theViewModel;
+        static string UpdateNotificationFile = "updatenotification.txt";
 
         /// <summary>
         /// This constructor deals with creating or expanding the configuration file, setting the DataContext, and checking for application updates.
@@ -27,6 +29,12 @@ namespace GW2_Addon_Manager
             configuration.DetermineSystemType();
             configuration.DisplayAddonStatus(theViewModel);
             InitializeComponent();
+            //update notification
+            if (File.Exists(UpdateNotificationFile))
+            {
+                Process.Start(UpdateNotificationFile);
+                File.Delete(UpdateNotificationFile);
+            }
         }
 
 
@@ -41,6 +49,7 @@ namespace GW2_Addon_Manager
             AddonInfo selected = theViewModel.AddonList[addons.SelectedIndex];
             theViewModel.DescriptionText = selected.description;
             theViewModel.Developer = selected.developer;
+            theViewModel.AddonWebsite = selected.website;
 
             theViewModel.DeveloperVisibility = Visibility.Visible;
         }

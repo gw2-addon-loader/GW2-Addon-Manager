@@ -9,7 +9,7 @@ namespace GW2_Addon_Manager
     {
 
         //TODO
-        public void CheckListVersion()
+        public void FetchListFromRepo()
         {
 
         }

@@ -21,7 +21,7 @@ namespace GW2_Addon_Manager
         public LoaderSetup(UpdatingViewModel aViewModel)
         {
             viewModel = aViewModel;
-            viewModel.label = "Updating Addon Loader";
+            viewModel.label = "Checking for updates to Addon Loader";
             userConfig = configuration.getConfigAsYAML();
             loader_game_path = Path.Combine(userConfig.game_path, userConfig.bin_folder);
         }
@@ -60,12 +60,12 @@ namespace GW2_Addon_Manager
         private void Install()
         {
             viewModel.label = "Installing Addon Loader";
-            string loader_destination = Path.Combine(loader_game_path);
+            string loader_destination = Path.Combine(loader_game_path, "d3d9.dll");
 
             if (File.Exists(loader_destination))
                 File.Delete(loader_destination);
             
-            ZipFile.ExtractToDirectory(fileName, loader_destination);
+            ZipFile.ExtractToDirectory(fileName, loader_game_path);
 
             userConfig.loader_version = latestLoaderVersion;
 

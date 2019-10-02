@@ -65,13 +65,7 @@ namespace GW2_Addon_Manager
             UpdateLinkVisibility = Visibility.Hidden;
             UpdateProgressVisibility = Visibility.Hidden;
 
-            GamePath = configuration.getConfigAsYAML().game_path;  
-
-            //something like this for update notification
-            /*if(File.Exists(whatsnewinthisupdate.md))
-                    showNotification(whatsnewinthisupdate)
-                    delete whatsnewinthisupdate.md
-             */
+            GamePath = configuration.getConfigAsYAML().game_path;
         }
 
 
@@ -95,6 +89,17 @@ namespace GW2_Addon_Manager
         {
             get { return _developer; }
             set { _developer = value; propertyChanged("Developer"); }
+        }
+
+        /*** Link to Addon Website ***/
+        private string _addonwebsite;
+        /// <summary>
+        /// The website link in the description panel.
+        /// </summary>
+        public string AddonWebsite
+        {
+            get { return _addonwebsite; }
+            set { _addonwebsite = value; propertyChanged("AddonWebsite"); }
         }
 
         private Visibility _developer_visibility;

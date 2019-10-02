@@ -10,15 +10,6 @@
       ShowsNavigationUI="False"
       >
     <Page.Resources>
-        <Style x:Key="FocusVisual">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </Page.Resources>
 
     <Grid Margin="0,0,0,0">
@@ -39,7 +30,7 @@
 
         <Label Grid.Row = "1" FontWeight="Bold" FontSize="60" Foreground="DimGray" Margin="30,0,0,0" FontFamily="Microsoft JhengHei UI Light" Width="Auto" HorizontalAlignment="Left" Content="GW2-UOAOM"/>
         <TextBlock Grid.Row="1" Margin="40,75,0,0" FontSize ="16" Foreground="DimGray" FontFamily="Microsoft YaHei UI Light"><Run Text="Guild Wars 2 - Unofficial Add-On Manager"/></TextBlock>
-        <TextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="325,0,0,37" FontFamily="Microsoft YaHei UI Light" FontSize="14"><Run Text="Game Path"/></TextBlock>
+        <TextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="300,0,0,37" FontFamily="Microsoft YaHei UI Light" FontSize="14"><Run Text="Game Path"/></TextBlock>
 
         <ComboBox x:Name="settings_list"
                   Grid.Row="1"
@@ -130,24 +121,24 @@
         </TextBlock>
         <Button Command="{Binding Path=SetGamePath}"
                 Grid.Row="2"
-                Margin="730,0,0,9"
+                Margin="705,0,0,9"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Content="SET"
                 ToolTip="Sets the game path to the location in the text box"
-                Background="Red"
+                Background="#FF66A8C7"
                 Foreground="White"
                 FontSize="14"
                 FontFamily="Footlight MT Light"
                 Height="25"
                 Width="40"
                 BorderThickness="1"
-                BorderBrush="#ff8787"
+                BorderBrush="LightGray"
                 Style="{StaticResource BigContentButton}"
             />
         <TextBox Text="{Binding GamePath}"
                  Grid.Row="2"
-                 Margin="325,0,0,10"
+                 Margin="300,0,0,10"
                  HorizontalAlignment="Left"
                  VerticalAlignment="Bottom"
                  Width="400"
@@ -160,8 +151,11 @@
         <Border Grid.Row="2" Width="250" Height="300" HorizontalAlignment="Left" Margin="40,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
             <StackPanel Width="250" Height="275" HorizontalAlignment="Left">
                 <Label FontSize="18" FontFamily="Microsoft YaHei UI" Margin="0,5,0,10" HorizontalAlignment="Center" Foreground="DimGray" Content="Add-Ons"/>
-                <TextBlock Width="225" Height="50" Margin="5,0,0,0" FontSize="13" FontFamily="Microsoft YaHei UI Light"><Run Text="Checkmark all addons that you would"/><LineBreak/><Run Text="like to install or update."/></TextBlock>
+                <TextBlock Width="225" Height="50" Margin="5,0,0,0" FontSize="13" FontFamily="Microsoft YaHei UI Light">
+                    <Run Text="Select all addons that you would"/><LineBreak/><Run Text="like to install or update."/>
+                </TextBlock>
                 <ListBox Name="addons"
+                         Height="190"
                          ItemsSource="{Binding AddonList}"
                          ItemContainerStyle="{StaticResource AddonListItem}"
                          SelectionChanged="addOnList_SelectedIndexChanged"
@@ -189,16 +183,27 @@
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="2" Width="500" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
+        <Border Grid.Row="2" Width="450" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
             <Grid>
-                <DockPanel Width="500" Height="200" HorizontalAlignment="Left">
-                    <Label FontSize="13" FontFamily="Microsoft YaHei UI" DockPanel.Dock="Right" Width="auto" Margin="0,10,0,0" Padding="0,10,20,10" Foreground="DimGray" Content="{Binding Developer}"/>
+                <DockPanel Width="450" Height="200" HorizontalAlignment="Left">
+                    <Label FontSize="13"
+                           FontFamily="Microsoft YaHei UI"
+                           DockPanel.Dock="Right"
+                           Width="auto"
+                           Margin="0,10,0,0"
+                           Padding="0,10,20,10"
+                           Foreground="DimGray"
+                           >
+                        <Hyperlink NavigateUri="{Binding AddonWebsite}" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None" FocusVisualStyle="{x:Null}">
+                            <TextBlock Text="{Binding Developer}"/>
+                        </Hyperlink>
+                    </Label>
                     <Label FontSize="13" FontFamily="Microsoft YaHei UI" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="0,10,0,0" Padding="10,10,0,10" Visibility="{Binding DeveloperVisibility}" Foreground="DimGray" Content="Developer: "/>
                 </DockPanel>
-                <StackPanel Width="500" Height="200" HorizontalAlignment="Left">
+                <StackPanel Width="450" Height="200" HorizontalAlignment="Left">
                     <Label FontSize="18" FontFamily="Microsoft YaHei UI" Margin="15,10,0,10" HorizontalAlignment="Left" Foreground="DimGray" Content="Description"/>
 
-                    <TextBlock Width="455" Height="140" Margin="0,0,0,0" TextWrapping="Wrap" FontFamily="Microsoft YaHei UI Light" Text="{Binding DescriptionText}" />
+                    <TextBlock Width="450" Height="140" Padding="20,0,20,20" TextWrapping="Wrap" FontFamily="Microsoft YaHei UI Light" Text="{Binding DescriptionText}" />
                 </StackPanel>
             </Grid>
         </Border>
@@ -213,7 +218,7 @@
               VerticalContentAlignment="Center"
               HorizontalAlignment="Left"
               VerticalAlignment="Top">
-            <MenuItem Header="Configuration Settings"
+            <MenuItem Header="Configuration Options"
                       HorizontalContentAlignment="Stretch"
                       VerticalContentAlignment="Center"
                       Height="30"
@@ -221,14 +226,17 @@
                       Style="{StaticResource AddonMenuItemStyle}">
                 <MenuItem Header="Set Default"
                           Command="{Binding Path=SetDefaultAddons}"
-                          Style="{StaticResource AddonMenuItemStyle}"
-                          Template="{StaticResource AddonMenuItemControlTemplate}"/>
+                          Style="{StaticResource AddonMenuItemStyle}" Template="{StaticResource AddonMenuItemControlTemplate}"
+                          ToolTip="The selected addons will be automatically selected whenever the program launches"/>
                 <MenuItem Header="Delete" Command="{Binding Path=DeleteSelected}" Style="{StaticResource AddonMenuItemStyle}"
-                          Template="{StaticResource AddonMenuItemControlTemplate}"/>
+                          Template="{StaticResource AddonMenuItemControlTemplate}"
+                          ToolTip="Deletes the selected addons and all associated data"/>
                 <MenuItem Header="Disable" Command="{Binding Path=DisableSelected}" Style="{StaticResource AddonMenuItemStyle}"
-                          Template="{StaticResource AddonMenuItemControlTemplate}"/>
+                          Template="{StaticResource AddonMenuItemControlTemplate}"
+                          ToolTip="Disables the selected addons"/>
                 <MenuItem Header="Re-Enable" Command="{Binding Path=EnableSelected}" Style="{StaticResource AddonMenuItemStyle}"
-                          Template="{StaticResource AddonMenuItemControlTemplate}"/>
+                          Template="{StaticResource AddonMenuItemControlTemplate}"
+                          ToolTip="Enables the selected addons if they are disabled"/>
             </MenuItem>
         </Menu>
 
@@ -237,12 +245,12 @@
                 HorizontalAlignment="Right"
                 Margin="0,50,175,25"
                 Foreground="White"
-                Background="Red"
+                Background="#7FABEFF9"
                 Click="update_button_clicked"
                 FontFamily="Footlight MT Light"
-                FontSize="16"
+                FontSize="18"
                 BorderThickness="1"
-                BorderBrush="#ff8787"
+                BorderBrush="#FFC9C9C9"
                 Style="{StaticResource BigContentButton}"
                 >
         </Button>

@@ -82,8 +82,8 @@
                                             <Setter Property="Background" TargetName="templateRoot">
                                                 <Setter.Value>
                                                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                                                        <GradientStop Color="#FFDAECFC" Offset="0"/>
-                                                        <GradientStop Color="#FFC4E0FC" Offset="1"/>
+                                                        <GradientStop Color="Gainsboro" Offset="0"/>
+                                                        <GradientStop Color="#FFDEDEDE" Offset="1"/>
                                                     </LinearGradientBrush>
                                                 </Setter.Value>
                                             </Setter>
@@ -131,8 +131,8 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="True">
-                <Setter Property="Margin" TargetName="shadow" Value="0,0,5,5"/>
-                <Setter Property="Color" TargetName="shadow" Value="#71000000"/>
+                <Setter Property="Margin" TargetName="shadow" Value="0,0,3,3"/>
+                <Setter Property="Color" TargetName="shadow" Value="#4CDADADA"/>
             </Trigger>
             <Trigger Property="HasItems" Value="False">
                 <Setter Property="Height" TargetName="DropDownBorder" Value="95"/>
@@ -154,22 +154,22 @@
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
     <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
     <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
-    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
-    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
-    <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="White"/>
+    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF919191"/>
+    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFE2E2E2"/>
+    <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF6C6C6C"/>
     <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
     <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
     <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
     <Style x:Key="dropdownbutton" TargetType="{x:Type Button}">
-        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
         <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
@@ -185,7 +185,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDefaulted" Value="true">
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="DimGray"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Background" TargetName="border" Value="#f2f2f2"/>
@@ -226,12 +226,12 @@
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Cursor" Value="Hand"/>
-                            <Setter Property="Background" TargetName="border" Value="#ff6200"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="#ffb899"/>
+                            <Setter Property="Background" TargetName="border" Value="#BF83B4BB"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="#FFDADADA"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="#e02900"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="#ffb899"/>
+                            <Setter Property="Background" TargetName="border" Value="#FF60CBFD"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="#FFCFCFCF"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
@@ -291,7 +291,7 @@
             <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey }" Color="#26E6E5E2"/>
             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
         </Style.Resources>
-
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Template">
             <!-- Revert the Template in Windows 10 to match the Windows 7 template that used "SystemColors.HighlightBrushKey" and such-->
             <Setter.Value>
@@ -410,15 +410,15 @@
     <!-- Context Menu -->
     <Style x:Key="AddonMenuStyle" TargetType="{x:Type Menu}">
         <Setter Property="FontFamily" Value="Microsoft YaHei UI"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Foreground" Value="DimGray"/>
+        <!-- <Setter Property="FontWeight" Value="Bold"/> -->
+        <Setter Property="Foreground" Value="#FF303030"/>
         <Setter Property="Background" Value="WhiteSmoke"/>
         <Setter Property="FontSize" Value="12"/>
     </Style>
     <Style x:Key="AddonMenuItemStyle" TargetType="{x:Type MenuItem}">
-        <Setter Property="Foreground" Value="DimGray"/>
+        <Setter Property="Foreground" Value="#FF303030"/>
         <Setter Property="Background" Value="WhiteSmoke"/>
-        <Setter Property="Padding" Value="5,5,5,5"/>
+        <Setter Property="Padding" Value="6,6,6,6"/>
         <Setter Property="BorderThickness" Value="0.5"/>
     </Style>
     <ControlTemplate x:Key="AddonMenuItemControlTemplate" TargetType="{x:Type MenuItem}">
@@ -471,4 +471,25 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
+    <!-- Scrollbar -->
+    <ControlTemplate x:Key="vertScrollBar" TargetType="{x:Type ScrollBar}">
+        <Grid Background="WhiteSmoke">
+            <Grid.RowDefinitions>
+                <RowDefinition MaxHeight="5"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition MaxHeight="5"/>
+            </Grid.RowDefinitions>
+            <Track Name="theTrack" Grid.Row="1" IsDirectionReversed="True">
+                <Track.Thumb>
+                    <Thumb Style="{StaticResource vertScrollBarThumbStyle}">
+                    </Thumb>
+                </Track.Thumb>
+            </Track>
+        </Grid>
+    </ControlTemplate>
+
+    <Style x:Name="vertScrollBarThumbStyle" TargetType="{x:Type Thumb}">
+        
+    </Style>
 </ResourceDictionary>
