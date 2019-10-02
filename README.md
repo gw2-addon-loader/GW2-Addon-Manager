@@ -1,5 +1,5 @@
 # GW2-UOAOM [![Current Version](https://img.shields.io/github/release/fmmmlee/GW2-Addon-Manager)](https://github.com/fmmmlee/GW2-Addon-Manager/releases) [![Github All Releases](https://img.shields.io/github/downloads/fmmmlee/GW2-Addon-Manager/total.svg)]() 
-<img src="https://ci.appveyor.com/api/projects/status/github/fmmmlee/gw2-addon-manager" alt="UI" align="right"/>
+<a href="https://ci.appveyor.com/project/fmmmlee/gw2-addon-manager"><img src="https://ci.appveyor.com/api/projects/status/github/fmmmlee/gw2-addon-manager" alt="UI" align="right"/></a>
 
 
 ##### Guild Wars 2 Unofficial Add-On Manager
