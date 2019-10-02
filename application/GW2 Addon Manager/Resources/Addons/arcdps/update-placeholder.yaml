@@ -11,10 +11,9 @@ website: https://www.deltaconnected.com/arcdps/
 # name of the add-on
 addon_name: ArcDPS
 # descriptive text for the addon
-description: "ArcDPS allows the player to see their DPS and also includes a build templates feature.
-By default, these menus are accessed in-game with the keybinds alt+shift+h and alt+shift+d respectively. For more information, visit deltaconnected.com/arcdps."
+description: "ArcDPS allows the player to view their DPS. By default, this menu is accessed in-game with the keybind alt+shift+h. For more information, visit deltaconnected.com/arcdps."
 # tooltip - basically description but in brief
-tooltip: Offers a DPS meter and build template functionality - by DeltaConnected
+tooltip: Displays a DPS meter - by DeltaConnected
 
 ### DOWNLOADING/INSTALLATION ###
 # github or standalone
@@ -34,6 +33,3 @@ install_mode: d3d9
 requires:
 # a list of all add-ons that prevent this add-on from functioning properly
 conflicts:
-# plugin names to use if an optional add-on can chainload this one
-# I'm considering removing this field - it really only has one use case, that being d912pxy loaded by GW2radial.
-alternate_plugin_names:

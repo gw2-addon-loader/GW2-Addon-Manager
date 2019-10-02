@@ -39,7 +39,3 @@ conflicts:
     - name4
     - name5
     - name6
-# plugin names to use if an optional add-on can chainload this one
-# I'm considering removing this field - it really only has one use case, that being d912pxy loaded by GW2radial.
-alternate_plugin_names:
-    - addon_that_chainloads_this_one: filename_that_it_chainloads

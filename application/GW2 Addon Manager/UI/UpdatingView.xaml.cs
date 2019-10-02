@@ -26,11 +26,6 @@ namespace GW2_Addon_Manager
 
             LoaderSetup settingUp = new LoaderSetup(theViewModel);
             Task.Run(() => UpdateHelpers.UpdateAll(theViewModel));
-
-            //do this AFTER task is finished
-            //theViewModel.label = "Finished";
-            //theViewModel.showProgress = 100;
-            theViewModel.closeButtonEnabled = true;
         }
 
         /***************************** Titlebar Window Drag *****************************/

@@ -20,13 +20,12 @@ namespace GW2_Addon_Manager
         /// This constructor deals with creating or expanding the configuration file, setting the DataContext, and checking for application updates.
         /// </summary>
         public AddOnSelector()
-        {
-            configuration.ConfigFileStatus();          
+        {    
             theViewModel = new OpeningViewModel();
             DataContext = theViewModel;
             configuration.CheckSelfUpdates(theViewModel);
             configuration.DetermineSystemType();
-
+            configuration.DisplayAddonStatus(theViewModel);
             InitializeComponent();
         }
 
@@ -42,6 +41,8 @@ namespace GW2_Addon_Manager
             AddonInfo selected = theViewModel.AddonList[addons.SelectedIndex];
             theViewModel.DescriptionText = selected.description;
             theViewModel.Developer = selected.developer;
+
+            theViewModel.DeveloperVisibility = Visibility.Visible;
         }
 
         /***************************** NAV BAR *****************************/
@@ -76,7 +77,7 @@ namespace GW2_Addon_Manager
         {        
             List<AddonInfo> selectedAddons = new List<AddonInfo>();
 
-            AddonInfo wrapper = UpdateYamlReader.getBuiltInInfo("d3d9_wrapper");
+            AddonInfo wrapper = AddonYamlReader.getAddonInInfo("d3d9_wrapper");
             wrapper.folder_name = "d3d9_wrapper";
             selectedAddons.Add(wrapper);
 

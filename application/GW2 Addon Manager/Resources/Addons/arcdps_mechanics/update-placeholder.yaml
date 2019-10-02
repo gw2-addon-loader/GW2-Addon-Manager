@@ -35,6 +35,3 @@ requires:
     - arcdps
 # a list of all add-ons that prevent this add-on from functioning properly
 conflicts:
-# plugin names to use if an optional add-on can chainload this one
-# I'm considering removing this field - it really only has one use case, that being d912pxy loaded by GW2radial.
-alternate_plugin_names:

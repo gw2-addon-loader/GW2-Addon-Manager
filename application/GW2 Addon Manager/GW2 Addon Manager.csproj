@@ -133,17 +133,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="GenericUpdater\AddonInfo.cs" />
-    <Compile Include="GenericUpdater\AddonList\ApprovedList.cs" />
-    <Compile Include="GenericUpdater\config.cs" />
-    <Compile Include="GenericUpdater\configuration.cs" />
-    <Compile Include="GenericUpdater\GenericUpdater.cs" />
+    <Compile Include="Addons\AddonInfo.cs" />
+    <Compile Include="Addons\ApprovedList.cs" />
+    <Compile Include="Configuration\config.cs" />
+    <Compile Include="Configuration\configuration.cs" />
+    <Compile Include="Updating\GenericUpdater.cs" />
     <Compile Include="LoaderSetup\LoaderSetup.cs" />
     <Compile Include="UI\OpeningViewModel.cs" />
-    <Compile Include="GenericUpdater\PluginManagement.cs" />
+    <Compile Include="Configuration\PluginManagement.cs" />
     <Compile Include="App\SelfUpdate.cs" />
-    <Compile Include="GenericUpdater\UpdateYamlReader.cs" />
-    <Compile Include="GenericUpdater\UpdateHelpers.cs" />
+    <Compile Include="Addons\AddonYamlReader.cs" />
+    <Compile Include="Updating\UpdateHelpers.cs" />
     <Compile Include="UI\UpdatingView.xaml.cs">
       <DependentUpon>UpdatingView.xaml</DependentUpon>
     </Compile>
@@ -195,7 +195,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="GenericUpdater\readme.md" />
     <None Include="GW2 Addon Updater_TemporaryKey.pfx" />
     <None Include="App\packages.config" />
     <None Include="packages.config" />

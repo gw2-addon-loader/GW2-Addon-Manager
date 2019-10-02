@@ -29,8 +29,9 @@ namespace GW2_Addon_Manager
                 await updater.Update();
             }
 
-            //need to do: chainloading renames
-            //config file edit and set
+            viewModel.label = "Updates Complete";
+            viewModel.showProgress = 100;
+            viewModel.closeButtonEnabled = true;
         }
 
         /// <summary>

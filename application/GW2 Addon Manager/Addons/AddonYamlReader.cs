@@ -6,14 +6,14 @@ namespace GW2_Addon_Manager
     /// <summary>
     /// Intended to read update.yaml files provided in addons that adhere to a specific set of specifications laid out for use by GW2-UOAOM and GW2-AddOn-Loader.
     /// </summary>
-    class UpdateYamlReader
+    class AddonYamlReader
     {
         /// <summary>
         /// Gets info for an add-on from update.yaml provided by the author or packaged with the application (when the author hasn't written one yet).
         /// </summary>
         /// <param name="name">The name of the addon folder to read from.</param>
         /// <returns>An object with the information from update.yaml</returns>
-        public static AddonInfo getBuiltInInfo(string name)
+        public static AddonInfo getAddonInInfo(string name)
         {
             string yamlPath = "resources\\addons\\" + name + "\\update.yaml";
             string placeholderYamlPath = "resources\\addons\\" + name + "\\update-placeholder.yaml";

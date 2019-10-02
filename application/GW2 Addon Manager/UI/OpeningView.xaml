@@ -160,21 +160,39 @@
         <Border Grid.Row="2" Width="250" Height="300" HorizontalAlignment="Left" Margin="40,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
             <StackPanel Width="250" Height="275" HorizontalAlignment="Left">
                 <Label FontSize="18" FontFamily="Microsoft YaHei UI" Margin="0,5,0,10" HorizontalAlignment="Center" Foreground="DimGray" Content="Add-Ons"/>
-                <TextBlock Width="225" Height="50" Margin="5,0,0,0" FontFamily="Microsoft YaHei UI Light"><Run Text="Select all currently installed add-ons for"/><LineBreak/><Run Text="Guild Wars 2 as well as any you want"/><LineBreak/><Run Text="to install."/></TextBlock>
-                <ListBox Name="addons" ItemsSource="{Binding AddonList}" SelectionChanged="addOnList_SelectedIndexChanged">
+                <TextBlock Width="225" Height="50" Margin="5,0,0,0" FontSize="13" FontFamily="Microsoft YaHei UI Light"><Run Text="Checkmark all addons that you would"/><LineBreak/><Run Text="like to install or update."/></TextBlock>
+                <ListBox Name="addons"
+                         ItemsSource="{Binding AddonList}"
+                         ItemContainerStyle="{StaticResource AddonListItem}"
+                         SelectionChanged="addOnList_SelectedIndexChanged"
+                         BorderThickness="0"
+                         Background="WhiteSmoke">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox Name="TheCheckBox" Content="{Binding addon_name}" ToolTip="{Binding tooltip}" IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
+                            <StackPanel Orientation="Horizontal" ToolTip="{Binding tooltip}">
+                                <CheckBox Name="TheCheckBox"
+                                      Padding="5,5,0,5"
+                                      VerticalAlignment="Center"
+                                      IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                      Style="{StaticResource AddonListCheckBox}"
+                                      />
+                                <Label Content="{Binding addon_name}"
+                                       VerticalAlignment="Center"
+                                       FontFamily="Microsoft YaHei UI"
+                                       Foreground="DimGray"
+                                       FontWeight="Bold"
+                                       FontSize="13"/>
+                            </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="2" Width="500" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="325,55,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
+        <Border Grid.Row="2" Width="500" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
             <Grid>
                 <DockPanel Width="500" Height="200" HorizontalAlignment="Left">
-                    <Label FontSize="13" FontFamily="Microsoft YaHei UI" DockPanel.Dock="Right" Width="auto" Margin="0,10,0,0" Padding="0,10,10,10" Foreground="DimGray" Content="{Binding Developer}"/>
+                    <Label FontSize="13" FontFamily="Microsoft YaHei UI" DockPanel.Dock="Right" Width="auto" Margin="0,10,0,0" Padding="0,10,20,10" Foreground="DimGray" Content="{Binding Developer}"/>
                     <Label FontSize="13" FontFamily="Microsoft YaHei UI" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="0,10,0,0" Padding="10,10,0,10" Visibility="{Binding DeveloperVisibility}" Foreground="DimGray" Content="Developer: "/>
                 </DockPanel>
                 <StackPanel Width="500" Height="200" HorizontalAlignment="Left">
@@ -184,28 +202,30 @@
                 </StackPanel>
             </Grid>
         </Border>
-        <Button Grid.Row="3"
-                Command="{Binding Path=SetDefaultAddons}"
-                Content="Make Default"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Margin="40,5,5,5"
-                Width="100"
-                Height="25"
-                Background="Red"
-                Foreground="White"
-                FontSize="14"
-                FontFamily="Microsoft YaHei UI Light"
-                BorderThickness="1"
-                BorderBrush="#ff8787"
-                Style="{StaticResource BigContentButton}"
-                />
-        <Button Command="{Binding Path=DeleteSelected}"
-                Grid.Row="3"
+        <Border Grid.Row="3" Margin="40,-20,0,0" BorderThickness="1" BorderBrush="DimGray" Width="250" Height="75" HorizontalAlignment="Left">
+            <StackPanel Width="250" Height="75" Background="WhiteSmoke">
+                <!-- change this to use a single menu that scrolls up -->
+                <StackPanel Orientation="Horizontal">
+                    <Button Command="{Binding Path=SetDefaultAddons}"
+                        Content="Make Default"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="5,5,5,5"
+                        Width="100"
+                        Height="25"
+                        Background="Red"
+                        Foreground="White"
+                        FontSize="14"
+                        FontFamily="Microsoft YaHei UI Light"
+                        BorderThickness="1"
+                        BorderBrush="#ff8787"
+                        Style="{StaticResource BigContentButton}"
+                        />
+                    <Button Command="{Binding Path=DeleteSelected}"
                 Content="Delete"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Margin="190,5,5,5"
+                Margin="50,5,5,5"
                 Width="50"
                 Height="25"
                 Background="Red"
@@ -216,12 +236,13 @@
                 BorderBrush="#ff8787"
                 Style="{StaticResource BigContentButton}"
                 />
-        <Button Command="{Binding Path=DisableSelected}"
-                Grid.Row="3"
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Command="{Binding Path=DisableSelected}"
                 Content="Disable"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Margin="40,45,5,5"
+                Margin="5,5,5,5"
                 Width="45"
                 Height="20"
                 Background="White"
@@ -232,12 +253,11 @@
                 BorderBrush="DimGray"
                 Style="{StaticResource BigContentButton}"
                 />
-        <Button Command="{Binding Path=EnableSelected}"
-                Grid.Row="3"
+                    <Button Command="{Binding Path=EnableSelected}"
                 Content="Re-Enable"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Margin="84,45,5,5"
+                Margin="5,5,5,5"
                 Width="60"
                 Height="20"
                 Background="White"
@@ -248,6 +268,10 @@
                 BorderBrush="DimGray"
                 Style="{StaticResource BigContentButton}"
                 />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
         <Button Grid.Row="3" x:Name="nextPage" Height="45" Width="120" Content="UPDATE"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Right"

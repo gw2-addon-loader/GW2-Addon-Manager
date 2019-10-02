@@ -28,7 +28,7 @@ version_url:
 # archive or .dll
 download_type: archive
 # binary or d3d9 - binary leaves plugin name as-is, d3d9 means filename may be changed for chainloading
-install_mode: d3d9
+install_mode: binary
 
 ### CONFIGURATION ###
 # a list of all other add-ons required for this add-on to function
@@ -36,7 +36,3 @@ requires:
 # a list of all add-ons that prevent this add-on from functioning properly
 conflicts:
     - gw2hook
-# plugin names to use if an optional add-on can chainload this one
-# I'm considering removing this field - it really only has one use case, that being d912pxy loaded by GW2radial.
-alternate_plugin_names:
-    - gw2radial: d912pxy.dll

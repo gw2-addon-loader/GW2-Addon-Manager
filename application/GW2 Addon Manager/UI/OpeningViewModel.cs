@@ -67,8 +67,11 @@ namespace GW2_Addon_Manager
 
             GamePath = configuration.getConfigAsYAML().game_path;  
 
-            /* applying any values from config.ini */
-            configuration.ApplyDefaultConfig(this);
+            //something like this for update notification
+            /*if(File.Exists(whatsnewinthisupdate.md))
+                    showNotification(whatsnewinthisupdate)
+                    delete whatsnewinthisupdate.md
+             */
         }
 
 

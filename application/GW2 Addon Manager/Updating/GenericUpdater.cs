@@ -61,7 +61,7 @@ namespace GW2_Addon_Manager
             dynamic release_info = UpdateHelpers.GitReleaseInfo(addon_info.host_url);
             latestVersion = release_info.tag_name;
 
-            if (userConfig.version[addon_name] != null && latestVersion == userConfig.version[addon_name])
+            if (userConfig.version.ContainsKey(addon_name) && userConfig.version[addon_name] != null && latestVersion == userConfig.version[addon_name])
                 return;
 
             string download_link = release_info.assets[0].browser_download_url;
@@ -74,7 +74,7 @@ namespace GW2_Addon_Manager
             var client = new WebClient();
             latestVersion = client.DownloadString(addon_info.version_url);
 
-            if (userConfig.version[addon_name] != null && latestVersion == userConfig.version[addon_name])
+            if (userConfig.version.ContainsKey(addon_name) && userConfig.version[addon_name] != null && latestVersion == userConfig.version[addon_name])
                 return;
 
             viewModel.label = "Downloading " + addon_info.addon_name + " " + latestVersion;
@@ -128,10 +128,16 @@ namespace GW2_Addon_Manager
                 FileSystem.CopyFile(fileName, Path.Combine(addon_install_path, Path.GetFileName(fileName)), true);
             }
 
-            userConfig.version[addon_info.folder_name] = latestVersion;
+            if (userConfig.version.ContainsKey(addon_info.folder_name))
+                userConfig.version[addon_info.folder_name] = latestVersion;
+            else
+                userConfig.version.Add(addon_info.folder_name, latestVersion);
 
-            
-            userConfig.installed[addon_info.folder_name] = addon_info.folder_name;
+
+            if (userConfig.installed.ContainsKey(addon_info.folder_name))
+                userConfig.installed[addon_info.folder_name] = addon_info.folder_name;
+            else
+                userConfig.installed.Add(addon_info.folder_name, addon_info.folder_name);
 
             //set config.yaml
             configuration.setConfigAsYAML(userConfig);
@@ -183,17 +189,18 @@ namespace GW2_Addon_Manager
                 if (info.disabled.ContainsKey(addon_info.folder_name) && info.disabled[addon_info.folder_name])
                 {
                     Directory.Delete(Path.Combine("Disabled Plugins", addon_info.folder_name), true);
-                    info.disabled[addon_info.folder_name] = false;
-                    info.installed[addon_info.folder_name] = null;
-                    info.version[addon_info.folder_name] = null;
+                    info.disabled.Remove(addon_info.folder_name);
+                    info.installed.Remove(addon_info.folder_name);
+                    info.version.Remove(addon_info.folder_name);
                     configuration.setConfigAsYAML(info);
                 }
                 else
                 {
                     Directory.Delete(Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name), true);
-                    info.disabled[addon_info.folder_name] = false;
-                    info.installed[addon_info.folder_name] = null;
-                    info.version[addon_info.folder_name] = null;
+                    if(info.disabled.ContainsKey(addon_info.folder_name))
+                        info.disabled.Remove(addon_info.folder_name);
+                    info.installed.Remove(addon_info.folder_name);
+                    info.version.Remove(addon_info.folder_name);
                     configuration.setConfigAsYAML(info);
                 }
             }

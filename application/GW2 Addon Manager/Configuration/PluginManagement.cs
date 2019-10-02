@@ -20,7 +20,6 @@ namespace GW2_Addon_Manager
                 foreach (AddonInfo addon in viewModel.AddonList.Where(add => add.IsSelected == true))
                     GenericUpdater.delete(addon);
             }
-
             configuration.DisplayAddonStatus(viewModel);
         }
 
@@ -36,10 +35,9 @@ namespace GW2_Addon_Manager
             string disablemsg = "This will disable the selected add-ons until you choose to re-enable them. Do you wish to continue?";
             if (MessageBox.Show(disablemsg, "Disable", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
-                foreach (int index in viewModel.SelectedAddons)
-                    GenericUpdater.disable(viewModel.AddonList[index]);
+                foreach (AddonInfo addon in viewModel.AddonList.Where(add => add.IsSelected == true))
+                    GenericUpdater.disable(addon);
             }
-
             configuration.DisplayAddonStatus(viewModel);
         }
 
@@ -53,10 +51,9 @@ namespace GW2_Addon_Manager
             string enablemsg = "This will enable any of the selected add-ons that are disabled. Do you wish to continue?";
             if (MessageBox.Show(enablemsg, "Enable", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
-                foreach (int index in viewModel.SelectedAddons)
-                    GenericUpdater.enable(viewModel.AddonList[index]);
+                foreach (AddonInfo addon in viewModel.AddonList.Where(add => add.IsSelected == true))
+                    GenericUpdater.enable(addon);
             }
-
             configuration.DisplayAddonStatus(viewModel);
         }
     }
