@@ -202,75 +202,35 @@
                 </StackPanel>
             </Grid>
         </Border>
-        <Border Grid.Row="3" Margin="40,-20,0,0" BorderThickness="1" BorderBrush="DimGray" Width="250" Height="75" HorizontalAlignment="Left">
-            <StackPanel Width="250" Height="75" Background="WhiteSmoke">
-                <!-- change this to use a single menu that scrolls up -->
-                <StackPanel Orientation="Horizontal">
-                    <Button Command="{Binding Path=SetDefaultAddons}"
-                        Content="Make Default"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Margin="5,5,5,5"
-                        Width="100"
-                        Height="25"
-                        Background="Red"
-                        Foreground="White"
-                        FontSize="14"
-                        FontFamily="Microsoft YaHei UI Light"
-                        BorderThickness="1"
-                        BorderBrush="#ff8787"
-                        Style="{StaticResource BigContentButton}"
-                        />
-                    <Button Command="{Binding Path=DeleteSelected}"
-                Content="Delete"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Margin="50,5,5,5"
-                Width="50"
-                Height="25"
-                Background="Red"
-                Foreground="White"
-                FontSize="13"
-                FontFamily="Microsoft YaHei UI Light"
-                BorderThickness="1"
-                BorderBrush="#ff8787"
-                Style="{StaticResource BigContentButton}"
-                />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Button Command="{Binding Path=DisableSelected}"
-                Content="Disable"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Margin="5,5,5,5"
-                Width="45"
-                Height="20"
-                Background="White"
-                Foreground="Black"
-                FontSize="12"
-                FontFamily="Microsoft YaHei UI Light"
-                BorderThickness="1"
-                BorderBrush="DimGray"
-                Style="{StaticResource BigContentButton}"
-                />
-                    <Button Command="{Binding Path=EnableSelected}"
-                Content="Re-Enable"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Margin="5,5,5,5"
-                Width="60"
-                Height="20"
-                Background="White"
-                Foreground="Black"
-                FontSize="12"
-                FontFamily="Microsoft YaHei UI Light"
-                BorderThickness="1"
-                BorderBrush="DimGray"
-                Style="{StaticResource BigContentButton}"
-                />
-                </StackPanel>
-            </StackPanel>
-        </Border>
+        <Menu Grid.Row="3" 
+              Style="{StaticResource AddonMenuStyle}"
+              BorderBrush="DimGray"
+              BorderThickness="1"
+              Height="30"
+              Margin="40,5,5,5"
+              Background="WhiteSmoke"
+              HorizontalContentAlignment="Center"
+              VerticalContentAlignment="Center"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Top">
+            <MenuItem Header="Configuration Settings"
+                      HorizontalContentAlignment="Stretch"
+                      VerticalContentAlignment="Center"
+                      Height="30"
+                      Template="{StaticResource AddonMenuItemControlTemplate}"
+                      Style="{StaticResource AddonMenuItemStyle}">
+                <MenuItem Header="Set Default"
+                          Command="{Binding Path=SetDefaultAddons}"
+                          Style="{StaticResource AddonMenuItemStyle}"
+                          Template="{StaticResource AddonMenuItemControlTemplate}"/>
+                <MenuItem Header="Delete" Command="{Binding Path=DeleteSelected}" Style="{StaticResource AddonMenuItemStyle}"
+                          Template="{StaticResource AddonMenuItemControlTemplate}"/>
+                <MenuItem Header="Disable" Command="{Binding Path=DisableSelected}" Style="{StaticResource AddonMenuItemStyle}"
+                          Template="{StaticResource AddonMenuItemControlTemplate}"/>
+                <MenuItem Header="Re-Enable" Command="{Binding Path=EnableSelected}" Style="{StaticResource AddonMenuItemStyle}"
+                          Template="{StaticResource AddonMenuItemControlTemplate}"/>
+            </MenuItem>
+        </Menu>
 
         <Button Grid.Row="3" x:Name="nextPage" Height="45" Width="120" Content="UPDATE"
                 VerticalAlignment="Bottom"
