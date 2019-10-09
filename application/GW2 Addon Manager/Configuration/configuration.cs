@@ -1,8 +1,5 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using YamlDotNet.Serialization;
 
@@ -11,14 +8,19 @@ namespace GW2_Addon_Manager
     /// <summary>
     /// The <c>configuration</c> class contains various functions accessing and modifying the configuration file and the configuration file template.
     /// </summary>
-    class configuration
+    class Configuration
     {
         static string config_file_path = "config.yaml";
         static string config_template_path = "resources\\config_template.yaml";
 
         static string applicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
 
-        public static config getConfigAsYAML()
+
+        /// <summary>
+        /// Reads config.yaml
+        /// </summary>
+        /// <returns></returns>
+        public static UserConfig getConfigAsYAML()
         {
             String updateFile = null;
 
@@ -28,17 +30,25 @@ namespace GW2_Addon_Manager
                 updateFile = File.ReadAllText(config_template_path);
 
             Deserializer toDynamic = new Deserializer();
-            config user_config = toDynamic.Deserialize<config>(updateFile);
+            UserConfig user_config = toDynamic.Deserialize<UserConfig>(updateFile);
             return user_config;
         }
 
-        public static void setConfigAsYAML(config info)
+        /// <summary>
+        /// Write the config.yaml file in the application folder
+        /// </summary>
+        /// <param name="info"></param>
+        public static void setConfigAsYAML(UserConfig info)
         {
             String config_file_path = "config.yaml";
             File.WriteAllText(config_file_path, new Serializer().Serialize(info));
         }
 
-        public static void setTemplateYAML(config info)
+        /// <summary>
+        /// Writes the config-template.yaml file in the /resources folder (not in use, will keep for possible use in future)
+        /// </summary>
+        /// <param name="info"></param>
+        public static void setTemplateYAML(UserConfig info)
         {
             File.WriteAllText(config_template_path, new Serializer().Serialize(info));
         }
@@ -47,14 +57,14 @@ namespace GW2_Addon_Manager
         /// <c>getTemplateConfig</c> accesses the configuration file template found at <c>config_template_path</c>
         /// </summary>
         /// <returns> a config object representing the default configuration file template as serialized from YAML </returns>
-        public static config getTemplateConfig()
+        public static UserConfig getTemplateConfig()
         {
             String config_template_path = "resources\\config_template.yaml";
 
             string updateFile = File.ReadAllText(config_template_path);
 
             Deserializer toDynamic = new Deserializer();
-            config user_config = toDynamic.Deserialize<config>(updateFile);
+            UserConfig user_config = toDynamic.Deserialize<UserConfig>(updateFile);
             return user_config;
         }
 
@@ -64,19 +74,28 @@ namespace GW2_Addon_Manager
         /// <param name="viewModel">An instance of the <typeparamref>OpeningViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
         public static void DisplayAddonStatus(OpeningViewModel viewModel)
         {
-            config config_obj = getConfigAsYAML();
+            UserConfig config_obj = getConfigAsYAML();
 
             foreach(AddonInfo addon in viewModel.AddonList)
             {
+                addon.addon_name = AddonYamlReader.getAddonInInfo(addon.folder_name).addon_name;
                 if (config_obj.installed.ContainsKey(addon.folder_name) && config_obj.version.ContainsKey(addon.folder_name))
                 {
                     if (addon.folder_name == "arcdps")
+                    {
                         addon.addon_name += " (installed)";
+                    }
                     else
+                    {
                         addon.addon_name += " (" + config_obj.version[addon.folder_name] + " installed)";
+                    }    
+                }
+
+                if (config_obj.disabled.ContainsKey(addon.folder_name) && config_obj.disabled[addon.folder_name] == true)
+                {
+                        addon.addon_name += " (disabled)";
                 }
             }
-            
         }
 
         /// <summary>
@@ -86,7 +105,7 @@ namespace GW2_Addon_Manager
         /// <param name="viewModel">An instance of the <typeparamref>OpeningViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
         public static void ChangeAddonConfig(OpeningViewModel viewModel)
         {
-            config config_obj = getConfigAsYAML();
+            UserConfig config_obj = getConfigAsYAML();
             foreach(AddonInfo addon in viewModel.AddonList)
             {
                 if (addon.IsSelected)
@@ -114,7 +133,7 @@ namespace GW2_Addon_Manager
         public static void SetGamePath(string path)
         {
             Application.Current.Properties["game_path"] = path.Replace("\\", "\\\\");
-            config config_obj = configuration.getConfigAsYAML();
+            UserConfig config_obj = Configuration.getConfigAsYAML();
             config_obj.game_path = Application.Current.Properties["game_path"].ToString().Replace("\\\\", "\\");
             setConfigAsYAML(config_obj);
             DetermineSystemType();
@@ -145,7 +164,7 @@ namespace GW2_Addon_Manager
         /// </summary>
         public static void DetermineSystemType()
         {
-            config config = getConfigAsYAML();
+            UserConfig config = getConfigAsYAML();
             if (Directory.Exists(config.game_path.ToString()))
             {
                 if (Directory.Exists(config.game_path.ToString() + "\\bin64"))

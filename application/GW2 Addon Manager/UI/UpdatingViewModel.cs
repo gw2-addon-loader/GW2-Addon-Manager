@@ -12,7 +12,7 @@ namespace GW2_Addon_Manager
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
-        /// <summary>
+        /// <summary>x
         /// A method used in notifying that a property's value has changed.
         /// </summary>
         /// <param name="propertyName">The name of the property that changed value.</param>

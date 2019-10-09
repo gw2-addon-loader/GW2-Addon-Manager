@@ -13,19 +13,26 @@ namespace GW2_Addon_Manager
 
         UpdatingViewModel viewModel;
         string fileName;
-        config userConfig;
+        UserConfig userConfig;
         string latestLoaderVersion;
 
         
-
+        /// <summary>
+        /// Sets some UI text to indicate that the addon loader is having an update check
+        /// </summary>
+        /// <param name="aViewModel"></param>
         public LoaderSetup(UpdatingViewModel aViewModel)
         {
             viewModel = aViewModel;
             viewModel.label = "Checking for updates to Addon Loader";
-            userConfig = configuration.getConfigAsYAML();
+            userConfig = Configuration.getConfigAsYAML();
             loader_game_path = Path.Combine(userConfig.game_path, userConfig.bin_folder);
         }
 
+        /// <summary>
+        /// Checks for update to addon loader and downloads if a new release is available
+        /// </summary>
+        /// <returns></returns>
         public async Task handleLoaderInstall()
         {
             dynamic releaseInfo = UpdateHelpers.GitReleaseInfo(loader_git_url);
@@ -39,6 +46,7 @@ namespace GW2_Addon_Manager
             await Download(downloadLink);
         }
 
+        // Downloads file from the url parameter to the user's temporary files folder and prompts install.
         private async Task Download(string url)
         {
             viewModel.label = "Downloading Addon Loader";
@@ -57,6 +65,8 @@ namespace GW2_Addon_Manager
             Install();
         }
 
+
+        // Installs the addon loader from the temporary files folder.
         private void Install()
         {
             viewModel.label = "Installing Addon Loader";
@@ -69,7 +79,7 @@ namespace GW2_Addon_Manager
 
             userConfig.loader_version = latestLoaderVersion;
 
-            configuration.setConfigAsYAML(userConfig);
+            Configuration.setConfigAsYAML(userConfig);
         }
 
 

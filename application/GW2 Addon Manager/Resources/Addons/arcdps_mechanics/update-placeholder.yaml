@@ -11,10 +11,9 @@ website: http://martionlabs.com/arcdps-mechanics-log-plugin/
 # name of the add-on
 addon_name: ArcDPS Mechanics Plugin
 # descriptive text for the addon
-description: "\"The plugin shows a realtime list of failed mechanics for players. The mechanics are determined by the skill id of the attack a player/npc is hit by. 
-It shows a timestamp in ‘min:sec’ since entering combat and ‘X was hit by Y mechanic’.\" - MarsEdge"
+description: This addon shows mechanics that players have failed during a raid encounter. A list of the failed mechanics is displayed, including which player failed what mechanic and at what time during the fight.
 # tooltip - basically description but in brief
-tooltip: Provides information about raid mechanics using the ArcDPS Combat API - by Martion
+tooltip: Provides information about raid mechanics using the ArcDPS Combat API - by Martion/MarsEdge
 
 ### DOWNLOADING/INSTALLATION ###
 # github or standalone
@@ -27,7 +26,9 @@ version_url: http://martionlabs.com/wp-content/uploads/d3d9_arcdps_mechanics.dll
 # archive or .dll
 download_type: .dll
 # binary or d3d9 - binary leaves plugin name as-is, d3d9 means filename may be changed for chainloading
-install_mode: binary
+install_mode: arc
+#
+plugin_name: d3d9_arcdps_mechanics.dll
 
 ### CONFIGURATION ###
 # a list of all other add-ons required for this add-on to function

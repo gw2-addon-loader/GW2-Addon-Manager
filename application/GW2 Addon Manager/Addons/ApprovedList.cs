@@ -22,7 +22,7 @@ namespace GW2_Addon_Manager
             ObservableCollection<AddonInfo> Addons = new ObservableCollection<AddonInfo>(); //List of AddonInfo objects
 
             string[] AddonDirectories = Directory.GetDirectories("resources\\addons");  //Names of addon subdirectories in /resources/addons
-            config userConfig = configuration.getConfigAsYAML();
+            UserConfig userConfig = Configuration.getConfigAsYAML();
             foreach (string addonFolderName in AddonDirectories)
             {
                 if (addonFolderName != "resources\\addons\\d3d9_wrapper")

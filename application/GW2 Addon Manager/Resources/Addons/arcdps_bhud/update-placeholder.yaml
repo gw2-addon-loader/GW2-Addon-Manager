@@ -11,7 +11,7 @@ website: https://github.com/blish-hud/arcdps-bhud
 # name of the add-on
 addon_name: ArcDPS Blish HUD Integration
 # descriptive text for the addon
-description: "\"This is a plugin that uses the Arcdps Combat API and exposes some of the data to Blish HUD.\" - Greaka"
+description: This addon provides data from the Arcdps Combat API to the Blish HUD overlay, where it can be used by different Blish HUD modules for optimization and additional functionality.
 # tooltip - basically description but in brief
 tooltip: Uses the ArcDPS Combat API to provide data to Blish HUD - by Greaka
 
@@ -26,7 +26,9 @@ version_url:
 # archive or .dll
 download_type: archive
 # binary or d3d9 - binary leaves plugin name as-is, d3d9 means filename may be changed for chainloading
-install_mode: binary
+install_mode: arc
+# plugin name- only for arc-dependent plugins
+plugin_name: arcdps_bhud.dll
 
 ### CONFIGURATION ###
 # a list of all other add-ons required for this add-on to function

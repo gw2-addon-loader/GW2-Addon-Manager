@@ -12,7 +12,7 @@ website: https://github.com/gw2-addon-loader/GW2Radial
 addon_name: GW2 Radial
 # descriptive text for the addon
 description: "\"An ArenaNET-approved addon to show a convenient, customizable radial menu overlay to select a mount, novelty item and more, on the fly, for Guild Wars 2: Path of Fire.
-This addon is compatible with the Windows client only; it will not work with the Mac client.\" - FriendlyFire"
+This addon is compatible with the Windows client only; it will not work with the Mac client.\" - FriendlyFire\n\n The loader-compatibility modifications to this addon were written by Megai2."
 # tooltip - basically description but in brief
 tooltip: Provides a menu with access to all unlocked mounts with one keypress - by FriendlyFire
 
@@ -32,5 +32,6 @@ install_mode: binary
 ### CONFIGURATION ###
 # a list of all other add-ons required for this add-on to function
 requires:
+    - d3d9_wrapper
 # a list of all add-ons that prevent this add-on from functioning properly
 conflicts:

@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 
 namespace GW2_Addon_Manager
@@ -20,7 +19,7 @@ namespace GW2_Addon_Manager
                 foreach (AddonInfo addon in viewModel.AddonList.Where(add => add.IsSelected == true))
                     GenericUpdater.delete(addon);
             }
-            configuration.DisplayAddonStatus(viewModel);
+            Configuration.DisplayAddonStatus(viewModel);
         }
 
         
@@ -38,7 +37,7 @@ namespace GW2_Addon_Manager
                 foreach (AddonInfo addon in viewModel.AddonList.Where(add => add.IsSelected == true))
                     GenericUpdater.disable(addon);
             }
-            configuration.DisplayAddonStatus(viewModel);
+            Configuration.DisplayAddonStatus(viewModel);
         }
 
         /// <summary>
@@ -54,7 +53,7 @@ namespace GW2_Addon_Manager
                 foreach (AddonInfo addon in viewModel.AddonList.Where(add => add.IsSelected == true))
                     GenericUpdater.enable(addon);
             }
-            configuration.DisplayAddonStatus(viewModel);
+            Configuration.DisplayAddonStatus(viewModel);
         }
     }
 }

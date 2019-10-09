@@ -13,7 +13,7 @@ namespace GW2_Addon_Manager
 
         string addon_name;
         AddonInfo addon_info;
-        config userConfig;
+        UserConfig userConfig;
 
         string fileName;
         string addon_expanded_path;
@@ -26,10 +26,10 @@ namespace GW2_Addon_Manager
             addon_name = addon.folder_name;
             addon_info = addon;
             viewModel = aViewModel;
-            userConfig = configuration.getConfigAsYAML();
+            userConfig = Configuration.getConfigAsYAML();
 
             addon_expanded_path = Path.Combine(Path.GetTempPath(), addon_name);
-            addon_install_path = Path.Combine(configuration.getConfigAsYAML().game_path, "addons\\");
+            addon_install_path = Path.Combine(Configuration.getConfigAsYAML().game_path, "addons\\");
         }
 
 
@@ -121,11 +121,40 @@ namespace GW2_Addon_Manager
 
                 ZipFile.ExtractToDirectory(fileName, addon_expanded_path);
 
-                FileSystem.CopyDirectory(addon_expanded_path, addon_install_path, true);
+
+                if (addon_info.install_mode != "arc")
+                {
+                    FileSystem.CopyDirectory(addon_expanded_path, addon_install_path, true);
+                }
+                else
+                {
+                    if (!Directory.Exists(Path.Combine(addon_install_path, "arcdps")))
+                    {
+                        Directory.CreateDirectory(Path.Combine(addon_install_path, "arcdps"));
+                    }
+                    File.Copy(Path.Combine(addon_expanded_path, addon_info.plugin_name), Path.Combine(Path.Combine(addon_install_path, "arcdps"), addon_info.plugin_name), true);
+                }
+
+                
             }
             else
             {
-                FileSystem.CopyFile(fileName, Path.Combine(addon_install_path, Path.GetFileName(fileName)), true);
+                if (addon_info.install_mode != "arc")
+                {
+                    if (!Directory.Exists(Path.Combine(addon_install_path, addon_info.folder_name)))
+                        Directory.CreateDirectory(Path.Combine(addon_install_path, addon_info.folder_name));
+
+                    FileSystem.CopyFile(fileName, Path.Combine(Path.Combine(addon_install_path, addon_info.folder_name), Path.GetFileName(fileName)), true);
+                }
+                else
+                {
+                    if (!Directory.Exists(Path.Combine(addon_install_path, "arcdps")))
+                    {
+                        Directory.CreateDirectory(Path.Combine(addon_install_path, "arcdps"));
+                    }
+                    FileSystem.CopyFile(fileName, Path.Combine(Path.Combine(addon_install_path, "arcdps"), Path.GetFileName(fileName)));
+                }
+                
             }
 
             if (userConfig.version.ContainsKey(addon_info.folder_name))
@@ -139,25 +168,44 @@ namespace GW2_Addon_Manager
             else
                 userConfig.installed.Add(addon_info.folder_name, addon_info.folder_name);
 
+            if (!userConfig.disabled.ContainsKey(addon_info.folder_name))
+                userConfig.disabled.Add(addon_info.folder_name, false);
+
             //set config.yaml
-            configuration.setConfigAsYAML(userConfig);
+            Configuration.setConfigAsYAML(userConfig);
         }
 
 
         /***** DISABLE *****/
         public static void disable(AddonInfo addon_info)
         {
-            config info = configuration.getConfigAsYAML();
+            UserConfig info = Configuration.getConfigAsYAML();
             if (info.installed.ContainsKey(addon_info.folder_name) && info.installed[addon_info.folder_name] != null)
             {
                 if (info.disabled.ContainsKey(addon_info.folder_name) && !info.disabled[addon_info.folder_name])
                 {
-                    Directory.Move(
-                        Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name),
-                        Path.Combine("Disabled Plugins")
-                        );
+                    if (addon_info.install_mode != "arc")
+                    {
+                        Directory.Move(
+                            Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name),
+                            Path.Combine("Disabled Plugins", addon_info.folder_name)
+                            );
+
+                    }
+                    else
+                    {
+                        //probably broken
+                        if (!Directory.Exists(Path.Combine("Disabled Plugins", addon_info.folder_name)))
+                            Directory.CreateDirectory(Path.Combine("Disabled Plugins", addon_info.folder_name));
+
+                        File.Move(
+                            Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), addon_info.plugin_name), 
+                            Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), addon_info.plugin_name)
+                            );
+                    }
+
                     info.disabled[addon_info.folder_name] = true;
-                    configuration.setConfigAsYAML(info);
+                    Configuration.setConfigAsYAML(info);
                 }
             }
         }
@@ -165,17 +213,34 @@ namespace GW2_Addon_Manager
         /***** ENABLE *****/
         public static void enable(AddonInfo addon_info)
         {
-            config info = configuration.getConfigAsYAML();
+            UserConfig info = Configuration.getConfigAsYAML();
             if (info.installed.ContainsKey(addon_info.folder_name) && info.installed[addon_info.folder_name] != null)
             {
                 if (info.disabled.ContainsKey(addon_info.folder_name) && info.disabled[addon_info.folder_name])
                 {
-                    Directory.Move(
+
+                    if (addon_info.install_mode != "arc")
+                    {
+                        Directory.Move(
                         Path.Combine("Disabled Plugins", addon_info.folder_name),
-                        Path.Combine(Path.Combine(info.game_path, "addons"))
+                        Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name)
                         );
+                    }
+                    else
+                    {
+                        if (!Directory.Exists(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps")))
+                        {
+                            Directory.CreateDirectory(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"));
+                        }
+
+                        File.Move(
+                            Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), addon_info.plugin_name),
+                            Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), addon_info.plugin_name)
+                            );
+                    }
+                        
                     info.disabled[addon_info.folder_name] = false;
-                    configuration.setConfigAsYAML(info);
+                    Configuration.setConfigAsYAML(info);
                 }
             }
         }
@@ -183,7 +248,7 @@ namespace GW2_Addon_Manager
         /***** DELETE *****/
         public static void delete(AddonInfo addon_info)
         {
-            config info = configuration.getConfigAsYAML();
+            UserConfig info = Configuration.getConfigAsYAML();
             if (info.installed.ContainsKey(addon_info.folder_name) && info.installed[addon_info.folder_name] != null)
             {
                 if (info.disabled.ContainsKey(addon_info.folder_name) && info.disabled[addon_info.folder_name])
@@ -192,17 +257,49 @@ namespace GW2_Addon_Manager
                     info.disabled.Remove(addon_info.folder_name);
                     info.installed.Remove(addon_info.folder_name);
                     info.version.Remove(addon_info.folder_name);
-                    configuration.setConfigAsYAML(info);
+                    Configuration.setConfigAsYAML(info);
                 }
                 else
                 {
-                    Directory.Delete(Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name), true);
-                    if(info.disabled.ContainsKey(addon_info.folder_name))
-                        info.disabled.Remove(addon_info.folder_name);
-                    info.installed.Remove(addon_info.folder_name);
-                    info.version.Remove(addon_info.folder_name);
-                    configuration.setConfigAsYAML(info);
+                    if (addon_info.install_mode != "arc")
+                    {
+                        Directory.Delete(Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name), true);
+                        if (info.disabled.ContainsKey(addon_info.folder_name))
+                            info.disabled.Remove(addon_info.folder_name);
+                        info.installed.Remove(addon_info.folder_name);
+                        info.version.Remove(addon_info.folder_name);
+
+                        //deleting arcdps will delete other addons as well
+                        if (addon_info.folder_name == "arcdps")
+                        {
+                            foreach (AddonInfo adj_info in ApprovedList.GenerateAddonList())
+                            {
+                                if (adj_info.install_mode == "arc")
+                                {
+                                    //if arc-dependent plugin is disabled, it won't get deleted since it's not in the /addons/arcdps folder
+                                    if (info.disabled.ContainsKey(adj_info.folder_name) && !info.disabled[adj_info.folder_name])
+                                    {
+                                        info.disabled.Remove(adj_info.folder_name);
+                                        info.installed.Remove(adj_info.folder_name);
+                                        info.version.Remove(adj_info.folder_name);
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        File.Delete(Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), addon_info.plugin_name));
+                        if (info.disabled.ContainsKey(addon_info.folder_name))
+                            info.disabled.Remove(addon_info.folder_name);
+                        info.installed.Remove(addon_info.folder_name);
+                        info.version.Remove(addon_info.folder_name);
+                    }
+
+                    Configuration.setConfigAsYAML(info);
                 }
+
             }
         }
 

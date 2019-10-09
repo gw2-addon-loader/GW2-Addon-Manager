@@ -1,23 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace GW2_Addon_Manager
 {
     /// <summary>
     /// In-app corollary to update.yaml files.
     /// </summary>
-    public class AddonInfo
+    public class AddonInfo : INotifyPropertyChanged
     {
+        /// <summary>
+        /// An event used to indicate that a property's value has changed.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
         //for xaml
         public bool IsSelected { get; set; }
 
         public string developer { get; set; }
         public string website { get; set; }
-        public string addon_name { get; set; }
+
+        private string _addon_name;
+        public string addon_name
+        {
+            get { return _addon_name; }
+            set
+            {
+                _addon_name = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(addon_name)));
+            }
+        }
         public string description { get; set; }
         public string tooltip { get; set; }
 
         public string folder_name { get; set; }
+        public string plugin_name { get; set; }
         public string host_type { get; set; }
         public string host_url { get; set; }
         public string version_url { get; set; }

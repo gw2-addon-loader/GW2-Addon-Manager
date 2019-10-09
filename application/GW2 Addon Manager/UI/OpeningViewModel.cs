@@ -24,7 +24,7 @@ namespace GW2_Addon_Manager
         /// A method used in notifying that a property's value has changed.
         /// </summary>
         /// <param name="propertyName">The name of the property that changed value.</param>
-        protected void propertyChanged(string propertyName)
+        public void propertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -65,7 +65,7 @@ namespace GW2_Addon_Manager
             UpdateLinkVisibility = Visibility.Hidden;
             UpdateProgressVisibility = Visibility.Hidden;
 
-            GamePath = configuration.getConfigAsYAML().game_path;
+            GamePath = Configuration.getConfigAsYAML().game_path;
         }
 
 
@@ -172,27 +172,24 @@ namespace GW2_Addon_Manager
         public string GamePath { get; set; }
 
 
-        
-
-
         /***** Button Handlers *****/
 
         /// <summary>
         /// Handles button commands for the "set" button next to the game path text field in the opening screen.
-        /// <see cref="configuration.SetGamePath(string)"/>
+        /// <see cref="Configuration.SetGamePath(string)"/>
         /// </summary>
         public ICommand SetGamePath
         {
-            get { return new RelayCommand<object>(param => configuration.SetGamePath(GamePath), true); }
+            get { return new RelayCommand<object>(param => Configuration.SetGamePath(GamePath), true); }
         }
 
         /// <summary>
         /// Handles button commands for the button to make the current add-on selection the default.
-        /// <see cref="configuration.ChangeAddonConfig(OpeningViewModel)"/>
+        /// <see cref="Configuration.ChangeAddonConfig(OpeningViewModel)"/>
         /// </summary>
         public ICommand SetDefaultAddons
         {
-            get { return new RelayCommand<object>(param => configuration.ChangeAddonConfig(this), true); }
+            get { return new RelayCommand<object>(param => Configuration.ChangeAddonConfig(this), true); }
         }
 
         /// <summary>

@@ -11,9 +11,9 @@ website: https://github.com/gw2-addon-loader/d3d9_wrapper
 # name of the add-on
 addon_name: d3d9 wrapper
 # descriptive text for the addon
-description: "d3d9 wrapper for the addon loader"
+description: Wrapper for D3D9 API that includes advanced hooking and custom d3d9 loading. \n\n Base library to support multiple addons that use D3D9 based rendering.
 # tooltip - basically description but in brief
-tooltip: 
+tooltip: Advanced D3D9 API wrapper -by gw2al team
 
 ### DOWNLOADING/INSTALLATION ###
 # github or standalone

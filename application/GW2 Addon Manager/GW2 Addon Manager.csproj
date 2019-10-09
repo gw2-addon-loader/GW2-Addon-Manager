@@ -15,6 +15,8 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>C:\Users\Matthew Lee\Documents\GitHub\GW2-Updater-Scripts\application\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,13 +27,11 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -65,7 +65,7 @@
     </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
@@ -75,6 +75,12 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>GW2 Addon Updater_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
@@ -135,8 +141,8 @@
     </ApplicationDefinition>
     <Compile Include="Addons\AddonInfo.cs" />
     <Compile Include="Addons\ApprovedList.cs" />
-    <Compile Include="Configuration\config.cs" />
-    <Compile Include="Configuration\configuration.cs" />
+    <Compile Include="Configuration\UserConfig.cs" />
+    <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Updating\GenericUpdater.cs" />
     <Compile Include="LoaderSetup\LoaderSetup.cs" />
     <Compile Include="UI\OpeningViewModel.cs" />
@@ -190,9 +196,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Content Include="Resources\GW2-UOAOU-UI.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -248,10 +251,12 @@
     <Content Include="Resources\config_template.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\GW2-UOAOU-UI.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\logo.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="bin\Debug\Resources\plugins\Newtonsoft.Json.dll" />
     <Content Include="Resources\GitHub-Mark-32px.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -272,6 +277,7 @@
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(TargetDir)resources\plugins"
 move "$(TargetDir)*.dll" "$(TargetDir)resources\plugins"
-xcopy "$(ProjectDir)\resources\addons" "$(ProjectDir)$(OutDir)\resources\Addons\" /S /Y</PostBuildEvent>
+xcopy "$(ProjectDir)\resources\addons" "$(ProjectDir)$(OutDir)\resources\Addons\" /S /Y
+"C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe" sign /f "$(ProjectDir)GW2 Addon Updater_TemporaryKey.pfx" /v "$(ProjectDir)bin\$(ConfigurationName)\$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

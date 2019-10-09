@@ -27,6 +27,8 @@ version_url:
 download_type: archive
 # binary or d3d9 - binary leaves plugin name as-is, d3d9 means filename may be changed for chainloading
 install_mode: binary
+# plugin name- only for arc-dependent plugins (to identify what plugin in the /addons/arcdps folder is associated with what addon)
+plugin_name:
 
 ### CONFIGURATION ###
 # a list of all other add-ons required for this add-on to function

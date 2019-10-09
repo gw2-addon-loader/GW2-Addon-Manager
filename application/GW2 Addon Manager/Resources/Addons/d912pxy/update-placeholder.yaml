@@ -11,9 +11,9 @@ website: https://github.com/megai2/d912pxy
 # name of the add-on
 addon_name: d912pxy
 # descriptive text for the addon
-description: "D912pxy is a tool that allows Guild Wars 2 to use DirectX 12 by translating calls for DirectX 9 to DirectX 12. The developer says: \n\n\"What to expect from this?
-    More stable FPS in general - Higer FPS if you have free CPU and GPU power - Lower FPS if you have no extra CPU power / GPU power - Higher RAM and VRAM usage - 
-    Using eGPU you can expect big improvements due to GPU-CPU bandwith optimization - Some visual bugs and most notable character portraits glitching\""
+description: D912pxy is a tool that allows Guild Wars 2 to use DirectX 12 by translating calls for DirectX 9 to DirectX 12. \n\nWhat should you expect from this?
+    More stable FPS in general - Higher FPS if you have free CPU and GPU power - Lower FPS if you have no extra CPU power / GPU power - Higher RAM and VRAM usage - 
+    Those using an eGPU can expect big improvements due to GPU-CPU bandwith optimization - Some visual bugs, the most notable being character portraits glitching
 # tooltip - basically description but in brief
 tooltip: Translates DirectX 9 calls to DirectX 12 for performance improvements - by Megai2
 
@@ -33,6 +33,7 @@ install_mode: binary
 ### CONFIGURATION ###
 # a list of all other add-ons required for this add-on to function
 requires:
+    - d3d9_wrapper
 # a list of all add-ons that prevent this add-on from functioning properly
 conflicts:
     - gw2hook

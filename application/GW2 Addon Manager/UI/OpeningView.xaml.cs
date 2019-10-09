@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -16,6 +15,7 @@ namespace GW2_Addon_Manager
     public partial class AddOnSelector : Page
     {
         OpeningViewModel theViewModel;
+        static string releases_url = "https://github.com/fmmmlee/GW2-Addon-Manager/releases";
         static string UpdateNotificationFile = "updatenotification.txt";
 
         /// <summary>
@@ -25,14 +25,14 @@ namespace GW2_Addon_Manager
         {    
             theViewModel = new OpeningViewModel();
             DataContext = theViewModel;
-            configuration.CheckSelfUpdates(theViewModel);
-            configuration.DetermineSystemType();
-            configuration.DisplayAddonStatus(theViewModel);
+            Configuration.CheckSelfUpdates(theViewModel);
+            Configuration.DetermineSystemType();
+            Configuration.DisplayAddonStatus(theViewModel);
             InitializeComponent();
             //update notification
             if (File.Exists(UpdateNotificationFile))
             {
-                Process.Start(UpdateNotificationFile);
+                Process.Start(releases_url);
                 File.Delete(UpdateNotificationFile);
             }
         }

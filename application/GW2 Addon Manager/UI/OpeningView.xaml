@@ -32,30 +32,32 @@
         <TextBlock Grid.Row="1" Margin="40,75,0,0" FontSize ="16" Foreground="DimGray" FontFamily="Microsoft YaHei UI Light"><Run Text="Guild Wars 2 - Unofficial Add-On Manager"/></TextBlock>
         <TextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="300,0,0,37" FontFamily="Microsoft YaHei UI Light" FontSize="14"><Run Text="Game Path"/></TextBlock>
 
-        <ComboBox x:Name="settings_list"
+        <Menu x:Name="settings_list"
                   Grid.Row="1"
-                  Margin="35,-10,0,0"
+                  Margin="40,-13,0,0"
                   HorizontalAlignment="Left"
                   VerticalAlignment="Top"
                   Height="25"
-                  Width="75"
-                  Template="{StaticResource settings_dropdown}"
+                  Background="Transparent"
                   >
-            <ComboBoxItem Padding="0,0,0,0">
-                <Button Command="{Binding Path=CreateShortcut}"
-                Content="Create Shortcut"
-                ToolTip="Adds a shortcut to the application to the start menu - if program is moved, the shortcut will not function!"
-                Background="Transparent"
-                Foreground="Black"
-                BorderThickness="0"
-                FontSize="12"
-                FontFamily="Microsoft YaHei UI Light"
-                Height="30"
-                Width="105"
-                Style="{DynamicResource dropdownbutton}"
-            />
-            </ComboBoxItem>
-        </ComboBox>
+            <MenuItem Header="Options" HorizontalContentAlignment="Stretch"
+                      VerticalContentAlignment="Center"
+                      Height="30"
+                      Padding="5,2,5,5"
+                      Template="{StaticResource AddonMenuItemControlTemplate}"
+                      Style="{StaticResource AddonMenuItemStyle}"
+                      Background="Transparent"
+                      Foreground="DimGray"
+                      >
+                <MenuItem
+                    Command="{Binding Path=CreateShortcut}"
+                    Header="Create Shortcut"
+                    ToolTip="Adds a shortcut to the application to the start menu - if program is moved, the shortcut will not function!"
+                    Template="{StaticResource AddonMenuItemControlTemplate}"
+                    Style="{StaticResource AddonMenuItemStyle}"
+                    />
+            </MenuItem>
+        </Menu>
         <TextBlock Text="{Binding UpdateAvailable}"
                    Grid.Row="1"
                    Margin="120,-6,0,0"
@@ -108,17 +110,6 @@
             Command="{Binding Path=DownloadSelfUpdate}"
             ToolTip="This will download the application update and then restart the program."
             />
-        <TextBlock DataContext="{Binding ElementName=settings_list, Path=SelectedItem}"
-                   Grid.Row="1"
-                   Margin="45,-6,0,0"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   Text="Options"
-                   FontSize="12"
-                   Height="25"
-                   FontFamily="Microsoft YaHei UI Light"
-                   Foreground="DimGray">
-        </TextBlock>
         <Button Command="{Binding Path=SetGamePath}"
                 Grid.Row="2"
                 Margin="705,0,0,9"
@@ -170,7 +161,8 @@
                                       IsChecked="{Binding IsSelected, Mode=TwoWay}"
                                       Style="{StaticResource AddonListCheckBox}"
                                       />
-                                <Label Content="{Binding addon_name}"
+                                <Label Name="add_name"
+                                       Content="{Binding addon_name}"
                                        VerticalAlignment="Center"
                                        FontFamily="Microsoft YaHei UI"
                                        Foreground="DimGray"
