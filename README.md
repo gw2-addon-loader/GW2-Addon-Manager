@@ -7,7 +7,7 @@ A tool to install and update some Guild Wars 2 add-ons without having to manuall
 
 ### Current Status
 
-Update 0.5.0 is in the works. Planned features include changing the configuration file to .yaml format, addon descriptions and information displayed in the selection window, and a complete restructuring of the addon installation process to allow compatibility with the [addon loader](https://github.com/gw2-addon-loader), which will eventually allow for greater flexibility and allow for adding support for more addons without needing to write a bunch of boilerplate code and push a new release.
+Update 1.0.0 is nearing completion and will be releasing soon. Features include changing the configuration file to .yaml format, displaying addon descriptions and other information in a selection window, bug fixes, UI improvements, and a complete restructuring of the addon installation process to include and be compatible with the [addon loader](https://github.com/gw2-addon-loader).
 
 &nbsp;
 <p align="center">
