@@ -277,7 +277,6 @@
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(TargetDir)resources\plugins"
 move "$(TargetDir)*.dll" "$(TargetDir)resources\plugins"
-xcopy "$(ProjectDir)\resources\addons" "$(ProjectDir)$(OutDir)\resources\Addons\" /S /Y
-"C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe" sign /f "$(ProjectDir)GW2 Addon Updater_TemporaryKey.pfx" /v "$(ProjectDir)bin\$(ConfigurationName)\$(TargetFileName)"</PostBuildEvent>
+xcopy "$(ProjectDir)\resources\addons" "$(ProjectDir)$(OutDir)\resources\Addons\" /S /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>
