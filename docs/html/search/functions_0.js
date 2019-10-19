@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['applydefaultconfig_80',['ApplyDefaultConfig',['../class_g_w2___addon___manager_1_1configuration.html#af6a887db85d5499a64c95d8bb362bd19',1,'GW2_Addon_Manager::configuration']]],
-  ['arcdps_81',['arcdps',['../class_g_w2___addon___manager_1_1arcdps.html#afcecd48c039f394412c36e6b343612ab',1,'GW2_Addon_Manager::arcdps']]],
-  ['arcdps_5fbhud_82',['arcdps_bhud',['../class_g_w2___addon___manager_1_1arcdps__bhud.html#a1c10868aa0ce35695623a2e1ee49c6cb',1,'GW2_Addon_Manager::arcdps_bhud']]],
-  ['arcdps_5fmechanics_83',['arcdps_mechanics',['../class_g_w2___addon___manager_1_1arcdps__mechanics.html#aae4cd0650d35d55befeb43e175ed77b9',1,'GW2_Addon_Manager::arcdps_mechanics']]]
+  ['changeaddonconfig_83',['ChangeAddonConfig',['../class_g_w2___addon___manager_1_1_configuration.html#a325cdb767ae24a8b8ed14c2e753a2f50',1,'GW2_Addon_Manager::Configuration']]],
+  ['checkforupdateyaml_84',['CheckForUpdateYaml',['../class_g_w2___addon___manager_1_1_addon_yaml_reader.html#a5e11b45cd8c2230cd6c8783d90395354',1,'GW2_Addon_Manager::AddonYamlReader']]],
+  ['checkselfupdates_85',['CheckSelfUpdates',['../class_g_w2___addon___manager_1_1_configuration.html#ab5cc6f8b7111ef137f2174d6c93fef04',1,'GW2_Addon_Manager::Configuration']]]
 ];
