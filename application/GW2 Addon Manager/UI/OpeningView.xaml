@@ -29,8 +29,12 @@
         </DockPanel>
 
         <Label Grid.Row = "1" FontWeight="Bold" FontSize="60" Foreground="DimGray" Margin="30,0,0,0" FontFamily="Microsoft JhengHei UI Light" Width="Auto" HorizontalAlignment="Left" Content="GW2-UOAOM"/>
-        <TextBlock Grid.Row="1" Margin="40,75,0,0" FontSize ="16" Foreground="DimGray" FontFamily="Microsoft YaHei UI Light"><Run Text="Guild Wars 2 - Unofficial Add-On Manager"/></TextBlock>
-        <TextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="300,0,0,37" FontFamily="Microsoft YaHei UI Light" FontSize="14"><Run Text="Game Path"/></TextBlock>
+        <TextBlock Grid.Row="1" Margin="40,75,0,0" FontSize ="16" Foreground="DimGray" FontFamily="Microsoft YaHei UI Light">
+            <Run Text="Guild Wars 2 - Unofficial Add-On Manager"/>
+        </TextBlock>
+        <TextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="300,0,0,37" FontFamily="Microsoft YaHei UI Light" FontSize="14">
+            <Run Text="Game Path"/>
+        </TextBlock>
 
         <Menu x:Name="settings_list"
                   Grid.Row="1"

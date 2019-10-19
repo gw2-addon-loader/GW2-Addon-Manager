@@ -6,7 +6,7 @@ using YamlDotNet.Serialization;
 namespace GW2_Addon_Manager
 {
     /// <summary>
-    /// The <c>configuration</c> class contains various functions accessing and modifying the configuration file and the configuration file template.
+    /// The <c>configuration</c> class contains various functions (TODO)
     /// </summary>
     class Configuration
     {

@@ -8,7 +8,7 @@ namespace GW2_Addon_Manager
 {
     class LoaderSetup
     {
-        static string loader_git_url = "https://api.github.com/repos/gw2-addon-loader/loader-core/releases/19827923"; //"https://api.github.com/repos/gw2-addon-loader/loader-core/releases/latest";
+        static string loader_git_url = "https://api.github.com/repos/gw2-addon-loader/loader-core/releases/latest";
         string loader_game_path;
 
         UpdatingViewModel viewModel;
