@@ -5,31 +5,38 @@
 
 ### USER-FACING INFO ###
 # developer of the add-on
-developer: DeltaConnected
+developer: e-scrape-artist
 # website where more information about the add-on can be found
-website: https://www.deltaconnected.com/arcdps/
+website: gw2archive.eu
 # name of the add-on
-addon_name: ArcDPS
+addon_name: BuildPad
 # descriptive text for the addon
-description: ArcDPS allows the player to view their DPS and offers other tools like FPS and ping metrics. By default, this menu can be made visible in-game with the keybind alt+shift+h. For more information, click the link above to visit the website.
+description: 
+    It is essentially a glorified notepad for your builds, allowing you to organize a list of saved builds and copy them with one click.
+    It is a plugin to ArcDPS, without the latter it won't work, but then again if you haven't been using ArcDPS for templates already, you probably have no immediate use for this plugin either
+    It detects your ArcDPS templates and converts (automatically and/or manually) them to GW2 templates. Your old gear templates, which cannot be pasted into GW2, can however be previewed inside the plugin so you can remind yourself which items and stats you had saved.
+
 # tooltip - basically description but in brief
-tooltip: Displays a DPS meter - by DeltaConnected
+tooltip: Offline build storage
 
 ### DOWNLOADING/INSTALLATION ###
 # github or standalone
 host_type: standalone
 # either github API url or direct URL to file/archive - former is parsed to find latest version and download link,
 # latter is a direct download link to a file/archive
-host_url: https://www.deltaconnected.com/arcdps/gw2addon_arcdps.dll
+host_url: https://buildpad.gw2archive.eu/versions/d3d9_arcdps_buildpad_2019-10-31.dll
 # for md5sum files and things of that nature; files that exist solely to show what the latest version is. Standalone only.
-version_url: https://www.deltaconnected.com/arcdps/x64/d3d9.dll.md5sum
+version_url: 
 # archive or .dll
 download_type: .dll
 # binary or d3d9 - binary leaves plugin name as-is, d3d9 means filename may be changed for chainloading
-install_mode: binary
+install_mode: arc
+# plugin name- only for arc-dependent plugins (to identify what plugin in the /addons/arcdps folder is associated with what addon)
+plugin_name: d3d9_arcdps_buildpad.dll
 
 ### CONFIGURATION ###
 # a list of all other add-ons required for this add-on to function
 requires:
+    - arcdps
 # a list of all add-ons that prevent this add-on from functioning properly
 conflicts:
