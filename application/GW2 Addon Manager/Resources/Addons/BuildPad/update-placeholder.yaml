@@ -24,7 +24,7 @@ tooltip: Offline build storage
 host_type: standalone
 # either github API url or direct URL to file/archive - former is parsed to find latest version and download link,
 # latter is a direct download link to a file/archive
-host_url: https://buildpad.gw2archive.eu/versions/d3d9_arcdps_buildpad_2019-10-31.dll
+host_url: https://buildpad.gw2archive.eu/versions/latest
 # for md5sum files and things of that nature; files that exist solely to show what the latest version is. Standalone only.
 version_url: 
 # archive or .dll

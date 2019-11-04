@@ -218,7 +218,7 @@
     <None Include="Resources\Addons\arcdps_mechanics\update-placeholder.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\Addons\BuildPad\update-placeholder.yaml" />
+    <None Include="Resources\Addons\buildPad\update-placeholder.yaml" />
     <None Include="Resources\Addons\d3d9_wrapper\update-placeholder.yaml" />
     <None Include="Resources\Addons\d912pxy\update-placeholder.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

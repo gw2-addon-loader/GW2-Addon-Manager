@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
@@ -72,13 +73,27 @@ namespace GW2_Addon_Manager
         private async Task StandaloneCheckUpdate()
         {
             var client = new WebClient();
-            latestVersion = client.DownloadString(addon_info.version_url);
+            string downloadURL = addon_info.host_url;
+
+            //TODO: Add comparison for dll names if version_url is null
+            if (addon_info.version_url != null)
+                latestVersion = client.DownloadString(addon_info.version_url);
+            else //for redirect links
+            {
+                HttpWebRequest getRedir = (HttpWebRequest)WebRequest.Create(addon_info.host_url);
+                getRedir.AllowAutoRedirect = false;
+                HttpWebResponse redirResponse = (HttpWebResponse)getRedir.GetResponse();
+                downloadURL = redirResponse.Headers.Get("Location");
+                latestVersion = Path.GetFileName(downloadURL);
+            }
 
             if (userConfig.version.ContainsKey(addon_name) && userConfig.version[addon_name] != null && latestVersion == userConfig.version[addon_name])
                 return;
 
+
+            
             viewModel.label = "Downloading " + addon_info.addon_name + " " + latestVersion;
-            await Download(addon_info.host_url, client);
+            await Download(downloadURL, client);
         }
 
 
@@ -92,7 +107,8 @@ namespace GW2_Addon_Manager
         /// <param name="client"></param>
         private async Task Download(string url, WebClient client)
         {
-            fileName = Path.Combine(Path.GetTempPath(), Path.GetFileName(url));
+
+            fileName = Path.Combine(Path.GetTempPath(), Path.GetFileName(url));             
 
             if (File.Exists(fileName))
                 File.Delete(fileName);
