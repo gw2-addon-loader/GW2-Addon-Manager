@@ -3,9 +3,9 @@
 
 
 ##### Guild Wars 2 Unofficial Add-On Manager
-A tool to install and update some Guild Wars 2 add-ons without having to manually visit each website, check version numbers, download and rename dlls, etc.
+A tool to improve the experience of using addons and plugins in Guild Wars 2 by handling installation, updates, and file management behind the scenes.
 
-### Current Status
+### Project Status
 
 Update 1.0.0 is nearing completion and will be releasing soon. A pre-release alpha **with no Arc-Bhud or Arc-Mechanics compatibility** is available on the [releases](https://github.com/fmmmlee/GW2-Addon-Manager/releases) page. Features include changing the configuration file to .yaml format, displaying addon descriptions and other information in a selection window, bug fixes, UI improvements, and a complete restructuring of the addon installation process to include and be compatible with the [addon loader](https://github.com/gw2-addon-loader).
 
@@ -33,10 +33,8 @@ Head on over to the [wiki](https://github.com/fmmmlee/GW2-Addon-Manager/wiki) fo
 - <a href="https://github.com/megai2/d912pxy">**d912pxy**</a>
 - <a href="https://github.com/Friendly0Fire/GW2Radial">**GW2Radial**</a>
 
-#### Issues
-If something doesn't work, please open an issue describing the problem and include what you were trying to do, the error message (if applicable), and a copy of your config.ini or config.yaml file.
-
-#### [To-Do](https://docs.google.com/document/d/158CAGSGr-tgw4eVIxfYCZMLeeFDtlt89Elgq8K3b7tk/edit?usp=sharing)
+### Wiki
+More information on a number of other topics can be found on the [wiki](https://github.com/fmmmlee/GW2-Addon-Manager/wiki).
 
 &nbsp;
 
