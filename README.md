@@ -36,6 +36,6 @@ Head on over to the [wiki](https://github.com/fmmmlee/GW2-Addon-Manager/wiki) fo
 ### Wiki
 More information on a number of other topics can be found on the [wiki](https://github.com/fmmmlee/GW2-Addon-Manager/wiki).
 
-&nbsp;
+### [Credits](https://github.com/fmmmlee/GW2-Addon-Manager/wiki/Credits)
 
 ###### Disclaimer: I am not affiliated with any of the add-ons shown here or their authors, nor am I affiliated with ArenaNet. All trademarks, registered trademarks, logos, etc are the property of their respective owners. You use this tool at your own risk. If you are the author of one of the add-ons and wish for your add-on to be removed from the options for whatever reason, <a href="mailto:fmmmlee@gmail.com">send an email</a> or send an in-game mail to admiralnerf.1853 and I'll reply and take care of the issue as soon as I can.
