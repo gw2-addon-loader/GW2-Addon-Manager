@@ -7,7 +7,7 @@ A tool to improve the experience of using addons and plugins in Guild Wars 2 by 
 
 ### Project Status
 
-Update 1.0.0 is nearing completion and will be releasing soon. A pre-release alpha **with no Arcdps Mechanics Plugin compatibility** is available on the [releases](https://github.com/fmmmlee/GW2-Addon-Manager/releases) page. Features include changing the configuration file to .yaml format, displaying addon descriptions and other information in a selection window, bug fixes, UI improvements, and a complete restructuring of the addon installation process to include and be compatible with the [addon loader](https://github.com/gw2-addon-loader).
+Update 1.0.0 is nearing completion and will be releasing soon (it's basically finished, but there's a nasty launch crash that occurs when using the Arcdps Mechanics plugin that I don't have time to figure out yet). A pre-release alpha **with no Arcdps Mechanics Plugin compatibility** is available on the [releases](https://github.com/fmmmlee/GW2-Addon-Manager/releases) page. Features include changing the configuration file to .yaml format, displaying addon descriptions and other information in a selection window, bug fixes, UI improvements, and a complete restructuring of the addon installation process to include and be compatible with the [addon loader](https://github.com/gw2-addon-loader).
 
 &nbsp;
 
