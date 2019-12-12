@@ -140,17 +140,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Addons\AddonInfo.cs" />
-    <Compile Include="Addons\ApprovedList.cs" />
-    <Compile Include="Configuration\UserConfig.cs" />
-    <Compile Include="Configuration\Configuration.cs" />
-    <Compile Include="Updating\GenericUpdater.cs" />
-    <Compile Include="LoaderSetup\LoaderSetup.cs" />
+    <Compile Include="Backend\Addons\AddonInfo.cs" />
+    <Compile Include="Backend\Addons\ApprovedList.cs" />
+    <Compile Include="Backend\Configuration\UserConfig.cs" />
+    <Compile Include="Backend\Configuration\Configuration.cs" />
+    <Compile Include="Backend\Updating\GenericUpdater.cs" />
+    <Compile Include="Backend\LoaderSetup\LoaderSetup.cs" />
     <Compile Include="UI\OpeningViewModel.cs" />
-    <Compile Include="Configuration\PluginManagement.cs" />
+    <Compile Include="Backend\Configuration\PluginManagement.cs" />
     <Compile Include="App\SelfUpdate.cs" />
-    <Compile Include="Addons\AddonYamlReader.cs" />
-    <Compile Include="Updating\UpdateHelpers.cs" />
+    <Compile Include="Backend\Addons\AddonYamlReader.cs" />
+    <Compile Include="Backend\Updating\UpdateHelpers.cs" />
     <Compile Include="UI\UpdatingView.xaml.cs">
       <DependentUpon>UpdatingView.xaml</DependentUpon>
     </Compile>

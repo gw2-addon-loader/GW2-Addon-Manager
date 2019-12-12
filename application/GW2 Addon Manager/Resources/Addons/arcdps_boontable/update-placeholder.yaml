@@ -13,7 +13,7 @@ addon_name: ArcDPS Boon Table
 # descriptive text for the addon
 description: 
 # tooltip - basically description but in brief
-tooltip:  - by Martion/MarsEdge
+tooltip: by Martion/MarsEdge
 
 ### DOWNLOADING/INSTALLATION ###
 # github or standalone
