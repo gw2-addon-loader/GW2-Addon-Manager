@@ -214,6 +214,7 @@ namespace GW2_Addon_Manager
                         if (!Directory.Exists(Path.Combine("Disabled Plugins", addon_info.folder_name)))
                             Directory.CreateDirectory(Path.Combine("Disabled Plugins", addon_info.folder_name));
 
+
                         File.Move(
                             Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), addon_info.plugin_name), 
                             Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), addon_info.plugin_name)

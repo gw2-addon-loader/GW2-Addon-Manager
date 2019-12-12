@@ -15,22 +15,21 @@ namespace GW2_Addon_Manager
     /// </summary>
     public class OpeningViewModel : INotifyPropertyChanged
     {
-        /// <summary>
-        /// An event used to indicate that a property's value has changed.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// A method used in notifying that a property's value has changed.
-        /// </summary>
-        /// <param name="propertyName">The name of the property that changed value.</param>
-        public void propertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
+        /***** private fields for ui bindings *****/
+        private ObservableCollection<AddonInfo> _addonList;
         private ObservableCollection<int> _selectedAddons;
+        private string _developer;
+        private string _description;
+        private string _addonwebsite;
+        private Visibility _developer_visibility;
+        private string _updateAvailable;
+        private int updateProgress;
+        private Visibility _updateLinkVisibility;
+        private Visibility _updateProgressVisibility;
+
+        /********** UI BINDINGS **********/
+
+        /***** Addon List Box *****/
         /// <summary>
         /// The indices of the checked boxes in the list of addons displayed on the UI.
         /// </summary>
@@ -39,8 +38,6 @@ namespace GW2_Addon_Manager
             get { return _selectedAddons; }
             set { _selectedAddons = value; propertyChanged("SelectedAddons"); }
         }
-
-        private ObservableCollection<AddonInfo> _addonList;
         /// <summary>
         /// List of Addons
         /// </summary>
@@ -49,8 +46,138 @@ namespace GW2_Addon_Manager
             get { return _addonList;  }
             set { _addonList = value; propertyChanged("AddonList"); }
         }
+        
+        /***** Description Panel *****/
+        /// <summary>
+        /// Text content for the description panel.
+        /// </summary>
+        public string DescriptionText
+        {
+            get { return _description; }
+            set { _description = value; propertyChanged("DescriptionText"); }
+        }
+        /// <summary>
+        /// The informational text showing the developer of the selected add-on.
+        /// </summary>
+        public string DeveloperText
+        {
+            get { return _developer; }
+            set { _developer = value; propertyChanged("Developer"); }
+        }
+        /// <summary>
+        /// The website link in the description panel.
+        /// </summary>
+        public string AddonWebsiteLink
+        {
+            get { return _addonwebsite; }
+            set { _addonwebsite = value; propertyChanged("AddonWebsite"); }
+        }
+
+        /***** Show/Hide Elements *****/
+        /// <summary>
+        /// Visibility of the informational text showing the developer of the selected add-on.
+        /// </summary>
+        public Visibility DeveloperVisibility
+        {
+            get { return _developer_visibility; }
+            set { _developer_visibility = value; propertyChanged("DeveloperVisibility"); }
+        }
+        /// <summary>
+        /// A string representing a visibility value for the Github releases link.
+        /// </summary>
+        public Visibility UpdateLinkVisibility
+        {
+            get { return _updateLinkVisibility; }
+            set { _updateLinkVisibility = value; propertyChanged("UpdateLinkVisibility"); }
+        }
+        /// <summary>
+        /// A string representing a visibility value for the self-update download progress bar.
+        /// </summary>
+        public Visibility UpdateProgressVisibility
+        {
+            get { return _updateProgressVisibility; }
+            set { _updateProgressVisibility = value; propertyChanged("UpdateProgressVisibility"); }
+        }
+        
+        /***** Button Handlers *****/
+        /// <summary>
+        /// Handles button commands for the "set" button next to the game path text field in the opening screen.
+        /// <see cref="Configuration.SetGamePath(string)"/>
+        /// </summary>
+        public ICommand SetGamePath
+        {
+            get { return new RelayCommand<object>(param => Configuration.SetGamePath(GamePath), true); }
+        }
+        /// <summary>
+        /// Handles button commands for the button to make the current add-on selection the default.
+        /// <see cref="Configuration.ChangeAddonConfig(OpeningViewModel)"/>
+        /// </summary>
+        public ICommand SetDefaultAddons
+        {
+            get { return new RelayCommand<object>(param => Configuration.ChangeAddonConfig(this), true); }
+        }
+        /// <summary>
+        /// Handles the disable selected addons button.
+        /// </summary>
+        public ICommand DisableSelected
+        {
+            get { return new RelayCommand<object>(param =>PluginManagement.DisableSelected(this), true); }
+        }
+        /// <summary>
+        /// Handles the enable selected addons button.
+        /// </summary>
+        public ICommand EnableSelected
+        {
+            get { return new RelayCommand<object>(param => PluginManagement.EnableSelected(this), true); }
+        }
+        /// <summary>
+        /// Handles the delete selected addons button.
+        /// </summary>
+        public ICommand DeleteSelected
+        {
+            get { return new RelayCommand<object>(param => PluginManagement.DeleteSelected(this), true); }
+        }
+        /// <summary>
+        /// Handler for small button to download application update.
+        /// </summary>
+        public ICommand DownloadSelfUpdate
+        {
+            get { return new RelayCommand<object>(param => UpdateHelpers.UpdateSelf(this), true); }
+        }
+        /// <summary>
+        /// Handles the create shortcut button under the options menu. <see cref="cs_logic"/>
+        /// </summary>
+        public ICommand CreateShortcut
+        {
+            get { return new RelayCommand<object>(param => cs_logic(), true); }
+        }
+
+        /***** Misc *****/
+        /// <summary>
+        /// Binding for the value shown in the mini progress bar displayed when downloading a new version of the application.
+        /// </summary>
+        public int UpdateDownloadProgress
+        {
+            get { return updateProgress; }
+            set { updateProgress = value; propertyChanged("UpdateDownloadProgress"); }
+        }
+        /// <summary>
+        /// Content of the text box that contains the game path the program is set to look for the game in.
+        /// </summary>
+        public string GamePath { get; set; }
+        /// <summary>
+        /// A string that is assigned a value if there is an update available.
+        /// </summary>
+        public string UpdateAvailable
+        {
+            get { return _updateAvailable; }
+            set { _updateAvailable = value; propertyChanged("UpdateAvailable"); }
+        }
 
 
+        /********** Class Structure/Other Methods **********/
+
+        /* Constructor */
         /// <summary>
         /// This constructor initializes various default properties across the class and then
         /// applies any updated values to them using <c>ApplyDefaultConfig</c>.
@@ -68,163 +195,22 @@ namespace GW2_Addon_Manager
             GamePath = Configuration.getConfigAsYAML().game_path;
         }
 
-
-        /***** Description Panel Text *****/
-        private string _description;
+        /*** Notify UI of Changed Binding Items ***/
         /// <summary>
-        /// Text content for the description panel.
+        /// An event used to indicate that a property's value has changed.
         /// </summary>
-        public string DescriptionText
+        public event PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// A method used in notifying that a property's value has changed.
+        /// </summary>
+        /// <param name="propertyName">The name of the property that changed value.</param>
+        public void propertyChanged(string propertyName)
         {
-            get { return _description; }
-            set { _description = value; propertyChanged("DescriptionText"); }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        /***** "Developer" label *****/
-        private string _developer;
-        /// <summary>
-        /// The informational text showing the developer of the selected add-on.
-        /// </summary>
-        public string Developer
-        {
-            get { return _developer; }
-            set { _developer = value; propertyChanged("Developer"); }
-        }
-
-        /*** Link to Addon Website ***/
-        private string _addonwebsite;
-        /// <summary>
-        /// The website link in the description panel.
-        /// </summary>
-        public string AddonWebsite
-        {
-            get { return _addonwebsite; }
-            set { _addonwebsite = value; propertyChanged("AddonWebsite"); }
-        }
-
-        private Visibility _developer_visibility;
-        /// <summary>
-        /// Visibility of the informational text showing the developer of the selected add-on.
-        /// </summary>
-        public Visibility DeveloperVisibility
-        {
-            get { return _developer_visibility; }
-            set { _developer_visibility = value; propertyChanged("DeveloperVisibility"); }
-        }
-
-
-
-        /***** Application Version Status *****/
-
-        string _updateAvailable;
-        /// <summary>
-        /// A string that is assigned a value if there is an update available.
-        /// </summary>
-        public string UpdateAvailable
-        {
-            get { return _updateAvailable; }
-            set { _updateAvailable = value; propertyChanged("UpdateAvailable"); }
-        }
-
-        Visibility _updateLinkVisibility;
-        /// <summary>
-        /// A string representing a visibility value for the Github releases link.
-        /// </summary>
-        public Visibility UpdateLinkVisibility
-        {
-            get { return _updateLinkVisibility; }
-            set { _updateLinkVisibility = value; propertyChanged("UpdateLinkVisibility"); }
-        }
-
-        Visibility _updateProgressVisibility;
-        /// <summary>
-        /// A string representing a visibility value for the self-update download progress bar.
-        /// </summary>
-        public Visibility UpdateProgressVisibility
-        {
-            get { return _updateProgressVisibility; }
-            set { _updateProgressVisibility = value; propertyChanged("UpdateProgressVisibility"); }
-        }
-
-        int updateProgress;
-        /// <summary>
-        /// Binding for the value shown in the mini progress bar displayed when downloading a new version of the application.
-        /// </summary>
-        public int UpdateDownloadProgress
-        {
-            get { return updateProgress; }
-            set { updateProgress = value; propertyChanged("UpdateDownloadProgress"); }
-        }
-
-        /// <summary>
-        /// Handler for small button to download application update.
-        /// </summary>
-        public ICommand DownloadSelfUpdate
-        {
-            get { return new RelayCommand<object>(param => UpdateHelpers.UpdateSelf(this), true); }
-        }
-
-        /***** ************************** *****/
-
-        /// <summary>
-        /// Binding for the Content property of the text box displayed on the opening page.
-        /// </summary>
-        public string GamePath { get; set; }
-
-
-        /***** Button Handlers *****/
-
-        /// <summary>
-        /// Handles button commands for the "set" button next to the game path text field in the opening screen.
-        /// <see cref="Configuration.SetGamePath(string)"/>
-        /// </summary>
-        public ICommand SetGamePath
-        {
-            get { return new RelayCommand<object>(param => Configuration.SetGamePath(GamePath), true); }
-        }
-
-        /// <summary>
-        /// Handles button commands for the button to make the current add-on selection the default.
-        /// <see cref="Configuration.ChangeAddonConfig(OpeningViewModel)"/>
-        /// </summary>
-        public ICommand SetDefaultAddons
-        {
-            get { return new RelayCommand<object>(param => Configuration.ChangeAddonConfig(this), true); }
-        }
-
-        /// <summary>
-        /// Handles the disable selected addons button.
-        /// </summary>
-        public ICommand DisableSelected
-        {
-            get { return new RelayCommand<object>(param =>PluginManagement.DisableSelected(this), true); }
-        }
-
-        /// <summary>
-        /// Handles the enable selected addons button.
-        /// </summary>
-        public ICommand EnableSelected
-        {
-            get { return new RelayCommand<object>(param => PluginManagement.EnableSelected(this), true); }
-        }
-
-        /// <summary>
-        /// Handles the delete selected addons button.
-        /// </summary>
-        public ICommand DeleteSelected
-        {
-            get { return new RelayCommand<object>(param => PluginManagement.DeleteSelected(this), true); }
-        }
-        
-
-        /// <summary>
-        /// Handles the create shortcut button under the options menu. <see cref="cs_logic"/>
-        /// </summary>
-        public ICommand CreateShortcut
-        {
-            get { return new RelayCommand<object>(param => cs_logic(), true); }
-        }
-
+        //TODO: Move this to a more appropriate class and just use a ICommand that invokes it
+        /* Button Helper */
         /// <summary>
         /// Creates a shortcut in the current user's start menu.
         /// </summary>

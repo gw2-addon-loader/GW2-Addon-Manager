@@ -7,6 +7,10 @@ namespace GW2_Addon_Manager
     /// </summary>
     public class UpdatingViewModel : INotifyPropertyChanged
     {
+        bool _closeBtnEnabled;
+        string _msg;
+        int _progress;
+
         /// <summary>
         /// An event used to indicate that a property's value has changed.
         /// </summary>
@@ -31,7 +35,6 @@ namespace GW2_Addon_Manager
         }
 
         
-        bool _closeBtnEnabled;
         /// <summary>
         /// Binding for whether the "FINISH" button is enabled.
         /// </summary>
@@ -40,8 +43,6 @@ namespace GW2_Addon_Manager
             get {return _closeBtnEnabled;}
             set { _closeBtnEnabled = value; propertyChanged("closeButtonEnabled"); }
         }
-
-        string _msg;
         /// <summary>
         /// Binding for the label above the progress bar.
         /// </summary>
@@ -50,8 +51,6 @@ namespace GW2_Addon_Manager
             get { return _msg; }
             set { _msg = value; propertyChanged("label"); }
         }
-
-        int _progress;
         /// <summary>
         /// Binding for the value shown in the progress bar.
         /// </summary>

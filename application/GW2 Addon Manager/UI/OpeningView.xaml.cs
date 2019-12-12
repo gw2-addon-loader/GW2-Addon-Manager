@@ -48,8 +48,8 @@ namespace GW2_Addon_Manager
         {
             AddonInfo selected = theViewModel.AddonList[addons.SelectedIndex];
             theViewModel.DescriptionText = selected.description;
-            theViewModel.Developer = selected.developer;
-            theViewModel.AddonWebsite = selected.website;
+            theViewModel.DeveloperText = selected.developer;
+            theViewModel.AddonWebsiteLink = selected.website;
 
             theViewModel.DeveloperVisibility = Visibility.Visible;
         }

@@ -5,34 +5,30 @@
 
 ### USER-FACING INFO ###
 # developer of the add-on
-developer: e-scrape-artist
+developer: MarsEdge
 # website where more information about the add-on can be found
-website: gw2archive.eu
+website: https://martionlabs.com/arcdps-boon-table/
 # name of the add-on
-addon_name: BuildPad
+addon_name: ArcDPS Boon Table
 # descriptive text for the addon
 description: 
-    "\"It is essentially a glorified notepad for your builds, allowing you to organize a list of saved builds and copy them with one click.
-    It is a plugin to ArcDPS, without the latter it won't work, but then again if you haven't been using ArcDPS for templates already, you probably have no immediate use for this plugin either
-    It detects your ArcDPS templates and converts (automatically and/or manually) them to GW2 templates. Your old gear templates, which cannot be pasted into GW2, can however be previewed inside the plugin so you can remind yourself which items and stats you had saved.\""
-
 # tooltip - basically description but in brief
-tooltip: Offline build storage
+tooltip:  - by Martion/MarsEdge
 
 ### DOWNLOADING/INSTALLATION ###
 # github or standalone
 host_type: standalone
 # either github API url or direct URL to file/archive - former is parsed to find latest version and download link,
 # latter is a direct download link to a file/archive
-host_url: https://buildpad.gw2archive.eu/versions/latest
+host_url: http://martionlabs.com/wp-content/uploads/d3d9_arcdps_table.dll
 # for md5sum files and things of that nature; files that exist solely to show what the latest version is. Standalone only.
-version_url: 
+version_url: http://martionlabs.com/wp-content/uploads/d3d9_arcdps_table.dll.md5sum
 # archive or .dll
 download_type: .dll
 # binary or d3d9 - binary leaves plugin name as-is, d3d9 means filename may be changed for chainloading
 install_mode: arc
-# plugin name- only for arc-dependent plugins (to identify what plugin in the /addons/arcdps folder is associated with what addon)
-plugin_name: d3d9_arcdps_buildpad.dll
+#
+plugin_name: d3d9_arcdps_boontable.dll
 
 ### CONFIGURATION ###
 # a list of all other add-ons required for this add-on to function
