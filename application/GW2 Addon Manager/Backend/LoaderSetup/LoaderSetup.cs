@@ -21,10 +21,10 @@ namespace GW2_Addon_Manager
         /// Sets some UI text to indicate that the addon loader is having an update check
         /// </summary>
         /// <param name="aViewModel"></param>
-        public LoaderSetup(UpdatingViewModel aViewModel)
+        public LoaderSetup()
         {
-            viewModel = aViewModel;
-            viewModel.label = "Checking for updates to Addon Loader";
+            viewModel = UpdatingViewModel.GetInstance();
+            viewModel.progBarLabel = "Checking for updates to Addon Loader";
             userConfig = Configuration.getConfigAsYAML();
             loader_game_path = Path.Combine(userConfig.game_path, userConfig.bin_folder);
         }
@@ -33,7 +33,7 @@ namespace GW2_Addon_Manager
         /// Checks for update to addon loader and downloads if a new release is available
         /// </summary>
         /// <returns></returns>
-        public async Task handleLoaderInstall()
+        public async Task HandleLoaderUpdate()
         {
             dynamic releaseInfo = UpdateHelpers.GitReleaseInfo(loader_git_url);
 
@@ -45,11 +45,9 @@ namespace GW2_Addon_Manager
             string downloadLink = releaseInfo.assets[0].browser_download_url;
             await Download(downloadLink);
         }
-
-        // Downloads file from the url parameter to the user's temporary files folder and prompts install.
         private async Task Download(string url)
         {
-            viewModel.label = "Downloading Addon Loader";
+            viewModel.progBarLabel = "Downloading Addon Loader";
             var client = new WebClient();
             client.Headers.Add("User-Agent", "request");
 
@@ -64,12 +62,9 @@ namespace GW2_Addon_Manager
             await client.DownloadFileTaskAsync(new System.Uri(url), fileName);
             Install();
         }
-
-
-        // Installs the addon loader from the temporary files folder.
         private void Install()
         {
-            viewModel.label = "Installing Addon Loader";
+            viewModel.progBarLabel = "Installing Addon Loader";
             string loader_destination = Path.Combine(loader_game_path, "d3d9.dll");
 
             if (File.Exists(loader_destination))

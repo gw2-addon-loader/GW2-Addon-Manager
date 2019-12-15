@@ -4,7 +4,7 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   mc:Ignorable="d"
-        Title="GW2 Add-On Manager" Height="600" Width="1130" Source="OpeningView.xaml" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True">
+        Title="GW2 Add-On Manager" Height="600" Width="1130" Source="OpeningPage/OpeningView.xaml" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True">
     <NavigationWindow.Background>
         <ImageBrush ImageSource="/Resources/GW2-UOAOU-UI.png"/>
     </NavigationWindow.Background>

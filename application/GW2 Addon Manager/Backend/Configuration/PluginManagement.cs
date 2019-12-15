@@ -35,7 +35,7 @@ namespace GW2_Addon_Manager
             if (MessageBox.Show(disablemsg, "Disable", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
                 foreach (AddonInfo addon in viewModel.AddonList.Where(add => add.IsSelected == true))
-                    GenericUpdater.disable(addon);
+                    GenericUpdater.Disable(addon);
             }
             Configuration.DisplayAddonStatus(viewModel);
         }

@@ -22,8 +22,8 @@ namespace GW2_Addon_Manager
         /// This constructor deals with creating or expanding the configuration file, setting the DataContext, and checking for application updates.
         /// </summary>
         public AddOnSelector()
-        {    
-            theViewModel = new OpeningViewModel();
+        {
+            theViewModel = OpeningViewModel.GetInstance();
             DataContext = theViewModel;
             Configuration.CheckSelfUpdates(theViewModel);
             Configuration.DetermineSystemType();

@@ -16,31 +16,24 @@ namespace GW2_Addon_Manager
             return JsonConvert.DeserializeObject(release_info_json);
         }
 
-        public static async void UpdateAll(UpdatingViewModel viewModel)
+        public static async void UpdateAll()
         {
-            LoaderSetup settingUp = new LoaderSetup(viewModel);
-            await settingUp.handleLoaderInstall();
+            UpdatingViewModel viewModel = UpdatingViewModel.GetInstance();
+
+            LoaderSetup settingUp = new LoaderSetup();
+            await settingUp.HandleLoaderUpdate();
 
             List<AddonInfo> addons = (List<AddonInfo>)Application.Current.Properties["Selected"];
             
             foreach (AddonInfo addon in addons.Where(add => add != null))
             {
-                GenericUpdater updater = new GenericUpdater(addon, viewModel);
+                GenericUpdater updater = new GenericUpdater(addon);
                 await updater.Update();
             }
 
-            viewModel.label = "Updates Complete";
+            viewModel.progBarLabel = "Updates Complete";
             viewModel.showProgress = 100;
             viewModel.closeButtonEnabled = true;
-        }
-
-        /// <summary>
-        /// Self Updater
-        /// </summary>
-        /// <param name="viewModel"></param>
-        public static void UpdateSelf(OpeningViewModel viewModel)
-        {
-            SelfUpdate update = new SelfUpdate(viewModel);
         }
     }
 }

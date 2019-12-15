@@ -22,11 +22,11 @@ namespace GW2_Addon_Manager
 
         string latestVersion;
 
-        public GenericUpdater(AddonInfo addon, UpdatingViewModel aViewModel)
+        public GenericUpdater(AddonInfo addon)
         {
             addon_name = addon.folder_name;
             addon_info = addon;
-            viewModel = aViewModel;
+            viewModel = UpdatingViewModel.GetInstance();
             userConfig = Configuration.getConfigAsYAML();
 
             addon_expanded_path = Path.Combine(Path.GetTempPath(), addon_name);
@@ -37,16 +37,10 @@ namespace GW2_Addon_Manager
         public async Task Update()
         {
             if ((userConfig.disabled.ContainsKey(addon_name) && !userConfig.disabled[addon_name]) || !userConfig.disabled.ContainsKey(addon_name))
-            {
                 if (addon_info.host_type == "github")
-                {
                     await GitCheckUpdate();
-                }
                 else
-                {
                     await StandaloneCheckUpdate();
-                }
-            }
         }
 
         /***** UPDATE CHECK *****/
@@ -66,7 +60,7 @@ namespace GW2_Addon_Manager
                 return;
 
             string download_link = release_info.assets[0].browser_download_url;
-            viewModel.label = "Downloading " + addon_info.addon_name + " " + latestVersion;
+            viewModel.progBarLabel = "Downloading " + addon_info.addon_name + " " + latestVersion;
             await Download(download_link, client);
         }
 
@@ -75,7 +69,7 @@ namespace GW2_Addon_Manager
             var client = new WebClient();
             string downloadURL = addon_info.host_url;
 
-            //TODO: Add comparison for dll names if version_url is null
+            //TODO: Add comparison for dll names if version_url is null (for buildpad)
             if (addon_info.version_url != null)
                 latestVersion = client.DownloadString(addon_info.version_url);
             else //for redirect links
@@ -92,7 +86,7 @@ namespace GW2_Addon_Manager
 
 
             
-            viewModel.label = "Downloading " + addon_info.addon_name + " " + latestVersion;
+            viewModel.progBarLabel = "Downloading " + addon_info.addon_name + " " + latestVersion;
             await Download(downloadURL, client);
         }
 
@@ -128,7 +122,7 @@ namespace GW2_Addon_Manager
         /// </summary>
         private void Install()
         {
-            viewModel.label = "Installing " + addon_info.addon_name;
+            viewModel.progBarLabel = "Installing " + addon_info.addon_name;
 
             if (addon_info.download_type == "archive")
             {
@@ -145,9 +139,8 @@ namespace GW2_Addon_Manager
                 else
                 {
                     if (!Directory.Exists(Path.Combine(addon_install_path, "arcdps")))
-                    {
                         Directory.CreateDirectory(Path.Combine(addon_install_path, "arcdps"));
-                    }
+
                     File.Copy(Path.Combine(addon_expanded_path, addon_info.plugin_name), Path.Combine(Path.Combine(addon_install_path, "arcdps"), addon_info.plugin_name), true);
                 }
 
@@ -165,9 +158,8 @@ namespace GW2_Addon_Manager
                 else
                 {
                     if (!Directory.Exists(Path.Combine(addon_install_path, "arcdps")))
-                    {
                         Directory.CreateDirectory(Path.Combine(addon_install_path, "arcdps"));
-                    }
+
                     FileSystem.CopyFile(fileName, Path.Combine(Path.Combine(addon_install_path, "arcdps"), Path.GetFileName(fileName)));
                 }
                 
@@ -193,7 +185,7 @@ namespace GW2_Addon_Manager
 
 
         /***** DISABLE *****/
-        public static void disable(AddonInfo addon_info)
+        public static void Disable(AddonInfo addon_info)
         {
             UserConfig info = Configuration.getConfigAsYAML();
             if (info.installed.ContainsKey(addon_info.folder_name) && info.installed[addon_info.folder_name] != null)

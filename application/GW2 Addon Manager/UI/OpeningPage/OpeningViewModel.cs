@@ -142,7 +142,7 @@ namespace GW2_Addon_Manager
         /// </summary>
         public ICommand DownloadSelfUpdate
         {
-            get { return new RelayCommand<object>(param => UpdateHelpers.UpdateSelf(this), true); }
+            get { return new RelayCommand<object>(param => SelfUpdate.Update(), true); }
         }
         /// <summary>
         /// Handles the create shortcut button under the options menu. <see cref="cs_logic"/>
@@ -177,12 +177,13 @@ namespace GW2_Addon_Manager
 
         /********** Class Structure/Other Methods **********/
 
-        /* Constructor */
+        /* Singleton Setup */
+        private static OpeningViewModel onlyInstance;
         /// <summary>
         /// This constructor initializes various default properties across the class and then
         /// applies any updated values to them using <c>ApplyDefaultConfig</c>.
         /// </summary>
-        public OpeningViewModel()
+        private OpeningViewModel()
         {
             AddonList = ApprovedList.GenerateAddonList();
 
@@ -193,6 +194,16 @@ namespace GW2_Addon_Manager
             UpdateProgressVisibility = Visibility.Hidden;
 
             GamePath = Configuration.getConfigAsYAML().game_path;
+        }
+        /// <summary>
+        /// Fetches the only instance of the OpeningViewModel and creates it if it has not been initialized yet.
+        /// </summary>
+        /// <returns>An instance of OpeningViewModel</returns>
+        public static OpeningViewModel GetInstance()
+        {
+            if (onlyInstance == null)
+                onlyInstance = new OpeningViewModel();
+            return onlyInstance;
         }
 
         /*** Notify UI of Changed Binding Items ***/
@@ -208,7 +219,6 @@ namespace GW2_Addon_Manager
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
         //TODO: Move this to a more appropriate class and just use a ICommand that invokes it
         /* Button Helper */
         /// <summary>

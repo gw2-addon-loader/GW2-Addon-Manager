@@ -20,12 +20,12 @@ namespace GW2_Addon_Manager
         /// </summary>
         public UpdatingView()
         {
-            theViewModel = new UpdatingViewModel();
+            theViewModel = UpdatingViewModel.GetInstance();
             DataContext = theViewModel;
             InitializeComponent();
 
-            LoaderSetup settingUp = new LoaderSetup(theViewModel);
-            Task.Run(() => UpdateHelpers.UpdateAll(theViewModel));
+            LoaderSetup settingUp = new LoaderSetup();
+            Task.Run(() => UpdateHelpers.UpdateAll());
         }
 
         /***************************** Titlebar Window Drag *****************************/

@@ -190,8 +190,8 @@
                            Padding="0,10,20,10"
                            Foreground="DimGray"
                            >
-                        <Hyperlink NavigateUri="{Binding AddonWebsite}" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None" FocusVisualStyle="{x:Null}">
-                            <TextBlock Text="{Binding Developer}"/>
+                        <Hyperlink NavigateUri="{Binding AddonWebsiteLink}" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None" FocusVisualStyle="{x:Null}">
+                            <TextBlock Text="{Binding DeveloperText}"/>
                         </Hyperlink>
                     </Label>
                     <Label FontSize="13" FontFamily="Microsoft YaHei UI" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="0,10,0,0" Padding="10,10,0,10" Visibility="{Binding DeveloperVisibility}" Foreground="DimGray" Content="Developer: "/>

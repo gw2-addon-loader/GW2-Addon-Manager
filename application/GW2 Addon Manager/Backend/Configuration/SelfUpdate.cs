@@ -12,19 +12,24 @@ namespace GW2_Addon_Manager
     /// </summary>
     class SelfUpdate
     {
-        static string applicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
-        static string update_folder = "latestRelease";
-        static string update_name = "update.zip";
+        static readonly string applicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
+        static readonly string update_folder = "latestRelease";
+        static readonly string update_name = "update.zip";
 
         OpeningViewModel viewModel;
+
+        public static void Update()
+        {
+            new SelfUpdate();
+        }
 
         /// <summary>
         /// Sets the viewmodel and starts the download of the latest release.
         /// </summary>
         /// <param name="appViewModel"></param>
-        public SelfUpdate(OpeningViewModel appViewModel)
+        private SelfUpdate()
         {
-            viewModel = appViewModel;
+            viewModel = OpeningViewModel.GetInstance();
             viewModel.UpdateProgressVisibility = Visibility.Visible;
             viewModel.UpdateLinkVisibility = Visibility.Hidden;
             Task.Run(() => downloadLatestRelease());
@@ -53,13 +58,13 @@ namespace GW2_Addon_Manager
             await client.DownloadFileTaskAsync(new System.Uri(downloadUrl), Path.Combine(update_folder, update_name));
         }
 
-        void selfUpdate_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
+        private void selfUpdate_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
             viewModel.UpdateAvailable = "Download complete!";
             Application.Current.Properties["update_self"] = true;
         }
 
-        void selfUpdate_DownloadProgress(object sender, DownloadProgressChangedEventArgs e)
+        private void selfUpdate_DownloadProgress(object sender, DownloadProgressChangedEventArgs e)
         {
             viewModel.UpdateDownloadProgress = e.ProgressPercentage;
         }
