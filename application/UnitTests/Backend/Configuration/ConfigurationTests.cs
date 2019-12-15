@@ -4,10 +4,10 @@ using System.IO.Abstractions.TestingHelpers;
 
 namespace GW2_Addon_Manager.Tests
 {
-    [TestClass()]
+    //[TestClass()]
     public class ConfigurationTests
     {
-        [TestMethod()]
+        //[TestMethod()]
         public void SetGamePathTest_SetsConfigFile()
         {
 
