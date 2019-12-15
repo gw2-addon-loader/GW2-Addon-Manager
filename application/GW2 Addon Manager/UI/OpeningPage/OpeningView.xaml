@@ -1,14 +1,18 @@
-﻿<Page
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      x:Class="GW2_Addon_Manager.AddOnSelector"
-      mc:Ignorable="d"
-      d:DesignHeight="600" d:DesignWidth="1130"
-      Title="GW2AOU - Add-On Selector"
-      ShowsNavigationUI="False"
-      >
+﻿<Page 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:viewModel ="clr-namespace:GW2_Addon_Manager"
+    x:Class="GW2_Addon_Manager.OpeningView"
+    mc:Ignorable="d"
+    d:DesignHeight="600"
+    d:DesignWidth="1130"
+    d:DataContext="{d:DesignInstance Type=viewModel:OpeningViewModel}"
+    Title="GW2AOU - Add-On Selector"
+    ShowsNavigationUI="False"
+    >
+
     <Page.Resources>
     </Page.Resources>
 

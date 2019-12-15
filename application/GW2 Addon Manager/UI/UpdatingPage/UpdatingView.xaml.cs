@@ -13,15 +13,13 @@ namespace GW2_Addon_Manager
     /// </summary>
     public partial class UpdatingView : Page
     {
-        UpdatingViewModel theViewModel;
 
         /// <summary>
         /// Sets the page's DataContext, initializes it, and begins the update process.
         /// </summary>
         public UpdatingView()
         {
-            theViewModel = UpdatingViewModel.GetInstance;
-            DataContext = theViewModel;
+            DataContext = UpdatingViewModel.GetInstance;
             InitializeComponent();
 
             LoaderSetup settingUp = new LoaderSetup();
@@ -32,9 +30,7 @@ namespace GW2_Addon_Manager
         private void TitleBar_MouseHeld(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
-            {
                 Application.Current.MainWindow.DragMove();
-            }
         }
 
         /***************************** Button Controls *****************************/

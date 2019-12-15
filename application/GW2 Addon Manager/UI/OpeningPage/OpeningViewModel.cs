@@ -110,7 +110,6 @@ namespace GW2_Addon_Manager
         }
         /// <summary>
         /// Handles button commands for the button to make the current add-on selection the default.
-        /// <see cref="Configuration.ChangeAddonConfig(OpeningViewModel)"/>
         /// </summary>
         public ICommand SetDefaultAddons
         {

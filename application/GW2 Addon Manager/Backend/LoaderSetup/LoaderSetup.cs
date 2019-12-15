@@ -8,7 +8,7 @@ namespace GW2_Addon_Manager
 {
     class LoaderSetup
     {
-        static string loader_git_url = "https://api.github.com/repos/gw2-addon-loader/loader-core/releases/latest";
+        static readonly string loader_git_url = "https://api.github.com/repos/gw2-addon-loader/loader-core/releases/latest";
         string loader_game_path;
 
         UpdatingViewModel viewModel;
@@ -16,7 +16,6 @@ namespace GW2_Addon_Manager
         UserConfig userConfig;
         string latestLoaderVersion;
 
-        
         /// <summary>
         /// Constructor; also sets some UI text to indicate that the addon loader is having an update check
         /// </summary>

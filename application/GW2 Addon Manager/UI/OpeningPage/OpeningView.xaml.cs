@@ -12,7 +12,7 @@ namespace GW2_Addon_Manager
     /// <summary>
     /// Code-behind for OpeningView.xaml.
     /// </summary>
-    public partial class AddOnSelector : Page
+    public partial class OpeningView : Page
     {
         static string releases_url = "https://github.com/fmmmlee/GW2-Addon-Manager/releases";
         static string UpdateNotificationFile = "updatenotification.txt";
@@ -20,7 +20,7 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// This constructor deals with creating or expanding the configuration file, setting the DataContext, and checking for application updates.
         /// </summary>
-        public AddOnSelector()
+        public OpeningView()
         {
             DataContext = OpeningViewModel.GetInstance;
             Configuration.CheckSelfUpdates();

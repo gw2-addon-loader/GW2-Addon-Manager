@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UOAOM Updater", "UOAOM Upda
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GW2 Addon Manager", "GW2 Addon Manager\GW2 Addon Manager.csproj", "{DC700BA9-FA6A-4991-BE06-5FBD43FA8EEA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{E4140ADE-E6FA-47A7-A715-34A04D10313E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{DC700BA9-FA6A-4991-BE06-5FBD43FA8EEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC700BA9-FA6A-4991-BE06-5FBD43FA8EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC700BA9-FA6A-4991-BE06-5FBD43FA8EEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4140ADE-E6FA-47A7-A715-34A04D10313E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4140ADE-E6FA-47A7-A715-34A04D10313E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4140ADE-E6FA-47A7-A715-34A04D10313E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4140ADE-E6FA-47A7-A715-34A04D10313E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

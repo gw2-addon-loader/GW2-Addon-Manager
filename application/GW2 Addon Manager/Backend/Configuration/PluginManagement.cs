@@ -10,7 +10,6 @@ namespace GW2_Addon_Manager
         /// Deletes the currently selected addons.
         /// <seealso cref="OpeningViewModel.DeleteSelected"/>
         /// </summary>
-        /// <param name="OpeningViewModel.GetInstance">The DataContext for the application UI.</param>
         public static void DeleteSelected()
         {
             string deletemsg = "This will delete any add-ons that are selected and all data associated with them! Are you sure you wish to continue?";
@@ -26,7 +25,6 @@ namespace GW2_Addon_Manager
         /// Disables the currently selected addons.
         /// <seealso cref="OpeningViewModel.DisableSelected"/>
         /// </summary>
-        /// <param name="OpeningViewModel.GetInstance">The DataContext for the application UI.</param>
         public static void DisableSelected()
         {
             string disablemsg = "This will disable the selected add-ons until you choose to re-enable them. Do you wish to continue?";
@@ -42,7 +40,6 @@ namespace GW2_Addon_Manager
         /// Enables the currently selected addons.
         /// <seealso cref="OpeningViewModel.EnableSelected"/>
         /// </summary>
-        /// <param name="OpeningViewModel.GetInstance">The DataContext for the application UI.</param>
         public static void EnableSelected()
         {
             string enablemsg = "This will enable any of the selected add-ons that are disabled. Do you wish to continue?";

@@ -15,17 +15,16 @@ namespace GW2_Addon_Manager
         /// <returns>An object with the information from update.yaml</returns>
         public static AddonInfoFromYaml getAddonInInfo(string name)
         {
-            string yamlPath = "resources\\addons\\" + name + "\\update.yaml";
-            string placeholderYamlPath = "resources\\addons\\" + name + "\\update-placeholder.yaml";
+            string yamlPath = $"resources\\addons\\{name}\\update.yaml";
+            string placeholderYamlPath = $"resources\\addons\\{name}\\update-placeholder.yaml";
             string updateFile = null;
+
             if(File.Exists(yamlPath))
                 updateFile = File.ReadAllText(yamlPath);
             else if(File.Exists(placeholderYamlPath))
                 updateFile = File.ReadAllText(placeholderYamlPath);
 
-            Deserializer toDynamic = new Deserializer();
-            AddonInfoFromYaml info = toDynamic.Deserialize<AddonInfoFromYaml>(updateFile);
-            return info;
+            return new Deserializer().Deserialize<AddonInfoFromYaml>(updateFile);
         }
 
         /// <summary>
@@ -35,7 +34,7 @@ namespace GW2_Addon_Manager
         {
             string yamlPath = Path.Combine(search_folder, "update.yaml");
             if (File.Exists(yamlPath))
-                File.Copy(yamlPath, "resources\\addons\\" + name + "\\update.yaml", true);
+                File.Copy(yamlPath, $"resources\\addons\\{name}\\update.yaml", true);
         }
     }
 }

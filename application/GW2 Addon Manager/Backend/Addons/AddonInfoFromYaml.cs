@@ -15,8 +15,8 @@ namespace GW2_Addon_Manager
         public event PropertyChangedEventHandler PropertyChanged;
 
 
-        //for xaml
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        //for descriptions of these fields, see /Resources/Addons/template-update.yaml
+#pragma warning disable CS1591 // (Missing XML comment for publicly visible type or member)
         public bool IsSelected { get; set; }
 
         public string developer { get; set; }

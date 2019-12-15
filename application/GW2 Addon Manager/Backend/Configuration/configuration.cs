@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Abstractions;
 using System.Windows;
 using YamlDotNet.Serialization;
 
@@ -8,12 +9,25 @@ namespace GW2_Addon_Manager
     /// <summary>
     /// The <c>configuration</c> class contains various functions (TODO)
     /// </summary>
-    class Configuration
+    public class Configuration
     {
         static readonly string config_file_path = "config.yaml";
         static readonly string config_template_path = "resources\\config_template.yaml";
         static readonly string applicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
 
+        /**** For Testing Purposes ****/
+        public static IFileSystem fileSys = new FileSystem();
+
+        /// <summary>
+        /// Sets the file system to be used to <paramref name="mock"/> for testing.
+        /// </summary>
+        /// <param name="mock"></param>
+        public static void AttachMockFileSystem(IFileSystem mock)
+        {
+            fileSys = mock;
+        }
+
+        /****  ****/
 
         /// <summary>
         /// Reads config.yaml
@@ -23,10 +37,10 @@ namespace GW2_Addon_Manager
         {
             String updateFile = null;
 
-            if (File.Exists(config_file_path))
-                updateFile = File.ReadAllText(config_file_path);
+            if (fileSys.File.Exists(config_file_path))
+                updateFile = fileSys.File.ReadAllText(config_file_path);
             else
-                updateFile = File.ReadAllText(config_template_path);
+                updateFile = fileSys.File.ReadAllText(config_template_path);
 
             Deserializer toDynamic = new Deserializer();
             UserConfig user_config = toDynamic.Deserialize<UserConfig>(updateFile);
@@ -40,7 +54,7 @@ namespace GW2_Addon_Manager
         public static void setConfigAsYAML(UserConfig info)
         {
             String config_file_path = "config.yaml";
-            File.WriteAllText(config_file_path, new Serializer().Serialize(info));
+            fileSys.File.WriteAllText(config_file_path, new Serializer().Serialize(info));
         }
 
         /// <summary>
@@ -49,7 +63,7 @@ namespace GW2_Addon_Manager
         /// <param name="info"></param>
         public static void setTemplateYAML(UserConfig info)
         {
-            File.WriteAllText(config_template_path, new Serializer().Serialize(info));
+            fileSys.File.WriteAllText(config_template_path, new Serializer().Serialize(info));
         }
 
         /// <summary>
@@ -60,7 +74,7 @@ namespace GW2_Addon_Manager
         {
             String config_template_path = "resources\\config_template.yaml";
 
-            string updateFile = File.ReadAllText(config_template_path);
+            string updateFile = fileSys.File.ReadAllText(config_template_path);
 
             Deserializer toDynamic = new Deserializer();
             UserConfig user_config = toDynamic.Deserialize<UserConfig>(updateFile);
@@ -70,7 +84,6 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Displays the latest status of the plugins on the opening screen (disabled, enabled, version, installed).
         /// </summary>
-        /// <param name="OpeningViewModel.GetInstance">An instance of the <typeparamref>OpeningViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
         public static void DisplayAddonStatus()
         {
             UserConfig config_obj = getConfigAsYAML();
@@ -124,7 +137,7 @@ namespace GW2_Addon_Manager
         public static void SetGamePath(string path)
         {
             Application.Current.Properties["game_path"] = path.Replace("\\", "\\\\");
-            UserConfig config_obj = Configuration.getConfigAsYAML();
+            UserConfig config_obj = getConfigAsYAML();
             config_obj.game_path = Application.Current.Properties["game_path"].ToString().Replace("\\\\", "\\");
             setConfigAsYAML(config_obj);
             DetermineSystemType();
@@ -133,7 +146,6 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Checks if there is a new version of the application available.
         /// </summary>
-        /// <param name="OpeningViewModel.GetInstance">An instance of the <typeparamref>OpeningViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
         public static void CheckSelfUpdates()
         {
             string thisVersion = getConfigAsYAML().application_version;
@@ -156,13 +168,13 @@ namespace GW2_Addon_Manager
         public static void DetermineSystemType()
         {
             UserConfig config = getConfigAsYAML();
-            if (Directory.Exists(config.game_path.ToString()))
+            if (fileSys.Directory.Exists(config.game_path.ToString()))
             {
-                if (Directory.Exists(config.game_path.ToString() + "\\bin64"))
+                if (fileSys.Directory.Exists(config.game_path.ToString() + "\\bin64"))
                 {
                     config.bin_folder = "bin64";
                 }
-                else if (Directory.Exists(config.game_path.ToString() + "\\bin"))
+                else if (fileSys.Directory.Exists(config.game_path.ToString() + "\\bin"))
                 {
                     config.bin_folder = "bin";
                 }

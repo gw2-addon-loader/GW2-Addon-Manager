@@ -8,9 +8,9 @@ namespace GW2_Addon_Manager
     public class UpdatingViewModel : INotifyPropertyChanged
     {
         /* private fields for ui bindings */
-        bool _closeBtnEnabled;
-        string _msg;
-        int _progress;
+        private bool _closeBtnEnabled;
+        private string _msg;
+        private int _progress;
 
         /********** UI BINDINGS **********/
         /// <summary>
