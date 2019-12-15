@@ -10,6 +10,7 @@ namespace GW2_Addon_Manager.Tests
         [TestMethod()]
         public void SetGamePathTest_SetsConfigFile()
         {
+
             //arrange
             string testPath = "C:\\Program Files\\Test\\Guild Wars 2";
             var mockFileSystem = new MockFileSystem();

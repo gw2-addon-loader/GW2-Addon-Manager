@@ -367,3 +367,7 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+
+#Unit Testing
+/TestResults/

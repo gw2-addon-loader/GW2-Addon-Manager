@@ -136,9 +136,15 @@ namespace GW2_Addon_Manager
         /// <param name="path">The game path.</param>
         public static void SetGamePath(string path)
         {
-            Application.Current.Properties["game_path"] = path.Replace("\\", "\\\\");
+            try
+            {
+                Application.Current.Properties["game_path"] = path.Replace("\\", "\\\\");
+            }
+            catch (Exception)
+            { }
+            
             UserConfig config_obj = getConfigAsYAML();
-            config_obj.game_path = Application.Current.Properties["game_path"].ToString().Replace("\\\\", "\\");
+            config_obj.game_path = path;
             setConfigAsYAML(config_obj);
             DetermineSystemType();
         }
