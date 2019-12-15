@@ -7,7 +7,7 @@ namespace GW2_Addon_Manager
     /// <summary>
     /// In-app corollary to update.yaml files.
     /// </summary>
-    public class AddonInfo : INotifyPropertyChanged
+    public class AddonInfoFromYaml : INotifyPropertyChanged
     {
         /// <summary>
         /// An event used to indicate that a property's value has changed.
@@ -16,6 +16,7 @@ namespace GW2_Addon_Manager
 
 
         //for xaml
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public bool IsSelected { get; set; }
 
         public string developer { get; set; }

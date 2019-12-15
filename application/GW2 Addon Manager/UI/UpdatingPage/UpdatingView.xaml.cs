@@ -20,7 +20,7 @@ namespace GW2_Addon_Manager
         /// </summary>
         public UpdatingView()
         {
-            theViewModel = UpdatingViewModel.GetInstance();
+            theViewModel = UpdatingViewModel.GetInstance;
             DataContext = theViewModel;
             InitializeComponent();
 

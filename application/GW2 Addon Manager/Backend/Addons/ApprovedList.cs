@@ -17,9 +17,9 @@ namespace GW2_Addon_Manager
         /// 
         /// </summary>
         /// <returns>A list of AddonInfo objects representing all approved add-ons.</returns>
-        public static ObservableCollection<AddonInfo> GenerateAddonList()
+        public static ObservableCollection<AddonInfoFromYaml> GenerateAddonList()
         {
-            ObservableCollection<AddonInfo> Addons = new ObservableCollection<AddonInfo>(); //List of AddonInfo objects
+            ObservableCollection<AddonInfoFromYaml> Addons = new ObservableCollection<AddonInfoFromYaml>(); //List of AddonInfo objects
 
             string[] AddonDirectories = Directory.GetDirectories("resources\\addons");  //Names of addon subdirectories in /resources/addons
             UserConfig userConfig = Configuration.getConfigAsYAML();
@@ -27,7 +27,7 @@ namespace GW2_Addon_Manager
             {
                 if (addonFolderName != "resources\\addons\\d3d9_wrapper")
                 {
-                    AddonInfo temp = AddonYamlReader.getAddonInInfo(addonFolderName.Replace("resources\\addons\\", ""));
+                    AddonInfoFromYaml temp = AddonYamlReader.getAddonInInfo(addonFolderName.Replace("resources\\addons\\", ""));
                     temp.folder_name = addonFolderName.Replace("resources\\addons\\", "");
                     if (userConfig.default_configuration.ContainsKey(temp.folder_name) && userConfig.default_configuration[temp.folder_name])
                         temp.IsSelected = true;

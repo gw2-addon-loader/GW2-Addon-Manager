@@ -18,22 +18,22 @@ namespace GW2_Addon_Manager
 
         public static async void UpdateAll()
         {
-            UpdatingViewModel viewModel = UpdatingViewModel.GetInstance();
+            UpdatingViewModel viewModel = UpdatingViewModel.GetInstance;
 
             LoaderSetup settingUp = new LoaderSetup();
             await settingUp.HandleLoaderUpdate();
 
-            List<AddonInfo> addons = (List<AddonInfo>)Application.Current.Properties["Selected"];
+            List<AddonInfoFromYaml> addons = (List<AddonInfoFromYaml>)Application.Current.Properties["Selected"];
             
-            foreach (AddonInfo addon in addons.Where(add => add != null))
+            foreach (AddonInfoFromYaml addon in addons.Where(add => add != null))
             {
                 GenericUpdater updater = new GenericUpdater(addon);
                 await updater.Update();
             }
 
-            viewModel.progBarLabel = "Updates Complete";
-            viewModel.showProgress = 100;
-            viewModel.closeButtonEnabled = true;
+            viewModel.ProgBarLabel = "Updates Complete";
+            viewModel.DownloadProgress = 100;
+            viewModel.CloseBtnEnabled = true;
         }
     }
 }

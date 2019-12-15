@@ -18,13 +18,12 @@ namespace GW2_Addon_Manager
 
         
         /// <summary>
-        /// Sets some UI text to indicate that the addon loader is having an update check
+        /// Constructor; also sets some UI text to indicate that the addon loader is having an update check
         /// </summary>
-        /// <param name="aViewModel"></param>
         public LoaderSetup()
         {
-            viewModel = UpdatingViewModel.GetInstance();
-            viewModel.progBarLabel = "Checking for updates to Addon Loader";
+            viewModel = UpdatingViewModel.GetInstance;
+            viewModel.ProgBarLabel = "Checking for updates to Addon Loader";
             userConfig = Configuration.getConfigAsYAML();
             loader_game_path = Path.Combine(userConfig.game_path, userConfig.bin_folder);
         }
@@ -47,7 +46,7 @@ namespace GW2_Addon_Manager
         }
         private async Task Download(string url)
         {
-            viewModel.progBarLabel = "Downloading Addon Loader";
+            viewModel.ProgBarLabel = "Downloading Addon Loader";
             var client = new WebClient();
             client.Headers.Add("User-Agent", "request");
 
@@ -64,7 +63,7 @@ namespace GW2_Addon_Manager
         }
         private void Install()
         {
-            viewModel.progBarLabel = "Installing Addon Loader";
+            viewModel.ProgBarLabel = "Installing Addon Loader";
             string loader_destination = Path.Combine(loader_game_path, "d3d9.dll");
 
             if (File.Exists(loader_destination))
@@ -81,7 +80,7 @@ namespace GW2_Addon_Manager
         /***** DOWNLOAD EVENTS *****/
         void loader_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            viewModel.showProgress = e.ProgressPercentage;
+            viewModel.DownloadProgress = e.ProgressPercentage;
         }
 
         void loader_DownloadCompleted(object sender, AsyncCompletedEventArgs e)

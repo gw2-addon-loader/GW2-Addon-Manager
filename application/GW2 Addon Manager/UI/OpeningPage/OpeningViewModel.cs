@@ -16,7 +16,7 @@ namespace GW2_Addon_Manager
     public class OpeningViewModel : INotifyPropertyChanged
     {
         /***** private fields for ui bindings *****/
-        private ObservableCollection<AddonInfo> _addonList;
+        private ObservableCollection<AddonInfoFromYaml> _addonList;
         private ObservableCollection<int> _selectedAddons;
         private string _developer;
         private string _description;
@@ -36,15 +36,15 @@ namespace GW2_Addon_Manager
         public ObservableCollection<int> SelectedAddons
         {
             get { return _selectedAddons; }
-            set { _selectedAddons = value; propertyChanged("SelectedAddons"); }
+            set { _selectedAddons = value; propertyChanged($"{nameof(SelectedAddons)}"); }
         }
         /// <summary>
         /// List of Addons
         /// </summary>
-        public ObservableCollection<AddonInfo> AddonList
+        public ObservableCollection<AddonInfoFromYaml> AddonList
         {
             get { return _addonList;  }
-            set { _addonList = value; propertyChanged("AddonList"); }
+            set { _addonList = value; propertyChanged($"{nameof(AddonList)}"); }
         }
         
         /***** Description Panel *****/
@@ -54,7 +54,7 @@ namespace GW2_Addon_Manager
         public string DescriptionText
         {
             get { return _description; }
-            set { _description = value; propertyChanged("DescriptionText"); }
+            set { _description = value; propertyChanged($"{nameof(DescriptionText)}"); }
         }
         /// <summary>
         /// The informational text showing the developer of the selected add-on.
@@ -62,7 +62,7 @@ namespace GW2_Addon_Manager
         public string DeveloperText
         {
             get { return _developer; }
-            set { _developer = value; propertyChanged("Developer"); }
+            set { _developer = value; propertyChanged($"{nameof(DeveloperText)}"); }
         }
         /// <summary>
         /// The website link in the description panel.
@@ -70,7 +70,7 @@ namespace GW2_Addon_Manager
         public string AddonWebsiteLink
         {
             get { return _addonwebsite; }
-            set { _addonwebsite = value; propertyChanged("AddonWebsite"); }
+            set { _addonwebsite = value; propertyChanged($"{nameof(AddonWebsiteLink)}"); }
         }
 
         /***** Show/Hide Elements *****/
@@ -80,7 +80,7 @@ namespace GW2_Addon_Manager
         public Visibility DeveloperVisibility
         {
             get { return _developer_visibility; }
-            set { _developer_visibility = value; propertyChanged("DeveloperVisibility"); }
+            set { _developer_visibility = value; propertyChanged($"{nameof(DeveloperVisibility)}"); }
         }
         /// <summary>
         /// A string representing a visibility value for the Github releases link.
@@ -88,7 +88,7 @@ namespace GW2_Addon_Manager
         public Visibility UpdateLinkVisibility
         {
             get { return _updateLinkVisibility; }
-            set { _updateLinkVisibility = value; propertyChanged("UpdateLinkVisibility"); }
+            set { _updateLinkVisibility = value; propertyChanged($"{nameof(UpdateLinkVisibility)}"); }
         }
         /// <summary>
         /// A string representing a visibility value for the self-update download progress bar.
@@ -96,7 +96,7 @@ namespace GW2_Addon_Manager
         public Visibility UpdateProgressVisibility
         {
             get { return _updateProgressVisibility; }
-            set { _updateProgressVisibility = value; propertyChanged("UpdateProgressVisibility"); }
+            set { _updateProgressVisibility = value; propertyChanged($"{nameof(UpdateProgressVisibility)}"); }
         }
         
         /***** Button Handlers *****/
@@ -114,28 +114,28 @@ namespace GW2_Addon_Manager
         /// </summary>
         public ICommand SetDefaultAddons
         {
-            get { return new RelayCommand<object>(param => Configuration.ChangeAddonConfig(this), true); }
+            get { return new RelayCommand<object>(param => Configuration.ChangeAddonConfig(), true); }
         }
         /// <summary>
         /// Handles the disable selected addons button.
         /// </summary>
         public ICommand DisableSelected
         {
-            get { return new RelayCommand<object>(param =>PluginManagement.DisableSelected(this), true); }
+            get { return new RelayCommand<object>(param =>PluginManagement.DisableSelected(), true); }
         }
         /// <summary>
         /// Handles the enable selected addons button.
         /// </summary>
         public ICommand EnableSelected
         {
-            get { return new RelayCommand<object>(param => PluginManagement.EnableSelected(this), true); }
+            get { return new RelayCommand<object>(param => PluginManagement.EnableSelected(), true); }
         }
         /// <summary>
         /// Handles the delete selected addons button.
         /// </summary>
         public ICommand DeleteSelected
         {
-            get { return new RelayCommand<object>(param => PluginManagement.DeleteSelected(this), true); }
+            get { return new RelayCommand<object>(param => PluginManagement.DeleteSelected(), true); }
         }
         /// <summary>
         /// Handler for small button to download application update.
@@ -185,6 +185,8 @@ namespace GW2_Addon_Manager
         /// </summary>
         private OpeningViewModel()
         {
+            onlyInstance = this;
+
             AddonList = ApprovedList.GenerateAddonList();
 
             DescriptionText = "Select an add-on to see more information about it.";
@@ -199,12 +201,8 @@ namespace GW2_Addon_Manager
         /// Fetches the only instance of the OpeningViewModel and creates it if it has not been initialized yet.
         /// </summary>
         /// <returns>An instance of OpeningViewModel</returns>
-        public static OpeningViewModel GetInstance()
-        {
-            if (onlyInstance == null)
-                onlyInstance = new OpeningViewModel();
-            return onlyInstance;
-        }
+        public static OpeningViewModel GetInstance
+        { get { return (onlyInstance == null) ? new OpeningViewModel() : onlyInstance; } }
 
         /*** Notify UI of Changed Binding Items ***/
         /// <summary>

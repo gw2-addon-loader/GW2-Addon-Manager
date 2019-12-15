@@ -58,8 +58,8 @@
             </StackPanel>
         </Border>
 
-        <Label Grid.Row ="3" Margin="45,0,0,0" Name="currentTask" Content="{Binding progBarLabel}" VerticalAlignment="Top" FontFamily="Leelawadee UI" FontSize="14" Foreground="White" Grid.ColumnSpan="2"/>
-        <ProgressBar Value="{Binding showProgress}" Grid.Row ="3" Margin="50,10,0,0" Width="750" Height="10" Name="overall_progressBar" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#E53DBDC3" Grid.ColumnSpan="2"/>
+        <Label Grid.Row ="3" Margin="45,0,0,0" Name="currentTask" Content="{Binding ProgBarLabel}" VerticalAlignment="Top" FontFamily="Leelawadee UI" FontSize="14" Foreground="White" Grid.ColumnSpan="2"/>
+        <ProgressBar Value="{Binding DownloadProgress}" Grid.Row ="3" Margin="50,10,0,0" Width="750" Height="10" Name="overall_progressBar" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#E53DBDC3" Grid.ColumnSpan="2"/>
         <Button Grid.Row ="3"
                 x:Name="closeProgram"
                 Height="45"
@@ -74,7 +74,7 @@
                 BorderThickness="1"
                 BorderBrush="#FF6E6E6E"
                 Click="close_clicked"
-                IsEnabled="{Binding closeButtonEnabled}"
+                IsEnabled="{Binding CloseBtnEnabled}"
                 Style="{StaticResource BigContentButton}"
                 />
     </Grid>

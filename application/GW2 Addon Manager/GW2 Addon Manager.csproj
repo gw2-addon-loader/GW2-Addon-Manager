@@ -140,7 +140,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Backend\Addons\AddonInfo.cs" />
+    <Compile Include="Backend\Addons\AddonInfoFromYaml.cs" />
     <Compile Include="Backend\Addons\ApprovedList.cs" />
     <Compile Include="Backend\Configuration\UserConfig.cs" />
     <Compile Include="Backend\Configuration\Configuration.cs" />

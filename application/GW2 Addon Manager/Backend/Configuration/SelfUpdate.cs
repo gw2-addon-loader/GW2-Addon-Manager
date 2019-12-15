@@ -26,10 +26,9 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Sets the viewmodel and starts the download of the latest release.
         /// </summary>
-        /// <param name="appViewModel"></param>
         private SelfUpdate()
         {
-            viewModel = OpeningViewModel.GetInstance();
+            viewModel = OpeningViewModel.GetInstance;
             viewModel.UpdateProgressVisibility = Visibility.Visible;
             viewModel.UpdateLinkVisibility = Visibility.Hidden;
             Task.Run(() => downloadLatestRelease());
@@ -58,16 +57,17 @@ namespace GW2_Addon_Manager
             await client.DownloadFileTaskAsync(new System.Uri(downloadUrl), Path.Combine(update_folder, update_name));
         }
 
+        /* updating download status on UI */
         private void selfUpdate_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
             viewModel.UpdateAvailable = "Download complete!";
             Application.Current.Properties["update_self"] = true;
         }
-
         private void selfUpdate_DownloadProgress(object sender, DownloadProgressChangedEventArgs e)
         {
             viewModel.UpdateDownloadProgress = e.ProgressPercentage;
         }
+
 
         /// <summary>
         /// Starts the self-updater if an application update has been downloaded.

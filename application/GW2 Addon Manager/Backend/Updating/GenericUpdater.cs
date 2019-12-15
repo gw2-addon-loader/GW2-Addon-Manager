@@ -13,7 +13,7 @@ namespace GW2_Addon_Manager
         UpdatingViewModel viewModel;
 
         string addon_name;
-        AddonInfo addon_info;
+        AddonInfoFromYaml addon_info;
         UserConfig userConfig;
 
         string fileName;
@@ -22,11 +22,11 @@ namespace GW2_Addon_Manager
 
         string latestVersion;
 
-        public GenericUpdater(AddonInfo addon)
+        public GenericUpdater(AddonInfoFromYaml addon)
         {
             addon_name = addon.folder_name;
             addon_info = addon;
-            viewModel = UpdatingViewModel.GetInstance();
+            viewModel = UpdatingViewModel.GetInstance;
             userConfig = Configuration.getConfigAsYAML();
 
             addon_expanded_path = Path.Combine(Path.GetTempPath(), addon_name);
@@ -60,7 +60,7 @@ namespace GW2_Addon_Manager
                 return;
 
             string download_link = release_info.assets[0].browser_download_url;
-            viewModel.progBarLabel = "Downloading " + addon_info.addon_name + " " + latestVersion;
+            viewModel.ProgBarLabel = "Downloading " + addon_info.addon_name + " " + latestVersion;
             await Download(download_link, client);
         }
 
@@ -86,7 +86,7 @@ namespace GW2_Addon_Manager
 
 
             
-            viewModel.progBarLabel = "Downloading " + addon_info.addon_name + " " + latestVersion;
+            viewModel.ProgBarLabel = "Downloading " + addon_info.addon_name + " " + latestVersion;
             await Download(downloadURL, client);
         }
 
@@ -122,7 +122,7 @@ namespace GW2_Addon_Manager
         /// </summary>
         private void Install()
         {
-            viewModel.progBarLabel = "Installing " + addon_info.addon_name;
+            viewModel.ProgBarLabel = "Installing " + addon_info.addon_name;
 
             if (addon_info.download_type == "archive")
             {
@@ -185,7 +185,7 @@ namespace GW2_Addon_Manager
 
 
         /***** DISABLE *****/
-        public static void Disable(AddonInfo addon_info)
+        public static void Disable(AddonInfoFromYaml addon_info)
         {
             UserConfig info = Configuration.getConfigAsYAML();
             if (info.installed.ContainsKey(addon_info.folder_name) && info.installed[addon_info.folder_name] != null)
@@ -220,7 +220,7 @@ namespace GW2_Addon_Manager
         }
 
         /***** ENABLE *****/
-        public static void enable(AddonInfo addon_info)
+        public static void enable(AddonInfoFromYaml addon_info)
         {
             UserConfig info = Configuration.getConfigAsYAML();
             if (info.installed.ContainsKey(addon_info.folder_name) && info.installed[addon_info.folder_name] != null)
@@ -255,7 +255,7 @@ namespace GW2_Addon_Manager
         }
 
         /***** DELETE *****/
-        public static void delete(AddonInfo addon_info)
+        public static void delete(AddonInfoFromYaml addon_info)
         {
             UserConfig info = Configuration.getConfigAsYAML();
             if (info.installed.ContainsKey(addon_info.folder_name) && info.installed[addon_info.folder_name] != null)
@@ -281,7 +281,7 @@ namespace GW2_Addon_Manager
                         //deleting arcdps will delete other addons as well
                         if (addon_info.folder_name == "arcdps")
                         {
-                            foreach (AddonInfo adj_info in ApprovedList.GenerateAddonList())
+                            foreach (AddonInfoFromYaml adj_info in ApprovedList.GenerateAddonList())
                             {
                                 if (adj_info.install_mode == "arc")
                                 {
@@ -315,7 +315,7 @@ namespace GW2_Addon_Manager
         /***** DOWNLOAD EVENTS *****/
         void addon_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            viewModel.showProgress = e.ProgressPercentage;
+            viewModel.DownloadProgress = e.ProgressPercentage;
         }
 
         void addon_DownloadCompleted(object sender, AsyncCompletedEventArgs e)

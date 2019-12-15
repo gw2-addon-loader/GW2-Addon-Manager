@@ -13,7 +13,7 @@ namespace GW2_Addon_Manager
         /// </summary>
         /// <param name="name">The name of the addon folder to read from.</param>
         /// <returns>An object with the information from update.yaml</returns>
-        public static AddonInfo getAddonInInfo(string name)
+        public static AddonInfoFromYaml getAddonInInfo(string name)
         {
             string yamlPath = "resources\\addons\\" + name + "\\update.yaml";
             string placeholderYamlPath = "resources\\addons\\" + name + "\\update-placeholder.yaml";
@@ -24,7 +24,7 @@ namespace GW2_Addon_Manager
                 updateFile = File.ReadAllText(placeholderYamlPath);
 
             Deserializer toDynamic = new Deserializer();
-            AddonInfo info = toDynamic.Deserialize<AddonInfo>(updateFile);
+            AddonInfoFromYaml info = toDynamic.Deserialize<AddonInfoFromYaml>(updateFile);
             return info;
         }
 

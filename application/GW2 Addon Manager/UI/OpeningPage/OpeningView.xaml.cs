@@ -14,7 +14,6 @@ namespace GW2_Addon_Manager
     /// </summary>
     public partial class AddOnSelector : Page
     {
-        OpeningViewModel theViewModel;
         static string releases_url = "https://github.com/fmmmlee/GW2-Addon-Manager/releases";
         static string UpdateNotificationFile = "updatenotification.txt";
 
@@ -23,11 +22,10 @@ namespace GW2_Addon_Manager
         /// </summary>
         public AddOnSelector()
         {
-            theViewModel = OpeningViewModel.GetInstance();
-            DataContext = theViewModel;
-            Configuration.CheckSelfUpdates(theViewModel);
+            DataContext = OpeningViewModel.GetInstance;
+            Configuration.CheckSelfUpdates();
             Configuration.DetermineSystemType();
-            Configuration.DisplayAddonStatus(theViewModel);
+            Configuration.DisplayAddonStatus();
             InitializeComponent();
             //update notification
             if (File.Exists(UpdateNotificationFile))
@@ -46,12 +44,12 @@ namespace GW2_Addon_Manager
         /// <param name="e"></param>
         public void addOnList_SelectedIndexChanged(object sender, SelectionChangedEventArgs e)
         {
-            AddonInfo selected = theViewModel.AddonList[addons.SelectedIndex];
-            theViewModel.DescriptionText = selected.description;
-            theViewModel.DeveloperText = selected.developer;
-            theViewModel.AddonWebsiteLink = selected.website;
+            AddonInfoFromYaml selected = OpeningViewModel.GetInstance.AddonList[addons.SelectedIndex];
+            OpeningViewModel.GetInstance.DescriptionText = selected.description;
+            OpeningViewModel.GetInstance.DeveloperText = selected.developer;
+            OpeningViewModel.GetInstance.AddonWebsiteLink = selected.website;
 
-            theViewModel.DeveloperVisibility = Visibility.Visible;
+            OpeningViewModel.GetInstance.DeveloperVisibility = Visibility.Visible;
         }
 
         /***************************** NAV BAR *****************************/
@@ -84,20 +82,20 @@ namespace GW2_Addon_Manager
         /***** UPDATE button *****/
         private void update_button_clicked(object sender, RoutedEventArgs e)
         {        
-            List<AddonInfo> selectedAddons = new List<AddonInfo>();
+            List<AddonInfoFromYaml> selectedAddons = new List<AddonInfoFromYaml>();
 
-            AddonInfo wrapper = AddonYamlReader.getAddonInInfo("d3d9_wrapper");
+            AddonInfoFromYaml wrapper = AddonYamlReader.getAddonInInfo("d3d9_wrapper");
             wrapper.folder_name = "d3d9_wrapper";
             selectedAddons.Add(wrapper);
 
-            foreach (AddonInfo addon in theViewModel.AddonList.Where(add => add.IsSelected == true))
+            foreach (AddonInfoFromYaml addon in OpeningViewModel.GetInstance.AddonList.Where(add => add.IsSelected == true))
             {
                 selectedAddons.Add(addon);
             }
 
             Application.Current.Properties["Selected"] = selectedAddons;
 
-            this.NavigationService.Navigate(new Uri("UI/UpdatingView.xaml", UriKind.Relative));
+            this.NavigationService.Navigate(new Uri("UI/UpdatingPage/UpdatingView.xaml", UriKind.Relative));
         }
 
         /***** Hyperlink Handler *****/

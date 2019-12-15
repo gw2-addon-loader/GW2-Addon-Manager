@@ -4,6 +4,8 @@ namespace GW2_Addon_Manager
 {
     class UserConfig
     {
+        //disabled warning since these values are set during object construction by YAML deserializer and aren't modified after that
+#pragma warning disable CS0649
         public string application_version;
         public string loader_version;
         public string bin_folder;

@@ -33,7 +33,7 @@ namespace UOAOM_Updater
                             {
                                 entry.ExtractToFile(Path.Combine(Directory.GetCurrentDirectory(), entry.FullName), true);
                             }
-                            catch (IOException e)
+                            catch (IOException)
                             {
                                 System.Threading.Thread.Sleep(3000);
                                 entry.ExtractToFile(Path.Combine(Directory.GetCurrentDirectory(), entry.FullName), true);

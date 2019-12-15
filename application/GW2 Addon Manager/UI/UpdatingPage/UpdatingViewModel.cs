@@ -16,26 +16,26 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Binding for whether the "FINISH" button is enabled.
         /// </summary>
-        public bool closeButtonEnabled
+        public bool CloseBtnEnabled
         {
             get { return _closeBtnEnabled; }
-            set { _closeBtnEnabled = value; propertyChanged("closeButtonEnabled"); }
+            set { _closeBtnEnabled = value; propertyChanged($"{nameof(CloseBtnEnabled)}"); }
         }
         /// <summary>
         /// Binding for the label above the progress bar.
         /// </summary>
-        public string progBarLabel
+        public string ProgBarLabel
         {
             get { return _msg; }
-            set { _msg = value; propertyChanged("label"); }
+            set { _msg = value; propertyChanged($"{nameof(ProgBarLabel)}"); }
         }
         /// <summary>
         /// Binding for the value shown in the progress bar.
         /// </summary>
-        public int showProgress
+        public int DownloadProgress
         {
             get { return _progress; }
-            set { _progress = value; propertyChanged("showProgress"); }
+            set { _progress = value; propertyChanged($"{nameof(DownloadProgress)}"); }
         }
 
 
@@ -55,22 +55,23 @@ namespace GW2_Addon_Manager
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        /* Constructor */
+        /* Singleton */
         private static UpdatingViewModel onlyInstance;
         /// <summary>
         /// The constructor sets the label to a placeholder value and disables the "finish" button.
         /// </summary>
         private UpdatingViewModel()
         {
-            progBarLabel = "Updating Add-Ons";
-            closeButtonEnabled = false;
+            onlyInstance = this;
+            ProgBarLabel = "Updating Add-Ons";
+            CloseBtnEnabled = false;
         }
-
-        public static UpdatingViewModel GetInstance()
+        /// <summary>
+        /// Accessor for the one instance of this class; if the instance has not been initialized, does that before returning it.
+        /// </summary>
+        public static UpdatingViewModel GetInstance
         {
-            if (onlyInstance == null)
-                onlyInstance = new UpdatingViewModel();
-            return onlyInstance;
+            get { return (onlyInstance == null) ? new UpdatingViewModel() : onlyInstance; }
         }
     }
 }

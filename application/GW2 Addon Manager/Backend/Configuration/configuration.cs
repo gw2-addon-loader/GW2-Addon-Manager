@@ -10,10 +10,9 @@ namespace GW2_Addon_Manager
     /// </summary>
     class Configuration
     {
-        static string config_file_path = "config.yaml";
-        static string config_template_path = "resources\\config_template.yaml";
-
-        static string applicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
+        static readonly string config_file_path = "config.yaml";
+        static readonly string config_template_path = "resources\\config_template.yaml";
+        static readonly string applicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
 
 
         /// <summary>
@@ -71,42 +70,35 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Displays the latest status of the plugins on the opening screen (disabled, enabled, version, installed).
         /// </summary>
-        /// <param name="viewModel">An instance of the <typeparamref>OpeningViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
-        public static void DisplayAddonStatus(OpeningViewModel viewModel)
+        /// <param name="OpeningViewModel.GetInstance">An instance of the <typeparamref>OpeningViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
+        public static void DisplayAddonStatus()
         {
             UserConfig config_obj = getConfigAsYAML();
 
-            foreach(AddonInfo addon in viewModel.AddonList)
+            foreach(AddonInfoFromYaml addon in OpeningViewModel.GetInstance.AddonList)
             {
                 addon.addon_name = AddonYamlReader.getAddonInInfo(addon.folder_name).addon_name;
                 if (config_obj.installed.ContainsKey(addon.folder_name) && config_obj.version.ContainsKey(addon.folder_name))
                 {
                     if (addon.folder_name == "arcdps" || config_obj.version[addon.folder_name].Length > 10)
-                    {
                         addon.addon_name += " (installed)";
-                    }
                     else
-                    {
-                        addon.addon_name += " (" + config_obj.version[addon.folder_name] + " installed)";
-                    }    
+                        addon.addon_name += " (" + config_obj.version[addon.folder_name] + " installed)";   
                 }
 
                 if (config_obj.disabled.ContainsKey(addon.folder_name) && config_obj.disabled[addon.folder_name] == true)
-                {
                         addon.addon_name += " (disabled)";
-                }
             }
         }
 
         /// <summary>
         /// <c>ChangeAddonConfig</c> writes the default add-ons section of the configuration file found at <c>config_file_path</c> using
-        /// values found in <paramref name="viewModel"/>, which can be set by the user.
+        /// values found in the OpeningViewModel, which can be set by the user.
         /// </summary>
-        /// <param name="viewModel">An instance of the <typeparamref>OpeningViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
-        public static void ChangeAddonConfig(OpeningViewModel viewModel)
+        public static void ChangeAddonConfig()
         {
             UserConfig config_obj = getConfigAsYAML();
-            foreach(AddonInfo addon in viewModel.AddonList)
+            foreach(AddonInfoFromYaml addon in OpeningViewModel.GetInstance.AddonList)
             {
                 if (addon.IsSelected)
                 {
@@ -125,7 +117,6 @@ namespace GW2_Addon_Manager
             setConfigAsYAML(config_obj);
         }
 
-
         /// <summary>
         /// <c>SetGamePath</c> both sets the game path for the current application session to <paramref name="path"/> and records it in the configuration file.
         /// </summary>
@@ -142,8 +133,8 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Checks if there is a new version of the application available.
         /// </summary>
-        /// <param name="viewModel">An instance of the <typeparamref>OpeningViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
-        public static void CheckSelfUpdates(OpeningViewModel viewModel)
+        /// <param name="OpeningViewModel.GetInstance">An instance of the <typeparamref>OpeningViewModel</typeparamref> class serving as the DataContext for the application UI.</param>
+        public static void CheckSelfUpdates()
         {
             string thisVersion = getConfigAsYAML().application_version;
             string latestVersion;
@@ -153,8 +144,8 @@ namespace GW2_Addon_Manager
 
             if (latestVersion != thisVersion)
             {
-                viewModel.UpdateAvailable = latestVersion + " available!";
-                viewModel.UpdateLinkVisibility = Visibility.Visible;
+                OpeningViewModel.GetInstance.UpdateAvailable = latestVersion + " available!";
+                OpeningViewModel.GetInstance.UpdateLinkVisibility = Visibility.Visible;
             }
         }
 
