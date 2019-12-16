@@ -8,9 +8,8 @@ namespace GW2_Addon_Manager.Tests
     public class ConfigurationTests
     {
         //[TestMethod()]
-        public void SetGamePathTest_SetsConfigFile()
+        public void SetGamePathTest()
         {
-
             //arrange
             string testPath = "C:\\Program Files\\Test\\Guild Wars 2";
             var mockFileSystem = new MockFileSystem();
@@ -24,8 +23,5 @@ namespace GW2_Addon_Manager.Tests
             //assert
             Assert.AreEqual(testPath, Configuration.getConfigAsYAML().game_path);
         }
-
-
-
     }
 }

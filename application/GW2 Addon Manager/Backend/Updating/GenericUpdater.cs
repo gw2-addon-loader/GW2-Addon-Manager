@@ -179,6 +179,10 @@ namespace GW2_Addon_Manager
             if (!userConfig.disabled.ContainsKey(addon_info.folder_name))
                 userConfig.disabled.Add(addon_info.folder_name, false);
 
+            //deleting old buildpad dll (other plugins get overwritten instead so deletion not necessary)
+            if (addon_name == "buildPad" && Configuration.getConfigAsYAML().version.ContainsKey(addon_name))
+                File.Delete(Path.Combine(Path.Combine(addon_install_path, "arcdps"), Configuration.getConfigAsYAML().version[addon_name]));
+
             //set config.yaml
             Configuration.setConfigAsYAML(userConfig);
         }
@@ -198,7 +202,6 @@ namespace GW2_Addon_Manager
                             Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name),
                             Path.Combine("Disabled Plugins", addon_info.folder_name)
                             );
-
                     }
                     else
                     {
@@ -206,11 +209,20 @@ namespace GW2_Addon_Manager
                         if (!Directory.Exists(Path.Combine("Disabled Plugins", addon_info.folder_name)))
                             Directory.CreateDirectory(Path.Combine("Disabled Plugins", addon_info.folder_name));
 
-
-                        File.Move(
-                            Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), addon_info.plugin_name), 
-                            Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), addon_info.plugin_name)
-                            );
+                        if (addon_info.addon_name == "BuildPad (Installed)")
+                        {
+                            File.Move(
+                                Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), Configuration.getConfigAsYAML().version["buildPad"]),
+                                Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), Configuration.getConfigAsYAML().version["buildPad"])
+                                );
+                        }
+                        else
+                        {
+                            File.Move(
+                                Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), addon_info.plugin_name),
+                                Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), addon_info.plugin_name)
+                                );
+                        }
                     }
 
                     info.disabled[addon_info.folder_name] = true;
@@ -220,6 +232,7 @@ namespace GW2_Addon_Manager
         }
 
         /***** ENABLE *****/
+        //TODO: add stuff for buildpad
         public static void enable(AddonInfoFromYaml addon_info)
         {
             UserConfig info = Configuration.getConfigAsYAML();
@@ -238,9 +251,7 @@ namespace GW2_Addon_Manager
                     else
                     {
                         if (!Directory.Exists(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps")))
-                        {
                             Directory.CreateDirectory(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"));
-                        }
 
                         File.Move(
                             Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), addon_info.plugin_name),

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UOAOM Updater", "UOAOM Updater\UOAOM Updater.csproj", "{2A0B5916-4069-43F0-8067-8C4203539CB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppUpdater", "UOAOM Updater\AppUpdater.csproj", "{2A0B5916-4069-43F0-8067-8C4203539CB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GW2 Addon Manager", "GW2 Addon Manager\GW2 Addon Manager.csproj", "{DC700BA9-FA6A-4991-BE06-5FBD43FA8EEA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "GW2 Addon Manager\Application.csproj", "{DC700BA9-FA6A-4991-BE06-5FBD43FA8EEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{E4140ADE-E6FA-47A7-A715-34A04D10313E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationTests", "ApplicationTests\ApplicationTests.csproj", "{170F11FB-4005-4A31-A746-32B46814F463}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{DC700BA9-FA6A-4991-BE06-5FBD43FA8EEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC700BA9-FA6A-4991-BE06-5FBD43FA8EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC700BA9-FA6A-4991-BE06-5FBD43FA8EEA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E4140ADE-E6FA-47A7-A715-34A04D10313E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4140ADE-E6FA-47A7-A715-34A04D10313E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4140ADE-E6FA-47A7-A715-34A04D10313E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4140ADE-E6FA-47A7-A715-34A04D10313E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{170F11FB-4005-4A31-A746-32B46814F463}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{170F11FB-4005-4A31-A746-32B46814F463}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{170F11FB-4005-4A31-A746-32B46814F463}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{170F11FB-4005-4A31-A746-32B46814F463}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
