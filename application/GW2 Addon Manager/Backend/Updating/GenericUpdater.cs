@@ -69,10 +69,9 @@ namespace GW2_Addon_Manager
             var client = new WebClient();
             string downloadURL = addon_info.host_url;
 
-            //TODO: Add comparison for dll names if version_url is null (for buildpad)
             if (addon_info.version_url != null)
                 latestVersion = client.DownloadString(addon_info.version_url);
-            else //for redirect links
+            else //for buildpad
             {
                 HttpWebRequest getRedir = (HttpWebRequest)WebRequest.Create(addon_info.host_url);
                 getRedir.AllowAutoRedirect = false;

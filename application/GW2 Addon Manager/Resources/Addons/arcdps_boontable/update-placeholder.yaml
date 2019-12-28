@@ -7,22 +7,22 @@
 # developer of the add-on
 developer: MarsEdge
 # website where more information about the add-on can be found
-website: https://martionlabs.com/arcdps-boon-table/
+website: https://github.com/gw2-addon-loader/GW2-ArcDPS-Boon-Table
 # name of the add-on
 addon_name: ArcDPS Boon Table
 # descriptive text for the addon
 description: 
 # tooltip - basically description but in brief
-tooltip: by Martion/MarsEdge
+tooltip: by MarsEdge
 
 ### DOWNLOADING/INSTALLATION ###
 # github or standalone
-host_type: standalone
+host_type: github
 # either github API url or direct URL to file/archive - former is parsed to find latest version and download link,
 # latter is a direct download link to a file/archive
-host_url: http://martionlabs.com/wp-content/uploads/d3d9_arcdps_table.dll
+host_url: https://api.github.com/repos/gw2-addon-loader/GW2-ArcDPS-Boon-Table/releases/latest
 # for md5sum files and things of that nature; files that exist solely to show what the latest version is. Standalone only.
-version_url: http://martionlabs.com/wp-content/uploads/d3d9_arcdps_table.dll.md5sum
+version_url:
 # archive or .dll
 download_type: .dll
 # binary or d3d9 - binary leaves plugin name as-is, d3d9 means filename may be changed for chainloading

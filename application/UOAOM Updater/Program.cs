@@ -12,7 +12,7 @@ namespace UOAOM_Updater
 
         static void Main(string[] args)
         {
-            //race condition handicap. TODO: um, MAKE THIS NOT A RACE CONDITION lol
+            //race condition handicap. TODO: make this not a race condition
             //(idk, have another helper process that starts on close button pressed in main app, waits until main app's process is closed, then starts this updater and closes itself?)
             //
             //add clause to retry an extraction if it doesn't work?

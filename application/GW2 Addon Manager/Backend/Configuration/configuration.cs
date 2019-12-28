@@ -7,7 +7,7 @@ using YamlDotNet.Serialization;
 namespace GW2_Addon_Manager
 {
     /// <summary>
-    /// The <c>configuration</c> class contains various functions (TODO)
+    /// The <c>configuration</c> class contains various functions dealing with application configuration. 
     /// </summary>
     public class Configuration
     {
