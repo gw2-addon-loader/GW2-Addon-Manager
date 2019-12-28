@@ -159,7 +159,8 @@
                          ItemContainerStyle="{StaticResource AddonListItem}"
                          SelectionChanged="addOnList_SelectedIndexChanged"
                          BorderThickness="0"
-                         Background="WhiteSmoke">
+                         Background="WhiteSmoke"
+                         Style="{DynamicResource ScrollableAddonListBox}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" ToolTip="{Binding tooltip}">
