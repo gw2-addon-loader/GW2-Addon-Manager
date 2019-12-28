@@ -6,9 +6,9 @@
 A tool to improve the experience of using addons and plugins in Guild Wars 2 by handling installation, updates, and file management behind the scenes.
 
 ### Project Status
-I'll be working on the stuff below over winter break and look forward to getting changes out in the next few weeks. Stay tuned!
+(Note - the download counter is off since I changed the binaries in the alpha release, so it went down by about 600 downloads. Whoops!)
 
-Update 1.0.0 is nearing completion and will be releasing soon (it's basically finished, but the arcdps mechanics plugin has an issue causing a crash using the addon loader; I'll have to fix that before making the release official). A pre-release alpha **with no Arcdps Mechanics Plugin compatibility** is available on the [releases](https://github.com/fmmmlee/GW2-Addon-Manager/releases) page. Features include changing the configuration file to .yaml format, displaying addon descriptions and other information in a selection window, bug fixes, UI improvements, and a complete restructuring of the addon installation process to include and be compatible with the [addon loader](https://github.com/gw2-addon-loader).
+Update 1.0.0 is nearing completion and will be releasing soon; everything works fine on my computer but I'm checking with others to ensure it works on their machines before releasing it. The alpha version is available on the [releases](https://github.com/fmmmlee/GW2-Addon-Manager/releases) page. The full list of changes can be found in the release notes.
 
 &nbsp;
 
