@@ -6,22 +6,13 @@
 A tool to improve the experience of using addons and plugins in Guild Wars 2 by handling installation, updates, and file management behind the scenes.
 
 ### Project Status
-(Note - the download counter is off since I changed the binaries in the alpha release, so it went down by about 600 downloads. Whoops!)
 
-Update 1.0.0 is nearing completion and will be releasing soon; everything works fine on my computer but I'm checking with others to ensure it works on their machines before releasing it. The alpha version is available on the [releases](https://github.com/fmmmlee/GW2-Addon-Manager/releases) page. The full list of changes can be found in the release notes.
+Update 1.0.0 has been released! More changes are hopefully on the way, with a focus on increasing the selection of addons.
 
 &nbsp;
 
-Current UI:
-
 <p align="center">
-<img src="https://user-images.githubusercontent.com/30479162/64070406-85a2e180-cc13-11e9-97ab-8911375cc15c.JPG" alt="v0.4.2 UI" width="450"/>
-</p>
-
-1.0.0 Alpha UI:
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/30479162/67152144-b6071380-f285-11e9-9a49-a6d3539d456d.JPG" alt="v1.0.0-al UI" width="450"/>
+<img src="https://user-images.githubusercontent.com/30479162/71754279-578c1300-2e3a-11ea-8192-47690efa5d53.jpg" alt="v1.0.0-al UI" width="450"/>
 </p>
 
 ## Getting Started
@@ -30,9 +21,10 @@ Head on over to the [wiki](https://github.com/fmmmlee/GW2-Addon-Manager/wiki) fo
 ### Currently Supported Add-Ons:
 - <a href="https://www.deltaconnected.com/arcdps/">**arcDPS**</a>
 - <a href="https://github.com/blish-hud/arcdps-bhud">**arcDPS Bhud Integration**</a>
-- <a href="http://martionlabs.com/arcdps-mechanics-log-plugin/">**arcDPS mechanics**</a>
+- <a href="https://github.com/MarsEdge/GW2-ArcDPS-Mechanics-Log">**arcDPS mechanics**</a>
+- <a href="https://github.com/MarsEdge/GW2-ArcDPS-Boon-Table">**arcDPS boon table**</a>
 - <a href="https://github.com/megai2/d912pxy">**d912pxy**</a>
-- <a href="https://github.com/Friendly0Fire/GW2Radial">**GW2Radial**</a>
+- <a href="https://github.com/gw2-addon-loader/GW2Radial">**GW2Radial**</a>
 
 ### Wiki
 More information on a number of other topics can be found on the [wiki](https://github.com/fmmmlee/GW2-Addon-Manager/wiki).
