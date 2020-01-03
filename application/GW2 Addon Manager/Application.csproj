@@ -263,15 +263,15 @@
     <Content Include="Resources\config_template.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\GW2-UOAOU-UI.png">
+    <Resource Include="Resources\GW2-UOAOU-UI.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
     <None Include="Resources\logo.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="Resources\GitHub-Mark-32px.png">
+    <Resource Include="Resources\GitHub-Mark-32px.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary">

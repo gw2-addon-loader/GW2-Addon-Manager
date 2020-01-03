@@ -161,8 +161,12 @@ namespace GW2_Addon_Manager
 
                     FileSystem.CopyFile(fileName, Path.Combine(Path.Combine(addon_install_path, "arcdps"), Path.GetFileName(fileName)));
                 }
+
                 
             }
+
+            //removing download from temp folder to avoid naming clashes
+            FileSystem.DeleteFile(fileName);
 
             if (userConfig.version.ContainsKey(addon_info.folder_name))
                 userConfig.version[addon_info.folder_name] = latestVersion;

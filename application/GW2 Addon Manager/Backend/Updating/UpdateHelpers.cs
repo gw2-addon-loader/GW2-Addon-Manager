@@ -8,6 +8,7 @@ namespace GW2_Addon_Manager
 {
     class UpdateHelpers
     {
+        //TODO: Add catch if Github API is down/rejects call
         public static dynamic GitReleaseInfo(string gitUrl)
         {
             var client = new WebClient();
