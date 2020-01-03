@@ -12,7 +12,7 @@ Update 1.0.0 has been released! More changes are hopefully on the way, with a fo
 &nbsp;
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/30479162/71754279-578c1300-2e3a-11ea-8192-47690efa5d53.jpg" alt="v1.0.0-al UI" width="650"/>
+<img src="https://user-images.githubusercontent.com/30479162/71754682-1563d100-2e3c-11ea-8a38-b6b7b6871c61.jpg" alt="v1.0.0-al UI" width="650"/>
 </p>
 
 ## Getting Started
