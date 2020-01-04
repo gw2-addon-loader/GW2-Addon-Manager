@@ -28,7 +28,7 @@ download_type: .dll
 # binary or d3d9 - binary leaves plugin name as-is, d3d9 means filename may be changed for chainloading
 install_mode: arc
 #
-plugin_name: d3d9_arcdps_boontable.dll
+plugin_name: d3d9_arcdps_table.dll
 
 ### CONFIGURATION ###
 # a list of all other add-ons required for this add-on to function
