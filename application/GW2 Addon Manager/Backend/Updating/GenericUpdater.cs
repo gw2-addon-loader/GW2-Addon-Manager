@@ -276,7 +276,7 @@ namespace GW2_Addon_Manager
             {
                 if (info.disabled.ContainsKey(addon_info.folder_name) && info.disabled[addon_info.folder_name])
                 {
-                    Directory.Delete(Path.Combine("Disabled Plugins", addon_info.folder_name), true);
+                    FileSystem.DeleteDirectory(Path.Combine("Disabled Plugins", addon_info.folder_name), UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
                     info.disabled.Remove(addon_info.folder_name);
                     info.installed.Remove(addon_info.folder_name);
                     info.version.Remove(addon_info.folder_name);
@@ -286,7 +286,7 @@ namespace GW2_Addon_Manager
                 {
                     if (addon_info.install_mode != "arc")
                     {
-                        Directory.Delete(Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name), true);
+                        FileSystem.DeleteDirectory(Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name), UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
                         if (info.disabled.ContainsKey(addon_info.folder_name))
                             info.disabled.Remove(addon_info.folder_name);
                         info.installed.Remove(addon_info.folder_name);
@@ -313,7 +313,7 @@ namespace GW2_Addon_Manager
                     }
                     else
                     {
-                        File.Delete(Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), addon_info.plugin_name));
+                        FileSystem.DeleteFile(Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), addon_info.plugin_name), UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
                         if (info.disabled.ContainsKey(addon_info.folder_name))
                             info.disabled.Remove(addon_info.folder_name);
                         info.installed.Remove(addon_info.folder_name);

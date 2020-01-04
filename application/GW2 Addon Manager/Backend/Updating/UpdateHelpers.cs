@@ -13,8 +13,20 @@ namespace GW2_Addon_Manager
         {
             var client = new WebClient();
             client.Headers.Add("User-Agent", "request");
-            string release_info_json = client.DownloadString(gitUrl);
-            return JsonConvert.DeserializeObject(release_info_json);
+            try
+            {
+                string release_info_json = client.DownloadString(gitUrl);
+                return JsonConvert.DeserializeObject(release_info_json);
+
+            }
+            catch (WebException)
+            {
+                MessageBox.Show("Github Servers returned an error; please try again in a few minutes.", "Github API Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                SelfUpdate.startUpdater();
+                Application.Current.Shutdown();
+                return null;
+            }
+            
         }
 
         public static async void UpdateAll()
