@@ -12,6 +12,7 @@ namespace GW2_Addon_Manager
         public string bin_folder;
         public bool isupdate;
         public string game_path;
+        public string current_addon_list; // hash of the master branch
         public Dictionary<string, bool> default_configuration;
         public Dictionary<string, string> version;
         public Dictionary<string, string> installed;
