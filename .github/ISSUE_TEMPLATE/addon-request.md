@@ -1,17 +1,20 @@
 ---
-name: Addon request
-about: Know of a sweet addon that's not supported? Request it here.
+name: Queued Task
+about: A task that is planned for a future build.
 title: ''
 labels: enhancement
 assignees: ''
 
 ---
 
-**Name**
-What's it called?
+**Description**
+A clear and concise description of the feature.
 
-**Website Link**
-(Can be more than one link) Git repo, standalone blog, wherever someone can read about and download the addon.
+**Development Considerations**
+Things to keep in mind when working on this feature. Significant refactoring, interfacing with the config file, API limits, backwards compatibility, etc.
 
-**Anything else** (Optional)
-Why you like this addon, what it does, how it works...anything.
+**Alternative Approaches**
+A clear and concise description of any alternative solutions that can fulfill the same need as the intended feature.
+
+**Additional context**
+Add any other context or screenshots, link to a discord conversation where this was discussed, etc.
