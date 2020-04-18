@@ -2,7 +2,7 @@
 name: Bug report
 about: For when anything is broken or behaving unexpectedly.
 title: ''
-labels: ''
+labels: bug
 assignees: ''
 
 ---

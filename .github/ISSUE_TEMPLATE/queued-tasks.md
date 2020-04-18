@@ -2,7 +2,7 @@
 name: Queued Tasks
 about: A task planned for a future release.
 title: ''
-labels: ''
+labels: queued task
 assignees: ''
 
 ---
