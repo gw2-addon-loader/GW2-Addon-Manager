@@ -3,11 +3,14 @@
 ### Updating Addons
 
 - version tracking for BuildPad
+- Buildpad compatibility - scan folder for .dlls for filename
 
 ### UX
 
 - If error occurs during one addon’s install process, display an error message and print to log file, then continue the update process for the other addons
-- Toggle for send to recycle bin/permanently delete files
+- clean install button
+- display conflicts/dependencies
+- button to select game path using file explorer instead of pasting it in manually
 
 ### Bugs
 

@@ -2,7 +2,7 @@
 name: Feature request
 about: Have an idea on how to improve this application? Suggest here!
 title: ''
-labels: ''
+labels: enhancement
 assignees: ''
 
 ---
