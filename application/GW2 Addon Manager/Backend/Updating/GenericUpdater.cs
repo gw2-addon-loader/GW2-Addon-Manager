@@ -159,7 +159,7 @@ namespace GW2_Addon_Manager
                     if (!Directory.Exists(Path.Combine(addon_install_path, "arcdps")))
                         Directory.CreateDirectory(Path.Combine(addon_install_path, "arcdps"));
 
-                    FileSystem.CopyFile(fileName, Path.Combine(Path.Combine(addon_install_path, "arcdps"), Path.GetFileName(fileName)));
+                    FileSystem.CopyFile(fileName, Path.Combine(Path.Combine(addon_install_path, "arcdps"), Path.GetFileName(fileName)), true);
                 }
 
                 
