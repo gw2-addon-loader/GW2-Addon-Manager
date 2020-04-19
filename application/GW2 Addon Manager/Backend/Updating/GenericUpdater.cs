@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualBasic.FileIO;
-using System;
 using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
@@ -71,13 +70,10 @@ namespace GW2_Addon_Manager
 
             if (addon_info.version_url != null)
                 latestVersion = client.DownloadString(addon_info.version_url);
-            else //for buildpad
+            else
             {
-                HttpWebRequest getRedir = (HttpWebRequest)WebRequest.Create(addon_info.host_url);
-                getRedir.AllowAutoRedirect = false;
-                HttpWebResponse redirResponse = (HttpWebResponse)getRedir.GetResponse();
-                downloadURL = redirResponse.Headers.Get("Location");
-                latestVersion = Path.GetFileName(downloadURL);
+                //BuildPad is the only addon that should have a blank version url since it updates itself
+                return;
             }
 
             if (userConfig.version.ContainsKey(addon_name) && userConfig.version[addon_name] != null && latestVersion == userConfig.version[addon_name])
@@ -182,10 +178,6 @@ namespace GW2_Addon_Manager
             if (!userConfig.disabled.ContainsKey(addon_info.folder_name))
                 userConfig.disabled.Add(addon_info.folder_name, false);
 
-            //deleting old buildpad dll (other plugins get overwritten instead so deletion not necessary)
-            if (addon_name == "buildPad" && Configuration.getConfigAsYAML().version.ContainsKey(addon_name))
-                File.Delete(Path.Combine(Path.Combine(addon_install_path, "arcdps"), Configuration.getConfigAsYAML().version[addon_name]));
-
             //set config.yaml
             Configuration.setConfigAsYAML(userConfig);
         }
@@ -214,6 +206,7 @@ namespace GW2_Addon_Manager
 
                         if (addon_info.addon_name == "BuildPad (Installed)")
                         {
+                            //TODO: Change this to scan for .dll in buildpad folder and use that for file operations (not config file entry)
                             File.Move(
                                 Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), Configuration.getConfigAsYAML().version["buildPad"]),
                                 Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), Configuration.getConfigAsYAML().version["buildPad"])
