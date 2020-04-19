@@ -11,8 +11,13 @@ namespace GW2_Addon_Manager
     class ApprovedList
     {
         private const string AddonFolder = "resources\\addons";
+        //Approved-addons repository
         private const string RepoUrl = "https://api.github.com/repositories/206052865";
 
+        /// <summary>
+        /// Check current version of addon list against remote repo for changes and fetch them
+        /// </summary>
+        /// <param name="cfg">User's application configuration found in config.yaml</param>
         public static void FetchListFromRepo(UserConfig cfg)
         {
             const string tempFileName = "addonlist";
@@ -22,6 +27,8 @@ namespace GW2_Addon_Manager
             var raw = client.DownloadString(RepoUrl + "/branches");
             var result = JsonConvert.DeserializeObject<BranchInfo[]>(raw);
             string master = null;
+
+            //checking for changes
             foreach (var info in result)
             {
                 if (info.Name != "master") continue;
@@ -32,6 +39,7 @@ namespace GW2_Addon_Manager
                 break;
             }
 
+            //deleting old version
             try
             {
                 Directory.Delete(AddonFolder, true);
@@ -42,6 +50,7 @@ namespace GW2_Addon_Manager
                 // ignored
             }
 
+            //fetching new version
             client = new WebClient();
             client.Headers.Add("User-Agent", "Gw2 Addon Manager");
             client.DownloadFile(RepoUrl + "/zipball", tempFileName);
@@ -52,16 +61,18 @@ namespace GW2_Addon_Manager
                 Directory.Move(entry, AddonFolder + "\\" + Path.GetFileName(entry));
             }
 
+            //updating version in config file
             cfg.current_addon_list = master;
             Configuration.setConfigAsYAML(cfg);
 
+            //cleanup
             Directory.Delete(downloaded, true);
             File.Delete(tempFileName);
         }
 
 
         /// <summary>
-        /// 
+        /// Scans resources/addons directory to populate a collection used for displaying the list of available addons on the UI.
         /// </summary>
         /// <returns>A list of AddonInfo objects representing all approved add-ons.</returns>
         public static ObservableCollection<AddonInfoFromYaml> GenerateAddonList()
