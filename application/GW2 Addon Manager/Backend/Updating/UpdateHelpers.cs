@@ -41,7 +41,8 @@ namespace GW2_Addon_Manager
             foreach (AddonInfoFromYaml addon in addons.Where(add => add != null))
             {
                 GenericUpdater updater = new GenericUpdater(addon);
-                await updater.Update();
+                if(addon.host_type != "self_updates")
+                    await updater.Update();
             }
 
             viewModel.ProgBarLabel = "Updates Complete";
