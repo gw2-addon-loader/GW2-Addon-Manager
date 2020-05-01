@@ -7,7 +7,7 @@ A tool to improve the experience of using addons and plugins in Guild Wars 2 by 
 
 ### Project Status
 
-Update 1.0.0 has been released! More changes are hopefully on the way, with a focus on increasing the selection of addons.
+Currently working on finishing touches to update 1.1.0. Alpha build is available on the [releases](https://github.com/fmmmlee/GW2-Addon-Manager/releases) page, project tracking [here](https://github.com/fmmmlee/GW2-Addon-Manager/projects/3).
 
 &nbsp;
 
