@@ -8,7 +8,6 @@ namespace GW2_Addon_Manager
 {
     class UpdateHelpers
     {
-        //TODO: Add catch if Github API is down/rejects call
         public static dynamic GitReleaseInfo(string gitUrl)
         {
             var client = new WebClient();
@@ -21,6 +20,7 @@ namespace GW2_Addon_Manager
             }
             catch (WebException)
             {
+                //TODO: Add this catch to API calls made at application startup as well
                 MessageBox.Show("Github Servers returned an error; please try again in a few minutes.", "Github API Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 SelfUpdate.startUpdater();
                 Application.Current.Shutdown();

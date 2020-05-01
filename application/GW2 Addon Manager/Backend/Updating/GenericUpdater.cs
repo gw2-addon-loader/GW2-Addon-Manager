@@ -72,7 +72,9 @@ namespace GW2_Addon_Manager
                 latestVersion = client.DownloadString(addon_info.version_url);
             else
             {
-                //BuildPad is the only addon that should have a blank version url since it updates itself
+                //for self-updating addons' first installation
+                viewModel.ProgBarLabel = "Downloading " + addon_info.addon_name;
+                await Download(downloadURL, client);
                 return;
             }
 
@@ -184,6 +186,7 @@ namespace GW2_Addon_Manager
 
 
         /***** DISABLE *****/
+        //TODO: Note to self May 1 2020: consider making some vanity methods to clean up all the Path.Combine()s in here; the code's a bit of a chore to read.
         public static void Disable(AddonInfoFromYaml addon_info)
         {
             UserConfig info = Configuration.getConfigAsYAML();
@@ -206,10 +209,18 @@ namespace GW2_Addon_Manager
 
                         if (addon_info.addon_name == "BuildPad (Installed)")
                         {
-                            //TODO: Change this to scan for .dll in buildpad folder and use that for file operations (not config file entry)
+                            string buildPadFileName = "";
+                            string[] arcFiles = Directory.GetFiles(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"));
+
+                            //search for plugin name in arc folder
+                            //TODO: Should break out of operation and give message if the plugin is not found.
+                            foreach (string arcFileName in arcFiles)
+                                if (arcFileName.Contains("buildpad"))
+                                    buildPadFileName = arcFileName;
+
                             File.Move(
-                                Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), Configuration.getConfigAsYAML().version["buildPad"]),
-                                Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), Configuration.getConfigAsYAML().version["buildPad"])
+                                Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), buildPadFileName),
+                                Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), buildPadFileName)
                                 );
                         }
                         else
@@ -228,7 +239,6 @@ namespace GW2_Addon_Manager
         }
 
         /***** ENABLE *****/
-        //TODO: add stuff for buildpad
         public static void enable(AddonInfoFromYaml addon_info)
         {
             UserConfig info = Configuration.getConfigAsYAML();
@@ -239,6 +249,7 @@ namespace GW2_Addon_Manager
 
                     if (addon_info.install_mode != "arc")
                     {
+                        //non-arc
                         Directory.Move(
                         Path.Combine("Disabled Plugins", addon_info.folder_name),
                         Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name)
@@ -246,13 +257,36 @@ namespace GW2_Addon_Manager
                     }
                     else
                     {
+                        //arc
                         if (!Directory.Exists(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps")))
                             Directory.CreateDirectory(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"));
 
-                        File.Move(
-                            Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), addon_info.plugin_name),
-                            Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), addon_info.plugin_name)
-                            );
+                        //buildpad compatibility check
+                        if (!addon_info.addon_name.Contains("BuildPad"))
+                        {
+                            //non-buildpad
+                            File.Move(
+                                Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), addon_info.plugin_name),
+                                Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), addon_info.plugin_name)
+                                );
+                        }
+                        else
+                        {
+                            //buildpad
+                            string buildPadFileName = "";
+                            string[] buildPadFiles = Directory.GetFiles(Path.Combine("Disabled Plugins", addon_info.folder_name));
+
+                            foreach (string someFileName in buildPadFiles)
+                                if (someFileName.Contains("buildpad"))
+                                    buildPadFileName = someFileName;
+
+                            File.Move(
+                                Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), buildPadFileName),
+                                Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), buildPadFileName)
+                                );
+                        }
+
+                            
                     }
                         
                     info.disabled[addon_info.folder_name] = false;
@@ -306,7 +340,26 @@ namespace GW2_Addon_Manager
                     }
                     else
                     {
-                        FileSystem.DeleteFile(Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), addon_info.plugin_name), UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                        //buildpad check
+                        if (!addon_info.addon_name.Contains("BuildPad"))
+                        {
+                            FileSystem.DeleteFile(Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), addon_info.plugin_name), UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                        }
+                        else
+                        {
+                            string buildPadFileName = "";
+                            string[] arcFiles = Directory.GetFiles(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"));
+
+                            //search for plugin name in arc folder
+                            //TODO: Should break out of operation and give message if the plugin is not found.
+                            foreach (string arcFileName in arcFiles)
+                                if (arcFileName.Contains("buildpad"))
+                                    buildPadFileName = arcFileName;
+
+                            FileSystem.DeleteFile(Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), buildPadFileName), UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                        }
+
+
                         if (info.disabled.ContainsKey(addon_info.folder_name))
                             info.disabled.Remove(addon_info.folder_name);
                         info.installed.Remove(addon_info.folder_name);
