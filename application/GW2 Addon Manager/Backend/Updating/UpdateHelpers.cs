@@ -41,7 +41,8 @@ namespace GW2_Addon_Manager
             foreach (AddonInfoFromYaml addon in addons.Where(add => add != null))
             {
                 GenericUpdater updater = new GenericUpdater(addon);
-                if(!(addon.additional_flags.Contains("self-updating") && Configuration.getConfigAsYAML().installed.ContainsKey(addon.folder_name)))
+            
+                if(!(addon.additional_flags != null && addon.additional_flags.Contains("self-updating") && Configuration.getConfigAsYAML().installed.ContainsKey(addon.folder_name)))
                     await updater.Update();
             }
 
