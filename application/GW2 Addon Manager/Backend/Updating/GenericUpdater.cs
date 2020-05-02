@@ -127,11 +127,7 @@ namespace GW2_Addon_Manager
             req.Method = "GET";
             using (System.Net.WebResponse resp = req.GetResponse())
             {
-                if (!string.IsNullOrEmpty(resp.Headers["Location"]))
-                {
-                    result = resp.Headers["Location"];
-                    result = Path.GetFileName(result);
-                }
+                result = Path.GetFileName(resp.ResponseUri.AbsoluteUri);
             }
             return result;
         }
@@ -231,7 +227,7 @@ namespace GW2_Addon_Manager
                         if (!Directory.Exists(Path.Combine("Disabled Plugins", addon_info.folder_name)))
                             Directory.CreateDirectory(Path.Combine("Disabled Plugins", addon_info.folder_name));
 
-                        if (addon_info.addon_name == "BuildPad (Installed)")
+                        if (addon_info.addon_name.Contains("BuildPad"))
                         {
                             string buildPadFileName = "";
                             string[] arcFiles = Directory.GetFiles(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"));
@@ -240,7 +236,7 @@ namespace GW2_Addon_Manager
                             //TODO: Should break out of operation and give message if the plugin is not found.
                             foreach (string arcFileName in arcFiles)
                                 if (arcFileName.Contains("buildpad"))
-                                    buildPadFileName = arcFileName;
+                                    buildPadFileName = Path.GetFileName(arcFileName);
 
                             File.Move(
                                 Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), buildPadFileName),
@@ -302,7 +298,7 @@ namespace GW2_Addon_Manager
 
                             foreach (string someFileName in buildPadFiles)
                                 if (someFileName.Contains("buildpad"))
-                                    buildPadFileName = someFileName;
+                                    buildPadFileName = Path.GetFileName(someFileName);
 
                             File.Move(
                                 Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), buildPadFileName),
@@ -378,7 +374,7 @@ namespace GW2_Addon_Manager
                             //TODO: Should break out of operation and give message if the plugin is not found.
                             foreach (string arcFileName in arcFiles)
                                 if (arcFileName.Contains("buildpad"))
-                                    buildPadFileName = arcFileName;
+                                    buildPadFileName = Path.GetFileName(arcFileName);
 
                             FileSystem.DeleteFile(Path.Combine(Path.Combine(Path.Combine(info.game_path, "addons"), "arcdps"), buildPadFileName), UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
                         }
