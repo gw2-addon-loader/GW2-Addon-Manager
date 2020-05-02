@@ -93,7 +93,7 @@ namespace GW2_Addon_Manager
                 addon.addon_name = AddonYamlReader.getAddonInInfo(addon.folder_name).addon_name;
                 if (config_obj.installed.ContainsKey(addon.folder_name) && config_obj.version.ContainsKey(addon.folder_name))
                 {
-                    if (addon.folder_name == "arcdps" || config_obj.version[addon.folder_name].Length > 10)
+                    if (addon.folder_name == "arcdps" || addon.folder_name == "buildPad" || config_obj.version[addon.folder_name].Length > 10)
                         addon.addon_name += " (installed)";
                     else
                         addon.addon_name += " (" + config_obj.version[addon.folder_name] + " installed)";   

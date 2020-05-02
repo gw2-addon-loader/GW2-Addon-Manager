@@ -99,7 +99,11 @@ namespace GW2_Addon_Manager
         private async Task Download(string url, WebClient client)
         {
 
-            fileName = Path.Combine(Path.GetTempPath(), Path.GetFileName(url));             
+            //this calls helper method to fetch filename if it is not exposed in URL
+            fileName = Path.Combine(
+                Path.GetTempPath(), 
+                ((addon_info.additional_flags != null && addon_info.additional_flags.Contains("obscured-filename")) ? GetFilenameFromWebServer(url) : Path.GetFileName(url))
+                );             
 
             if (File.Exists(fileName))
                 File.Delete(fileName);
@@ -111,6 +115,27 @@ namespace GW2_Addon_Manager
             Install();
         }
 
+        /* helper method */
+        /* credit: Fidel @ stackexchange
+         * modified version if their answer at https://stackoverflow.com/a/54616044/9170673
+         */
+        public string GetFilenameFromWebServer(string url)
+        {
+            string result = "";
+
+            var req = System.Net.WebRequest.Create(url);
+            req.Method = "GET";
+            using (System.Net.WebResponse resp = req.GetResponse())
+            {
+                if (!string.IsNullOrEmpty(resp.Headers["Location"]))
+                {
+                    MessageBox.Show("Location response header= " + resp.Headers["Location"]);
+                    result = resp.Headers["Location"];
+                }
+            }
+            result = Path.GetFileName(result);
+            return result;
+        }
 
         /***** INSTALL *****/
 
