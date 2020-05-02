@@ -129,11 +129,10 @@ namespace GW2_Addon_Manager
             {
                 if (!string.IsNullOrEmpty(resp.Headers["Location"]))
                 {
-                    MessageBox.Show("Location response header= " + resp.Headers["Location"]);
                     result = resp.Headers["Location"];
+                    result = Path.GetFileName(result);
                 }
             }
-            result = Path.GetFileName(result);
             return result;
         }
 
