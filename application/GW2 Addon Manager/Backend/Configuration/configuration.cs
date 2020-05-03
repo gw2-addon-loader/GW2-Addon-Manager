@@ -154,6 +154,14 @@ namespace GW2_Addon_Manager
         /// </summary>
         public static void CheckSelfUpdates()
         {
+            UserConfig currentConfig = getConfigAsYAML();
+            UserConfig templateConfig = getTemplateConfig();
+            if (currentConfig.application_version != templateConfig.application_version)
+            {
+                currentConfig.application_version = templateConfig.application_version;
+                setConfigAsYAML(currentConfig);
+            }
+
             string thisVersion = getConfigAsYAML().application_version;
             string latestVersion;
 

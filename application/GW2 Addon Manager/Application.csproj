@@ -150,6 +150,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <None Include="App\App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </None>
     <Compile Include="Backend\Addons\AddonInfoFromYaml.cs" />
     <Compile Include="Backend\Addons\ApprovedList.cs" />
     <Compile Include="Backend\Configuration\UserConfig.cs" />
