@@ -46,5 +46,7 @@ namespace GW2_Addon_Manager
         public List<string> requires { get; set; }
         public List<string> conflicts { get; set; }
         public List<Dictionary<String, String>> alternate_plugin_names { get; set; }
+
+        public List<string> additional_flags { get; set; }
     }
 }

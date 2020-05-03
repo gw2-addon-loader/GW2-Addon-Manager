@@ -8,7 +8,6 @@ namespace GW2_Addon_Manager
 {
     class UpdateHelpers
     {
-        //TODO: Add catch if Github API is down/rejects call
         public static dynamic GitReleaseInfo(string gitUrl)
         {
             var client = new WebClient();
@@ -21,6 +20,7 @@ namespace GW2_Addon_Manager
             }
             catch (WebException)
             {
+                //TODO: Add this catch to API calls made at application startup as well
                 MessageBox.Show("Github Servers returned an error; please try again in a few minutes.", "Github API Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 SelfUpdate.startUpdater();
                 Application.Current.Shutdown();
@@ -41,7 +41,9 @@ namespace GW2_Addon_Manager
             foreach (AddonInfoFromYaml addon in addons.Where(add => add != null))
             {
                 GenericUpdater updater = new GenericUpdater(addon);
-                await updater.Update();
+            
+                if(!(addon.additional_flags != null && addon.additional_flags.Contains("self-updating") && Configuration.getConfigAsYAML().installed.ContainsKey(addon.folder_name)))
+                    await updater.Update();
             }
 
             viewModel.ProgBarLabel = "Updates Complete";
