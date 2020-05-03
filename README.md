@@ -6,8 +6,7 @@
 A tool to improve the experience of using addons and plugins in Guild Wars 2 by handling installation, updates, and file management behind the scenes.
 
 ### Project Status
-
-Currently working on finishing touches to update 1.1.0. Alpha build is available on the [releases](https://github.com/fmmmlee/GW2-Addon-Manager/releases) page, project tracking [here](https://github.com/fmmmlee/GW2-Addon-Manager/projects/3).
+Finished update 1.1.0 and made minor fixes in 1.1.1. See [releases](https://github.com/fmmmlee/GW2-Addon-Manager/releases) page for latest stable release, project tracking [here](https://github.com/fmmmlee/GW2-Addon-Manager/projects/3).
 
 &nbsp;
 
@@ -19,12 +18,7 @@ Currently working on finishing touches to update 1.1.0. Alpha build is available
 Head on over to the [wiki](https://github.com/fmmmlee/GW2-Addon-Manager/wiki) for installation instructions!
 
 ### Currently Supported Add-Ons:
-- <a href="https://www.deltaconnected.com/arcdps/">**arcDPS**</a>
-- <a href="https://github.com/blish-hud/arcdps-bhud">**arcDPS Bhud Integration**</a>
-- <a href="https://github.com/MarsEdge/GW2-ArcDPS-Mechanics-Log">**arcDPS mechanics**</a>
-- <a href="https://github.com/MarsEdge/GW2-ArcDPS-Boon-Table">**arcDPS boon table**</a>
-- <a href="https://github.com/megai2/d912pxy">**d912pxy**</a>
-- <a href="https://github.com/gw2-addon-loader/GW2Radial">**GW2Radial**</a>
+A list of compatible addons is in the <a href="https://github.com/gw2-addon-loader/Approved-Addons">**Approved-Addons**</a> repository, including arcDPS, d912pxy, and others.
 
 ### Wiki
 More information on a number of other topics can be found on the [wiki](https://github.com/fmmmlee/GW2-Addon-Manager/wiki).
