@@ -7,6 +7,26 @@ namespace GW2_Addon_Manager
     {
 
         /// <summary>
+        /// Deletes all addons and resets config to default state.
+        /// <seealso cref="OpeningViewModel.CleanInstall"/>
+        /// <seealso cref="Configuration.DeleteAllAddons"/>
+        /// </summary>
+        public static void DeleteAll()
+        {
+            string deletemsg = "This will delete ALL add-ons from Guild Wars 2 and all data associated with them! Are you sure you wish to continue?";
+            string secondPrecautionaryMsg = "Are you absolutely sure you want to delete all addons? This action cannot be undone.";
+
+            //precautionary "are you SURE" messages x2
+            if (MessageBox.Show(deletemsg, "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                if (MessageBox.Show(secondPrecautionaryMsg, "Absolutely Sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                    Configuration.DeleteAllAddons();
+
+            //post-delete info message
+            MessageBox.Show("All addons have been removed.", "Reverted to Clean Install", MessageBoxButton.OK, MessageBoxImage.Information);
+            Configuration.DisplayAddonStatus();
+        }
+
+        /// <summary>
         /// Deletes the currently selected addons.
         /// <seealso cref="OpeningViewModel.DeleteSelected"/>
         /// </summary>

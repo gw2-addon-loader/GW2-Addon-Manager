@@ -238,6 +238,9 @@
                 <MenuItem Header="Re-Enable" Command="{Binding Path=EnableSelected}" Style="{StaticResource AddonMenuItemStyle}"
                           Template="{StaticResource AddonMenuItemControlTemplate}"
                           ToolTip="Enables the selected addons if they are disabled"/>
+                <MenuItem Header="Reset to Clean Install" Command="{Binding Path=CleanInstall}" Style="{StaticResource AddonMenuItemStyle}"
+                          Template="{StaticResource AddonMenuItemControlTemplate}"
+                          ToolTip="Deletes all addons and plugins from Guild Wars 2."/>
             </MenuItem>
         </Menu>
 
