@@ -212,6 +212,9 @@ namespace GW2_Addon_Manager
             UserConfig info = Configuration.getConfigAsYAML();
             if (info.installed.ContainsKey(addon_info.folder_name) && info.installed[addon_info.folder_name] != null)
             {
+                if (!Directory.Exists("Disabled Plugins"))
+                    Directory.CreateDirectory("Disabled Plugins");
+
                 if (info.disabled.ContainsKey(addon_info.folder_name) && !info.disabled[addon_info.folder_name])
                 {
                     if (addon_info.install_mode != "arc")

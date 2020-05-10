@@ -214,9 +214,11 @@ namespace GW2_Addon_Manager
             config.loader_version = null;
 
             //delete disabled plugins folder: ${install dir}/disabled plugins
-            Directory.Delete("Disabled Plugins", true);
+            if(Directory.Exists("Disabled Plugins"))
+                Directory.Delete("Disabled Plugins", true);
             //delete addons: {game folder}/addons
-            Directory.Delete(Path.Combine(config.game_path.ToString(), "addons"));
+            if(Directory.Exists(Path.Combine(config.game_path.ToString(), "addons")))
+                Directory.Delete(Path.Combine(config.game_path.ToString(), "addons"), true);
             //delete addon loader: {game folder}/{bin/64}/d3d9.dll
             File.Delete(Path.Combine(Path.Combine(config.game_path.ToString(), config.bin_folder.ToString()), "d3d9.dll"));
 
