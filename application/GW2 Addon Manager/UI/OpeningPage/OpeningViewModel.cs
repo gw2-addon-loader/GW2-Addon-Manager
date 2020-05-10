@@ -98,8 +98,10 @@ namespace GW2_Addon_Manager
             get { return _updateProgressVisibility; }
             set { _updateProgressVisibility = value; propertyChanged($"{nameof(UpdateProgressVisibility)}"); }
         }
-        
+
+        /***************************/
         /***** Button Handlers *****/
+        /***************************/
         /// <summary>
         /// Handles button commands for the "set" button next to the game path text field in the opening screen.
         /// <see cref="Configuration.SetGamePath(string)"/>
@@ -108,6 +110,9 @@ namespace GW2_Addon_Manager
         {
             get { return new RelayCommand<object>(param => Configuration.SetGamePath(GamePath), true); }
         }
+
+        /* [Configuration Options] drop-down menu */
+        
         /// <summary>
         /// Handles button commands for the button to make the current add-on selection the default.
         /// </summary>
@@ -136,6 +141,16 @@ namespace GW2_Addon_Manager
         {
             get { return new RelayCommand<object>(param => PluginManagement.DeleteSelected(), true); }
         }
+        /// <summary>
+        /// Handles the Reset to Clean Install button.
+        /// </summary>
+        public ICommand CleanInstall
+        {
+            get { return new RelayCommand<object>(param => PluginManagement.DeleteAll(), true); }
+        }
+
+        /******************************************/
+
         /// <summary>
         /// Handler for small button to download application update.
         /// </summary>

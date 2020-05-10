@@ -195,5 +195,35 @@ namespace GW2_Addon_Manager
                 setConfigAsYAML(config);
             }
         }
+
+        /// <summary>
+        /// Deletes all addons, addon loader, and configuration data related to addons.
+        /// </summary>
+        public static void DeleteAllAddons()
+        {
+            //get user config
+            UserConfig config = getConfigAsYAML();
+            UserConfig templateConfig = getTemplateConfig();
+            //set installed, disabled, default, and version collections to the default installation setting
+            config.installed = templateConfig.installed;
+            config.disabled = templateConfig.disabled;
+            config.version = templateConfig.version;
+            config.default_configuration = templateConfig.default_configuration;
+
+            //clear loader_version
+            config.loader_version = null;
+
+            //delete disabled plugins folder: ${install dir}/disabled plugins
+            if(Directory.Exists("Disabled Plugins"))
+                Directory.Delete("Disabled Plugins", true);
+            //delete addons: {game folder}/addons
+            if(Directory.Exists(Path.Combine(config.game_path.ToString(), "addons")))
+                Directory.Delete(Path.Combine(config.game_path.ToString(), "addons"), true);
+            //delete addon loader: {game folder}/{bin/64}/d3d9.dll
+            File.Delete(Path.Combine(Path.Combine(config.game_path.ToString(), config.bin_folder.ToString()), "d3d9.dll"));
+
+            //write cleaned config file
+            setConfigAsYAML(config);
+        }
     }
 }
