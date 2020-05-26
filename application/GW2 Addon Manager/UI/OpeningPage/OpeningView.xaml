@@ -147,42 +147,84 @@
                  FontSize="16"
                  FontFamily="Microsoft JhengHei Light"
                  />
-        <Border Grid.Row="2" Width="250" Height="350" HorizontalAlignment="Left" Margin="40,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
-            <StackPanel Width="250" Height="325" HorizontalAlignment="Left">
-                <Label FontSize="18" FontFamily="Microsoft YaHei UI" Margin="0,5,0,10" HorizontalAlignment="Center" Foreground="DimGray" Content="Add-Ons"/>
-                <TextBlock Width="225" Height="50" Margin="5,0,0,0" FontSize="13" FontFamily="Microsoft YaHei UI Light">
-                    <Run Text="Select all addons that you would"/><LineBreak/><Run Text="like to install or update."/>
-                </TextBlock>
-                <ListBox Name="addons"
-                         Height="215"
-                         ItemsSource="{Binding AddonList}"
-                         ItemContainerStyle="{StaticResource AddonListItem}"
-                         SelectionChanged="addOnList_SelectedIndexChanged"
-                         BorderThickness="0"
-                         Background="WhiteSmoke"
-                         Style="{DynamicResource ScrollableAddonListBox}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" ToolTip="{Binding tooltip}">
-                                <CheckBox Name="TheCheckBox"
-                                      Padding="5,5,0,5"
-                                      VerticalAlignment="Center"
-                                      IsChecked="{Binding IsSelected, Mode=TwoWay}"
-                                      Style="{StaticResource AddonListCheckBox}"
+        <TabControl Grid.Row="2" Width="250" Height="350" HorizontalAlignment="Left" Margin="40,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
+            <TabItem Header="Addons">
+                <StackPanel Width="250" HorizontalAlignment="Left">
+                    <Label FontSize="18" FontFamily="Microsoft YaHei UI" Margin="0,5,0,10" HorizontalAlignment="Center" Foreground="DimGray" Content="Add-Ons"/>
+                    <TextBlock Width="225" Height="50" Margin="5,0,0,0" FontSize="13" FontFamily="Microsoft YaHei UI Light">
+                <Run Text="Select all addons that you would"/>
+                <LineBreak/>
+                <Run Text="like to install or update."/>
+                    </TextBlock>
+                    <ListBox Name="addons"
+                       Height="215"
+                       ItemsSource="{Binding AddonList}"
+                       ItemContainerStyle="{StaticResource AddonListItem}"
+                       SelectionChanged="addOnList_SelectedIndexChanged"
+                       BorderThickness="0"
+                       Background="WhiteSmoke"
+                       Style="{DynamicResource ScrollableAddonListBox}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" ToolTip="{Binding tooltip}">
+                                    <CheckBox Name="TheCheckBox"
+                            Padding="5,5,0,5"
+                            VerticalAlignment="Center"
+                            IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                            Style="{StaticResource AddonListCheckBox}"
                                       />
-                                <Label Name="add_name"
-                                       Content="{Binding addon_name}"
-                                       VerticalAlignment="Center"
-                                       FontFamily="Microsoft YaHei UI"
-                                       Foreground="DimGray"
-                                       FontWeight="Bold"
-                                       FontSize="13"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </StackPanel>
-        </Border>
+                                    <Label Name="add_name"
+                             Content="{Binding addon_name}"
+                             VerticalAlignment="Center"
+                             FontFamily="Microsoft YaHei UI"
+                             Foreground="DimGray"
+                             FontWeight="Bold"
+                             FontSize="13"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Links">
+                <StackPanel Width="250" HorizontalAlignment="Left">
+                    <TextBlock Width="225" Height="50" Margin="5,10,0,0" FontSize="12" FontFamily="Microsoft YaHei UI Light">
+                        <Run Text="Links to external applications not "/>
+                        <LineBreak/>
+                        <Run Text="managed by this addon manager."/>
+                    </TextBlock>
+                    <Label FontSize="14" FontFamily="Microsoft YaHei UI" Foreground="DimGray">
+                        <Hyperlink NavigateUri="http://www.gw2taco.com/" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None" FocusVisualStyle="{x:Null}">
+                            <TextBlock Text="- GW2 TacO"/>
+                        </Hyperlink>
+                    </Label>
+                    <Label FontSize="14" FontFamily="Microsoft YaHei UI" Foreground="DimGray">
+                        <Hyperlink NavigateUri="https://github.com/blish-hud/Blish-HUD" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None" FocusVisualStyle="{x:Null}">
+                            <TextBlock Text="- Blish HUD"/>
+                        </Hyperlink>
+                    </Label>
+                    <Label FontSize="14" FontFamily="Microsoft YaHei UI" Foreground="DimGray">
+                        <Hyperlink NavigateUri="https://github.com/Healix/Gw2Launcher" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None" FocusVisualStyle="{x:Null}">
+                            <TextBlock Text="- GW2Launcher"/>
+                        </Hyperlink>
+                    </Label>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Info">
+                <StackPanel Width="250" HorizontalAlignment="Left">
+                    <Label FontSize="14" FontFamily="Microsoft YaHei UI" Foreground="DimGray">
+                        <Hyperlink NavigateUri="https://github.com/fmmmlee/GW2-Addon-Manager/wiki" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None" FocusVisualStyle="{x:Null}">
+                            <TextBlock Text="Addon Manager Wiki"/>
+                        </Hyperlink>
+                    </Label>
+                    <Label FontSize="14" FontFamily="Microsoft YaHei UI" Foreground="DimGray">
+                        <Hyperlink NavigateUri="https://github.com/fmmmlee/GW2-Addon-Manager/projects" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None" FocusVisualStyle="{x:Null}">
+                            <TextBlock Text="Project Status"/>
+                        </Hyperlink>
+                    </Label>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
 
         <Border Grid.Row="2" Width="450" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
             <Grid>
@@ -238,6 +280,9 @@
                 <MenuItem Header="Re-Enable" Command="{Binding Path=EnableSelected}" Style="{StaticResource AddonMenuItemStyle}"
                           Template="{StaticResource AddonMenuItemControlTemplate}"
                           ToolTip="Enables the selected addons if they are disabled"/>
+                <MenuItem Header="Reset to Clean Install" Command="{Binding Path=CleanInstall}" Style="{StaticResource AddonMenuItemStyle}"
+                          Template="{StaticResource AddonMenuItemControlTemplate}"
+                          ToolTip="Deletes all addons and plugins from Guild Wars 2."/>
             </MenuItem>
         </Menu>
 
