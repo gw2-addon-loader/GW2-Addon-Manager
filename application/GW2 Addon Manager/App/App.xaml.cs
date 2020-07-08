@@ -24,8 +24,6 @@ namespace GW2_Addon_Manager
         {
             #if DEBUG
 
-            
-
             #else
 
             ShowUnhandledException(e);
@@ -64,7 +62,6 @@ namespace GW2_Addon_Manager
             {
                 Application.Current.Shutdown();
             }
-
         }
 
         /// <summary>
@@ -95,11 +92,13 @@ namespace GW2_Addon_Manager
 
             Exception ex = e.Exception;
             exceptionTree += ex.Message + "\n";
+            exceptionTree += ex.StackTrace + "\n";
 
             while (ex.InnerException != null)
             {
                 ex = ex.InnerException;
                 exceptionTree += ex.Message + "\n";
+                exceptionTree += ex.StackTrace + "\n";
             }
 
             string date = DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToString() + "\n";
@@ -120,11 +119,13 @@ namespace GW2_Addon_Manager
 
             Exception ex = (Exception)e.ExceptionObject;
             exceptionTree += ex.Message + "\n";
+            exceptionTree += ex.StackTrace + "\n";
 
             while (ex.InnerException != null)
             {
                 ex = ex.InnerException;
                 exceptionTree += ex.Message + "\n";
+                exceptionTree += ex.StackTrace + "\n";
             }
 
             string date = DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToString() + "\n";
