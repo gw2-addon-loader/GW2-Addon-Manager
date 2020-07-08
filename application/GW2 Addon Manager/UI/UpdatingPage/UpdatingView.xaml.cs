@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -24,6 +26,8 @@ namespace GW2_Addon_Manager
 
             LoaderSetup settingUp = new LoaderSetup();
             Task.Run(() => UpdateHelpers.UpdateAll());
+
+            launchOnClose.IsChecked = Configuration.getConfigAsYAML().launch_game;
         }
 
         /***************************** Titlebar Window Drag *****************************/
@@ -38,6 +42,30 @@ namespace GW2_Addon_Manager
         private void close_clicked(object sender, RoutedEventArgs e)
         {
             SelfUpdate.startUpdater();
+
+            if ((bool)launchOnClose.IsChecked)
+            {
+                string exeLocation = Path.Combine(Configuration.getConfigAsYAML().game_path, Configuration.getConfigAsYAML().exe_name);
+                try
+                {
+                    Process.Start(exeLocation, "-autologin");
+                }
+                catch (System.ComponentModel.Win32Exception)
+                {
+                    MessageBox.Show($"Unable to launch game as {Configuration.getConfigAsYAML().exe_name} is missing.",
+                                     "Unable to Launch Game",
+                                     MessageBoxButton.OK,
+                                     MessageBoxImage.Error);
+                }
+            }
+
+            UserConfig config = Configuration.getConfigAsYAML();
+            if (config.launch_game != (bool)launchOnClose.IsChecked)
+            {
+                config.launch_game = (bool)launchOnClose.IsChecked;
+                Configuration.setConfigAsYAML(config);
+            }
+
             System.Windows.Application.Current.Shutdown();
         }
 
@@ -53,6 +81,12 @@ namespace GW2_Addon_Manager
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
         }
+
+        private void back_clicked(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("UI/OpeningPage/OpeningView.xaml", UriKind.Relative));
+        }
+
     }
 }
 

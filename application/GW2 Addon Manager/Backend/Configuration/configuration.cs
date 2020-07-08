@@ -35,8 +35,7 @@ namespace GW2_Addon_Manager
         /// <returns></returns>
         public static UserConfig getConfigAsYAML()
         {
-            String updateFile = null;
-
+            string updateFile;
             if (fileSys.File.Exists(config_file_path))
                 updateFile = fileSys.File.ReadAllText(config_file_path);
             else
@@ -187,10 +186,12 @@ namespace GW2_Addon_Manager
                 if (fileSys.Directory.Exists(config.game_path.ToString() + "\\bin64"))
                 {
                     config.bin_folder = "bin64";
+                    config.exe_name = "Gw2-64.exe";
                 }
                 else if (fileSys.Directory.Exists(config.game_path.ToString() + "\\bin"))
                 {
                     config.bin_folder = "bin";
+                    config.exe_name = "Gw2.exe";
                 }
                 setConfigAsYAML(config);
             }

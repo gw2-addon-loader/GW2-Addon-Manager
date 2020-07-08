@@ -49,6 +49,7 @@ namespace GW2_Addon_Manager
             viewModel.ProgBarLabel = "Updates Complete";
             viewModel.DownloadProgress = 100;
             viewModel.CloseBtnEnabled = true;
+            viewModel.BackBtnEnabled = true;
         }
     }
 }

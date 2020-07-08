@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace GW2_Addon_Manager
 {
@@ -9,6 +10,7 @@ namespace GW2_Addon_Manager
     {
         /* private fields for ui bindings */
         private bool _closeBtnEnabled;
+        private bool _backBtnEnabled;
         private string _msg;
         private int _progress;
 
@@ -20,6 +22,14 @@ namespace GW2_Addon_Manager
         {
             get { return _closeBtnEnabled; }
             set { _closeBtnEnabled = value; propertyChanged($"{nameof(CloseBtnEnabled)}"); }
+        }
+        /// <summary>
+        /// Binding for whether the "BACK" button is enabled.
+        /// </summary>
+        public bool BackBtnEnabled
+        {
+            get { return _backBtnEnabled; }
+            set { _backBtnEnabled = value; propertyChanged($"{nameof(BackBtnEnabled)}"); }
         }
         /// <summary>
         /// Binding for the label above the progress bar.
@@ -37,7 +47,6 @@ namespace GW2_Addon_Manager
             get { return _progress; }
             set { _progress = value; propertyChanged($"{nameof(DownloadProgress)}"); }
         }
-
 
         /********** Class Structure/Other Methods **********/
 
@@ -65,6 +74,9 @@ namespace GW2_Addon_Manager
             onlyInstance = this;
             ProgBarLabel = "Updating Add-Ons";
             CloseBtnEnabled = false;
+            BackBtnEnabled = false;
+
+
         }
         /// <summary>
         /// Accessor for the one instance of this class; if the instance has not been initialized, does that before returning it.

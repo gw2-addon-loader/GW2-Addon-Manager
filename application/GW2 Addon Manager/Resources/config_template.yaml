@@ -2,7 +2,9 @@ application_version: v1.1.1
 loader_version:
 bin_folder:
 isupdate: true
+launch_game: false
 game_path: C:\Program Files\Guild Wars 2
+exe_name:
 default_configuration:
   d3d9_wrapper: false
 version:
