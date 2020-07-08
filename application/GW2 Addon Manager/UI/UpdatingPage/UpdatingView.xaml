@@ -58,24 +58,63 @@
             </StackPanel>
         </Border>
 
-        <Label Grid.Row ="3" Margin="45,0,0,0" Name="currentTask" Content="{Binding ProgBarLabel}" VerticalAlignment="Top" FontFamily="Leelawadee UI" FontSize="14" Foreground="White" Grid.ColumnSpan="2"/>
-        <ProgressBar Value="{Binding DownloadProgress}" Grid.Row ="3" Margin="50,10,0,0" Width="750" Height="10" Name="overall_progressBar" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#E53DBDC3" Grid.ColumnSpan="2"/>
-        <Button Grid.Row ="3"
-                x:Name="closeProgram"
-                Height="45"
-                Width="120"
-                Content="FINISH"
-                HorizontalAlignment="Right"
-                Margin="0,10,175,0"
-                Foreground="White"
-                Background="#CC6795AA"
-                FontFamily="Footlight MT Light"
-                FontSize="16"
-                BorderThickness="1"
-                BorderBrush="#FF6E6E6E"
-                Click="close_clicked"
-                IsEnabled="{Binding CloseBtnEnabled}"
-                Style="{StaticResource BigContentButton}"
-                />
+        <Label Grid.Row ="3" Margin="45,0,0,0" Name="currentTask" Content="{Binding ProgBarLabel}" VerticalAlignment="Top" FontFamily="Leelawadee UI" FontSize="14" Foreground="White"/>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ProgressBar Value="{Binding DownloadProgress}" Grid.RowSpan="2" Grid.Column="0" Margin="50,10,10,10" Height="10" Name="overall_progressBar" VerticalAlignment="Center" Foreground="#E53DBDC3"/>
+            <Button Grid.Column="1"
+                    x:Name="back"
+                    Height="45"
+                    Width="120"
+                    Content="BACK"
+                    Margin="5"
+                    Foreground="White"
+                    Background="DimGray"
+                    FontFamily="Footlight MT Light"
+                    FontSize="16"
+                    BorderThickness="1"
+                    BorderBrush="#FF6E6E6E"
+                    Click="back_clicked"
+                    IsEnabled="{Binding BackBtnEnabled}"
+                    Style="{StaticResource BigContentButton}"
+                    />
+            <Button Grid.Column="2"
+                    x:Name="closeProgram"
+                    Height="45"
+                    Width="120"
+                    Content="CLOSE"
+                    Margin="5, 5, 100, 5"
+                    Foreground="White"
+                    Background="#CC6795AA"
+                    FontFamily="Footlight MT Light"
+                    FontSize="16"
+                    BorderThickness="1"
+                    BorderBrush="#FF6E6E6E"
+                    Click="close_clicked"
+                    IsEnabled="{Binding CloseBtnEnabled}"
+                    Style="{StaticResource BigContentButton}"
+                    />
+            <CheckBox x:Name="launchOnClose"
+                      Content="Launch game when closing"
+                      Foreground="White"
+                      Grid.Row="2"
+                      Grid.Column="1"
+                      Grid.ColumnSpan="2"
+                      FontFamily="Footlight MT Light"
+                      FontSize="16"
+                      VerticalAlignment="Center"
+                      VerticalContentAlignment="Center"
+                      Margin="5">
+            </CheckBox>
+        </Grid>
+        
     </Grid>
 </Page>

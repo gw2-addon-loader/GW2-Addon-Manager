@@ -81,7 +81,16 @@ namespace GW2_Addon_Manager
 
         /***** UPDATE button *****/
         private void update_button_clicked(object sender, RoutedEventArgs e)
-        {        
+        {
+            //If bin folder doesn't exist then LoaderSetup intialization will fail.
+            var userConfig = Configuration.getConfigAsYAML();
+            if (userConfig.bin_folder == null)
+            {
+                MessageBox.Show("Unable to locate Guild Wars 2 /bin/ or /bin64/ folder." + Environment.NewLine + "Please verify Game Path is correct.",
+                                "Unable to Update", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             List<AddonInfoFromYaml> selectedAddons = new List<AddonInfoFromYaml>();
 
             AddonInfoFromYaml wrapper = AddonYamlReader.getAddonInInfo("d3d9_wrapper");
