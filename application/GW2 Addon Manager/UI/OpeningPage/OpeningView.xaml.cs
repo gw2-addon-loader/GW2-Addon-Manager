@@ -36,6 +36,11 @@ namespace GW2_Addon_Manager
         }
 
 
+        //TODO: add handler like LinksIndexChanged
+
+
+
+
         /**** What Add-On Is Selected ****/
         /// <summary>
         /// Takes care of description page text updating

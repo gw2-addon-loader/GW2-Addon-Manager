@@ -193,6 +193,40 @@
                         <LineBreak/>
                         <Run Text="managed by this addon manager."/>
                     </TextBlock>
+                    <!-- list of links grabbed from a .yaml file displayed here, as well as descriptions.
+                    Should also be a selection changed handler put in OpeningView.xaml.cs that changes the text in the description box -->
+                    <!--
+                    <ListBox Name="links"
+                       Height="215"
+                       ItemsSource="{Binding <>}"
+                       ItemContainerStyle="{StaticResource AddonListItem}"
+                       SelectionChanged="LinksSelectedIndexChanged"
+                       BorderThickness="0"
+                       Background="WhiteSmoke"
+                       Style="{DynamicResource ScrollableAddonListBox}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" ToolTip="{Binding <>}">
+                                    <CheckBox Name="<>"
+                            Padding="5,5,0,5"
+                            VerticalAlignment="Center"
+                            IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                            Style="{StaticResource AddonListCheckBox}"
+                                      />
+                                    <Label Name="<>"
+                             Content="{Binding <>}"
+                             VerticalAlignment="Center"
+                             FontFamily="Microsoft YaHei UI"
+                             Foreground="DimGray"
+                             FontWeight="Bold"
+                             FontSize="13"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    
+                    
+                    -->
                     <Label FontSize="14" FontFamily="Microsoft YaHei UI" Foreground="DimGray">
                         <Hyperlink NavigateUri="http://www.gw2taco.com/" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None" FocusVisualStyle="{x:Null}">
                             <TextBlock Text="- GW2 TacO"/>
