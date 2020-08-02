@@ -15,6 +15,7 @@ namespace GW2_Addon_Manager
         string fileName;
         UserConfig userConfig;
         string latestLoaderVersion;
+        string loader_destination;
 
         /// <summary>
         /// Constructor; also sets some UI text to indicate that the addon loader is having an update check
@@ -35,9 +36,11 @@ namespace GW2_Addon_Manager
         {
             dynamic releaseInfo = UpdateHelpers.GitReleaseInfo(loader_git_url);
 
+            loader_destination = Path.Combine(loader_game_path, "d3d9.dll");
+
             latestLoaderVersion = releaseInfo.tag_name;
 
-            if (userConfig.loader_version == latestLoaderVersion)
+            if (File.Exists(loader_destination) && userConfig.loader_version == latestLoaderVersion)
                 return;
 
             string downloadLink = releaseInfo.assets[0].browser_download_url;
@@ -63,7 +66,6 @@ namespace GW2_Addon_Manager
         private void Install()
         {
             viewModel.ProgBarLabel = "Installing Addon Loader";
-            string loader_destination = Path.Combine(loader_game_path, "d3d9.dll");
 
             if (File.Exists(loader_destination))
                 File.Delete(loader_destination);
