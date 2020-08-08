@@ -11,7 +11,7 @@ Bug fix and UI changes in 1.2.1. See [releases](https://github.com/fmmmlee/GW2-A
 &nbsp;
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/30479162/71754682-1563d100-2e3c-11ea-8a38-b6b7b6871c61.jpg" alt="v1.0.0-al UI" width="650"/>
+<img src="https://user-images.githubusercontent.com/30479162/89721621-b697a480-d994-11ea-88d7-8b5bc0200272.jpg" alt="v1.2.1 UI" width="650"/>
 </p>
 
 ## Getting Started
