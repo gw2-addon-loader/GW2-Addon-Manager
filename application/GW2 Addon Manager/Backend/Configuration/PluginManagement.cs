@@ -19,10 +19,12 @@ namespace GW2_Addon_Manager
             //precautionary "are you SURE" messages x2
             if (MessageBox.Show(deletemsg, "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 if (MessageBox.Show(secondPrecautionaryMsg, "Absolutely Sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
                     Configuration.DeleteAllAddons();
-
-            //post-delete info message
-            MessageBox.Show("All addons have been removed.", "Reverted to Clean Install", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //post-delete info message
+                    MessageBox.Show("All addons have been removed.", "Reverted to Clean Install", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                    
             Configuration.DisplayAddonStatus();
         }
 

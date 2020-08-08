@@ -36,7 +36,7 @@
         <TextBlock Grid.Row="1" Margin="40,75,0,0" FontSize ="16" Foreground="DimGray" FontFamily="Microsoft YaHei UI Light">
             <Run Text="Guild Wars 2 - Unofficial Add-On Manager"/>
         </TextBlock>
-        <TextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="300,0,0,37" FontFamily="Microsoft YaHei UI Light" FontSize="14">
+        <TextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="320,0,0,37" FontFamily="Microsoft YaHei UI Light" FontSize="14">
             <Run Text="Game Path"/>
         </TextBlock>
 
@@ -120,24 +120,24 @@
             />
         <Button Command="{Binding Path=SetGamePath}"
                 Grid.Row="2"
-                Margin="705,0,0,9"
+                Margin="725,0,0,9"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Content="SET"
-                ToolTip="Sets the game path to the location in the text box"
+                Content="Select Directory"
+                ToolTip="Manage the game at the location in the text box"
                 Background="#FF66A8C7"
                 Foreground="White"
                 FontSize="14"
-                FontFamily="Footlight MT Light"
+                FontFamily="Candara"
                 Height="25"
-                Width="40"
+                
                 BorderThickness="1"
                 BorderBrush="LightGray"
                 Style="{StaticResource BigContentButton}"
             />
         <TextBox Text="{Binding GamePath}"
                  Grid.Row="2"
-                 Margin="300,0,0,10"
+                 Margin="320,0,0,10"
                  HorizontalAlignment="Left"
                  VerticalAlignment="Bottom"
                  Width="400"
@@ -147,10 +147,10 @@
                  FontSize="16"
                  FontFamily="Microsoft JhengHei Light"
                  />
-        <Border Grid.Row="2" Width="250" Height="350" HorizontalAlignment="Left" Margin="40,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
-            <StackPanel Width="250" Height="325" HorizontalAlignment="Left">
-                <Label FontSize="18" FontFamily="Microsoft YaHei UI" Margin="0,5,0,10" HorizontalAlignment="Center" Foreground="DimGray" Content="Add-Ons"/>
-                <TextBlock Width="225" Height="50" Margin="5,0,0,0" FontSize="13" FontFamily="Microsoft YaHei UI Light">
+        <Border Grid.Row="2" Width="270" Height="350" HorizontalAlignment="Left" Margin="40,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
+            <StackPanel Width="270" Height="325" HorizontalAlignment="Left">
+                <Label FontSize="18" FontFamily="Microsoft YaHei UI" Margin="0,5,0,10" HorizontalAlignment="Center" Foreground="DimGray" Content="Add-Ons" FontWeight="Bold"/>
+                <TextBlock Width="225" Height="50" Margin="5,0,0,0" FontSize="13" FontFamily="Microsoft YaHei UI">
                     <Run Text="Select all addons that you would"/><LineBreak/><Run Text="like to install or update."/>
                 </TextBlock>
                 <ListBox Name="addons"
@@ -184,9 +184,9 @@
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="2" Width="450" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
+        <Border Grid.Row="2" Width="450" Height="280" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="320,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
             <Grid>
-                <DockPanel Width="450" Height="200" HorizontalAlignment="Left">
+                <DockPanel Width="450" Height="280" HorizontalAlignment="Left">
                     <Label FontSize="13"
                            FontFamily="Microsoft YaHei UI"
                            DockPanel.Dock="Right"
@@ -196,15 +196,40 @@
                            Foreground="DimGray"
                            >
                         <Hyperlink NavigateUri="{Binding AddonWebsiteLink}" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None" FocusVisualStyle="{x:Null}">
-                            <TextBlock Text="{Binding DeveloperText}"/>
+                            <TextBlock Text="{Binding DeveloperText}" FontFamily="Microsoft YaHei UI"/>
                         </Hyperlink>
                     </Label>
-                    <Label FontSize="13" FontFamily="Microsoft YaHei UI" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="0,10,0,0" Padding="10,10,0,10" Visibility="{Binding DeveloperVisibility}" Foreground="DimGray" Content="Developer: "/>
+                    <Label FontSize="13" FontFamily="Microsoft YaHei UI" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="0,10,0,0" Padding="10,10,0,10" Visibility="{Binding DeveloperVisibility}" Foreground="DimGray" Content="Developer: " FontWeight="Bold"/>
                 </DockPanel>
-                <StackPanel Width="450" Height="200" HorizontalAlignment="Left">
-                    <Label FontSize="18" FontFamily="Microsoft YaHei UI" Margin="15,10,0,10" HorizontalAlignment="Left" Foreground="DimGray" Content="Description"/>
+                <StackPanel Width="450" Height="280" HorizontalAlignment="Left">
+                    <Label FontSize="18" FontFamily="Microsoft YaHei UI" Margin="15,10,0,10" HorizontalAlignment="Left" Foreground="DimGray" Content="Description" FontWeight="Bold"/>
 
-                    <TextBlock Width="450" Height="140" Padding="20,0,20,20" TextWrapping="Wrap" FontFamily="Microsoft YaHei UI Light" Text="{Binding DescriptionText}" />
+                    <TextBlock 
+                        Name="descriptionTextBlock"
+                        Width="450" 
+                        Height="220"
+                        Padding="20,0,20,20"
+                        TextWrapping="Wrap"
+                        FontFamily="Microsoft JhengHei UI Light"
+                        Text="{Binding DescriptionText, NotifyOnTargetUpdated=True}" FontSize="13">
+                        <!-- Animation -->
+                        <!-- (once working smoothly put into a style) -->
+                        <TextBlock.Triggers>
+                            <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="descriptionTextBlock"
+                                            Storyboard.TargetProperty="(TextBlock.Opacity)"
+                                            From="0.0" To="1.0" Duration="0:0:0.5"
+                                            />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                                
+                            </EventTrigger>
+                        </TextBlock.Triggers>
+                        <!--  -->
+                    </TextBlock>
                 </StackPanel>
             </Grid>
         </Border>
