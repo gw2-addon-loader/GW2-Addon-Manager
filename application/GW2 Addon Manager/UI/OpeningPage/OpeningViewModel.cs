@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using File = System.IO.File;
@@ -35,16 +36,16 @@ namespace GW2_Addon_Manager
         /// </summary>
         public ObservableCollection<int> SelectedAddons
         {
-            get { return _selectedAddons; }
-            set { _selectedAddons = value; propertyChanged($"{nameof(SelectedAddons)}"); }
+            get => _selectedAddons;
+            set => SetProperty(ref _selectedAddons, value);
         }
         /// <summary>
         /// List of Addons
         /// </summary>
         public ObservableCollection<AddonInfoFromYaml> AddonList
         {
-            get { return _addonList;  }
-            set { _addonList = value; propertyChanged($"{nameof(AddonList)}"); }
+            get => _addonList;
+            set => SetProperty(ref _addonList, value);
         }
         
         /***** Description Panel *****/
@@ -53,24 +54,24 @@ namespace GW2_Addon_Manager
         /// </summary>
         public string DescriptionText
         {
-            get { return _description; }
-            set { _description = value; propertyChanged($"{nameof(DescriptionText)}"); }
+            get => _description;
+            set => SetProperty(ref _description, value);
         }
         /// <summary>
         /// The informational text showing the developer of the selected add-on.
         /// </summary>
         public string DeveloperText
         {
-            get { return _developer; }
-            set { _developer = value; propertyChanged($"{nameof(DeveloperText)}"); }
+            get => _developer;
+            set => SetProperty(ref _developer, value);
         }
         /// <summary>
         /// The website link in the description panel.
         /// </summary>
         public string AddonWebsiteLink
         {
-            get { return _addonwebsite; }
-            set { _addonwebsite = value; propertyChanged($"{nameof(AddonWebsiteLink)}"); }
+            get => _addonwebsite;
+            set => SetProperty(ref _addonwebsite, value);
         }
 
         /***** Show/Hide Elements *****/
@@ -79,24 +80,24 @@ namespace GW2_Addon_Manager
         /// </summary>
         public Visibility DeveloperVisibility
         {
-            get { return _developer_visibility; }
-            set { _developer_visibility = value; propertyChanged($"{nameof(DeveloperVisibility)}"); }
+            get => _developer_visibility;
+            set => SetProperty(ref _developer_visibility, value);
         }
         /// <summary>
         /// A string representing a visibility value for the Github releases link.
         /// </summary>
         public Visibility UpdateLinkVisibility
         {
-            get { return _updateLinkVisibility; }
-            set { _updateLinkVisibility = value; propertyChanged($"{nameof(UpdateLinkVisibility)}"); }
+            get => _updateLinkVisibility;
+            set => SetProperty(ref _updateLinkVisibility, value);
         }
         /// <summary>
         /// A string representing a visibility value for the self-update download progress bar.
         /// </summary>
         public Visibility UpdateProgressVisibility
         {
-            get { return _updateProgressVisibility; }
-            set { _updateProgressVisibility = value; propertyChanged($"{nameof(UpdateProgressVisibility)}"); }
+            get => _updateProgressVisibility;
+            set => SetProperty(ref _updateProgressVisibility, value);
         }
 
         /***************************/
@@ -108,7 +109,7 @@ namespace GW2_Addon_Manager
         /// </summary>
         public ICommand SetGamePath
         {
-            get { return new RelayCommand<object>(param => Configuration.SetGamePath(GamePath), true); }
+            get => new RelayCommand<object>(param => Configuration.SetGamePath(GamePath), true);
         }
 
         /* [Configuration Options] drop-down menu */
@@ -118,35 +119,35 @@ namespace GW2_Addon_Manager
         /// </summary>
         public ICommand SetDefaultAddons
         {
-            get { return new RelayCommand<object>(param => Configuration.ChangeAddonConfig(), true); }
+            get => new RelayCommand<object>(param => Configuration.ChangeAddonConfig(), true);
         }
         /// <summary>
         /// Handles the disable selected addons button.
         /// </summary>
         public ICommand DisableSelected
         {
-            get { return new RelayCommand<object>(param =>PluginManagement.DisableSelected(), true); }
+            get => new RelayCommand<object>(param =>PluginManagement.DisableSelected(), true);
         }
         /// <summary>
         /// Handles the enable selected addons button.
         /// </summary>
         public ICommand EnableSelected
         {
-            get { return new RelayCommand<object>(param => PluginManagement.EnableSelected(), true); }
+            get => new RelayCommand<object>(param => PluginManagement.EnableSelected(), true);
         }
         /// <summary>
         /// Handles the delete selected addons button.
         /// </summary>
         public ICommand DeleteSelected
         {
-            get { return new RelayCommand<object>(param => PluginManagement.DeleteSelected(), true); }
+            get => new RelayCommand<object>(param => PluginManagement.DeleteSelected(), true);
         }
         /// <summary>
         /// Handles the Reset to Clean Install button.
         /// </summary>
         public ICommand CleanInstall
         {
-            get { return new RelayCommand<object>(param => PluginManagement.DeleteAll(), true); }
+            get => new RelayCommand<object>(param => PluginManagement.DeleteAll(), true);
         }
 
         /******************************************/
@@ -156,14 +157,14 @@ namespace GW2_Addon_Manager
         /// </summary>
         public ICommand DownloadSelfUpdate
         {
-            get { return new RelayCommand<object>(param => SelfUpdate.Update(), true); }
+            get => new RelayCommand<object>(param => SelfUpdate.Update(), true);
         }
         /// <summary>
         /// Handles the create shortcut button under the options menu. <see cref="cs_logic"/>
         /// </summary>
         public ICommand CreateShortcut
         {
-            get { return new RelayCommand<object>(param => cs_logic(), true); }
+            get => new RelayCommand<object>(param => cs_logic(), true);
         }
 
         /***** Misc *****/
@@ -172,8 +173,8 @@ namespace GW2_Addon_Manager
         /// </summary>
         public int UpdateDownloadProgress
         {
-            get { return updateProgress; }
-            set { updateProgress = value; propertyChanged("UpdateDownloadProgress"); }
+            get => updateProgress;
+            set => SetProperty(ref updateProgress, value);
         }
         /// <summary>
         /// Content of the text box that contains the game path the program is set to look for the game in.
@@ -184,12 +185,22 @@ namespace GW2_Addon_Manager
         /// </summary>
         public string UpdateAvailable
         {
-            get { return _updateAvailable; }
-            set { _updateAvailable = value; propertyChanged("UpdateAvailable"); }
+            get => _updateAvailable;
+            set => SetProperty(ref _updateAvailable, value);
         }
 
 
         /********** Class Structure/Other Methods **********/
+
+        //credit to Freesnow on discord
+        protected bool SetProperty<T>(ref T property, T newValue, [CallerMemberName] string propertyName = null)
+        {
+            if (Equals(property, newValue) || propertyName == null) return false;
+
+            property = newValue;
+            propertyChanged(propertyName);
+            return true;
+        }
 
         /* Singleton Setup */
         private static OpeningViewModel onlyInstance;
@@ -216,7 +227,7 @@ namespace GW2_Addon_Manager
         /// </summary>
         /// <returns>An instance of OpeningViewModel</returns>
         public static OpeningViewModel GetInstance
-        { get { return (onlyInstance == null) ? new OpeningViewModel() : onlyInstance; } }
+        { get => (onlyInstance == null) ? new OpeningViewModel() : onlyInstance; }
 
         /*** Notify UI of Changed Binding Items ***/
         /// <summary>
