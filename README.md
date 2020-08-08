@@ -6,7 +6,7 @@
 A tool to improve the experience of using addons and plugins in Guild Wars 2 by handling installation, updates, and file management behind the scenes.
 
 ### Project Status
-A few feature updates and a fix in 1.2.0. See [releases](https://github.com/fmmmlee/GW2-Addon-Manager/releases) page for latest stable release, project tracking [here](https://github.com/fmmmlee/GW2-Addon-Manager/projects/3).
+Bug fix and UI changes in 1.2.1. See [releases](https://github.com/fmmmlee/GW2-Addon-Manager/releases) page for latest stable release, project tracking [here](https://github.com/fmmmlee/GW2-Addon-Manager/projects/3).
 
 &nbsp;
 
