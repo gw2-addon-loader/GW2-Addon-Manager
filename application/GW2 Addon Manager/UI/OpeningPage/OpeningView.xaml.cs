@@ -76,7 +76,12 @@ namespace GW2_Addon_Manager
         /*****************************   ***   *****************************/
 
 
-
+        //just calls PluginManagement.ForceRedownload(); and then update_button_clicked
+        private void RedownloadAddons(object sender, RoutedEventArgs e)
+        {
+            if(PluginManagement.ForceRedownload())
+                update_button_clicked(sender, e);
+        }
 
 
         /***** UPDATE button *****/
@@ -93,6 +98,7 @@ namespace GW2_Addon_Manager
 
             List<AddonInfoFromYaml> selectedAddons = new List<AddonInfoFromYaml>();
 
+            //the d3d9 wrapper is installed by default and hidden from the list displayed to the user, so it has to be added to this list manually
             AddonInfoFromYaml wrapper = AddonYamlReader.getAddonInInfo("d3d9_wrapper");
             wrapper.folder_name = "d3d9_wrapper";
             selectedAddons.Add(wrapper);

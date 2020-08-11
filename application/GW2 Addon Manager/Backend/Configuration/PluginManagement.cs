@@ -1,10 +1,27 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace GW2_Addon_Manager
 {
     class PluginManagement
     {
+        /// <summary>
+        /// Sets version fields of all installed and enabled addons to a dummy value so they are redownloaded, then starts update process.
+        /// Intended for use if a user borks their install (probably by manually deleting something in the /addons/ folder).
+        /// </summary>
+        public static bool ForceRedownload()
+        {
+            string redownloadmsg = "This will forcibly redownload all installed addons regardless of their version. Do you wish to continue?";
+            if (MessageBox.Show(redownloadmsg, "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                UserConfig config = Configuration.getConfigAsYAML();
+                config.version = config.version.ToDictionary(entry => entry.Key, entry => "dummy value");
+                Configuration.setConfigAsYAML(config);
+                return true;
+            }
+            return false; 
+        }
 
         /// <summary>
         /// Deletes all addons and resets config to default state.
