@@ -34,6 +34,28 @@
             <Label PreviewMouseDown="TitleBar_MouseHeld"/>
         </DockPanel>
 
+        <TextBlock 
+            Margin="40, 0, 0, -10"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Background="Transparent"
+            Foreground="DimGray"
+            >
+            <Hyperlink NavigateUri="https://github.com/fmmmlee/GW2-Addon-Manager/wiki" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None" FocusVisualStyle="{x:Null}">
+                 <TextBlock Text="WIKI " FontFamily="Microsoft YaHei UI"/>
+            </Hyperlink>
+            |
+            <Hyperlink 
+                NavigateUri="https://github.com/fmmmlee/GW2-Addon-Manager/wiki/Other-Useful-Programs" 
+                RequestNavigate="Hyperlink_RequestNavigate" 
+                TextDecorations="None" 
+                FocusVisualStyle="{x:Null}"
+                ToolTip="Programs for GW2 not managed by GW2-UOAOM, such as TacO"
+                >
+                 <TextBlock Text=" Companion Applications" FontFamily="Microsoft YaHei UI"/>
+            </Hyperlink>
+        </TextBlock>
+        
         <Label Grid.Row = "1" FontWeight="Bold" FontSize="60" Foreground="DimGray" Margin="30,0,0,0" FontFamily="Microsoft JhengHei UI Light" Width="Auto" HorizontalAlignment="Left">
             GW2-UOAOM
         </Label>
@@ -78,13 +100,13 @@
                     Margin="5"
                     Foreground="White"
                     Background="DimGray"
-                    FontFamily="Footlight MT Light"
+                    FontFamily="Microsoft YaHei UI"
                     FontSize="16"
                     BorderThickness="1"
                     BorderBrush="#FF6E6E6E"
                     Click="back_clicked"
                     IsEnabled="{Binding BackBtnEnabled}"
-                    Style="{StaticResource BigContentButton}"
+                    Style="{StaticResource BigContentButton}" FontWeight="Bold"
                     />
             <Button Grid.Column="2"
                     x:Name="closeProgram"
@@ -94,13 +116,13 @@
                     Margin="5, 5, 100, 5"
                     Foreground="White"
                     Background="#CC6795AA"
-                    FontFamily="Footlight MT Light"
+                    FontFamily="Microsoft YaHei UI"
                     FontSize="16"
                     BorderThickness="1"
                     BorderBrush="#FF6E6E6E"
                     Click="close_clicked"
                     IsEnabled="{Binding CloseBtnEnabled}"
-                    Style="{StaticResource BigContentButton}"
+                    Style="{StaticResource BigContentButton}" FontWeight="Bold"
                     />
             <CheckBox x:Name="launchOnClose"
                       Content="Launch game when closing"
@@ -108,8 +130,8 @@
                       Grid.Row="2"
                       Grid.Column="1"
                       Grid.ColumnSpan="2"
-                      FontFamily="Footlight MT Light"
-                      FontSize="16"
+                      FontFamily="Microsoft YaHei UI"
+                      FontSize="14"
                       VerticalAlignment="Center"
                       VerticalContentAlignment="Center"
                       Margin="5">

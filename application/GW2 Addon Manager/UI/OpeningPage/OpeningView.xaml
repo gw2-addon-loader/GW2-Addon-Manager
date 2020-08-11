@@ -39,12 +39,7 @@
         <TextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="320,0,0,37" FontFamily="Microsoft YaHei UI Light" FontSize="14">
             <Run Text="Game Path"/>
         </TextBlock>
-           <!--
-            horizontal stackpanel
-                link
-                link
-                link
-            -->
+
         <TextBlock 
             Margin="110, 0, 0, -10"
             HorizontalAlignment="Left"
@@ -309,13 +304,12 @@
                 Foreground="White"
                 Background="#7FABEFF9"
                 Click="update_button_clicked"
-                FontFamily="Footlight MT Light"
-                FontSize="18"
+                FontFamily="Microsoft YaHei UI"
+                FontSize="17"
                 BorderThickness="1"
                 BorderBrush="#FFC9C9C9"
-                Style="{StaticResource BigContentButton}"
-                >
-        </Button>
+                Style="{StaticResource BigContentButton}" FontWeight="Bold"
+                />
 
     </Grid>
 </Page>
