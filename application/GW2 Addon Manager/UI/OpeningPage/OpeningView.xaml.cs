@@ -5,7 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
 
 namespace GW2_Addon_Manager
 {
@@ -120,5 +123,19 @@ namespace GW2_Addon_Manager
             e.Handled = true;
         }
 
+        private void SelectDirectoryBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            using (var pathSelectionDialog = new FolderBrowserDialog
+            {
+                ShowNewFolderButton = false, 
+                SelectedPath = OpeningViewModel.GetInstance.GamePath, 
+                RootFolder = Environment.SpecialFolder.Desktop
+            })
+            {
+                var result = pathSelectionDialog.ShowDialog();
+                if(result == DialogResult.OK)
+                    OpeningViewModel.GetInstance.GamePath = pathSelectionDialog.SelectedPath;
+            }
+        }
     }
 }
