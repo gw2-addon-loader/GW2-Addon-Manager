@@ -111,6 +111,7 @@
     <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
@@ -153,8 +154,12 @@
     <None Include="App\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </None>
+    <Compile Include="App\Configuration\Model\AddonData.cs" />
+    <Compile Include="App\Configuration\Model\AddonsList.cs" />
+    <Compile Include="App\Configuration\Model\UserConfigSection.cs" />
     <Compile Include="Backend\Addons\AddonInfoFromYaml.cs" />
     <Compile Include="Backend\Addons\ApprovedList.cs" />
+    <Compile Include="App\Configuration\ConfigurationManager.cs" />
     <Compile Include="Backend\Configuration\UserConfig.cs" />
     <Compile Include="Backend\Configuration\Configuration.cs" />
     <Compile Include="Backend\Updating\GenericUpdater.cs" />
