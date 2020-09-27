@@ -3,29 +3,31 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Threading.Tasks;
+using GW2_Addon_Manager.App.Configuration;
 
 namespace GW2_Addon_Manager
 {
     class LoaderSetup
     {
-        static readonly string loader_git_url = "https://api.github.com/repos/gw2-addon-loader/loader-core/releases/latest";
+        const string loader_git_url = "https://api.github.com/repos/gw2-addon-loader/loader-core/releases/latest";
+
+        private readonly IConfigurationManager _configurationManager;
         string loader_game_path;
 
         UpdatingViewModel viewModel;
         string fileName;
-        UserConfig userConfig;
         string latestLoaderVersion;
         string loader_destination;
 
         /// <summary>
         /// Constructor; also sets some UI text to indicate that the addon loader is having an update check
         /// </summary>
-        public LoaderSetup()
+        public LoaderSetup(IConfigurationManager configurationManager)
         {
+            _configurationManager = configurationManager;
             viewModel = UpdatingViewModel.GetInstance;
             viewModel.ProgBarLabel = "Checking for updates to Addon Loader";
-            userConfig = Configuration.getConfigAsYAML();
-            loader_game_path = Path.Combine(userConfig.game_path, userConfig.bin_folder);
+            loader_game_path = Path.Combine(configurationManager.UserConfig.GamePath, configurationManager.UserConfig.BinFolder);
         }
 
         /// <summary>
@@ -40,7 +42,7 @@ namespace GW2_Addon_Manager
 
             latestLoaderVersion = releaseInfo.tag_name;
 
-            if (File.Exists(loader_destination) && userConfig.loader_version == latestLoaderVersion)
+            if (File.Exists(loader_destination) && _configurationManager.UserConfig.LoaderVersion == latestLoaderVersion)
                 return;
 
             string downloadLink = releaseInfo.assets[0].browser_download_url;
@@ -72,9 +74,8 @@ namespace GW2_Addon_Manager
             
             ZipFile.ExtractToDirectory(fileName, loader_game_path);
 
-            userConfig.loader_version = latestLoaderVersion;
-
-            Configuration.setConfigAsYAML(userConfig);
+            _configurationManager.UserConfig.LoaderVersion = latestLoaderVersion;
+            _configurationManager.SaveConfiguration();
         }
 
 

@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+using GW2_Addon_Manager.App.Configuration;
 using Newtonsoft.Json;
 
 namespace GW2_Addon_Manager
@@ -14,11 +15,17 @@ namespace GW2_Addon_Manager
         //Approved-addons repository
         private const string RepoUrl = "https://api.github.com/repositories/206052865";
 
+        private readonly IConfigurationManager _configManager;
+
+        public ApprovedList(IConfigurationManager configManager)
+        {
+            _configManager = configManager;
+        }
+
         /// <summary>
         /// Check current version of addon list against remote repo for changes and fetch them
         /// </summary>
-        /// <param name="cfg">User's application configuration found in config.yaml</param>
-        public static void FetchListFromRepo(UserConfig cfg)
+        public void FetchListFromRepo()
         {
             const string tempFileName = "addonlist";
             var client = new WebClient();
@@ -33,7 +40,7 @@ namespace GW2_Addon_Manager
             {
                 if (info.Name != "master") continue;
 
-                if (info.Commit.Sha == cfg.current_addon_list) return;
+                if (info.Commit.Sha == _configManager.UserConfig.AddonsList.Hash) return;
 
                 master = info.Commit.Sha;
                 break;
@@ -62,39 +69,39 @@ namespace GW2_Addon_Manager
             }
 
             //updating version in config file
-            cfg.current_addon_list = master;
-            Configuration.setConfigAsYAML(cfg);
+            _configManager.UserConfig.AddonsList.Hash = master;
+            _configManager.SaveConfiguration();
 
             //cleanup
             Directory.Delete(downloaded, true);
             File.Delete(tempFileName);
         }
 
-
         /// <summary>
         /// Scans resources/addons directory to populate a collection used for displaying the list of available addons on the UI.
         /// </summary>
         /// <returns>A list of AddonInfo objects representing all approved add-ons.</returns>
-        public static ObservableCollection<AddonInfoFromYaml> GenerateAddonList()
+        public ObservableCollection<AddonInfoFromYaml> GenerateAddonList()
         {
-            UserConfig userConfig = Configuration.getConfigAsYAML();
-            FetchListFromRepo(userConfig);
-            ObservableCollection<AddonInfoFromYaml> Addons = new ObservableCollection<AddonInfoFromYaml>(); //List of AddonInfo objects
-
-            string[] AddonDirectories = Directory.GetDirectories(AddonFolder);  //Names of addon subdirectories in /resources/addons
-            foreach (string addonFolderName in AddonDirectories)
+            FetchListFromRepo();
+            
+            var addons = new ObservableCollection<AddonInfoFromYaml>(); //List of AddonInfo objects
+            var addonDirectories = Directory.GetDirectories(AddonFolder);  //Names of addon subdirectories in /resources/addons
+            var installedAddonsNames = _configManager.UserConfig.AddonsList
+                .Where(a => a.Installed)
+                .Select(a => a.Name)
+                .ToList();
+            foreach (var addonFolderName in addonDirectories)
             {
-                if (addonFolderName != "resources\\addons\\d3d9_wrapper")
-                {
-                    AddonInfoFromYaml temp = AddonYamlReader.getAddonInInfo(addonFolderName.Replace(AddonFolder + "\\", ""));
-                    temp.folder_name = addonFolderName.Replace(AddonFolder + "\\", "");
-                    if (userConfig.default_configuration.ContainsKey(temp.folder_name) && userConfig.default_configuration[temp.folder_name])
-                        temp.IsSelected = true;
-                    Addons.Add(temp);       //retrieving info from each addon subdirectory's update.yaml file and adding it to the list
-                }
+                if (addonFolderName == "resources\\addons\\d3d9_wrapper") continue;
+                
+                var temp = AddonYamlReader.getAddonInInfo(addonFolderName.Replace(AddonFolder + "\\", ""));
+                temp.folder_name = addonFolderName.Replace(AddonFolder + "\\", "");
+                temp.IsSelected = installedAddonsNames.Contains(temp.addon_name);
+                addons.Add(temp);       //retrieving info from each addon subdirectory's update.yaml file and adding it to the list
             }
 
-            return Addons;
+            return addons;
         }
 
         private struct BranchInfo

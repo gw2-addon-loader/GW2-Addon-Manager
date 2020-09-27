@@ -4,7 +4,7 @@ namespace GW2_Addon_Manager.App.Configuration.Model
 {
     public class AddonData : ConfigurationElement
     {
-        [ConfigurationProperty(nameof(Name), IsKey = true)]
+        [ConfigurationProperty(nameof(Name), IsKey = true, IsRequired = true)]
         public string Name
         {
             get => (string) this[nameof(Name)];

@@ -63,7 +63,6 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Backend\Configuration\ConfigurationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

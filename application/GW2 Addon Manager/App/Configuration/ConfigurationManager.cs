@@ -1,17 +1,21 @@
-﻿using System.Configuration;
+﻿using System.Reflection;
 using GW2_Addon_Manager.App.Configuration.Model;
 
 namespace GW2_Addon_Manager.App.Configuration
 {
-    public static class ConfigurationManager
+    public class ConfigurationManager : IConfigurationManager
     {
-        public static UserConfigSection UserConfig =>
-            System.Configuration.ConfigurationManager.GetSection(nameof(UserConfigSection)) as UserConfigSection;
-
-        public static void SaveConfiguration()
+        public string CurrentApplicationVersion
         {
-            UserConfig.CurrentConfiguration.Save(ConfigurationSaveMode.Modified);
-            System.Configuration.ConfigurationManager.RefreshSection(UserConfig.SectionInformation.Name);
+            get
+            {
+                var currentAppVersion = Assembly.GetExecutingAssembly().GetName().Version;
+                return $"v{currentAppVersion.Major}.{currentAppVersion.Minor}.{currentAppVersion.Build}";
+            }
         }
+
+        public UserConfig UserConfig => Properties.Settings.Default.UserConfig ?? new UserConfig();
+
+        public void SaveConfiguration() => Properties.Settings.Default.Save();
     }
 }

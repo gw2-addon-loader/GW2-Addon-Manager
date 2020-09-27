@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using GW2_Addon_Manager.App.Configuration;
 
 namespace GW2_Addon_Manager
 {
@@ -17,15 +18,23 @@ namespace GW2_Addon_Manager
         static string releases_url = "https://github.com/fmmmlee/GW2-Addon-Manager/releases";
         static string UpdateNotificationFile = "updatenotification.txt";
 
+        private readonly IConfigurationManager _configurationManager;
+        private readonly PluginManagement _pluginManagement;
+
         /// <summary>
         /// This constructor deals with creating or expanding the configuration file, setting the DataContext, and checking for application updates.
         /// </summary>
         public OpeningView()
         {
             DataContext = OpeningViewModel.GetInstance;
-            Configuration.CheckSelfUpdates();
-            Configuration.DetermineSystemType();
-            Configuration.DisplayAddonStatus();
+
+            _configurationManager = new ConfigurationManager();
+            var configuration = new Configuration(_configurationManager);
+            configuration.CheckSelfUpdates();
+            configuration.DetermineSystemType();
+            _pluginManagement = new PluginManagement(_configurationManager);
+            _pluginManagement.DisplayAddonStatus();
+
             InitializeComponent();
             //update notification
             if (File.Exists(UpdateNotificationFile))
@@ -79,7 +88,7 @@ namespace GW2_Addon_Manager
         //just calls PluginManagement.ForceRedownload(); and then update_button_clicked
         private void RedownloadAddons(object sender, RoutedEventArgs e)
         {
-            if(PluginManagement.ForceRedownload())
+            if(_pluginManagement.ForceRedownload())
                 update_button_clicked(sender, e);
         }
 
@@ -88,8 +97,7 @@ namespace GW2_Addon_Manager
         private void update_button_clicked(object sender, RoutedEventArgs e)
         {
             //If bin folder doesn't exist then LoaderSetup intialization will fail.
-            var userConfig = Configuration.getConfigAsYAML();
-            if (userConfig.bin_folder == null)
+            if (_configurationManager.UserConfig.BinFolder == null)
             {
                 MessageBox.Show("Unable to locate Guild Wars 2 /bin/ or /bin64/ folder." + Environment.NewLine + "Please verify Game Path is correct.",
                                 "Unable to Update", MessageBoxButton.OK, MessageBoxImage.Warning);
