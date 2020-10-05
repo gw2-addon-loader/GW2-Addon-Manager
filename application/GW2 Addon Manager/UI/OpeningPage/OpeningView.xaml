@@ -146,7 +146,8 @@
             Command="{Binding Path=DownloadSelfUpdate}"
             ToolTip="This will download the application update and then restart the program."
             />
-        <Button Command="{Binding Path=SetGamePath}"
+        <Button Name="SelectDirectoryBtn"
+                Click="SelectDirectoryBtn_OnClick"
                 Grid.Row="2"
                 Margin="725,0,0,9"
                 HorizontalAlignment="Left"
@@ -158,8 +159,6 @@
                 FontSize="14"
                 FontFamily="Candara"
                 Height="25"
-                
-                BorderThickness="1"
                 BorderBrush="LightGray"
                 Style="{StaticResource BigContentButton}"
             />
