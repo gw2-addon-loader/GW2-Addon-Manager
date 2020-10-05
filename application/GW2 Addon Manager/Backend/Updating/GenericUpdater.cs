@@ -219,7 +219,7 @@ namespace GW2_Addon_Manager
                 {
                     if (addon_info.install_mode != "arc")
                     {
-                        Directory.Move(
+                        FileSystem.MoveDirectory(
                             Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name),
                             Path.Combine("Disabled Plugins", addon_info.folder_name)
                             );
@@ -273,10 +273,10 @@ namespace GW2_Addon_Manager
                     if (addon_info.install_mode != "arc")
                     {
                         //non-arc
-                        Directory.Move(
-                        Path.Combine("Disabled Plugins", addon_info.folder_name),
-                        Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name)
-                        );
+                        FileSystem.MoveDirectory(
+                            Path.Combine("Disabled Plugins", addon_info.folder_name),
+                            Path.Combine(Path.Combine(info.game_path, "addons"), addon_info.folder_name)
+                            );
                     }
                     else
                     {
