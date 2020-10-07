@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -125,17 +126,11 @@ namespace GW2_Addon_Manager
 
         private void SelectDirectoryBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            using (var pathSelectionDialog = new FolderBrowserDialog
-            {
-                ShowNewFolderButton = false, 
-                SelectedPath = OpeningViewModel.GetInstance.GamePath, 
-                RootFolder = Environment.SpecialFolder.Desktop
-            })
-            {
-                var result = pathSelectionDialog.ShowDialog();
-                if(result == DialogResult.OK)
-                    OpeningViewModel.GetInstance.GamePath = pathSelectionDialog.SelectedPath;
-            }
+            var pathSelectionDialog = new CommonOpenFileDialog();
+            pathSelectionDialog.IsFolderPicker = true;
+            CommonFileDialogResult result = pathSelectionDialog.ShowDialog();
+            if (result == (CommonFileDialogResult)1)
+                OpeningViewModel.GetInstance.GamePath = pathSelectionDialog.FileName;
         }
     }
 }
