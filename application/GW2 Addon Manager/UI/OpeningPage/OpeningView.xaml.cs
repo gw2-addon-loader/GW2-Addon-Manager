@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using GW2_Addon_Manager.App.Configuration;
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
 
 namespace GW2_Addon_Manager
 {
@@ -128,5 +132,13 @@ namespace GW2_Addon_Manager
             e.Handled = true;
         }
 
+        private void SelectDirectoryBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            var pathSelectionDialog = new CommonOpenFileDialog();
+            pathSelectionDialog.IsFolderPicker = true;
+            CommonFileDialogResult result = pathSelectionDialog.ShowDialog();
+            if (result == (CommonFileDialogResult)1)
+                OpeningViewModel.GetInstance.GamePath = pathSelectionDialog.FileName;
+        }
     }
 }

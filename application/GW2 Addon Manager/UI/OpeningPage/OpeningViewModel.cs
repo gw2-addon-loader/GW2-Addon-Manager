@@ -108,14 +108,6 @@ namespace GW2_Addon_Manager
         /***************************/
         /***** Button Handlers *****/
         /***************************/
-        /// <summary>
-        /// Handles button commands for the "set" button next to the game path text field in the opening screen.
-        /// <see cref="Configuration.SetGamePath(string)"/>
-        /// </summary>
-        public ICommand SetGamePath
-        {
-            get => new RelayCommand<object>(param => _configuration.SetGamePath(GamePath), true);
-        }
 
         /* [Configuration Options] drop-down menu */
         
@@ -174,10 +166,22 @@ namespace GW2_Addon_Manager
             get => updateProgress;
             set => SetProperty(ref updateProgress, value);
         }
+
         /// <summary>
         /// Content of the text box that contains the game path the program is set to look for the game in.
         /// </summary>
-        public string GamePath { get; set; }
+        public string GamePath
+        {
+            get => _gamePath;
+            set
+            {
+                if (value == _gamePath) return;
+                SetProperty(ref _gamePath, value);
+                Configuration.SetGamePath(GamePath);
+            }
+        }
+        private string _gamePath;
+
         /// <summary>
         /// A string that is assigned a value if there is an update available.
         /// </summary>
