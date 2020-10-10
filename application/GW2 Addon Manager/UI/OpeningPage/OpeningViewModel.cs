@@ -120,13 +120,6 @@ namespace GW2_Addon_Manager
         /* [Configuration Options] drop-down menu */
         
         /// <summary>
-        /// Handles button commands for the button to make the current add-on selection the default.
-        /// </summary>
-        public ICommand SetDefaultAddons
-        {
-            get => new RelayCommand<object>(param => Configuration.ChangeAddonConfig(), true);
-        }
-        /// <summary>
         /// Handles the disable selected addons button.
         /// </summary>
         public ICommand DisableSelected

@@ -24,14 +24,6 @@ namespace GW2_Addon_Manager
         }
 
         /// <summary>
-        /// <c>ChangeAddonConfig</c> writes the default add-ons section of the configuration file found at <c>config_file_path</c> using
-        /// values found in the OpeningViewModel, which can be set by the user.
-        /// </summary>
-        public static void ChangeAddonConfig()
-        {
-        }
-
-        /// <summary>
         /// <c>SetGamePath</c> both sets the game path for the current application session to <paramref name="path"/> and records it in the configuration file.
         /// </summary>
         /// <param name="path">The game path.</param>

@@ -105,7 +105,7 @@ namespace GW2_Addon_Manager
             foreach (var addon in OpeningViewModel.GetInstance.AddonList)
             {
                 var addonConfig =
-                    _configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addon.addon_name);
+                    _configurationManager.UserConfig.AddonsList[addon.folder_name];
                 if (addonConfig == null) continue;
 
                 addon.addon_name = AddonYamlReader.getAddonInInfo(addon.folder_name).addon_name;

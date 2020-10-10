@@ -12,8 +12,15 @@ namespace GW2_Addon_Manager.App.Configuration.Model
     public class AddonsList : IEnumerable<AddonData>, IXmlSerializable
     {
         private readonly Dictionary<string, AddonData> _internalCollection = new Dictionary<string, AddonData>();
-
-        public AddonData this[string addonName] => _internalCollection[addonName];
+        
+        public AddonData this[string addonName]
+        {
+            get
+            {
+                var valueExists = _internalCollection.TryGetValue(addonName, out var addonData);
+                return valueExists ? addonData : null;
+            }
+        }
 
         public string Hash { get; set; }
 

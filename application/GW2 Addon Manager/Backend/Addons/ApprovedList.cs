@@ -87,18 +87,15 @@ namespace GW2_Addon_Manager
             
             var addons = new ObservableCollection<AddonInfoFromYaml>(); //List of AddonInfo objects
             var addonDirectories = Directory.GetDirectories(AddonFolder);  //Names of addon subdirectories in /resources/addons
-            var installedAddonsNames = _configManager.UserConfig.AddonsList
-                .Where(a => a.Installed)
-                .Select(a => a.Name)
-                .ToList();
+
             foreach (var addonFolderName in addonDirectories)
             {
                 if (addonFolderName == "resources\\addons\\d3d9_wrapper") continue;
                 
-                var temp = AddonYamlReader.getAddonInInfo(addonFolderName.Replace(AddonFolder + "\\", ""));
-                temp.folder_name = addonFolderName.Replace(AddonFolder + "\\", "");
-                temp.IsSelected = installedAddonsNames.Contains(temp.addon_name);
-                addons.Add(temp);       //retrieving info from each addon subdirectory's update.yaml file and adding it to the list
+                var addonInfo = AddonYamlReader.getAddonInInfo(addonFolderName.Replace(AddonFolder + "\\", ""));
+                addonInfo.folder_name = addonFolderName.Replace(AddonFolder + "\\", "");
+                addonInfo.IsSelected = _configManager.UserConfig.AddonsList[addonInfo.folder_name]?.Installed ?? false;
+                addons.Add(addonInfo);       //retrieving info from each addon subdirectory's update.yaml file and adding it to the list
             }
 
             return addons;
