@@ -177,7 +177,7 @@ namespace GW2_Addon_Manager
             {
                 if (value == _gamePath) return;
                 SetProperty(ref _gamePath, value);
-                Configuration.SetGamePath(GamePath);
+                _configurationManager.UserConfig.GamePath = value;
             }
         }
         private string _gamePath;
