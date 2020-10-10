@@ -22,16 +22,5 @@ namespace GW2_Addon_Manager.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::GW2_Addon_Manager.App.Configuration.Model.UserConfig UserConfig {
-            get {
-                return ((global::GW2_Addon_Manager.App.Configuration.Model.UserConfig)(this["UserConfig"]));
-            }
-            set {
-                this["UserConfig"] = value;
-            }
-        }
     }
 }

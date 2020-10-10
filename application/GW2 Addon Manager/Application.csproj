@@ -156,6 +156,7 @@
     </None>
     <Compile Include="App\Configuration\Model\AddonData.cs" />
     <Compile Include="App\Configuration\Model\AddonsList.cs" />
+    <Compile Include="App\Configuration\Model\OldConfig.cs" />
     <Compile Include="App\Configuration\Model\UserConfig.cs" />
     <Compile Include="App\Configuration\IConfigurationManager.cs" />
     <Compile Include="Backend\Addons\AddonInfoFromYaml.cs" />

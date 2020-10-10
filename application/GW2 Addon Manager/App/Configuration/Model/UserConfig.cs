@@ -1,12 +1,10 @@
-﻿using System.Configuration;
+﻿using System;
 
 namespace GW2_Addon_Manager.App.Configuration.Model
 {
-    [SettingsSerializeAs(SettingsSerializeAs.Xml)]
+    [Serializable]
     public class UserConfig
     {
-        public string ApplicationVersion { get; set; }
-
         public string LoaderVersion { get; set; }
 
         public string BinFolder { get; set; }

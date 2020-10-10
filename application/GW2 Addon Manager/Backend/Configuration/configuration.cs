@@ -54,22 +54,13 @@ namespace GW2_Addon_Manager
         /// </summary>
         public void CheckSelfUpdates()
         {
-            var currentFilesVersion = _configurationManager.CurrentApplicationVersion;
-            var versionFromConfig = _configurationManager.UserConfig.ApplicationVersion;
-            if (versionFromConfig != currentFilesVersion)
-            {
-                _configurationManager.UserConfig.ApplicationVersion = currentFilesVersion;
-                _configurationManager.SaveConfiguration();
-            }
-
             var release_info = UpdateHelpers.GitReleaseInfo(applicationRepoUrl);
-            string latestVersion = release_info.tag_name;
+            var latestVersion = release_info.tag_name;
 
-            if (latestVersion != versionFromConfig)
-            {
-                OpeningViewModel.GetInstance.UpdateAvailable = latestVersion + " available!";
-                OpeningViewModel.GetInstance.UpdateLinkVisibility = Visibility.Visible;
-            }
+            if (latestVersion == _configurationManager.ApplicationVersion) return;
+
+            OpeningViewModel.GetInstance.UpdateAvailable = latestVersion + " available!";
+            OpeningViewModel.GetInstance.UpdateLinkVisibility = Visibility.Visible;
         }
 
         /// <summary>
