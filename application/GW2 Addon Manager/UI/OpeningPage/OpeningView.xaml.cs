@@ -8,6 +8,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using GW2_Addon_Manager.App.Configuration;
+using GW2_Addon_Manager.Dependencies.FileSystem;
+using GW2_Addon_Manager.Dependencies.WebClient;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 
@@ -18,33 +20,45 @@ namespace GW2_Addon_Manager
     /// </summary>
     public partial class OpeningView : Page
     {
-        static string releases_url = "https://github.com/fmmmlee/GW2-Addon-Manager/releases";
-        static string UpdateNotificationFile = "updatenotification.txt";
+        const string releases_url = "https://github.com/fmmmlee/GW2-Addon-Manager/releases";
+        const string UpdateNotificationFile = "updatenotification.txt";
 
         private readonly IConfigurationManager _configurationManager;
         private readonly PluginManagement _pluginManagement;
+        private readonly OpeningViewModel _viewModel;
 
         /// <summary>
         /// This constructor deals with creating or expanding the configuration file, setting the DataContext, and checking for application updates.
         /// </summary>
         public OpeningView()
         {
-            DataContext = OpeningViewModel.GetInstance;
+            _viewModel = OpeningViewModel.GetInstance;
+            DataContext = _viewModel;
 
             _configurationManager = new ConfigurationManager();
-            var configuration = new Configuration(_configurationManager);
-            configuration.CheckSelfUpdates();
+
+            var configuration = new Configuration(_configurationManager, new UpdateHelper(new WebClientWrapper()), new FileSystemManager());
             configuration.DetermineSystemType();
+
             _pluginManagement = new PluginManagement(_configurationManager);
             _pluginManagement.DisplayAddonStatus();
 
             InitializeComponent();
+            SetUpdateButtonVisibility(configuration);
+
             //update notification
             if (File.Exists(UpdateNotificationFile))
             {
                 Process.Start(releases_url);
                 File.Delete(UpdateNotificationFile);
             }
+        }
+
+        private void SetUpdateButtonVisibility(Configuration configuration)
+        {
+            if (!configuration.CheckIfNewVersionIsAvailable(out var latestVersion)) return;
+            _viewModel.UpdateAvailable = latestVersion + " available!";
+            _viewModel.UpdateLinkVisibility = Visibility.Visible;
         }
 
 
@@ -71,7 +85,7 @@ namespace GW2_Addon_Manager
                 Application.Current.MainWindow.DragMove();
         }
 
-        
+
 
         //race condition with processes
         private void close_clicked(object sender, RoutedEventArgs e)
@@ -91,7 +105,7 @@ namespace GW2_Addon_Manager
         //just calls PluginManagement.ForceRedownload(); and then update_button_clicked
         private void RedownloadAddons(object sender, RoutedEventArgs e)
         {
-            if(_pluginManagement.ForceRedownload())
+            if (_pluginManagement.ForceRedownload())
                 update_button_clicked(sender, e);
         }
 
@@ -133,10 +147,9 @@ namespace GW2_Addon_Manager
 
         private void SelectDirectoryBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            var pathSelectionDialog = new CommonOpenFileDialog();
-            pathSelectionDialog.IsFolderPicker = true;
-            CommonFileDialogResult result = pathSelectionDialog.ShowDialog();
-            if (result == (CommonFileDialogResult)1)
+            var pathSelectionDialog = new CommonOpenFileDialog { IsFolderPicker = true };
+            var result = pathSelectionDialog.ShowDialog();
+            if (result == CommonFileDialogResult.Ok)
                 OpeningViewModel.GetInstance.GamePath = pathSelectionDialog.FileName;
         }
     }

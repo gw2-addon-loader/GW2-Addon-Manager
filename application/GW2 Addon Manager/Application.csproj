@@ -147,11 +147,17 @@
     <Compile Include="Backend\Configuration\Configuration.cs" />
     <Compile Include="Backend\Updating\GenericUpdater.cs" />
     <Compile Include="Backend\LoaderSetup\LoaderSetup.cs" />
+    <Compile Include="Dependencies\FileSystem\FileSystemManager.cs" />
+    <Compile Include="Dependencies\FileSystem\IFileSystemManager.cs" />
+    <Compile Include="Dependencies\WebClient\IWebClient.cs" />
+    <Compile Include="Dependencies\WebClient\WebClientWrapper.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\OpeningPage\OpeningViewModel.cs" />
     <Compile Include="Backend\Configuration\PluginManagement.cs" />
     <Compile Include="Backend\Configuration\SelfUpdate.cs" />
     <Compile Include="Backend\Addons\AddonYamlReader.cs" />
-    <Compile Include="Backend\Updating\UpdateHelpers.cs" />
+    <Compile Include="Backend\Updating\UpdateHelper.cs" />
     <Compile Include="UI\UpdatingPage\UpdatingView.xaml.cs">
       <DependentUpon>UpdatingView.xaml</DependentUpon>
     </Compile>

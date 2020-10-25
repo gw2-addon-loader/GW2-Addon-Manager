@@ -4,19 +4,26 @@ using System.Linq;
 using System.Net;
 using System.Windows;
 using GW2_Addon_Manager.App.Configuration;
+using GW2_Addon_Manager.Dependencies.WebClient;
 
 namespace GW2_Addon_Manager
 {
-    class UpdateHelpers
+    public class UpdateHelper
     {
-        public static dynamic GitReleaseInfo(string gitUrl)
+        private readonly IWebClient _webClient;
+
+        public UpdateHelper(IWebClient webClient)
         {
-            var client = new WebClient();
-            client.Headers.Add("User-Agent", "request");
+            _webClient = webClient;
+        }
+
+        public virtual dynamic GitReleaseInfo(string gitUrl)
+        {
+            _webClient.Headers.Add("User-Agent", "request");
             try
             {
-                string release_info_json = client.DownloadString(gitUrl);
-                return JsonConvert.DeserializeObject(release_info_json);
+                var releaseInfoJson = _webClient.DownloadString(gitUrl);
+                return JsonConvert.DeserializeObject(releaseInfoJson);
 
             }
             catch (WebException)
@@ -27,7 +34,6 @@ namespace GW2_Addon_Manager
                 Application.Current.Shutdown();
                 return null;
             }
-            
         }
 
         public static async void UpdateAll()

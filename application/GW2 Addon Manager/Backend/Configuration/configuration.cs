@@ -1,8 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Windows;
+﻿using System.IO;
 using GW2_Addon_Manager.App.Configuration;
 using GW2_Addon_Manager.App.Configuration.Model;
+using GW2_Addon_Manager.Dependencies.FileSystem;
 
 namespace GW2_Addon_Manager
 {
@@ -11,27 +10,28 @@ namespace GW2_Addon_Manager
     /// </summary>
     public class Configuration
     {
-        const string applicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
+        const string ApplicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
 
         private readonly IConfigurationManager _configurationManager;
+        private readonly UpdateHelper _updateHelper;
+        private readonly IFileSystemManager _fileSystemManager;
 
-        public Configuration(IConfigurationManager configurationManager)
+        public Configuration(IConfigurationManager configurationManager, UpdateHelper updateHelper, IFileSystemManager fileSystemManager)
         {
             _configurationManager = configurationManager;
+            _updateHelper = updateHelper;
+            _fileSystemManager = fileSystemManager;
         }
 
         /// <summary>
         /// Checks if there is a new version of the application available.
         /// </summary>
-        public void CheckSelfUpdates()
+        public bool CheckIfNewVersionIsAvailable(out string latestVersion)
         {
-            var release_info = UpdateHelpers.GitReleaseInfo(applicationRepoUrl);
-            var latestVersion = release_info.tag_name;
+            var releaseInfo = _updateHelper.GitReleaseInfo(ApplicationRepoUrl);
+            latestVersion = releaseInfo.tag_name;
 
-            if (latestVersion == _configurationManager.ApplicationVersion) return;
-
-            OpeningViewModel.GetInstance.UpdateAvailable = latestVersion + " available!";
-            OpeningViewModel.GetInstance.UpdateLinkVisibility = Visibility.Visible;
+            return latestVersion != _configurationManager.ApplicationVersion;
         }
 
         /// <summary>
@@ -40,14 +40,14 @@ namespace GW2_Addon_Manager
         /// </summary>
         public void DetermineSystemType()
         {
-            if (!Directory.Exists(_configurationManager.UserConfig.GamePath)) return;
+            if (!_fileSystemManager.DirectoryExists(_configurationManager.UserConfig.GamePath)) return;
             
-            if (Directory.Exists(_configurationManager.UserConfig.GamePath + "\\bin64"))
+            if (_fileSystemManager.DirectoryExists(_configurationManager.UserConfig.GamePath + "\\bin64"))
             {
                 _configurationManager.UserConfig.BinFolder= "bin64";
                 _configurationManager.UserConfig.ExeName = "Gw2-64.exe";
             }
-            else if (Directory.Exists(_configurationManager.UserConfig.GamePath + "\\bin"))
+            else if (_fileSystemManager.DirectoryExists(_configurationManager.UserConfig.GamePath + "\\bin"))
             {
                 _configurationManager.UserConfig.BinFolder = "bin";
                 _configurationManager.UserConfig.ExeName = "Gw2.exe";
@@ -67,13 +67,13 @@ namespace GW2_Addon_Manager
             _configurationManager.UserConfig.LoaderVersion = null;
 
             //delete disabled plugins folder: ${install dir}/disabled plugins
-            if(Directory.Exists("Disabled Plugins"))
-                Directory.Delete("Disabled Plugins", true);
+            if(_fileSystemManager.DirectoryExists("Disabled Plugins"))
+                _fileSystemManager.DirectoryDelete("Disabled Plugins", true);
             //delete addons: {game folder}/addons
-            if(Directory.Exists(Path.Combine(_configurationManager.UserConfig.GamePath, "addons")))
-                Directory.Delete(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), true);
+            if(_fileSystemManager.DirectoryExists(_fileSystemManager.PathCombine(_configurationManager.UserConfig.GamePath, "addons")))
+                _fileSystemManager.DirectoryDelete(_fileSystemManager.PathCombine(_configurationManager.UserConfig.GamePath, "addons"), true);
             //delete addon loader: {game folder}/{bin/64}/d3d9.dll
-            File.Delete(Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, _configurationManager.UserConfig.BinFolder), "d3d9.dll"));
+            _fileSystemManager.FileDelete(_fileSystemManager.PathCombine(_fileSystemManager.PathCombine(_configurationManager.UserConfig.GamePath, _configurationManager.UserConfig.BinFolder), "d3d9.dll"));
 
             //write cleaned config file
             _configurationManager.SaveConfiguration();
