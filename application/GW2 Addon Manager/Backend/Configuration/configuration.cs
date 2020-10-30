@@ -12,8 +12,6 @@ namespace GW2_Addon_Manager
     /// </summary>
     public class Configuration
     {
-        static readonly string config_file_path = "config.yaml";
-        static readonly string config_template_path = "resources\\config_template.yaml";
         static readonly string applicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
 
         private readonly IConfigurationManager _configurationManager;

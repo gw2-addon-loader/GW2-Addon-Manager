@@ -246,9 +246,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\config_template.yaml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Resource Include="Resources\GW2-UOAOU-UI.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -274,8 +271,6 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(TargetDir)resources\plugins"
-move "$(TargetDir)*.dll" "$(TargetDir)resources\plugins"
-xcopy "$(ProjectDir)\resources\addons" "$(ProjectDir)$(OutDir)\resources\Addons\" /S /Y
-del "$(TargetDir)*.xml"</PostBuildEvent>
+move "$(TargetDir)*.dll" "$(TargetDir)resources\plugins"</PostBuildEvent>
   </PropertyGroup>
 </Project>
