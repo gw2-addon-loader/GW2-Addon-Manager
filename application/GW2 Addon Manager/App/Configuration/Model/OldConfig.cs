@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace GW2_Addon_Manager
+namespace GW2_Addon_Manager.App.Configuration.Model
 {
-    public class UserConfig
+    [Obsolete]
+    public class OldConfig
     {
-
 #pragma warning disable CS0649//disabled warning since these values are set during object construction by YAML deserializer and aren't modified after that
 #pragma warning disable CS1591//purpose of each field should be largely self-explanatory
         public string application_version;

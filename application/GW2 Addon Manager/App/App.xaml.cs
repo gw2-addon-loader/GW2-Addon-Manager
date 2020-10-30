@@ -4,7 +4,7 @@ using System.Net;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace GW2_Addon_Manager
+namespace GW2_Addon_Manager.App
 {
     /// <summary>
     /// Interaction logic for App.xaml. Currently, the functions here are dedicated solely to application-wide exception handling and error logging.

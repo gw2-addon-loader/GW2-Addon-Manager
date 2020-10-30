@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace GW2_Addon_Manager
 {
@@ -17,7 +18,17 @@ namespace GW2_Addon_Manager
 
         //for descriptions of these fields, see /Resources/Addons/template-update.yaml
 #pragma warning disable CS1591 // (Missing XML comment for publicly visible type or member)
-        public bool IsSelected { get; set; }
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                if (value == _isSelected) return;
+                _isSelected = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string developer { get; set; }
         public string website { get; set; }
@@ -25,11 +36,12 @@ namespace GW2_Addon_Manager
         private string _addon_name;
         public string addon_name
         {
-            get { return _addon_name; }
+            get => _addon_name;
             set
             {
+                if (_addon_name == value) return;
                 _addon_name = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(addon_name)));
+                OnPropertyChanged();
             }
         }
         public string description { get; set; }
@@ -48,5 +60,10 @@ namespace GW2_Addon_Manager
         public List<Dictionary<String, String>> alternate_plugin_names { get; set; }
 
         public List<string> additional_flags { get; set; }
+
+        private void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
     }
 }

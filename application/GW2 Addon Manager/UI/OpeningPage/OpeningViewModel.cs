@@ -7,6 +7,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using GW2_Addon_Manager.App.Configuration;
 using File = System.IO.File;
 
 namespace GW2_Addon_Manager
@@ -16,6 +17,10 @@ namespace GW2_Addon_Manager
     /// </summary>
     public class OpeningViewModel : INotifyPropertyChanged
     {
+        private readonly IConfigurationManager _configurationManager;
+        private readonly PluginManagement _pluginManagement;
+        private readonly Configuration _configuration;
+
         /***** private fields for ui bindings *****/
         private ObservableCollection<AddonInfoFromYaml> _addonList;
         private ObservableCollection<int> _selectedAddons;
@@ -107,39 +112,32 @@ namespace GW2_Addon_Manager
         /* [Configuration Options] drop-down menu */
         
         /// <summary>
-        /// Handles button commands for the button to make the current add-on selection the default.
-        /// </summary>
-        public ICommand SetDefaultAddons
-        {
-            get => new RelayCommand<object>(param => Configuration.ChangeAddonConfig(), true);
-        }
-        /// <summary>
         /// Handles the disable selected addons button.
         /// </summary>
         public ICommand DisableSelected
         {
-            get => new RelayCommand<object>(param =>PluginManagement.DisableSelected(), true);
+            get => new RelayCommand<object>(param => _pluginManagement.DisableSelected(), true);
         }
         /// <summary>
         /// Handles the enable selected addons button.
         /// </summary>
         public ICommand EnableSelected
         {
-            get => new RelayCommand<object>(param => PluginManagement.EnableSelected(), true);
+            get => new RelayCommand<object>(param => _pluginManagement.EnableSelected(), true);
         }
         /// <summary>
         /// Handles the delete selected addons button.
         /// </summary>
         public ICommand DeleteSelected
         {
-            get => new RelayCommand<object>(param => PluginManagement.DeleteSelected(), true);
+            get => new RelayCommand<object>(param => _pluginManagement.DeleteSelected(), true);
         }
         /// <summary>
         /// Handles the Reset to Clean Install button.
         /// </summary>
         public ICommand CleanInstall
         {
-            get => new RelayCommand<object>(param => PluginManagement.DeleteAll(), true);
+            get => new RelayCommand<object>(param => _pluginManagement.DeleteAll(), true);
         }
 
         /******************************************/
@@ -179,7 +177,7 @@ namespace GW2_Addon_Manager
             {
                 if (value == _gamePath) return;
                 SetProperty(ref _gamePath, value);
-                Configuration.SetGamePath(GamePath);
+                _configurationManager.UserConfig.GamePath = value;
             }
         }
         private string _gamePath;
@@ -216,7 +214,11 @@ namespace GW2_Addon_Manager
         {
             onlyInstance = this;
 
-            AddonList = ApprovedList.GenerateAddonList();
+            _configurationManager = new ConfigurationManager();
+            _pluginManagement = new PluginManagement(_configurationManager);
+            _configuration = new Configuration(_configurationManager);
+
+            AddonList = new ApprovedList(_configurationManager).GenerateAddonList();
 
             DescriptionText = "Select an add-on to see more information about it.";
             DeveloperVisibility = Visibility.Hidden;
@@ -224,7 +226,7 @@ namespace GW2_Addon_Manager
             UpdateLinkVisibility = Visibility.Hidden;
             UpdateProgressVisibility = Visibility.Hidden;
 
-            GamePath = Configuration.getConfigAsYAML().game_path;
+            GamePath = _configurationManager.UserConfig.GamePath;
         }
         /// <summary>
         /// Fetches the only instance of the OpeningViewModel and creates it if it has not been initialized yet.

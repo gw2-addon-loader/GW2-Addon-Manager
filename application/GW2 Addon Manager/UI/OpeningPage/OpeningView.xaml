@@ -277,10 +277,6 @@
                       Height="30"
                       Template="{StaticResource AddonMenuItemControlTemplate}"
                       Style="{StaticResource AddonMenuItemStyle}">
-                <MenuItem Header="Set Default"
-                          Command="{Binding Path=SetDefaultAddons}"
-                          Style="{StaticResource AddonMenuItemStyle}" Template="{StaticResource AddonMenuItemControlTemplate}"
-                          ToolTip="The selected addons will be automatically selected whenever the program launches"/>
                 <MenuItem Header="Delete" Command="{Binding Path=DeleteSelected}" Style="{StaticResource AddonMenuItemStyle}"
                           Template="{StaticResource AddonMenuItemControlTemplate}"
                           ToolTip="Deletes the selected addons and all associated data"/>

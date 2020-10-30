@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Windows;
+using GW2_Addon_Manager.App.Configuration;
 
 namespace GW2_Addon_Manager
 {
@@ -33,16 +34,18 @@ namespace GW2_Addon_Manager
         {
             UpdatingViewModel viewModel = UpdatingViewModel.GetInstance;
 
-            LoaderSetup settingUp = new LoaderSetup();
+            LoaderSetup settingUp = new LoaderSetup(new ConfigurationManager());
             await settingUp.HandleLoaderUpdate();
 
             List<AddonInfoFromYaml> addons = (List<AddonInfoFromYaml>)Application.Current.Properties["Selected"];
             
+            var configurationManager = new ConfigurationManager();
             foreach (AddonInfoFromYaml addon in addons.Where(add => add != null))
             {
-                GenericUpdater updater = new GenericUpdater(addon);
+                GenericUpdater updater = new GenericUpdater(addon, configurationManager);
             
-                if(!(addon.additional_flags != null && addon.additional_flags.Contains("self-updating") && Configuration.getConfigAsYAML().installed.ContainsKey(addon.folder_name)))
+                if(!(addon.additional_flags != null && addon.additional_flags.Contains("self-updating") 
+                     && configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addon.addon_name)?.Installed == true))
                     await updater.Update();
             }
 

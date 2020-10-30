@@ -2,11 +2,10 @@
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using YamlDotNet.Serialization;
+using GW2_Addon_Manager.App.Configuration;
 
 namespace GW2_Addon_Manager
 {
@@ -15,19 +14,21 @@ namespace GW2_Addon_Manager
     /// </summary>
     public partial class UpdatingView : Page
     {
+        private readonly IConfigurationManager _configurationManager;
 
         /// <summary>
         /// Sets the page's DataContext, initializes it, and begins the update process.
         /// </summary>
         public UpdatingView()
         {
+            _configurationManager = new ConfigurationManager();
             DataContext = UpdatingViewModel.GetInstance;
             InitializeComponent();
 
-            LoaderSetup settingUp = new LoaderSetup();
+            LoaderSetup settingUp = new LoaderSetup(new ConfigurationManager());
             Task.Run(() => UpdateHelpers.UpdateAll());
 
-            launchOnClose.IsChecked = Configuration.getConfigAsYAML().launch_game;
+            launchOnClose.IsChecked = _configurationManager.UserConfig.LaunchGame;
         }
 
         /***************************** Titlebar Window Drag *****************************/
@@ -45,28 +46,27 @@ namespace GW2_Addon_Manager
 
             if ((bool)launchOnClose.IsChecked)
             {
-                string exeLocation = Path.Combine(Configuration.getConfigAsYAML().game_path, Configuration.getConfigAsYAML().exe_name);
+                string exeLocation = Path.Combine(_configurationManager.UserConfig.GamePath, _configurationManager.UserConfig.ExeName);
                 try
                 {
                     Process.Start(exeLocation, "-autologin");
                 }
                 catch (System.ComponentModel.Win32Exception)
                 {
-                    MessageBox.Show($"Unable to launch game as {Configuration.getConfigAsYAML().exe_name} is missing.",
+                    MessageBox.Show($"Unable to launch game as {_configurationManager.UserConfig.ExeName} is missing.",
                                      "Unable to Launch Game",
                                      MessageBoxButton.OK,
                                      MessageBoxImage.Error);
                 }
             }
 
-            UserConfig config = Configuration.getConfigAsYAML();
-            if (config.launch_game != (bool)launchOnClose.IsChecked)
+            if (_configurationManager.UserConfig.LaunchGame != launchOnClose.IsChecked)
             {
-                config.launch_game = (bool)launchOnClose.IsChecked;
-                Configuration.setConfigAsYAML(config);
+                _configurationManager.UserConfig.LaunchGame = (bool)launchOnClose.IsChecked;
+                _configurationManager.SaveConfiguration();
             }
 
-            System.Windows.Application.Current.Shutdown();
+            Application.Current.Shutdown();
         }
 
         private void xbutton_clicked(object sender, RoutedEventArgs e)
