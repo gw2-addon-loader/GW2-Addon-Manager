@@ -139,6 +139,13 @@ namespace GW2_Addon_Manager
         {
             get => new RelayCommand<object>(param => _pluginManagement.DeleteAll(), true);
         }
+        /// <summary>
+        /// Handles the Change Language buttons.
+        /// </summary>
+        public ICommand ChangeLanguage
+        {
+            get => new RelayCommand<string>(param => _configuration.SetCulture(param), true);
+        }
 
         /******************************************/
 
