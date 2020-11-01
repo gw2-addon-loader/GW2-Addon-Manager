@@ -40,6 +40,27 @@ namespace GW2_Addon_Manager
         }
 
         /// <summary>
+        /// <c>SetCulture</c> both sets the culture for the current application session to <paramref name="culture"/> and records it in the configuration file.
+        /// </summary>
+        /// <param name="culture"></param>
+        public void SetCulture(string culture)
+        {
+            Application.Current.Properties["culture"] = culture;
+            _configurationManager.UserConfig.Culture = culture;
+            _configurationManager.SaveConfiguration();
+            RestartApplication();
+        }
+
+        /// <summary>
+        /// Restarts the application.
+        /// </summary>
+        private void RestartApplication()
+        {
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
+        }
+
+        /// <summary>
         /// Checks if there is a new version of the application available.
         /// </summary>
         public void CheckSelfUpdates()
