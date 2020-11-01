@@ -40,9 +40,9 @@ namespace GW2_Addon_Manager
 
         public async Task Update()
         {
-            var enabledAddonsnames =
-                _configurationManager.UserConfig.AddonsList.Where(a => !a.Disabled).Select(a => a.Name);
-            if (enabledAddonsnames.Contains(addon_name))
+            var disabledAddonsNames =
+                _configurationManager.UserConfig.AddonsList.Where(a => a.Disabled).Select(a => a.Name);
+            if (!disabledAddonsNames.Contains(addon_name))
             {
                 if (addon_info.host_type == "github")
                     await GitCheckUpdate();

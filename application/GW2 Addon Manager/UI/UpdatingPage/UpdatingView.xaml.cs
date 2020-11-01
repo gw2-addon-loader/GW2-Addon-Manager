@@ -69,6 +69,12 @@ namespace GW2_Addon_Manager
             Application.Current.Shutdown();
         }
 
+        private void xbutton_clicked(object sender, RoutedEventArgs e)
+        {
+            SelfUpdate.startUpdater();
+            System.Windows.Application.Current.Shutdown();
+        }
+
         private void minimize_clicked(object sender, RoutedEventArgs e)
         {
             (this.Parent as Window).WindowState = WindowState.Minimized;

@@ -1,22 +1,22 @@
-﻿using System.IO;
-using GW2_Addon_Manager.App.Configuration;
+﻿using GW2_Addon_Manager.App.Configuration;
 using GW2_Addon_Manager.App.Configuration.Model;
 using GW2_Addon_Manager.Dependencies.FileSystem;
 
 namespace GW2_Addon_Manager
 {
     /// <summary>
-    /// The <c>configuration</c> class contains various functions dealing with application configuration. 
+    ///     The <c>configuration</c> class contains various functions dealing with application configuration.
     /// </summary>
     public class Configuration
     {
-        const string ApplicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
+        static readonly string ApplicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
 
         private readonly IConfigurationManager _configurationManager;
         private readonly UpdateHelper _updateHelper;
         private readonly IFileSystemManager _fileSystemManager;
 
-        public Configuration(IConfigurationManager configurationManager, UpdateHelper updateHelper, IFileSystemManager fileSystemManager)
+        public Configuration(IConfigurationManager configurationManager, UpdateHelper updateHelper,
+            IFileSystemManager fileSystemManager)
         {
             _configurationManager = configurationManager;
             _updateHelper = updateHelper;
@@ -24,7 +24,7 @@ namespace GW2_Addon_Manager
         }
 
         /// <summary>
-        /// Checks if there is a new version of the application available.
+        ///     Checks if there is a new version of the application available.
         /// </summary>
         public bool CheckIfNewVersionIsAvailable(out string latestVersion)
         {
@@ -35,16 +35,16 @@ namespace GW2_Addon_Manager
         }
 
         /// <summary>
-        /// Attempts to read the game folder and determine whether the game is running on a 64 or 32-bit system.
-        /// Based on that, sets the 'bin_folder' property in the configuration file.
+        ///     Attempts to read the game folder and determine whether the game is running on a 64 or 32-bit system.
+        ///     Based on that, sets the 'bin_folder' property in the configuration file.
         /// </summary>
         public void DetermineSystemType()
         {
             if (!_fileSystemManager.DirectoryExists(_configurationManager.UserConfig.GamePath)) return;
-            
+
             if (_fileSystemManager.DirectoryExists(_configurationManager.UserConfig.GamePath + "\\bin64"))
             {
-                _configurationManager.UserConfig.BinFolder= "bin64";
+                _configurationManager.UserConfig.BinFolder = "bin64";
                 _configurationManager.UserConfig.ExeName = "Gw2-64.exe";
             }
             else if (_fileSystemManager.DirectoryExists(_configurationManager.UserConfig.GamePath + "\\bin"))
@@ -52,11 +52,12 @@ namespace GW2_Addon_Manager
                 _configurationManager.UserConfig.BinFolder = "bin";
                 _configurationManager.UserConfig.ExeName = "Gw2.exe";
             }
+
             _configurationManager.SaveConfiguration();
         }
 
         /// <summary>
-        /// Deletes all addons, addon loader, and configuration data related to addons.
+        ///     Deletes all addons, addon loader, and configuration data related to addons.
         /// </summary>
         public void DeleteAllAddons()
         {
@@ -67,13 +68,17 @@ namespace GW2_Addon_Manager
             _configurationManager.UserConfig.LoaderVersion = null;
 
             //delete disabled plugins folder: ${install dir}/disabled plugins
-            if(_fileSystemManager.DirectoryExists("Disabled Plugins"))
+            if (_fileSystemManager.DirectoryExists("Disabled Plugins"))
                 _fileSystemManager.DirectoryDelete("Disabled Plugins", true);
             //delete addons: {game folder}/addons
-            if(_fileSystemManager.DirectoryExists(_fileSystemManager.PathCombine(_configurationManager.UserConfig.GamePath, "addons")))
-                _fileSystemManager.DirectoryDelete(_fileSystemManager.PathCombine(_configurationManager.UserConfig.GamePath, "addons"), true);
+            if (_fileSystemManager.DirectoryExists(
+                _fileSystemManager.PathCombine(_configurationManager.UserConfig.GamePath, "addons")))
+                _fileSystemManager.DirectoryDelete(
+                    _fileSystemManager.PathCombine(_configurationManager.UserConfig.GamePath, "addons"), true);
             //delete addon loader: {game folder}/{bin/64}/d3d9.dll
-            _fileSystemManager.FileDelete(_fileSystemManager.PathCombine(_fileSystemManager.PathCombine(_configurationManager.UserConfig.GamePath, _configurationManager.UserConfig.BinFolder), "d3d9.dll"));
+            _fileSystemManager.FileDelete(_fileSystemManager.PathCombine(
+                _fileSystemManager.PathCombine(_configurationManager.UserConfig.GamePath,
+                    _configurationManager.UserConfig.BinFolder), "d3d9.dll"));
 
             //write cleaned config file
             _configurationManager.SaveConfiguration();
