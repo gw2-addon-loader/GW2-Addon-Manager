@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Abstractions;
 using System.Windows;
 using GW2_Addon_Manager.App.Configuration;
 using GW2_Addon_Manager.App.Configuration.Model;
@@ -11,13 +12,31 @@ namespace GW2_Addon_Manager
     /// </summary>
     public class Configuration
     {
-        const string applicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
+        static readonly string applicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
 
         private readonly IConfigurationManager _configurationManager;
 
         public Configuration(IConfigurationManager configurationManager)
         {
             _configurationManager = configurationManager;
+        }
+
+        /// <summary>
+        /// <c>SetGamePath</c> both sets the game path for the current application session to <paramref name="path"/> and records it in the configuration file.
+        /// </summary>
+        /// <param name="path">The game path.</param>
+        public void SetGamePath(string path)
+        {
+            try
+            {
+                Application.Current.Properties["game_path"] = path.Replace("\\", "\\\\");
+            }
+            catch (Exception)
+            { }
+
+            _configurationManager.UserConfig.GamePath = path;
+            _configurationManager.SaveConfiguration();
+            DetermineSystemType();
         }
 
         /// <summary>

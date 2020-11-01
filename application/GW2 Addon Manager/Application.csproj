@@ -254,8 +254,6 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(TargetDir)resources\plugins"
-move "$(TargetDir)*.dll" "$(TargetDir)resources\plugins"
-xcopy "$(ProjectDir)\resources\addons" "$(ProjectDir)$(OutDir)\resources\Addons\" /S /Y
-del "$(TargetDir)*.xml"</PostBuildEvent>
+move "$(TargetDir)*.dll" "$(TargetDir)resources\plugins"</PostBuildEvent>
   </PropertyGroup>
 </Project>
