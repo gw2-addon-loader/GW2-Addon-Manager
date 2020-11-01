@@ -138,11 +138,7 @@ namespace GW2_Addon_Manager
             pathSelectionDialog.IsFolderPicker = true;
             CommonFileDialogResult result = pathSelectionDialog.ShowDialog();
             if (result == (CommonFileDialogResult)1)
-            {
                 OpeningViewModel.GetInstance.GamePath = pathSelectionDialog.FileName;
-                _configurationManager.UserConfig.GamePath = pathSelectionDialog.FileName;
-                _configurationManager.SaveConfiguration();
-            }
                 
         }
     }
