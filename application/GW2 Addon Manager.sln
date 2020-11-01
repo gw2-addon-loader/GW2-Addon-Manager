@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "GW2 Addon Ma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationTests", "ApplicationTests\ApplicationTests.csproj", "{170F11FB-4005-4A31-A746-32B46814F463}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Localization", "Localization\Localization.csproj", "{5B139D74-6A36-4F8F-833F-4D0DE41FF019}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{170F11FB-4005-4A31-A746-32B46814F463}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{170F11FB-4005-4A31-A746-32B46814F463}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{170F11FB-4005-4A31-A746-32B46814F463}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B139D74-6A36-4F8F-833F-4D0DE41FF019}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B139D74-6A36-4F8F-833F-4D0DE41FF019}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B139D74-6A36-4F8F-833F-4D0DE41FF019}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B139D74-6A36-4F8F-833F-4D0DE41FF019}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

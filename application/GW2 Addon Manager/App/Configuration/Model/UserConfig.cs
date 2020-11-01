@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Localization;
+using System;
 
 namespace GW2_Addon_Manager.App.Configuration.Model
 {
@@ -14,6 +15,8 @@ namespace GW2_Addon_Manager.App.Configuration.Model
         public string GamePath { get; set; } = "C:\\Program Files\\Guild Wars 2";
 
         public string ExeName { get; set; }
+
+        public string Culture { get; set; } = CultureConstants.English;
 
         public AddonsList AddonsList { get; set; } = new AddonsList();
     }
