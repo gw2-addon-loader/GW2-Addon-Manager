@@ -35,7 +35,6 @@ namespace GW2_Addon_Manager
             DataContext = OpeningViewModel.GetInstance;
 
             _configurationManager = new ConfigurationManager();
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(_configurationManager.UserConfig.Culture);
             var configuration = new Configuration(_configurationManager);
             configuration.CheckSelfUpdates();
             configuration.DetermineSystemType();

@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using GW2_Addon_Manager.App.Configuration;
 using File = System.IO.File;
+using Localization;
 
 namespace GW2_Addon_Manager
 {
@@ -228,7 +229,7 @@ namespace GW2_Addon_Manager
 
             AddonList = new ApprovedList(_configurationManager).GenerateAddonList();
 
-            DescriptionText = "Select an add-on to see more information about it.";
+            DescriptionText = StaticText.SelectAnAddonToSeeMoreInformationAboutIt;
             DeveloperVisibility = Visibility.Hidden;
 
             UpdateLinkVisibility = Visibility.Hidden;

@@ -61,11 +61,119 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add-Ons.
+        /// </summary>
+        public static string AddOns {
+            get {
+                return ResourceManager.GetString("AddOns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Available.
+        /// </summary>
+        public static string Available {
+            get {
+                return ResourceManager.GetString("Available", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chinese.
         /// </summary>
         public static string Chinese {
             get {
                 return ResourceManager.GetString("Chinese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Companion Applications.
+        /// </summary>
+        public static string CompanionApplicationsWithLeadingSpace {
+            get {
+                return ResourceManager.GetString("CompanionApplicationsWithLeadingSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configuration Options.
+        /// </summary>
+        public static string ConfigurationOptions {
+            get {
+                return ResourceManager.GetString("ConfigurationOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Shortcut.
+        /// </summary>
+        public static string CreateShortcut {
+            get {
+                return ResourceManager.GetString("CreateShortcut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds a shortcut to the application to the start menu - if program is moved, the shortcut will not function!.
+        /// </summary>
+        public static string CreateShortcutDescription {
+            get {
+                return ResourceManager.GetString("CreateShortcutDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deletes the selected addons and all associated data.
+        /// </summary>
+        public static string DeleteDescription {
+            get {
+                return ResourceManager.GetString("DeleteDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable.
+        /// </summary>
+        public static string Disable {
+            get {
+                return ResourceManager.GetString("Disable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables the selected addons.
+        /// </summary>
+        public static string DisableDescription {
+            get {
+                return ResourceManager.GetString("DisableDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download complete.
+        /// </summary>
+        public static string DownloadComplete {
+            get {
+                return ResourceManager.GetString("DownloadComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading.
+        /// </summary>
+        public static string Downloading {
+            get {
+                return ResourceManager.GetString("Downloading", resourceCulture);
             }
         }
         
@@ -79,11 +187,38 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Force Redownload.
+        /// </summary>
+        public static string ForceRedownload {
+            get {
+                return ResourceManager.GetString("ForceRedownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redownloads the addon loader and all addons regardless of version..
+        /// </summary>
+        public static string ForceRedownloadDescription {
+            get {
+                return ResourceManager.GetString("ForceRedownloadDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to French.
         /// </summary>
         public static string French {
             get {
                 return ResourceManager.GetString("French", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game path.
+        /// </summary>
+        public static string GamePath {
+            get {
+                return ResourceManager.GetString("GamePath", resourceCulture);
             }
         }
         
@@ -102,6 +237,123 @@ namespace Localization {
         public static string Language {
             get {
                 return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        public static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Programs for GW2 not managed by GW2-UOAOM, such as TacO.
+        /// </summary>
+        public static string ProgramsNotManagedByThisApplication {
+            get {
+                return ResourceManager.GetString("ProgramsNotManagedByThisApplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Re-Enable.
+        /// </summary>
+        public static string ReEnable {
+            get {
+                return ResourceManager.GetString("ReEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enables the selected addons if they are disabled.
+        /// </summary>
+        public static string ReEnableDescription {
+            get {
+                return ResourceManager.GetString("ReEnableDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset to Clean Install.
+        /// </summary>
+        public static string ResetToCleanInstall {
+            get {
+                return ResourceManager.GetString("ResetToCleanInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deletes all addons and plugins from Guild Wars 2..
+        /// </summary>
+        public static string ResetToCleanInstallDescription {
+            get {
+                return ResourceManager.GetString("ResetToCleanInstallDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all addons that you would like to install or update..
+        /// </summary>
+        public static string SelectAllAddonsDescription {
+            get {
+                return ResourceManager.GetString("SelectAllAddonsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select an add-on to see more information about it..
+        /// </summary>
+        public static string SelectAnAddonToSeeMoreInformationAboutIt {
+            get {
+                return ResourceManager.GetString("SelectAnAddonToSeeMoreInformationAboutIt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Directory.
+        /// </summary>
+        public static string SelectDirectory {
+            get {
+                return ResourceManager.GetString("SelectDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage the game at the location in the text box.
+        /// </summary>
+        public static string SelectDirectoryDescription {
+            get {
+                return ResourceManager.GetString("SelectDirectoryDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UPDATE.
+        /// </summary>
+        public static string UpdateAllUpperCase {
+            get {
+                return ResourceManager.GetString("UpdateAllUpperCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will download the application update and then restart the program..
+        /// </summary>
+        public static string UpdateDescription {
+            get {
+                return ResourceManager.GetString("UpdateDescription", resourceCulture);
             }
         }
     }
