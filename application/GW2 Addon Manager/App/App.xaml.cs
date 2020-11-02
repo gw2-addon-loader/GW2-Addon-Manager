@@ -1,6 +1,9 @@
-﻿using System;
+﻿using GW2_Addon_Manager.App.Configuration;
+using System;
+using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -15,9 +18,18 @@ namespace GW2_Addon_Manager.App
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            System.Net.ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             Current.DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(AppDispatcherUnhandledException);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomainUnhandledException);
+            SetCulture();
+        }
+
+        private void SetCulture()
+        {
+            ConfigurationManager configurationManager = new ConfigurationManager();
+            CultureInfo culture = new CultureInfo(configurationManager.UserConfig.Culture);
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
         }
 
         void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)

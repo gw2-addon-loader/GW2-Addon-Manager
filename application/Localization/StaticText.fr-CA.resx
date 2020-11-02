@@ -112,4 +112,88 @@
   <data name="Language" xml:space="preserve">
     <value>Langue</value>
   </data>
+  <data name="GamePath" xml:space="preserve">
+    <value>Répertoire du jeu</value>
+  </data>
+  <data name="ProgramsNotManagedByThisApplication" xml:space="preserve">
+    <value>Programmes pour GW2 non-gérées par GW2-UOAOM, tel que TacO</value>
+  </data>
+  <data name="CompanionApplicationsWithLeadingSpace" xml:space="preserve">
+    <value> Applications complémentaires</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="CreateShortcut" xml:space="preserve">
+    <value>Créer un raccourci</value>
+  </data>
+  <data name="CreateShortcutDescription" xml:space="preserve">
+    <value>Ajoute un raccourci vers l'application au menu démarré - si le programme est déplacé, le raccourci ne va plus fonctionner!</value>
+  </data>
+  <data name="ForceRedownload" xml:space="preserve">
+    <value>Forcer le re-téléchargement</value>
+  </data>
+  <data name="ForceRedownloadDescription" xml:space="preserve">
+    <value>Re-télécharge le chargeur d'addons ainsi que tout les addons peu importe la version.</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Disponible</value>
+  </data>
+  <data name="Downloading" xml:space="preserve">
+    <value>Téléchargement</value>
+  </data>
+  <data name="DownloadComplete" xml:space="preserve">
+    <value>Téléchargement complété</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Mettre à jour</value>
+  </data>
+  <data name="UpdateDescription" xml:space="preserve">
+    <value>Ceci va télécharger la mise à jour et l'application va redémarrer.</value>
+  </data>
+  <data name="SelectDirectory" xml:space="preserve">
+    <value>Sélectionner le répertoire</value>
+  </data>
+  <data name="SelectDirectoryDescription" xml:space="preserve">
+    <value>Gère le jeu à l'endroit choisi</value>
+  </data>
+  <data name="AddOns" xml:space="preserve">
+    <value>Add-Ons</value>
+  </data>
+  <data name="SelectAllAddonsDescription" xml:space="preserve">
+    <value>Sélectionnez tout les addons que vous voulez installer ou mettre à jour.</value>
+  </data>
+  <data name="ConfigurationOptions" xml:space="preserve">
+    <value>Options de configuration</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Disable" xml:space="preserve">
+    <value>Désactiver</value>
+  </data>
+  <data name="DeleteDescription" xml:space="preserve">
+    <value>Supprime l'addon sélectionné et toutes les données associées</value>
+  </data>
+  <data name="DisableDescription" xml:space="preserve">
+    <value>Désactive les addons sélectionnés</value>
+  </data>
+  <data name="ReEnable" xml:space="preserve">
+    <value>Réactiver</value>
+  </data>
+  <data name="ReEnableDescription" xml:space="preserve">
+    <value>Réactive les addons sélectionnés si ils sont désactivés</value>
+  </data>
+  <data name="ResetToCleanInstall" xml:space="preserve">
+    <value>Réinitialiser vers une installation fraîche</value>
+  </data>
+  <data name="ResetToCleanInstallDescription" xml:space="preserve">
+    <value>Supprime tous les addons et les plugins de Guild Wars 2.</value>
+  </data>
+  <data name="UpdateAllUpperCase" xml:space="preserve">
+    <value>METTRE À JOUR</value>
+  </data>
+  <data name="SelectAnAddonToSeeMoreInformationAboutIt" xml:space="preserve">
+    <value>Sélectionnez un add-on pour voir plus d'information à son sujet.</value>
+  </data>
 </root>

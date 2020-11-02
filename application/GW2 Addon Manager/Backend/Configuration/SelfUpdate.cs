@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Localization;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -48,7 +49,7 @@ namespace GW2_Addon_Manager
             dynamic latestInfo = UpdateHelpers.GitReleaseInfo(applicationRepoUrl);
             string downloadUrl = latestInfo.assets[0].browser_download_url;
 
-            viewModel.UpdateAvailable = "Downloading " + latestInfo.tag_name;
+            viewModel.UpdateAvailable = $"{StaticText.Downloading} {latestInfo.tag_name}";
 
             Directory.CreateDirectory(update_folder);
             WebClient client = new WebClient();
@@ -61,7 +62,7 @@ namespace GW2_Addon_Manager
         /* updating download status on UI */
         private void selfUpdate_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            viewModel.UpdateAvailable = "Download complete!";
+            viewModel.UpdateAvailable = $"{StaticText.DownloadComplete}!";
             Application.Current.Properties["update_self"] = true;
         }
         private void selfUpdate_DownloadProgress(object sender, DownloadProgressChangedEventArgs e)

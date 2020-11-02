@@ -4,6 +4,7 @@ using System.IO.Abstractions;
 using System.Windows;
 using GW2_Addon_Manager.App.Configuration;
 using GW2_Addon_Manager.App.Configuration.Model;
+using Localization;
 
 namespace GW2_Addon_Manager
 {
@@ -70,7 +71,7 @@ namespace GW2_Addon_Manager
 
             if (latestVersion == _configurationManager.ApplicationVersion) return;
 
-            OpeningViewModel.GetInstance.UpdateAvailable = latestVersion + " available!";
+            OpeningViewModel.GetInstance.UpdateAvailable = $"{latestVersion} {StaticText.Available.ToLower()}!";
             OpeningViewModel.GetInstance.UpdateLinkVisibility = Visibility.Visible;
         }
 
