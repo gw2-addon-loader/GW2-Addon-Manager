@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using GW2_Addon_Manager.App.Configuration;
 using GW2_Addon_Manager.App.Configuration.Model;
-using Localization;
 using GW2_Addon_Manager.Dependencies.FileSystem;
 
 namespace GW2_Addon_Manager

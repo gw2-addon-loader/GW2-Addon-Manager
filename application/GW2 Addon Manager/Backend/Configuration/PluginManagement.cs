@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using GW2_Addon_Manager.App.Configuration;
 using GW2_Addon_Manager.Dependencies.FileSystem;
