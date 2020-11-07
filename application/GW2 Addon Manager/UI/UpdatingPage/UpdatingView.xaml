@@ -3,6 +3,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:l="clr-namespace:Localization;assembly=Localization"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1130"
       Title="GW2AOU - Updating"
@@ -50,7 +51,7 @@
                 RequestNavigate="Hyperlink_RequestNavigate" 
                 TextDecorations="None" 
                 FocusVisualStyle="{x:Null}"
-                ToolTip="Programs for GW2 not managed by GW2-UOAOM, such as TacO"
+                ToolTip="{x:Static l:StaticText.ProgramsNotManagedByThisApplication}"
                 >
                  <TextBlock Text=" Companion Applications" FontFamily="Microsoft YaHei UI"/>
             </Hyperlink>

@@ -12,6 +12,7 @@ using GW2_Addon_Manager.Dependencies.FileSystem;
 using GW2_Addon_Manager.Dependencies.WebClient;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
+using Localization;
 
 namespace GW2_Addon_Manager
 {
@@ -57,7 +58,8 @@ namespace GW2_Addon_Manager
         private void SetUpdateButtonVisibility(Configuration configuration)
         {
             if (!configuration.CheckIfNewVersionIsAvailable(out var latestVersion)) return;
-            _viewModel.UpdateAvailable = latestVersion + " available!";
+
+            _viewModel.UpdateAvailable = $"{latestVersion} {StaticText.Available.ToLower()}!";
             _viewModel.UpdateLinkVisibility = Visibility.Visible;
         }
 

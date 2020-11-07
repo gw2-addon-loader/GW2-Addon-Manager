@@ -1,5 +1,7 @@
-﻿using GW2_Addon_Manager.App.Configuration;
+﻿using System.Windows;
+using GW2_Addon_Manager.App.Configuration;
 using GW2_Addon_Manager.App.Configuration.Model;
+using Localization;
 using GW2_Addon_Manager.Dependencies.FileSystem;
 
 namespace GW2_Addon_Manager
@@ -35,8 +37,29 @@ namespace GW2_Addon_Manager
         }
 
         /// <summary>
-        ///     Attempts to read the game folder and determine whether the game is running on a 64 or 32-bit system.
-        ///     Based on that, sets the 'bin_folder' property in the configuration file.
+        /// <c>SetCulture</c> both sets the culture for the current application session to <paramref name="culture"/> and records it in the configuration file.
+        /// </summary>
+        /// <param name="culture"></param>
+        public void SetCulture(string culture)
+        {
+            Application.Current.Properties["culture"] = culture;
+            _configurationManager.UserConfig.Culture = culture;
+            _configurationManager.SaveConfiguration();
+            RestartApplication();
+        }
+
+        /// <summary>
+        /// Restarts the application.
+        /// </summary>
+        private void RestartApplication()
+        {
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
+        }
+
+        /// <summary>
+        /// Attempts to read the game folder and determine whether the game is running on a 64 or 32-bit system.
+        /// Based on that, sets the 'bin_folder' property in the configuration file.
         /// </summary>
         public void DetermineSystemType()
         {
