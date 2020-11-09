@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
@@ -12,12 +11,6 @@ namespace GW2_Addon_Manager.App.Configuration
     public class ConfigurationManager : IConfigurationManager
     {
         private const string ConfigFileName = "config.xml";
-
-        private static readonly string ConfigFolder =
-            Path.GetDirectoryName(
-                Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path));
-
-        private static readonly string PathToConfgiFile = $"{ConfigFolder}\\{ConfigFileName}";
         private const string PathToOldConfigFile = "config.yaml";
 
         private static readonly UserConfig UserConfigInstance = CreateConfig();
@@ -45,7 +38,7 @@ namespace GW2_Addon_Manager.App.Configuration
                 serializer.Serialize(stream, UserConfig);
                 stream.Position = 0;
                 xmlDoc.Load(stream);
-                xmlDoc.Save(PathToConfgiFile);
+                xmlDoc.Save(ConfigFileName);
             }
         }
 
@@ -54,11 +47,11 @@ namespace GW2_Addon_Manager.App.Configuration
             if (File.Exists(PathToOldConfigFile))
                 return MigrateOldConfig();
 
-            if (!File.Exists(PathToConfgiFile))
+            if (!File.Exists(ConfigFileName))
                 return new UserConfig();
 
             var xmlDocu = new XmlDocument();
-            xmlDocu.Load(PathToConfgiFile);
+            xmlDocu.Load(ConfigFileName);
             var xmlString = xmlDocu.OuterXml;
 
             using (var read = new StringReader(xmlString))
@@ -66,7 +59,7 @@ namespace GW2_Addon_Manager.App.Configuration
                 var serializer = new XmlSerializer(typeof(UserConfig));
                 using (var reader = new XmlTextReader(read))
                 {
-                    return (UserConfig)serializer.Deserialize(reader);
+                    return (UserConfig) serializer.Deserialize(reader);
                 }
             }
         }
@@ -84,7 +77,7 @@ namespace GW2_Addon_Manager.App.Configuration
                 GamePath = oldUserConfig.game_path,
                 LaunchGame = oldUserConfig.launch_game,
                 LoaderVersion = oldUserConfig.loader_version,
-                AddonsList = new AddonsList { Hash = oldUserConfig.current_addon_list }
+                AddonsList = new AddonsList {Hash = oldUserConfig.current_addon_list}
             };
             foreach (var installedAddon in oldUserConfig.installed)
                 newConfig.AddonsList.Add(new AddonData

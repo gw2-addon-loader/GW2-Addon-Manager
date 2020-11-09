@@ -30,32 +30,17 @@ namespace GW2_Addon_Manager
             const string tempFileName = "addonlist";
             var client = new WebClient();
             client.Headers.Add("User-Agent", "Gw2 Addon Manager");
-            
+
             var raw = client.DownloadString(RepoUrl + "/branches");
             var result = JsonConvert.DeserializeObject<BranchInfo[]>(raw);
-            string master = null;
+            var master = result.Single(r => r.Name == "master").Commit.Sha;
 
-            //checking for changes
-            foreach (var info in result)
-            {
-                if (info.Name != "master") continue;
+            if (master == _configManager.UserConfig.AddonsList.Hash) return;
 
-                if (info.Commit.Sha == _configManager.UserConfig.AddonsList.Hash) return;
-
-                master = info.Commit.Sha;
-                break;
-            }
-
-            //deleting old version
-            try
-            {
+            if (Directory.Exists(AddonFolder))
                 Directory.Delete(AddonFolder, true);
+            if (File.Exists(tempFileName))
                 File.Delete(tempFileName);
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
 
             //fetching new version
             client = new WebClient();
@@ -84,14 +69,13 @@ namespace GW2_Addon_Manager
         public ObservableCollection<AddonInfoFromYaml> GenerateAddonList()
         {
             FetchListFromRepo();
-            
+
             var addons = new ObservableCollection<AddonInfoFromYaml>(); //List of AddonInfo objects
             var addonDirectories = Directory.GetDirectories(AddonFolder);  //Names of addon subdirectories in /resources/addons
-
             foreach (var addonFolderName in addonDirectories)
             {
                 if (addonFolderName == "resources\\addons\\d3d9_wrapper") continue;
-                
+
                 var addonInfo = AddonYamlReader.getAddonInInfo(addonFolderName.Replace(AddonFolder + "\\", ""));
                 addonInfo.folder_name = addonFolderName.Replace(AddonFolder + "\\", "");
                 addonInfo.IsSelected = _configManager.UserConfig.AddonsList[addonInfo.folder_name]?.Installed ?? false;
