@@ -109,6 +109,9 @@
   <data name="Korean" xml:space="preserve">
     <value>Coréen</value>
   </data>
+  <data name="German" xml:space="preserve">
+    <value>Allemand</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Langue</value>
   </data>
