@@ -55,6 +55,18 @@ namespace GW2_Addon_Manager
         public string download_type { get; set; }
         public string install_mode { get; set; }
 
+        private string _status;
+        public string Status
+        {
+            get => _status;
+            set
+            {
+                if(_status == value) return;
+                _status = value;
+                OnPropertyChanged();
+            }
+        }
+
         public List<string> requires { get; set; }
         public List<string> conflicts { get; set; }
         public List<Dictionary<String, String>> alternate_plugin_names { get; set; }

@@ -1,5 +1,7 @@
-﻿using Microsoft.VisualBasic.FileIO;
+﻿using System;
+using Microsoft.VisualBasic.FileIO;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -210,7 +212,7 @@ namespace GW2_Addon_Manager
         public void Disable()
         {
             var addonConfiguration =
-                _configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addon_info.addon_name);
+                _configurationManager.UserConfig.AddonsList.FirstOrDefault(a => string.Compare(a.Name, addon_info.addon_name, StringComparison.InvariantCultureIgnoreCase) == 0);
             if (addonConfiguration != null && addonConfiguration.Installed)
             {
                 if (!Directory.Exists("Disabled Plugins"))
