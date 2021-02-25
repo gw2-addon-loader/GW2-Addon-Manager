@@ -8,6 +8,8 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using GW2_Addon_Manager.App.Configuration;
+using GW2_Addon_Manager.Dependencies.FileSystem;
+using GW2_Addon_Manager.Dependencies.WebClient;
 using File = System.IO.File;
 using Localization;
 
@@ -225,7 +227,7 @@ namespace GW2_Addon_Manager
 
             _configurationManager = new ConfigurationManager();
             _pluginManagement = new PluginManagement(_configurationManager);
-            _configuration = new Configuration(_configurationManager);
+            _configuration = new Configuration(_configurationManager, new UpdateHelper(new WebClientWrapper()), new FileSystemManager());
 
             AddonList = new ApprovedList(_configurationManager).GenerateAddonList();
 

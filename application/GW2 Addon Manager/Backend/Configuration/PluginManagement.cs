@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using GW2_Addon_Manager.App.Configuration;
+using GW2_Addon_Manager.Dependencies.FileSystem;
+using GW2_Addon_Manager.Dependencies.WebClient;
 
 namespace GW2_Addon_Manager
 {
@@ -44,7 +45,7 @@ namespace GW2_Addon_Manager
             if (MessageBox.Show(deletemsg, "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 if (MessageBox.Show(secondPrecautionaryMsg, "Absolutely Sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
-                    new Configuration(_configurationManager).DeleteAllAddons();
+                    new Configuration(_configurationManager, new UpdateHelper(new WebClientWrapper()), new FileSystemManager()).DeleteAllAddons();
                     //post-delete info message
                     MessageBox.Show("All addons have been removed.", "Reverted to Clean Install", MessageBoxButton.OK, MessageBoxImage.Information);
                 }

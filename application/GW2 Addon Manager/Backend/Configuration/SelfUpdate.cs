@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
+using GW2_Addon_Manager.Dependencies.WebClient;
 
 namespace GW2_Addon_Manager
 {
@@ -46,7 +47,7 @@ namespace GW2_Addon_Manager
                 Directory.Delete(update_folder, true);
 
             //check application version
-            dynamic latestInfo = UpdateHelpers.GitReleaseInfo(applicationRepoUrl);
+            dynamic latestInfo = new UpdateHelper(new WebClientWrapper()).GitReleaseInfo(applicationRepoUrl);
             string downloadUrl = latestInfo.assets[0].browser_download_url;
 
             viewModel.UpdateAvailable = $"{StaticText.Downloading} {latestInfo.tag_name}";

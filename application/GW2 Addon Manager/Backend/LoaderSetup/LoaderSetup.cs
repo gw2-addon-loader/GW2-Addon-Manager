@@ -4,6 +4,7 @@ using System.IO.Compression;
 using System.Net;
 using System.Threading.Tasks;
 using GW2_Addon_Manager.App.Configuration;
+using GW2_Addon_Manager.Dependencies.WebClient;
 
 namespace GW2_Addon_Manager
 {
@@ -36,7 +37,7 @@ namespace GW2_Addon_Manager
         /// <returns></returns>
         public async Task HandleLoaderUpdate()
         {
-            dynamic releaseInfo = UpdateHelpers.GitReleaseInfo(loader_git_url);
+            dynamic releaseInfo = new UpdateHelper(new WebClientWrapper()).GitReleaseInfo(loader_git_url);
 
             loader_destination = Path.Combine(loader_game_path, "d3d9.dll");
 

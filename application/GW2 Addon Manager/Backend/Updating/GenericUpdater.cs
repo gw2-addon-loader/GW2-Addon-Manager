@@ -9,6 +9,7 @@ using System.Net;
 using System.Threading.Tasks;
 using GW2_Addon_Manager.App.Configuration;
 using GW2_Addon_Manager.App.Configuration.Model;
+using GW2_Addon_Manager.Dependencies.WebClient;
 
 namespace GW2_Addon_Manager
 {
@@ -62,7 +63,7 @@ namespace GW2_Addon_Manager
             var client = new WebClient();
             client.Headers.Add("User-Agent", "request");
 
-            dynamic release_info = UpdateHelpers.GitReleaseInfo(addon_info.host_url);
+            dynamic release_info = new UpdateHelper(new WebClientWrapper()).GitReleaseInfo(addon_info.host_url);
             latestVersion = release_info.tag_name;
 
             var currentAddonVersion = _configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addon_name);
