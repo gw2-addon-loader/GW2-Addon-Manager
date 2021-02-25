@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="French" xml:space="preserve">
+    <value>Français</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>Anglais</value>
+  </data>
+  <data name="Chinese" xml:space="preserve">
+    <value>Chinois</value>
+  </data>
+  <data name="Korean" xml:space="preserve">
+    <value>Coréen</value>
+  </data>
+  <data name="German" xml:space="preserve">
+    <value>Allemand</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Langue</value>
+  </data>
+  <data name="GamePath" xml:space="preserve">
+    <value>Répertoire du jeu</value>
+  </data>
+  <data name="ProgramsNotManagedByThisApplication" xml:space="preserve">
+    <value>Programmes pour GW2 non-gérées par GW2-UOAOM, tel que TacO</value>
+  </data>
+  <data name="CompanionApplicationsWithLeadingSpace" xml:space="preserve">
+    <value> Applications complémentaires</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="CreateShortcut" xml:space="preserve">
+    <value>Créer un raccourci</value>
+  </data>
+  <data name="CreateShortcutDescription" xml:space="preserve">
+    <value>Ajoute un raccourci vers l'application au menu démarré - si le programme est déplacé, le raccourci ne va plus fonctionner!</value>
+  </data>
+  <data name="ForceRedownload" xml:space="preserve">
+    <value>Forcer le re-téléchargement</value>
+  </data>
+  <data name="ForceRedownloadDescription" xml:space="preserve">
+    <value>Re-télécharge le chargeur d'addons ainsi que tout les addons peu importe la version.</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Disponible</value>
+  </data>
+  <data name="Downloading" xml:space="preserve">
+    <value>Téléchargement</value>
+  </data>
+  <data name="DownloadComplete" xml:space="preserve">
+    <value>Téléchargement complété</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Mettre à jour</value>
+  </data>
+  <data name="UpdateDescription" xml:space="preserve">
+    <value>Ceci va télécharger la mise à jour et l'application va redémarrer.</value>
+  </data>
+  <data name="SelectDirectory" xml:space="preserve">
+    <value>Sélectionner le répertoire</value>
+  </data>
+  <data name="SelectDirectoryDescription" xml:space="preserve">
+    <value>Gère le jeu à l'endroit choisi</value>
+  </data>
+  <data name="AddOns" xml:space="preserve">
+    <value>Add-Ons</value>
+  </data>
+  <data name="SelectAllAddonsDescription" xml:space="preserve">
+    <value>Sélectionnez tout les addons que vous voulez installer ou mettre à jour.</value>
+  </data>
+  <data name="ConfigurationOptions" xml:space="preserve">
+    <value>Options de configuration</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Disable" xml:space="preserve">
+    <value>Désactiver</value>
+  </data>
+  <data name="DeleteDescription" xml:space="preserve">
+    <value>Supprime l'addon sélectionné et toutes les données associées</value>
+  </data>
+  <data name="DisableDescription" xml:space="preserve">
+    <value>Désactive les addons sélectionnés</value>
+  </data>
+  <data name="ReEnable" xml:space="preserve">
+    <value>Réactiver</value>
+  </data>
+  <data name="ReEnableDescription" xml:space="preserve">
+    <value>Réactive les addons sélectionnés si ils sont désactivés</value>
+  </data>
+  <data name="ResetToCleanInstall" xml:space="preserve">
+    <value>Réinitialiser vers une installation fraîche</value>
+  </data>
+  <data name="ResetToCleanInstallDescription" xml:space="preserve">
+    <value>Supprime tous les addons et les plugins de Guild Wars 2.</value>
+  </data>
+  <data name="UpdateAllUpperCase" xml:space="preserve">
+    <value>METTRE À JOUR</value>
+  </data>
+  <data name="SelectAnAddonToSeeMoreInformationAboutIt" xml:space="preserve">
+    <value>Sélectionnez un add-on pour voir plus d'information à son sujet.</value>
+  </data>
+</root>

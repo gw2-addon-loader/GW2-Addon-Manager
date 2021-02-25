@@ -10,6 +10,8 @@ using System.Windows.Input;
 using GW2_Addon_Manager.App.Configuration;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
+using System.Threading;
+using System.Globalization;
 
 namespace GW2_Addon_Manager
 {

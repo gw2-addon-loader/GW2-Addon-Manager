@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:l="clr-namespace:Localization;assembly=Localization"
     xmlns:viewModel ="clr-namespace:GW2_Addon_Manager"
     x:Class="GW2_Addon_Manager.OpeningView"
     mc:Ignorable="d"
@@ -33,15 +34,10 @@
         </DockPanel>
 
         <Label Grid.Row = "1" FontWeight="Bold" FontSize="60" Foreground="DimGray" Margin="30,0,0,0" FontFamily="Microsoft JhengHei UI Light" Width="Auto" HorizontalAlignment="Left" Content="GW2-UOAOM"/>
-        <TextBlock Grid.Row="1" Margin="40,75,0,0" FontSize ="16" Foreground="DimGray" FontFamily="Microsoft YaHei UI Light">
-            <Run Text="Guild Wars 2 - Unofficial Add-On Manager"/>
-        </TextBlock>
-        <TextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="320,0,0,37" FontFamily="Microsoft YaHei UI Light" FontSize="14">
-            <Run Text="Game Path"/>
-        </TextBlock>
-
+        <TextBlock Grid.Row="1" Margin="40,75,0,0" FontSize ="16" Foreground="DimGray" FontFamily="Microsoft YaHei UI Light" Text="Guild Wars 2 - Unofficial Add-On Manager"/>
+        <TextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="320,0,0,37" FontFamily="Microsoft YaHei UI Light" FontSize="14" Text="{x:Static l:StaticText.GamePath}"/>
         <TextBlock 
-            Margin="110, 0, 0, -10"
+            Margin="170, 0, 0, -10"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
             Background="Transparent"
@@ -56,9 +52,9 @@
                 RequestNavigate="Hyperlink_RequestNavigate" 
                 TextDecorations="None" 
                 FocusVisualStyle="{x:Null}"
-                ToolTip="Programs for GW2 not managed by GW2-UOAOM, such as TacO"
+                ToolTip="{x:Static l:StaticText.ProgramsNotManagedByThisApplication}"
                 >
-                 <TextBlock Text=" Companion Applications" FontFamily="Microsoft YaHei UI"/>
+                 <TextBlock Text="{x:Static l:StaticText.CompanionApplicationsWithLeadingSpace}" FontFamily="Microsoft YaHei UI"/>
             </Hyperlink>
         </TextBlock>
         <Menu x:Name="settings_list"
@@ -69,7 +65,7 @@
                   Height="25"
                   Background="Transparent"
                   >
-            <MenuItem Header="Options" HorizontalContentAlignment="Stretch"
+            <MenuItem Header="{x:Static l:StaticText.Options}" HorizontalContentAlignment="Stretch"
                       VerticalContentAlignment="Center"
                       Height="30"
                       Padding="5,2,5,5"
@@ -80,23 +76,61 @@
                       >
                 <MenuItem
                     Command="{Binding Path=CreateShortcut}"
-                    Header="Create Shortcut"
-                    ToolTip="Adds a shortcut to the application to the start menu - if program is moved, the shortcut will not function!"
+                    Header="{x:Static l:StaticText.CreateShortcut}"
+                    ToolTip="{x:Static l:StaticText.CreateShortcutDescription}"
                     Template="{StaticResource AddonMenuItemControlTemplate}"
                     Style="{StaticResource AddonMenuItemStyle}"
                     />
                 <MenuItem
                     Click="RedownloadAddons"
-                    Header="Force Redownload"
-                    ToolTip="Redownloads the addon loader and all addons regardless of version."
+                    Header="{x:Static l:StaticText.ForceRedownload}"
+                    ToolTip="{x:Static l:StaticText.ForceRedownloadDescription}"
                     Template="{StaticResource AddonMenuItemControlTemplate}"
                     Style="{StaticResource AddonMenuItemStyle}" 
+                    />
+            </MenuItem>
+            <MenuItem Header="{x:Static l:StaticText.Language}" HorizontalContentAlignment="Stretch"
+                      VerticalContentAlignment="Center"
+                      Height="30"
+                      Padding="5,2,5,5"
+                      Template="{StaticResource AddonMenuItemControlTemplate}"
+                      Style="{StaticResource AddonMenuItemStyle}"
+                      Background="Transparent"
+                      Foreground="DimGray"
+                      >
+                <MenuItem
+                    Header="{x:Static l:StaticText.English}"
+                    Command="{Binding Path=ChangeLanguage}"
+                    CommandParameter="{x:Static l:CultureConstants.English}"
+                    Template="{StaticResource AddonMenuItemControlTemplate}"
+                    Style="{StaticResource AddonMenuItemStyle}"
+                    />
+                <MenuItem
+                    Header="{x:Static l:StaticText.French}"
+                    Command="{Binding Path=ChangeLanguage}"
+                    CommandParameter="{x:Static l:CultureConstants.French}"
+                    Template="{StaticResource AddonMenuItemControlTemplate}"
+                    Style="{StaticResource AddonMenuItemStyle}"
+                    />
+                <MenuItem
+                    Header="{x:Static l:StaticText.Chinese}"
+                    Command="{Binding Path=ChangeLanguage}"
+                    CommandParameter="{x:Static l:CultureConstants.Chinese}"
+                    Template="{StaticResource AddonMenuItemControlTemplate}"
+                    Style="{StaticResource AddonMenuItemStyle}"
+                    />
+                <MenuItem
+                    Header="{x:Static l:StaticText.Korean}"
+                    Command="{Binding Path=ChangeLanguage}"
+                    CommandParameter="{x:Static l:CultureConstants.Korean}"
+                    Template="{StaticResource AddonMenuItemControlTemplate}"
+                    Style="{StaticResource AddonMenuItemStyle}"
                     />
             </MenuItem>
         </Menu>
         <TextBlock Text="{Binding UpdateAvailable}"
                    Grid.Row="1"
-                   Margin="320,-6,0,0"
+                   Margin="380,-6,0,0"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top"
                    FontFamily="Microsoft YaHei UI Light"
@@ -108,7 +142,7 @@
                    />
         <TextBlock Text="{Binding UpdateAvailable}"
                    Grid.Row="1"
-                   Margin="320,-6,0,0"
+                   Margin="380,-6,0,0"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top"
                    FontFamily="Microsoft YaHei UI Light"
@@ -120,7 +154,7 @@
                    />
         <ProgressBar
             Grid.Row = "1"
-            Margin="435,-6,0,0"
+            Margin="495,-6,0,0"
             Width="125"
             Height="12"
             HorizontalAlignment="Left"
@@ -131,29 +165,29 @@
             />
         <Button
             Grid.Row = "1"
-            Margin="415,-10,0,0"
+            Margin="475,-10,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Width="50"
             Height="20"
             Visibility="{Binding UpdateLinkVisibility}"
-            Content="Update"
+            Content="{x:Static l:StaticText.Update}"
             Background="Transparent"
             Foreground="DimGray"
             FontFamily="Microsoft YaHei UI Light"
             BorderBrush="DimGray"
             BorderThickness="1"
             Command="{Binding Path=DownloadSelfUpdate}"
-            ToolTip="This will download the application update and then restart the program."
+            ToolTip="{x:Static l:StaticText.UpdateDescription}"
             />
         <Button Name="SelectDirectoryBtn"
                 Click="SelectDirectoryBtn_OnClick"
                 Grid.Row="2"
-                Margin="725,0,0,9"
+                Margin="785,0,0,9"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Content="Select Directory"
-                ToolTip="Manage the game at the location in the text box"
+                Content="{x:Static l:StaticText.SelectDirectory}"
+                ToolTip="{x:Static l:StaticText.SelectDirectoryDescription}"
                 Background="#FF66A8C7"
                 Foreground="White"
                 FontSize="14"
@@ -164,7 +198,7 @@
             />
         <TextBox Text="{Binding GamePath}"
                  Grid.Row="2"
-                 Margin="320,0,0,10"
+                 Margin="380,0,0,10"
                  HorizontalAlignment="Left"
                  VerticalAlignment="Bottom"
                  Width="400"
@@ -176,10 +210,8 @@
                  />
         <Border Grid.Row="2" Width="270" Height="350" HorizontalAlignment="Left" Margin="40,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
             <StackPanel Width="270" Height="325" HorizontalAlignment="Left">
-                <Label FontSize="18" FontFamily="Microsoft YaHei UI" Margin="0,5,0,10" HorizontalAlignment="Center" Foreground="DimGray" Content="Add-Ons" FontWeight="Bold"/>
-                <TextBlock Width="225" Height="50" Margin="5,0,0,0" FontSize="13" FontFamily="Microsoft YaHei UI">
-                    <Run Text="Select all addons that you would"/><LineBreak/><Run Text="like to install or update."/>
-                </TextBlock>
+                <Label FontSize="18" FontFamily="Microsoft YaHei UI" Margin="0,5,0,10" HorizontalAlignment="Center" Foreground="DimGray" Content="{x:Static l:StaticText.AddOns}" FontWeight="Bold"/>
+                <TextBlock TextWrapping="Wrap" Padding="8" FontSize="13" FontFamily="Microsoft YaHei UI" Text="{x:Static l:StaticText.SelectAllAddonsDescription}"/>
                 <ListBox Name="addons"
                          Height="215"
                          ItemsSource="{Binding AddonList}"
@@ -198,12 +230,22 @@
                                       Style="{StaticResource AddonListCheckBox}"
                                       />
                                 <Label Name="add_name"
-                                       Content="{Binding addon_name}"
                                        VerticalAlignment="Center"
                                        FontFamily="Microsoft YaHei UI"
                                        Foreground="DimGray"
                                        FontWeight="Bold"
-                                       FontSize="13"/>
+                                       FontSize="13">
+                                    <Label.Content>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} {1}">
+                                                    <Binding Path="addon_name" Mode="OneWay"/>
+                                                    <Binding Path="Status" Mode="OneWay"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label.Content>
+                                </Label>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -211,7 +253,7 @@
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="2" Width="450" Height="280" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="320,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
+        <Border Grid.Row="2" Width="450" Height="280" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="380,20,0,0" BorderThickness="1" BorderBrush="DimGray" Background="WhiteSmoke">
             <Grid>
                 <DockPanel Width="450" Height="280" HorizontalAlignment="Left">
                     <Label FontSize="13"
@@ -222,7 +264,7 @@
                            Padding="0,10,20,10"
                            Foreground="DimGray"
                            >
-                        <Hyperlink NavigateUri="{Binding AddonWebsiteLink}" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None" FocusVisualStyle="{x:Null}">
+                        <Hyperlink NavigateUri="{Binding AddonWebsiteLink, TargetNullValue=about:blank}" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None" FocusVisualStyle="{x:Null}">
                             <TextBlock Text="{Binding DeveloperText}" FontFamily="Microsoft YaHei UI"/>
                         </Hyperlink>
                     </Label>
@@ -252,7 +294,7 @@
                                             />
                                     </Storyboard>
                                 </BeginStoryboard>
-                                
+
                             </EventTrigger>
                         </TextBlock.Triggers>
                         <!--  -->
@@ -271,28 +313,28 @@
               VerticalContentAlignment="Center"
               HorizontalAlignment="Left"
               VerticalAlignment="Top">
-            <MenuItem Header="Configuration Options"
+            <MenuItem Header="{x:Static l:StaticText.ConfigurationOptions}"
                       HorizontalContentAlignment="Stretch"
                       VerticalContentAlignment="Center"
                       Height="30"
                       Template="{StaticResource AddonMenuItemControlTemplate}"
                       Style="{StaticResource AddonMenuItemStyle}">
-                <MenuItem Header="Delete" Command="{Binding Path=DeleteSelected}" Style="{StaticResource AddonMenuItemStyle}"
+                <MenuItem Header="{x:Static l:StaticText.Delete}" Command="{Binding Path=DeleteSelected}" Style="{StaticResource AddonMenuItemStyle}"
                           Template="{StaticResource AddonMenuItemControlTemplate}"
-                          ToolTip="Deletes the selected addons and all associated data"/>
-                <MenuItem Header="Disable" Command="{Binding Path=DisableSelected}" Style="{StaticResource AddonMenuItemStyle}"
+                          ToolTip="{x:Static l:StaticText.DeleteDescription}"/>
+                <MenuItem Header="{x:Static l:StaticText.Disable}" Command="{Binding Path=DisableSelected}" Style="{StaticResource AddonMenuItemStyle}"
                           Template="{StaticResource AddonMenuItemControlTemplate}"
-                          ToolTip="Disables the selected addons"/>
-                <MenuItem Header="Re-Enable" Command="{Binding Path=EnableSelected}" Style="{StaticResource AddonMenuItemStyle}"
+                          ToolTip="{x:Static l:StaticText.DisableDescription}"/>
+                <MenuItem Header="{x:Static l:StaticText.ReEnable}" Command="{Binding Path=EnableSelected}" Style="{StaticResource AddonMenuItemStyle}"
                           Template="{StaticResource AddonMenuItemControlTemplate}"
-                          ToolTip="Enables the selected addons if they are disabled"/>
-                <MenuItem Header="Reset to Clean Install" Command="{Binding Path=CleanInstall}" Style="{StaticResource AddonMenuItemStyle}"
+                          ToolTip="{x:Static l:StaticText.ReEnableDescription}"/>
+                <MenuItem Header="{x:Static l:StaticText.ResetToCleanInstall}" Command="{Binding Path=CleanInstall}" Style="{StaticResource AddonMenuItemStyle}"
                           Template="{StaticResource AddonMenuItemControlTemplate}"
-                          ToolTip="Deletes all addons and plugins from Guild Wars 2."/>
+                          ToolTip="{x:Static l:StaticText.ResetToCleanInstallDescription}"/>
             </MenuItem>
         </Menu>
 
-        <Button Grid.Row="3" x:Name="nextPage" Height="45" Width="120" Content="UPDATE"
+        <Button Grid.Row="3" x:Name="nextPage" Content="{x:Static l:StaticText.UpdateAllUpperCase}"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Right"
                 Margin="0,10,175,25"
@@ -302,6 +344,7 @@
                 FontFamily="Microsoft YaHei UI"
                 FontSize="17"
                 BorderThickness="1"
+                Padding="5"
                 BorderBrush="#FFC9C9C9"
                 Style="{StaticResource BigContentButton}" FontWeight="Bold"
                 />

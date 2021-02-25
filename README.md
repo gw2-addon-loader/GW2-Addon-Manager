@@ -6,7 +6,9 @@
 A tool to improve the experience of using addons and plugins in Guild Wars 2 by handling installation, updates, and file management behind the scenes.
 
 ### Project Status
-Bug fix and UI changes in 1.2.1. See [releases](https://github.com/fmmmlee/GW2-Addon-Manager/releases) page for latest stable release, project tracking [here](https://github.com/fmmmlee/GW2-Addon-Manager/projects/3).
+Primarily backend work in v1.3.0 [release](https://github.com/fmmmlee/GW2-Addon-Manager/releases), graciously provided by Draeggiar. 
+
+Currently implementing French, Chinese, and Korean localization with the help of mpaille as well as assorted bug fixes.
 
 &nbsp;
 
@@ -20,8 +22,8 @@ Head on over to the [wiki](https://github.com/fmmmlee/GW2-Addon-Manager/wiki) fo
 ### Currently Supported Add-Ons:
 A list of compatible addons is in the <a href="https://github.com/gw2-addon-loader/Approved-Addons">**Approved-Addons**</a> repository, including arcDPS, d912pxy, and others.
 
-### Wiki
-More information on a number of other topics can be found on the [wiki](https://github.com/fmmmlee/GW2-Addon-Manager/wiki).
+### Wiki/Troubleshooting
+More information on a number of other topics including troubleshooting can be found on the [wiki](https://github.com/fmmmlee/GW2-Addon-Manager/wiki).
 
 ### [Credits](https://github.com/fmmmlee/GW2-Addon-Manager/wiki/Credits)
 
