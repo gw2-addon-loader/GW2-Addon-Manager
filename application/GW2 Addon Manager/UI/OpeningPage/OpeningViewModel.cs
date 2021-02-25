@@ -188,6 +188,7 @@ namespace GW2_Addon_Manager
                 if (value == _gamePath) return;
                 SetProperty(ref _gamePath, value);
                 _configurationManager.UserConfig.GamePath = value;
+                _configuration.DetermineSystemType();
                 _configurationManager.SaveConfiguration();
             }
         }
