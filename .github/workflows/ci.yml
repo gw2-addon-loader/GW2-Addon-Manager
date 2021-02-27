@@ -16,7 +16,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1
       
     - name: Build
-      run: msbuild GW2 Addon Manager.sln /t:Restore /p:Configuration=$env:Configuration
+      run: msbuild "GW2 Addon Manager.sln" /t:Restore /p:Configuration=$env:Configuration
       env: 
         Configuration: Debug
       
