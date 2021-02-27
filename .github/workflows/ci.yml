@@ -1,0 +1,25 @@
+name: GW2-Addon-Manager CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      SolutionPath: application
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1
+      
+    - name: Build
+      run: msbuild "$env:SolutionPath\GW2 Addon Manager.sln" /t:Restore /p:Configuration=$env:Configuration /m
+      env: 
+        Configuration: Debug
+      
+    - name: Test
+      run: dotnet test $env:SolutionPath --no-build --verbosity normal --logger:"console;verbosity=normal"
