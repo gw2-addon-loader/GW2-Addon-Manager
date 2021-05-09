@@ -66,12 +66,13 @@ namespace GW2_Addon_Manager
         /// </summary>
         public void CheckSelfUpdates()
         {
-            var release_info = UpdateHelpers.GitReleaseInfo(applicationRepoUrl);
-            var latestVersion = release_info.tag_name;
+            var releaseInfo = UpdateHelpers.GitReleaseInfo(applicationRepoUrl);
 
+            var latestVersion = releaseInfo?.tag_name;
             if (latestVersion == _configurationManager.ApplicationVersion) return;
 
-            OpeningViewModel.GetInstance.UpdateAvailable = $"{latestVersion} {StaticText.Available.ToLower()}!";
+            if(latestVersion != null)
+                OpeningViewModel.GetInstance.UpdateAvailable = $"{latestVersion} {StaticText.Available.ToLower()}!";
             OpeningViewModel.GetInstance.UpdateLinkVisibility = Visibility.Visible;
         }
 

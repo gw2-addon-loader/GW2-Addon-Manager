@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -31,35 +30,43 @@ namespace GW2_Addon_Manager
             var client = new WebClient();
             client.Headers.Add("User-Agent", "Gw2 Addon Manager");
 
-            var raw = client.DownloadString(RepoUrl + "/branches");
-            var result = JsonConvert.DeserializeObject<BranchInfo[]>(raw);
-            var master = result.Single(r => r.Name == "master").Commit.Sha;
-
-            if (master == _configManager.UserConfig.AddonsList.Hash) return;
-
-            if (Directory.Exists(AddonFolder))
-                Directory.Delete(AddonFolder, true);
-            if (File.Exists(tempFileName))
-                File.Delete(tempFileName);
-
-            //fetching new version
-            client = new WebClient();
-            client.Headers.Add("User-Agent", "Gw2 Addon Manager");
-            client.DownloadFile(RepoUrl + "/zipball", tempFileName);
-            ZipFile.ExtractToDirectory(tempFileName, AddonFolder);
-            var downloaded = Directory.EnumerateDirectories(AddonFolder).First();
-            foreach (var entry in Directory.EnumerateFileSystemEntries(downloaded))
+            try
             {
-                Directory.Move(entry, AddonFolder + "\\" + Path.GetFileName(entry));
+                var raw = client.DownloadString(RepoUrl + "/branches");
+                var result = JsonConvert.DeserializeObject<BranchInfo[]>(raw);
+                var master = result.Single(r => r.Name == "master").Commit.Sha;
+
+                if (master == _configManager.UserConfig.AddonsList.Hash) return;
+
+                if (Directory.Exists(AddonFolder))
+                    Directory.Delete(AddonFolder, true);
+                if (File.Exists(tempFileName))
+                    File.Delete(tempFileName);
+
+                //fetching new version
+                client.DownloadFile(RepoUrl + "/zipball", tempFileName);
+                ZipFile.ExtractToDirectory(tempFileName, AddonFolder);
+                var downloaded = Directory.EnumerateDirectories(AddonFolder).First();
+                foreach (var entry in Directory.EnumerateFileSystemEntries(downloaded))
+                {
+                    Directory.Move(entry, AddonFolder + "\\" + Path.GetFileName(entry));
+                }
+
+                //updating version in config file
+                _configManager.UserConfig.AddonsList.Hash = master;
+                _configManager.SaveConfiguration();
+
+                //cleanup
+                Directory.Delete(downloaded, true);
+                File.Delete(tempFileName);
             }
-
-            //updating version in config file
-            _configManager.UserConfig.AddonsList.Hash = master;
-            _configManager.SaveConfiguration();
-
-            //cleanup
-            Directory.Delete(downloaded, true);
-            File.Delete(tempFileName);
+            catch (WebException ex)
+            {
+                //TODO Log error
+                if(((HttpWebResponse) ex.Response).StatusCode == HttpStatusCode.Forbidden)
+                    return;
+                throw;
+            }
         }
 
         /// <summary>

@@ -36,13 +36,15 @@ namespace GW2_Addon_Manager
         /// <returns></returns>
         public async Task HandleLoaderUpdate()
         {
-            dynamic releaseInfo = UpdateHelpers.GitReleaseInfo(loader_git_url);
+            var releaseInfo = UpdateHelpers.GitReleaseInfo(loader_git_url);
+            if (releaseInfo == null)
+                return;
 
             loader_destination = Path.Combine(loader_game_path, "d3d9.dll");
-
             latestLoaderVersion = releaseInfo.tag_name;
 
-            if (File.Exists(loader_destination) && _configurationManager.UserConfig.LoaderVersion == latestLoaderVersion)
+            if (File.Exists(loader_destination) &&
+                _configurationManager.UserConfig.LoaderVersion == latestLoaderVersion)
                 return;
 
             string downloadLink = releaseInfo.assets[0].browser_download_url;

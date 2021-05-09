@@ -60,14 +60,16 @@ namespace GW2_Addon_Manager
             var client = new WebClient();
             client.Headers.Add("User-Agent", "request");
 
-            dynamic release_info = UpdateHelpers.GitReleaseInfo(addon_info.host_url);
-            latestVersion = release_info.tag_name;
+            var releaseInfo = UpdateHelpers.GitReleaseInfo(addon_info.host_url);
+            if(releaseInfo == null)
+                return;
+            latestVersion = releaseInfo.tag_name;
 
             var currentAddonVersion = _configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addon_name);
             if (currentAddonVersion != null && currentAddonVersion.Version == latestVersion)
                 return;
 
-            string download_link = release_info.assets[0].browser_download_url;
+            string download_link = releaseInfo.assets[0].browser_download_url;
             viewModel.ProgBarLabel = "Downloading " + addon_info.addon_name + " " + latestVersion;
             await Download(download_link, client);
         }
