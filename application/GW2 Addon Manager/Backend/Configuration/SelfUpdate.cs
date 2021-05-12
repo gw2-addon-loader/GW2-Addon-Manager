@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
+using GW2_Addon_Manager.Dependencies.WebClient;
 
 namespace GW2_Addon_Manager
 {
@@ -46,7 +47,7 @@ namespace GW2_Addon_Manager
                 Directory.Delete(update_folder, true);
 
             //check application version
-            var latestInfo = UpdateHelpers.GitReleaseInfo(applicationRepoUrl);
+            dynamic latestInfo = new UpdateHelper(new WebClientWrapper()).GitReleaseInfo(applicationRepoUrl);
             if (latestInfo == null)
                 return;
 

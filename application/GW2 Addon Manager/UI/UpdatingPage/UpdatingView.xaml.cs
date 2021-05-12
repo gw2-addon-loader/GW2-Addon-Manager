@@ -26,7 +26,7 @@ namespace GW2_Addon_Manager
             InitializeComponent();
 
             LoaderSetup settingUp = new LoaderSetup(new ConfigurationManager());
-            Task.Run(() => UpdateHelpers.UpdateAll());
+            Task.Run(() => UpdateHelper.UpdateAll());
 
             launchOnClose.IsChecked = _configurationManager.UserConfig.LaunchGame;
         }

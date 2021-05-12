@@ -1,5 +1,7 @@
-﻿using Microsoft.VisualBasic.FileIO;
+﻿using System;
+using Microsoft.VisualBasic.FileIO;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -7,6 +9,7 @@ using System.Net;
 using System.Threading.Tasks;
 using GW2_Addon_Manager.App.Configuration;
 using GW2_Addon_Manager.App.Configuration.Model;
+using GW2_Addon_Manager.Dependencies.WebClient;
 
 namespace GW2_Addon_Manager
 {
@@ -60,8 +63,8 @@ namespace GW2_Addon_Manager
             var client = new WebClient();
             client.Headers.Add("User-Agent", "request");
 
-            var releaseInfo = UpdateHelpers.GitReleaseInfo(addon_info.host_url);
-            if(releaseInfo == null)
+            var releaseInfo = new UpdateHelper(new WebClientWrapper()).GitReleaseInfo(addon_info.host_url);
+            if (releaseInfo == null)
                 return;
             latestVersion = releaseInfo.tag_name;
 
@@ -212,7 +215,7 @@ namespace GW2_Addon_Manager
         public void Disable()
         {
             var addonConfiguration =
-                _configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addon_info.addon_name);
+                GetAddonConfig();
             if (addonConfiguration != null && addonConfiguration.Installed)
             {
                 if (!Directory.Exists("Disabled Plugins"))
@@ -264,11 +267,13 @@ namespace GW2_Addon_Manager
             }
         }
 
+        private AddonData GetAddonConfig() => _configurationManager.UserConfig.AddonsList.FirstOrDefault(a => string.Compare(a.Name, addon_info.addon_name, StringComparison.InvariantCultureIgnoreCase) == 0);
+
         /***** ENABLE *****/
         public void Enable()
         {
             var addonConfiguration =
-                _configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addon_info.addon_name);
+                GetAddonConfig();
             if (addonConfiguration != null && addonConfiguration.Installed)
             {
                 if (addonConfiguration.Disabled)
@@ -326,7 +331,7 @@ namespace GW2_Addon_Manager
         public void Delete()
         {
             var addonConfiguration =
-                _configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addon_info.addon_name);
+                GetAddonConfig();
             if (addonConfiguration !=  null && addonConfiguration.Installed)
             {
                 _configurationManager.UserConfig.AddonsList.Remove(addon_name);

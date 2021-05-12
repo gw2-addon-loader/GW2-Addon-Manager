@@ -4,20 +4,27 @@ using System.Linq;
 using System.Net;
 using System.Windows;
 using GW2_Addon_Manager.App.Configuration;
+using GW2_Addon_Manager.Dependencies.WebClient;
 using JetBrains.Annotations;
 
 namespace GW2_Addon_Manager
 {
-    class UpdateHelpers
+    public class UpdateHelper
     {
-        [CanBeNull]
-        public static dynamic GitReleaseInfo(string gitUrl)
+        private readonly IWebClient _webClient;
+
+        public UpdateHelper(IWebClient webClient)
         {
-            var client = new WebClient();
-            client.Headers.Add("User-Agent", "request");
+            _webClient = webClient;
+        }
+
+        [CanBeNull]
+        public virtual dynamic GitReleaseInfo(string gitUrl)
+        {
+            _webClient.Headers.Add("User-Agent", "request");
             try
             {
-                var releaseInfoJson = client.DownloadString(gitUrl);
+                var releaseInfoJson = _webClient.DownloadString(gitUrl);
                 return JsonConvert.DeserializeObject(releaseInfoJson);
             }
             catch (WebException ex)
