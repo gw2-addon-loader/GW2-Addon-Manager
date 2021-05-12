@@ -230,12 +230,22 @@
                                       Style="{StaticResource AddonListCheckBox}"
                                       />
                                 <Label Name="add_name"
-                                       Content="{Binding addon_name}"
                                        VerticalAlignment="Center"
                                        FontFamily="Microsoft YaHei UI"
                                        Foreground="DimGray"
                                        FontWeight="Bold"
-                                       FontSize="13"/>
+                                       FontSize="13">
+                                    <Label.Content>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} {1}">
+                                                    <Binding Path="addon_name" Mode="OneWay"/>
+                                                    <Binding Path="Status" Mode="OneWay"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label.Content>
+                                </Label>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -284,7 +294,7 @@
                                             />
                                     </Storyboard>
                                 </BeginStoryboard>
-                                
+
                             </EventTrigger>
                         </TextBlock.Triggers>
                         <!--  -->

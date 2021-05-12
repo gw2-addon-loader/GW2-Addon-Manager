@@ -46,13 +46,15 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\GW2 Addon Manager.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\logo.ico</ApplicationIcon>
@@ -107,34 +109,17 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.IdentityModel" />
-    <Reference Include="System.IO.Abstractions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=96bf224d23c43e59, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.Abstractions.7.0.15\lib\net40\System.IO.Abstractions.dll</HintPath>
-    </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Net.Http.WebRequest" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Threading.Tasks" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -164,11 +149,17 @@
     <Compile Include="Backend\Configuration\Configuration.cs" />
     <Compile Include="Backend\Updating\GenericUpdater.cs" />
     <Compile Include="Backend\LoaderSetup\LoaderSetup.cs" />
+    <Compile Include="Dependencies\FileSystem\FileSystemManager.cs" />
+    <Compile Include="Dependencies\FileSystem\IFileSystemManager.cs" />
+    <Compile Include="Dependencies\WebClient\IWebClient.cs" />
+    <Compile Include="Dependencies\WebClient\WebClientWrapper.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\OpeningPage\OpeningViewModel.cs" />
     <Compile Include="Backend\Configuration\PluginManagement.cs" />
     <Compile Include="Backend\Configuration\SelfUpdate.cs" />
     <Compile Include="Backend\Addons\AddonYamlReader.cs" />
-    <Compile Include="Backend\Updating\UpdateHelpers.cs" />
+    <Compile Include="Backend\Updating\UpdateHelper.cs" />
     <Compile Include="UI\UpdatingPage\UpdatingView.xaml.cs">
       <DependentUpon>UpdatingView.xaml</DependentUpon>
     </Compile>

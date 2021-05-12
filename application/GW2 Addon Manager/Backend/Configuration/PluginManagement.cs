@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using GW2_Addon_Manager.App.Configuration;
+using GW2_Addon_Manager.Dependencies.FileSystem;
+using GW2_Addon_Manager.Dependencies.WebClient;
 
 namespace GW2_Addon_Manager
 {
@@ -44,7 +45,7 @@ namespace GW2_Addon_Manager
             if (MessageBox.Show(deletemsg, "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 if (MessageBox.Show(secondPrecautionaryMsg, "Absolutely Sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
-                    new Configuration(_configurationManager).DeleteAllAddons();
+                    new Configuration(_configurationManager, new UpdateHelper(new WebClientWrapper()), new FileSystemManager()).DeleteAllAddons();
                     //post-delete info message
                     MessageBox.Show("All addons have been removed.", "Reverted to Clean Install", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -112,13 +113,13 @@ namespace GW2_Addon_Manager
                 if (addonConfig.Installed)
                 {
                     if (addon.folder_name == "arcdps" || addon.folder_name == "buildPad" || addonConfig.Version.Length > 10)
-                        addon.addon_name += " (installed)";
+                        addon.Status += "(installed)";
                     else
-                        addon.addon_name += " (" + addonConfig.Version + " installed)";
+                        addon.Status += "(" + addonConfig.Version + " installed)";
                 }
 
                 if (addonConfig.Disabled)
-                    addon.addon_name += " (disabled)";
+                    addon.Status += "(disabled)";
             }
         }
     }
