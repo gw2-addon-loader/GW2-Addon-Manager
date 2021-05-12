@@ -216,4 +216,7 @@
   <data name="SelectAnAddonToSeeMoreInformationAboutIt" xml:space="preserve">
     <value>Select an add-on to see more information about it.</value>
   </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>Spanish</value>
+  </data>
 </root>

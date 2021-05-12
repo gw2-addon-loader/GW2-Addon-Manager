@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,105 +118,111 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="French" xml:space="preserve">
-    <value>Französisch</value>
+    <value>Francis</value>
   </data>
   <data name="English" xml:space="preserve">
-    <value>Englisch</value>
+    <value>Inglés</value>
   </data>
   <data name="Chinese" xml:space="preserve">
-    <value>Chinesisch</value>
+    <value>Chino</value>
   </data>
   <data name="Korean" xml:space="preserve">
-    <value>Koreanisch</value>
+    <value>Coreano</value>
   </data>
-  <data name="German" xml:space="preserve">
-    <value>Deutsch</value>
+  <data name="Spanish" xml:space="preserve">
+    <value>Español</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Idioma</value>
   </data>
   <data name="GamePath" xml:space="preserve">
-    <value>Spiel Pfad</value>
+    <value>Ruta del juego</value>
   </data>
   <data name="ProgramsNotManagedByThisApplication" xml:space="preserve">
-    <value>Programme für GW2, die nicht von GW2-UOAOM verwaltet werden, wie z. B. TacO</value>
+    <value>Programas para GW2 no gestionados por GW2-UOAOM, como
+TacO</value>
   </data>
   <data name="CompanionApplicationsWithLeadingSpace" xml:space="preserve">
-    <value> Begleitanwendungen</value>
+    <value> Aplicaciones complementarias</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Optionen</value>
+    <value>Opciones</value>
   </data>
   <data name="CreateShortcut" xml:space="preserve">
-    <value>Verknüpfung erstellen</value>
+    <value>Crear atajo</value>
   </data>
   <data name="CreateShortcutDescription" xml:space="preserve">
-    <value>Erstellt eine Verknüpfung zum Programm. Wenn das Programm verschoben wird, funktionier diese Verknüpfung nicht mehr!</value>
+    <value>Agrega un acceso directo a la aplicación en el menú de inicio;
+si se mueve el programa, ¡el acceso directo no funcionará!</value>
   </data>
   <data name="ForceRedownload" xml:space="preserve">
-    <value>Herunterladen erzwingen</value>
+    <value>Volver a descargar</value>
   </data>
   <data name="ForceRedownloadDescription" xml:space="preserve">
-    <value>Lädt den Addon-Loader und alle Add-ons erneut runter, ohne die Version zu beachten.</value>
+    <value>Vuelve a descargar el cargador de complementos y todos los
+complementos, independientemente de la versión.</value>
   </data>
   <data name="Available" xml:space="preserve">
-    <value>Verfügbar</value>
+    <value>Disponible</value>
   </data>
   <data name="Downloading" xml:space="preserve">
-    <value>Lade Herunter</value>
+    <value>Descargando</value>
   </data>
   <data name="DownloadComplete" xml:space="preserve">
-    <value>Herunterladen Abgeschlossen</value>
+    <value>Descarga completa</value>
   </data>
   <data name="Update" xml:space="preserve">
-    <value>Aktualisieren</value>
+    <value>Actualizar</value>
   </data>
   <data name="UpdateDescription" xml:space="preserve">
-    <value>Lädt das Update herunter und startet die Anwendung neu.</value>
+    <value>Esto descargará la actualización de la aplicación y luego
+reiniciará el programa.</value>
   </data>
   <data name="SelectDirectory" xml:space="preserve">
-    <value>Verzeichnis auswählen</value>
+    <value>Selecciona una carpeta</value>
   </data>
   <data name="SelectDirectoryDescription" xml:space="preserve">
-    <value>Verwalte das Spiel an dem Pfad in der Textfeld</value>
+    <value>Selecciona la ubicación del juego</value>
   </data>
   <data name="AddOns" xml:space="preserve">
     <value>Add-Ons</value>
   </data>
   <data name="SelectAllAddonsDescription" xml:space="preserve">
-    <value> Wähle die Add-ons aus, die du herunterladen oder aktualisieren möchtest.</value>
+    <value>Seleccione todos los complementos que le gustaría instalar o actualizar.</value>
   </data>
   <data name="ConfigurationOptions" xml:space="preserve">
-    <value>Einstellmöglichkeiten</value>
+    <value>Opciones de configuración</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Löschen</value>
+    <value>Borrar</value>
   </data>
   <data name="Disable" xml:space="preserve">
-    <value>Deaktivieren</value>
+    <value>Desactivar</value>
   </data>
   <data name="DeleteDescription" xml:space="preserve">
-    <value>Löscht die ausgewählten Addons und alle zugehörigen Daten</value>
+    <value>Elimina los complementos seleccionados y todos los datos
+asociados</value>
   </data>
   <data name="DisableDescription" xml:space="preserve">
-    <value>Deaktiviert die ausgewählten Addons</value>
+    <value>Deshabilita los complementos seleccionados</value>
   </data>
   <data name="ReEnable" xml:space="preserve">
-    <value>Erneut aktivieren</value>
+    <value>Reactivar</value>
   </data>
   <data name="ReEnableDescription" xml:space="preserve">
-    <value>Aktiviert die ausgewählten Addons, wenn sie deaktiviert sind</value>
+    <value>Habilita los complementos seleccionados si están deshabilitados</value>
   </data>
   <data name="ResetToCleanInstall" xml:space="preserve">
-    <value>Auf Werkseinstellungen zurücksetzen</value>
+    <value>Restablecer la configuración inicial</value>
   </data>
   <data name="ResetToCleanInstallDescription" xml:space="preserve">
-    <value>Löscht alle Addons und Plugins aus Guild Wars 2.</value>
+    <value>Elimina todos los complementos y complementos de Guild Wars
+2.</value>
   </data>
   <data name="UpdateAllUpperCase" xml:space="preserve">
-    <value>AKTUALISIEREN</value>
+    <value>ACTUALIZAR</value>
   </data>
   <data name="SelectAnAddonToSeeMoreInformationAboutIt" xml:space="preserve">
-    <value>Wählen Sie ein Add-On aus, um weitere Informationen dazu anzuzeigen.</value>
-  </data>
-  <data name="Spanish" xml:space="preserve">
-    <value>Spanisch</value>
+    <value>Seleccione un complemento para ver más información al respecto.</value>
   </data>
 </root>
