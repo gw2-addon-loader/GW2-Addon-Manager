@@ -10,6 +10,7 @@ using NUnit.Framework;
 namespace ApplicationTests.Backend.Configuration
 {
     [TestFixture]
+    [Parallelizable]
     public class ConfigurationTests
     {
         private Mock<IConfigurationManager> _configManagerMock;
@@ -77,6 +78,21 @@ namespace ApplicationTests.Backend.Configuration
 
             Assert.That(configurationManager.UserConfig.AddonsList, Is.Empty);
             Assert.That(configurationManager.UserConfig.LoaderVersion, Is.Null);
+        }
+
+        [Test]
+        public void ShouldTakeLatestVersion_IfNewestVersionIsNull()
+        {
+            _configManagerMock.SetupGet(x => x.ApplicationVersion).Returns("1.0");
+            _updateHelperMock.Setup(x => x.GitReleaseInfo(It.IsAny<string>())).Returns(null);
+
+            var configuration =
+                new GW2_Addon_Manager.Configuration(_configManagerMock.Object, _updateHelperMock.Object, _fileSystemManagerMock.Object);
+
+            var isUpdateAvailable = configuration.CheckIfNewVersionIsAvailable(out var latestVersionResult);
+
+            Assert.That(isUpdateAvailable, Is.False);
+            Assert.That(latestVersionResult, Is.EqualTo("1.0"));
         }
     }
 }
