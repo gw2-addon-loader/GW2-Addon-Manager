@@ -173,6 +173,7 @@
       <DependentUpon>UpdatingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UpdatingPage\UpdatingViewModel.cs" />
+    <Resource Include="Resources\segoe-mdl2-assets.ttf" />
     <Page Include="UI\OpeningPage\OpeningView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
