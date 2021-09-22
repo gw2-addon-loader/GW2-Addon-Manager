@@ -183,8 +183,8 @@
   <data name="SelectAllAddonsDescription" xml:space="preserve">
     <value>Select all addons that you would like to install or update.</value>
   </data>
-  <data name="ConfigurationOptions" xml:space="preserve">
-    <value>Configuration Options</value>
+  <data name="ManageSelected" xml:space="preserve">
+    <value>Manage Selected</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>

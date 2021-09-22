@@ -97,15 +97,6 @@ namespace Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configuration Options.
-        /// </summary>
-        public static string ConfigurationOptions {
-            get {
-                return ResourceManager.GetString("ConfigurationOptions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create Shortcut.
         /// </summary>
         public static string CreateShortcut {
@@ -264,6 +255,15 @@ namespace Localization {
         public static string Language {
             get {
                 return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Selected.
+        /// </summary>
+        public static string ManageSelected {
+            get {
+                return ResourceManager.GetString("ManageSelected", resourceCulture);
             }
         }
         

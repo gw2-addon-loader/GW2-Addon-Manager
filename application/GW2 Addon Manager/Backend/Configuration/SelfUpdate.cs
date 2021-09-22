@@ -17,7 +17,7 @@ namespace GW2_Addon_Manager
         static readonly string update_folder = "latestRelease";
         static readonly string update_name = "update.zip";
 
-        OpeningViewModel viewModel;
+        MainWindowViewModel viewModel;
 
         public static void Update()
         {
@@ -29,7 +29,7 @@ namespace GW2_Addon_Manager
         /// </summary>
         private SelfUpdate()
         {
-            viewModel = OpeningViewModel.GetInstance;
+            viewModel = MainWindowViewModel.GetInstance;
             viewModel.UpdateProgressVisibility = Visibility.Visible;
             viewModel.UpdateLinkVisibility = Visibility.Hidden;
             Task.Run(() => downloadLatestRelease());

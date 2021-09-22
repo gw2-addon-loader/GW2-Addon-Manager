@@ -29,10 +29,6 @@ namespace GW2_Addon_Manager
         private string _description;
         private string _addonwebsite;
         private Visibility _developer_visibility;
-        private string _updateAvailable;
-        private int updateProgress;
-        private Visibility _updateLinkVisibility;
-        private Visibility _updateProgressVisibility;
 
         /********** UI BINDINGS **********/
 
@@ -89,22 +85,6 @@ namespace GW2_Addon_Manager
             get => _developer_visibility;
             set => SetProperty(ref _developer_visibility, value);
         }
-        /// <summary>
-        /// A string representing a visibility value for the Github releases link.
-        /// </summary>
-        public Visibility UpdateLinkVisibility
-        {
-            get => _updateLinkVisibility;
-            set => SetProperty(ref _updateLinkVisibility, value);
-        }
-        /// <summary>
-        /// A string representing a visibility value for the self-update download progress bar.
-        /// </summary>
-        public Visibility UpdateProgressVisibility
-        {
-            get => _updateProgressVisibility;
-            set => SetProperty(ref _updateProgressVisibility, value);
-        }
 
         /***************************/
         /***** Button Handlers *****/
@@ -140,40 +120,8 @@ namespace GW2_Addon_Manager
         {
             get => new RelayCommand<object>(param => _pluginManagement.DeleteAll(), true);
         }
-        /// <summary>
-        /// Handles the Change Language buttons.
-        /// </summary>
-        public ICommand ChangeLanguage
-        {
-            get => new RelayCommand<string>(param => _configuration.SetCulture(param), true);
-        }
 
         /******************************************/
-
-        /// <summary>
-        /// Handler for small button to download application update.
-        /// </summary>
-        public ICommand DownloadSelfUpdate
-        {
-            get => new RelayCommand<object>(param => SelfUpdate.Update(), true);
-        }
-        /// <summary>
-        /// Handles the create shortcut button under the options menu. <see cref="cs_logic"/>
-        /// </summary>
-        public ICommand CreateShortcut
-        {
-            get => new RelayCommand<object>(param => cs_logic(), true);
-        }
-
-        /***** Misc *****/
-        /// <summary>
-        /// Binding for the value shown in the mini progress bar displayed when downloading a new version of the application.
-        /// </summary>
-        public int UpdateDownloadProgress
-        {
-            get => updateProgress;
-            set => SetProperty(ref updateProgress, value);
-        }
 
         /// <summary>
         /// Content of the text box that contains the game path the program is set to look for the game in.
@@ -190,15 +138,6 @@ namespace GW2_Addon_Manager
             }
         }
         private string _gamePath;
-
-        /// <summary>
-        /// A string that is assigned a value if there is an update available.
-        /// </summary>
-        public string UpdateAvailable
-        {
-            get => _updateAvailable;
-            set => SetProperty(ref _updateAvailable, value);
-        }
 
 
         /********** Class Structure/Other Methods **********/
@@ -231,9 +170,6 @@ namespace GW2_Addon_Manager
 
             DescriptionText = StaticText.SelectAnAddonToSeeMoreInformationAboutIt;
             DeveloperVisibility = Visibility.Hidden;
-
-            UpdateLinkVisibility = Visibility.Hidden;
-            UpdateProgressVisibility = Visibility.Hidden;
 
             GamePath = _configurationManager.UserConfig.GamePath;
         }

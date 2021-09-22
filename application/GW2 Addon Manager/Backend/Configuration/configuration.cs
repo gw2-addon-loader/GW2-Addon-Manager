@@ -71,8 +71,8 @@ namespace GW2_Addon_Manager
 
             if (latestVersion == _configurationManager.ApplicationVersion) return;
 
-            OpeningViewModel.GetInstance.UpdateAvailable = $"{latestVersion} {StaticText.Available.ToLower()}!";
-            OpeningViewModel.GetInstance.UpdateLinkVisibility = Visibility.Visible;
+            MainWindowViewModel.GetInstance.UpdateAvailable = $"{latestVersion} {StaticText.Available.ToLower()}!";
+            MainWindowViewModel.GetInstance.UpdateLinkVisibility = Visibility.Visible;
         }
 
         /// <summary>

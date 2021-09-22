@@ -22,21 +22,12 @@ namespace GW2_Addon_Manager
     public partial class MainWindow
     {
 
-        private readonly IConfigurationManager _configurationManager;
-        private readonly PluginManagement _pluginManagement;
-
         /// <summary>
         /// Initializes the application's main window.
         /// </summary>
         public MainWindow()
         {
-
-            _configurationManager = new ConfigurationManager();
-            var configuration = new Configuration(_configurationManager);
-            configuration.CheckSelfUpdates();
-            configuration.DetermineSystemType();
-            _pluginManagement = new PluginManagement(_configurationManager);
-            _pluginManagement.DisplayAddonStatus();
+            DataContext = MainWindowViewModel.GetInstance;
 
             InitializeComponent();
         }
@@ -60,49 +51,6 @@ namespace GW2_Addon_Manager
         private void minimize_clicked(object sender, RoutedEventArgs e)
         {
             (this.Parent as Window).WindowState = WindowState.Minimized;
-        }
-        //just calls PluginManagement.ForceRedownload(); and then update_button_clicked
-        private void RedownloadAddons(object sender, RoutedEventArgs e)
-        {
-            if (_pluginManagement.ForceRedownload())
-                update_button_clicked(sender, e);
-        }
-
-
-        /***** UPDATE button *****/
-        private void update_button_clicked(object sender, RoutedEventArgs e)
-        {
-            //If bin folder doesn't exist then LoaderSetup intialization will fail.
-            if (_configurationManager.UserConfig.BinFolder == null) {
-                MessageBox.Show("Unable to locate Guild Wars 2 /bin/ or /bin64/ folder." + Environment.NewLine + "Please verify Game Path is correct.",
-                                "Unable to Update", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            List<AddonInfoFromYaml> selectedAddons = new List<AddonInfoFromYaml>();
-
-            //the d3d9 wrapper is installed by default and hidden from the list displayed to the user, so it has to be added to this list manually
-            AddonInfoFromYaml wrapper = AddonYamlReader.getAddonInInfo("d3d9_wrapper");
-            wrapper.folder_name = "d3d9_wrapper";
-            selectedAddons.Add(wrapper);
-
-            foreach (AddonInfoFromYaml addon in OpeningViewModel.GetInstance.AddonList.Where(add => add.IsSelected == true)) {
-                selectedAddons.Add(addon);
-            }
-
-            Application.Current.Properties["Selected"] = selectedAddons;
-
-            mainFrame.NavigationService.Navigate(new Uri("UI/UpdatingPage/UpdatingView.xaml", UriKind.Relative));
-        }
-
-        private void SelectDirectoryBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-            var pathSelectionDialog = new CommonOpenFileDialog();
-            pathSelectionDialog.IsFolderPicker = true;
-            CommonFileDialogResult result = pathSelectionDialog.ShowDialog();
-            if (result == (CommonFileDialogResult)1)
-                OpeningViewModel.GetInstance.GamePath = pathSelectionDialog.FileName;
-
         }
 
         /***** Hyperlink Handler *****/

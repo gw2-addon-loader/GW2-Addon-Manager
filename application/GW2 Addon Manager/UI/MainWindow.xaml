@@ -12,8 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
 
@@ -27,28 +26,6 @@
                   Background="Transparent"
                   Margin="0,0,5,0"
                   >
-                <MenuItem Header="{x:Static l:StaticText.Options}" HorizontalContentAlignment="Stretch"
-                      VerticalContentAlignment="Center"
-                      Template="{StaticResource AddonMenuItemControlTemplate}"
-                      Style="{StaticResource AddonMenuItemStyle}"
-                      Background="Transparent"
-                      Foreground="DimGray"
-                      >
-                    <MenuItem
-                    Command="{Binding Path=CreateShortcut}"
-                    Header="{x:Static l:StaticText.CreateShortcut}"
-                    ToolTip="{x:Static l:StaticText.CreateShortcutDescription}"
-                    Template="{StaticResource AddonMenuItemControlTemplate}"
-                    Style="{StaticResource AddonMenuItemStyle}"
-                    />
-                    <MenuItem
-                    Click="RedownloadAddons"
-                    Header="{x:Static l:StaticText.ForceRedownload}"
-                    ToolTip="{x:Static l:StaticText.ForceRedownloadDescription}"
-                    Template="{StaticResource AddonMenuItemControlTemplate}"
-                    Style="{StaticResource AddonMenuItemStyle}" 
-                    />
-                </MenuItem>
                 <MenuItem Header="{x:Static l:StaticText.Language}" HorizontalContentAlignment="Stretch"
                       VerticalContentAlignment="Center"
                       Template="{StaticResource AddonMenuItemControlTemplate}"
@@ -100,7 +77,7 @@
                   Margin="5,0,5,0"
                 >
                 <Hyperlink NavigateUri="https://github.com/gw2-addon-loader/GW2-Addon-Manager/wiki" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None" FocusVisualStyle="{x:Null}">
-                     <TextBlock Text="WIKI " FontFamily="Microsoft YaHei UI"/>
+                     <TextBlock Text="Wiki " FontFamily="Microsoft YaHei UI"/>
                 </Hyperlink>
                 |
                 <Hyperlink 
@@ -154,80 +131,6 @@
 
         <Label Grid.Row="1" FontWeight="Bold" FontSize="40" Foreground="DimGray" Margin="30,0,0,0" FontFamily="Microsoft JhengHei UI Light" Width="Auto" HorizontalAlignment="Left" Content="Guild Wars 2 Unofficial Addon Manager"/>
 
-        <Frame x:Name="mainFrame" Source="OpeningPage/OpeningView.xaml" NavigationUIVisibility="Hidden" Grid.Row="2" VerticalAlignment="Center" Height="400" Margin="40,0,100,0"/>
-
-        <DockPanel Grid.Row="3" VerticalAlignment="Bottom" Height="50" Margin="40,0,100,0">
-            <Menu
-              Style="{StaticResource AddonMenuStyle}"
-              BorderBrush="DimGray"
-              BorderThickness="1"
-              Margin="0,0,5,0"
-              Height="30"
-              Background="WhiteSmoke"
-              HorizontalAlignment="Left"
-              VerticalAlignment="Center">
-                <MenuItem Header="{x:Static l:StaticText.ConfigurationOptions}"
-                      HorizontalContentAlignment="Stretch"
-                      VerticalContentAlignment="Center"
-                      Height="30"
-                      Template="{StaticResource AddonMenuItemControlTemplate}"
-                      Style="{StaticResource AddonMenuItemStyle}">
-                    <MenuItem Header="{x:Static l:StaticText.Delete}" Command="{Binding Path=DeleteSelected}" Style="{StaticResource AddonMenuItemStyle}"
-                          Template="{StaticResource AddonMenuItemControlTemplate}"
-                          ToolTip="{x:Static l:StaticText.DeleteDescription}"/>
-                    <MenuItem Header="{x:Static l:StaticText.Disable}" Command="{Binding Path=DisableSelected}" Style="{StaticResource AddonMenuItemStyle}"
-                          Template="{StaticResource AddonMenuItemControlTemplate}"
-                          ToolTip="{x:Static l:StaticText.DisableDescription}"/>
-                    <MenuItem Header="{x:Static l:StaticText.ReEnable}" Command="{Binding Path=EnableSelected}" Style="{StaticResource AddonMenuItemStyle}"
-                          Template="{StaticResource AddonMenuItemControlTemplate}"
-                          ToolTip="{x:Static l:StaticText.ReEnableDescription}"/>
-                    <MenuItem Header="{x:Static l:StaticText.ResetToCleanInstall}" Command="{Binding Path=CleanInstall}" Style="{StaticResource AddonMenuItemStyle}"
-                          Template="{StaticResource AddonMenuItemControlTemplate}"
-                          ToolTip="{x:Static l:StaticText.ResetToCleanInstallDescription}"/>
-                </MenuItem>
-            </Menu>
-
-            <TextBlock FontFamily="Microsoft YaHei UI Light" VerticalAlignment="Center" Foreground="White" Margin="15,0,5,0" FontSize="14" Text="{x:Static l:StaticText.GamePath}"/>
-            <TextBox Text="{Binding GamePath}"
-                 Margin="0,0,5,0"
-                 VerticalAlignment="Center"
-                 Width="470"
-                 Height="30"
-                 Background="LightGray"
-                 BorderThickness="0"
-                 FontSize="16"
-                 FontFamily="Microsoft JhengHei Light"
-                 />
-            <Button Name="SelectDirectoryBtn"
-                Click="SelectDirectoryBtn_OnClick"
-                 Margin="0,0,15,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="{x:Static l:StaticText.SelectDirectory}"
-                ToolTip="{x:Static l:StaticText.SelectDirectoryDescription}"
-                Background="#FF66A8C7"
-                Foreground="White"
-                FontSize="14"
-                FontFamily="Microsoft YaHei UI Light"
-                Height="30"
-                BorderBrush="LightGray"
-                Style="{StaticResource BigContentButton}"
-            />
-
-            <Button x:Name="nextPage" Content="{x:Static l:StaticText.UpdateAllUpperCase}"
-                DockPanel.Dock="Right"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Right"
-                Foreground="White"
-                Background="#FF66A8C7"
-                Click="update_button_clicked"
-                FontFamily="Microsoft YaHei UI"
-                FontSize="25"
-                BorderThickness="1"
-                Padding="5"
-                BorderBrush="#FFC9C9C9"
-                Style="{StaticResource BigContentButton}" FontWeight="Bold"
-                />
-        </DockPanel>
+        <Frame x:Name="mainFrame" Source="OpeningPage/OpeningView.xaml" NavigationUIVisibility="Hidden" Grid.Row="2" VerticalAlignment="Stretch" Margin="40,0,100,0"/>
     </Grid>
 </Window>

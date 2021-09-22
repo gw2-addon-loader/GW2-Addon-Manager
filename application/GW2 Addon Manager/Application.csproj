@@ -164,6 +164,7 @@
     <Compile Include="Backend\Configuration\Configuration.cs" />
     <Compile Include="Backend\Updating\GenericUpdater.cs" />
     <Compile Include="Backend\LoaderSetup\LoaderSetup.cs" />
+    <Compile Include="UI\MainWindowViewModel.cs" />
     <Compile Include="UI\OpeningPage\OpeningViewModel.cs" />
     <Compile Include="Backend\Configuration\PluginManagement.cs" />
     <Compile Include="Backend\Configuration\SelfUpdate.cs" />
