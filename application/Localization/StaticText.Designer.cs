@@ -61,7 +61,7 @@ namespace Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add-Ons.
+        ///   Looks up a localized string similar to Addons.
         /// </summary>
         public static string AddOns {
             get {
@@ -79,7 +79,7 @@ namespace Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chinese.
+        ///   Looks up a localized string similar to 简体中文.
         /// </summary>
         public static string Chinese {
             get {
@@ -138,6 +138,24 @@ namespace Localization {
         public static string DeleteDescription {
             get {
                 return ResourceManager.GetString("DeleteDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Developers: .
+        /// </summary>
+        public static string DevelopersColonSpace {
+            get {
+                return ResourceManager.GetString("DevelopersColonSpace", resourceCulture);
             }
         }
         
@@ -205,7 +223,7 @@ namespace Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to French.
+        ///   Looks up a localized string similar to Français.
         /// </summary>
         public static string French {
             get {
@@ -223,7 +241,16 @@ namespace Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Korean.
+        ///   Looks up a localized string similar to Deutsch.
+        /// </summary>
+        public static string German {
+            get {
+                return ResourceManager.GetString("German", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 한국인.
         /// </summary>
         public static string Korean {
             get {
@@ -250,7 +277,7 @@ namespace Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Programs for GW2 not managed by GW2-UOAOM, such as TacO.
+        ///   Looks up a localized string similar to Programs for GW2 not managed by the Addon Manager.
         /// </summary>
         public static string ProgramsNotManagedByThisApplication {
             get {
@@ -331,6 +358,24 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thank You!.
+        /// </summary>
+        public static string ThankYou {
+            get {
+                return ResourceManager.GetString("ThankYou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thank you for using the GW2 Unofficial Addon Manager!.
+        /// </summary>
+        public static string ThankYouDescription {
+            get {
+                return ResourceManager.GetString("ThankYouDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update.
         /// </summary>
         public static string Update {
@@ -354,6 +399,15 @@ namespace Localization {
         public static string UpdateDescription {
             get {
                 return ResourceManager.GetString("UpdateDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View this project on Github:.
+        /// </summary>
+        public static string ViewOnGithub {
+            get {
+                return ResourceManager.GetString("ViewOnGithub", resourceCulture);
             }
         }
     }

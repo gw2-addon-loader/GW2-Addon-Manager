@@ -13,6 +13,7 @@
             <system:Boolean x:Key="GW2Radial"/>
             <system:Boolean x:Key="d912pxy"/>
             <system:Boolean x:Key="gw2hook"/>
+            <FontFamily x:Key="MDL2Assets">pack://application:,,,/Resources/#Segoe MDL2 Assets</FontFamily>
         </ResourceDictionary>
        
     </Application.Resources>

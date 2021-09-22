@@ -117,26 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="French" xml:space="preserve">
-    <value>Französisch</value>
-  </data>
-  <data name="English" xml:space="preserve">
-    <value>Englisch</value>
-  </data>
   <data name="Chinese" xml:space="preserve">
     <value>Chinesisch</value>
-  </data>
-  <data name="Korean" xml:space="preserve">
-    <value>Koreanisch</value>
-  </data>
-  <data name="German" xml:space="preserve">
-    <value>Deutsch</value>
   </data>
   <data name="GamePath" xml:space="preserve">
     <value>Spiel Pfad</value>
   </data>
   <data name="ProgramsNotManagedByThisApplication" xml:space="preserve">
-    <value>Programme für GW2, die nicht von GW2-UOAOM verwaltet werden, wie z. B. TacO</value>
+    <value>Programme für GW2, die nicht von Addon Manager verwaltet werden</value>
   </data>
   <data name="CompanionApplicationsWithLeadingSpace" xml:space="preserve">
     <value> Begleitanwendungen</value>
@@ -178,7 +166,7 @@
     <value>Verwalte das Spiel an dem Pfad in der Textfeld</value>
   </data>
   <data name="AddOns" xml:space="preserve">
-    <value>Add-Ons</value>
+    <value>Hinzufügen</value>
   </data>
   <data name="SelectAllAddonsDescription" xml:space="preserve">
     <value> Wähle die Add-ons aus, die du herunterladen oder aktualisieren möchtest.</value>
@@ -215,5 +203,11 @@
   </data>
   <data name="SelectAnAddonToSeeMoreInformationAboutIt" xml:space="preserve">
     <value>Wählen Sie ein Add-On aus, um weitere Informationen dazu anzuzeigen.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="DevelopersColonSpace" xml:space="preserve">
+    <value>Entwickler: </value>
   </data>
 </root>

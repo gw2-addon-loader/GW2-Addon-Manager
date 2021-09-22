@@ -12,7 +12,7 @@ namespace GW2_Addon_Manager
     /// <summary>
     /// Interaction logic for Updating.xaml
     /// </summary>
-    public partial class UpdatingView : Page
+    public partial class UpdatingView
     {
         private readonly IConfigurationManager _configurationManager;
 

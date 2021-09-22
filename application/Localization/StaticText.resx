@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="French" xml:space="preserve">
-    <value>French</value>
+    <value>Français</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
   </data>
   <data name="Chinese" xml:space="preserve">
-    <value>Chinese</value>
+    <value>简体中文</value>
   </data>
   <data name="Korean" xml:space="preserve">
-    <value>Korean</value>
+    <value>한국인</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
@@ -136,7 +136,7 @@
     <value>Game path</value>
   </data>
   <data name="ProgramsNotManagedByThisApplication" xml:space="preserve">
-    <value>Programs for GW2 not managed by GW2-UOAOM, such as TacO</value>
+    <value>Programs for GW2 not managed by the Addon Manager</value>
   </data>
   <data name="CompanionApplicationsWithLeadingSpace" xml:space="preserve">
     <value> Companion Applications</value>
@@ -178,7 +178,7 @@
     <value>Manage the game at the location in the text box</value>
   </data>
   <data name="AddOns" xml:space="preserve">
-    <value>Add-Ons</value>
+    <value>Addons</value>
   </data>
   <data name="SelectAllAddonsDescription" xml:space="preserve">
     <value>Select all addons that you would like to install or update.</value>
@@ -215,5 +215,23 @@
   </data>
   <data name="SelectAnAddonToSeeMoreInformationAboutIt" xml:space="preserve">
     <value>Select an add-on to see more information about it.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DevelopersColonSpace" xml:space="preserve">
+    <value>Developers: </value>
+  </data>
+  <data name="ThankYouDescription" xml:space="preserve">
+    <value>Thank you for using the GW2 Unofficial Addon Manager!</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>Thank You!</value>
+  </data>
+  <data name="ViewOnGithub" xml:space="preserve">
+    <value>View this project on Github:</value>
+  </data>
+  <data name="German" xml:space="preserve">
+    <value>Deutsch</value>
   </data>
 </root>
