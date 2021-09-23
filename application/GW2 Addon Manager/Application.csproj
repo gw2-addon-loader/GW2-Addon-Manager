@@ -189,13 +189,13 @@
     <Compile Include="App\Configuration\Model\OldConfig.cs" />
     <Compile Include="App\Configuration\Model\UserConfig.cs" />
     <Compile Include="App\Configuration\IConfigurationManager.cs" />
-    <Compile Include="App\IocConfiguration.cs" />
     <Compile Include="Backend\Addons\AddonInfo.cs" />
     <Compile Include="Backend\Addons\ApprovedList.cs" />
     <Compile Include="App\Configuration\ConfigurationManager.cs" />
     <Compile Include="Backend\Configuration\Configuration.cs" />
     <Compile Include="Backend\Updating\GenericUpdater.cs" />
     <Compile Include="Backend\LoaderSetup\LoaderSetup.cs" />
+    <Compile Include="Backend\Utils.cs" />
     <Compile Include="UI\MainWindowViewModel.cs" />
     <Compile Include="UI\OpeningPage\OpeningViewModel.cs" />
     <Compile Include="Backend\Configuration\PluginManagement.cs" />
