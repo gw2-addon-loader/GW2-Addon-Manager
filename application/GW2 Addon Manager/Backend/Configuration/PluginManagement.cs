@@ -27,7 +27,7 @@ namespace GW2_Addon_Manager
                 _configurationManager.SaveConfiguration();
                 return true;
             }
-            return false; 
+            return false;
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace GW2_Addon_Manager
                     //post-delete info message
                     MessageBox.Show("All addons have been removed.", "Reverted to Clean Install", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                    
+
             DisplayAddonStatus();
         }
 

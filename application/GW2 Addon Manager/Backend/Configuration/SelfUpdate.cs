@@ -13,7 +13,7 @@ namespace GW2_Addon_Manager
     /// </summary>
     class SelfUpdate
     {
-        static readonly string applicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
+        static readonly string applicationRepoUrl = "https://api.github.com/repos/gw2-addon-loader/GW2-Addon-Manager/releases/latest";
         static readonly string update_folder = "latestRelease";
         static readonly string update_name = "update.zip";
 
@@ -52,8 +52,7 @@ namespace GW2_Addon_Manager
             viewModel.UpdateAvailable = $"{StaticText.Downloading} {latestInfo.tag_name}";
 
             Directory.CreateDirectory(update_folder);
-            WebClient client = new WebClient();
-            client.Headers.Add("User-Agent", "request");
+            WebClient client = UpdateHelpers.OpenWebClient();
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(selfUpdate_DownloadProgress);
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(selfUpdate_DownloadCompleted);
             await client.DownloadFileTaskAsync(new System.Uri(downloadUrl), Path.Combine(update_folder, update_name));

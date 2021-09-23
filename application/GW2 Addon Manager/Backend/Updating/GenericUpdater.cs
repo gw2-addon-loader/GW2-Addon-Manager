@@ -57,8 +57,7 @@ namespace GW2_Addon_Manager
         /// </summary>
         private async Task GitCheckUpdate()
         {
-            var client = new WebClient();
-            client.Headers.Add("User-Agent", "request");
+            var client = UpdateHelpers.OpenWebClient();
 
             dynamic release_info = UpdateHelpers.GitReleaseInfo(addon_info.host_url);
             latestVersion = release_info.tag_name;
@@ -74,7 +73,7 @@ namespace GW2_Addon_Manager
 
         private async Task StandaloneCheckUpdate()
         {
-            var client = new WebClient();
+            var client = UpdateHelpers.OpenWebClient();
             string downloadURL = addon_info.host_url;
 
             if (addon_info.version_url != null)

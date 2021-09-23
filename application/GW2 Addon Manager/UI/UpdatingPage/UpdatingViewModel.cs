@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Windows.Forms;
 
 namespace GW2_Addon_Manager
 {
@@ -8,45 +7,23 @@ namespace GW2_Addon_Manager
     /// </summary>
     public class UpdatingViewModel : INotifyPropertyChanged
     {
-        /* private fields for ui bindings */
-        private bool _closeBtnEnabled;
-        private bool _backBtnEnabled;
-        private string _msg;
-        private int _progress;
-
         /********** UI BINDINGS **********/
         /// <summary>
         /// Binding for whether the "FINISH" button is enabled.
         /// </summary>
-        public bool CloseBtnEnabled
-        {
-            get { return _closeBtnEnabled; }
-            set { _closeBtnEnabled = value; propertyChanged($"{nameof(CloseBtnEnabled)}"); }
-        }
+        public bool CloseBtnEnabled { get; set; }
         /// <summary>
         /// Binding for whether the "BACK" button is enabled.
         /// </summary>
-        public bool BackBtnEnabled
-        {
-            get { return _backBtnEnabled; }
-            set { _backBtnEnabled = value; propertyChanged($"{nameof(BackBtnEnabled)}"); }
-        }
+        public bool BackBtnEnabled { get; set; }
         /// <summary>
         /// Binding for the label above the progress bar.
         /// </summary>
-        public string ProgBarLabel
-        {
-            get { return _msg; }
-            set { _msg = value; propertyChanged($"{nameof(ProgBarLabel)}"); }
-        }
+        public string ProgBarLabel { get; set; }
         /// <summary>
         /// Binding for the value shown in the progress bar.
         /// </summary>
-        public int DownloadProgress
-        {
-            get { return _progress; }
-            set { _progress = value; propertyChanged($"{nameof(DownloadProgress)}"); }
-        }
+        public int DownloadProgress { get; set; }
 
         /********** Class Structure/Other Methods **********/
 
@@ -55,14 +32,6 @@ namespace GW2_Addon_Manager
         /// An event used to indicate that a property's value has changed.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-        /// <summary>x
-        /// A method used in notifying that a property's value has changed.
-        /// </summary>
-        /// <param name="propertyName">The name of the property that changed value.</param>
-        protected void propertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         /* Singleton */
         private static UpdatingViewModel onlyInstance;
@@ -72,11 +41,9 @@ namespace GW2_Addon_Manager
         private UpdatingViewModel()
         {
             onlyInstance = this;
-            ProgBarLabel = "Updating Add-Ons";
+            ProgBarLabel = "Updating Addons";
             CloseBtnEnabled = false;
             BackBtnEnabled = false;
-
-
         }
         /// <summary>
         /// Accessor for the one instance of this class; if the instance has not been initialized, does that before returning it.

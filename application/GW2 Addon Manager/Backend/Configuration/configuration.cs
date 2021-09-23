@@ -13,7 +13,7 @@ namespace GW2_Addon_Manager
     /// </summary>
     public class Configuration
     {
-        static readonly string applicationRepoUrl = "https://api.github.com/repos/fmmmlee/GW2-Addon-Manager/releases/latest";
+        static readonly string applicationRepoUrl = "https://api.github.com/repos/gw2-addon-loader/GW2-Addon-Manager/releases/latest";
 
         private readonly IConfigurationManager _configurationManager;
 

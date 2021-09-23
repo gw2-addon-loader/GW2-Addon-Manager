@@ -11,6 +11,10 @@
     ShowsNavigationUI="False"
     >
 
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+    </Page.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -30,6 +34,8 @@
                          SelectionChanged="addOnList_SelectedIndexChanged"
                          BorderThickness="0"
                          Background="WhiteSmoke"
+                     SelectionMode="Extended"
+                     KeyUp="addons_KeyUp"
                          Style="{DynamicResource ScrollableAddonListBox}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -92,14 +98,10 @@
               BorderThickness="1"
               Height="35"
               Background="WhiteSmoke"
-              HorizontalAlignment="Left"
               VerticalAlignment="Stretch"
               FontFamily="Microsoft JhengHei Light"
-              IsEnabled="{Binding AnyAddonSelected}"
-              Visibility="{Binding NotUpdatingAddons}">
+              Visibility="{Binding Path=AnyAddonSelected, Converter={StaticResource BoolToVisConverter}}">
                 <MenuItem Header="{x:Static l:StaticText.ManageSelected}"
-                      HorizontalContentAlignment="Stretch"
-                      VerticalContentAlignment="Center"
                       Height="35"
                       Template="{StaticResource AddonMenuItemControlTemplate}"
                       Style="{StaticResource AddonMenuItemStyle}">
@@ -112,11 +114,19 @@
                     <MenuItem Header="{x:Static l:StaticText.ReEnable}" Command="{Binding Path=EnableSelected}" Style="{StaticResource AddonMenuItemStyle}"
                           Template="{StaticResource AddonMenuItemControlTemplate}"
                           ToolTip="{x:Static l:StaticText.ReEnableDescription}"/>
-                    <MenuItem Header="{x:Static l:StaticText.ResetToCleanInstall}" Command="{Binding Path=CleanInstall}" Style="{StaticResource AddonMenuItemStyle}"
-                          Template="{StaticResource AddonMenuItemControlTemplate}"
-                          ToolTip="{x:Static l:StaticText.ResetToCleanInstallDescription}"/>
                 </MenuItem>
             </Menu>
+
+            <Button Command="{Binding Path=CleanInstall}"
+                      HorizontalContentAlignment="Center"
+                      VerticalContentAlignment="Center"
+                      Height="35"
+                    Width="130"
+              Background="WhiteSmoke"
+              FontFamily="Microsoft JhengHei Light"
+                      ToolTip="{x:Static l:StaticText.ResetToCleanInstallDescription}"
+                    Content="{x:Static l:StaticText.ResetToCleanInstall}"
+                      Visibility="{Binding Path=NoAddonSelected, Converter={StaticResource BoolToVisConverter}}"/>
 
             <TextBlock FontFamily="Microsoft JhengHei Light" VerticalAlignment="Center" Foreground="White" Margin="15,0,5,0" FontSize="14" Text="{x:Static l:StaticText.GamePath}"/>
             <TextBox Text="{Binding GamePath}"

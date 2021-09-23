@@ -4,15 +4,33 @@ using System.Linq;
 using System.Net;
 using System.Windows;
 using GW2_Addon_Manager.App.Configuration;
+using System;
+using System.Text;
 
 namespace GW2_Addon_Manager
 {
     class UpdateHelpers
     {
-        public static dynamic GitReleaseInfo(string gitUrl)
+        public static WebClient OpenWebClient()
         {
             var client = new WebClient();
             client.Headers.Add("User-Agent", "request");
+
+            #if DEBUG
+            var token = Environment.GetEnvironmentVariable("GW2UAM_TOKEN");
+            if(token != null) {
+                string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(token));
+                client.Headers[HttpRequestHeader.Authorization] = string.Format(
+                    "Basic {0}", credentials);
+            }
+            #endif
+
+            return client;
+        }
+
+        public static dynamic GitReleaseInfo(string gitUrl)
+        {
+            var client = OpenWebClient();
             try
             {
                 string release_info_json = client.DownloadString(gitUrl);
@@ -21,10 +39,6 @@ namespace GW2_Addon_Manager
             }
             catch (WebException)
             {
-                //TODO: Add this catch to API calls made at application startup as well
-                MessageBox.Show("Github Servers returned an error; please try again in a few minutes.", "Github API Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                SelfUpdate.startUpdater();
-                Application.Current.Shutdown();
                 return null;
             }
             

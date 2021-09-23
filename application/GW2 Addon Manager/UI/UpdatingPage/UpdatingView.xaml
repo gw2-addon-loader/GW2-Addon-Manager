@@ -42,8 +42,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
-            <Label Name="currentTask" Grid.Row="1" Grid.ColumnSpan="2" Content="{Binding ProgBarLabel, FallbackValue='&lt;Current Task&gt;'}" FontFamily="Leelawadee UI" FontSize="14" Foreground="White"/>
+
+            <Label Name="currentTask" Grid.Row="1" Grid.ColumnSpan="2" Margin="5" Content="{Binding ProgBarLabel, FallbackValue='&lt;Current Task&gt;'}" FontFamily="Leelawadee UI" FontSize="14"/>
             <ProgressBar Value="{Binding DownloadProgress}" Grid.Row="2" Grid.ColumnSpan="2" Margin="5" Height="20" Name="overall_progressBar" VerticalAlignment="Stretch" Foreground="#E53DBDC3"/>
             <Button Grid.Column="0" Grid.Row="3"
                     x:Name="closeProgram"
@@ -64,7 +64,6 @@
                     />
             <CheckBox x:Name="launchOnClose"
                       Content="Launch game when closing"
-                      Foreground="White"
                       Grid.Row="3"
                       Grid.Column="1"
                       FontFamily="Microsoft YaHei UI"

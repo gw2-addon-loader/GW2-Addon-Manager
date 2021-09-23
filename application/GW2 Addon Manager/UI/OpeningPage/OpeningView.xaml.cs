@@ -22,7 +22,7 @@ namespace GW2_Addon_Manager
     /// </summary>
     public partial class OpeningView
     {
-        static string releases_url = "https://github.com/fmmmlee/GW2-Addon-Manager/releases";
+        static string releases_url = "https://github.com/gw2-addon-loader/GW2-Addon-Manager/releases";
         static string UpdateNotificationFile = "updatenotification.txt";
 
         private readonly IConfigurationManager _configurationManager;
@@ -59,12 +59,13 @@ namespace GW2_Addon_Manager
         /// <param name="e"></param>
         public void addOnList_SelectedIndexChanged(object sender, SelectionChangedEventArgs e)
         {
-            AddonInfoFromYaml selected = OpeningViewModel.GetInstance.AddonList[addons.SelectedIndex];
-            OpeningViewModel.GetInstance.DescriptionText = selected.description;
-            OpeningViewModel.GetInstance.DeveloperText = selected.developer;
-            OpeningViewModel.GetInstance.AddonWebsiteLink = selected.website;
+            AddonInfoFromYaml selected = e.AddedItems.Count > 0 ? e.AddedItems[0] as AddonInfoFromYaml : null;
+            OpeningViewModel.GetInstance.DescriptionText = selected?.description;
+            OpeningViewModel.GetInstance.DeveloperText = selected?.developer;
+            OpeningViewModel.GetInstance.AddonWebsiteLink = selected?.website;
 
-            OpeningViewModel.GetInstance.DeveloperVisibility = Visibility.Visible;
+            OpeningViewModel.GetInstance.DeveloperVisibility = selected != null ? Visibility.Visible : Visibility.Hidden;
+            OpeningViewModel.GetInstance.AnyAddonSelected = addons.SelectedItems.Count > 0;
         }
 
         private void SelectDirectoryBtn_OnClick(object sender, RoutedEventArgs e)
@@ -116,6 +117,13 @@ namespace GW2_Addon_Manager
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
+        }
+
+        private void addons_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if(e.Key == Key.Escape) {
+                addons.SelectedItems.Clear();
+            }
         }
     }
 }
