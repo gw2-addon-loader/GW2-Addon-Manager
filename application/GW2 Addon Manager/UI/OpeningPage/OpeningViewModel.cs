@@ -27,7 +27,7 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// List of Addons
         /// </summary>
-        public ObservableCollection<AddonInfoFromYaml> AddonList { get; set; }
+        public ObservableCollection<AddonInfo> AddonList { get; set; }
 
         /***** Description Panel *****/
         /// <summary>
@@ -107,31 +107,20 @@ namespace GW2_Addon_Manager
 
         /********** Class Structure/Other Methods **********/
 
-        /* Singleton Setup */
-        private static OpeningViewModel onlyInstance;
         /// <summary>
         /// This constructor initializes various default properties across the class and then
         /// applies any updated values to them using <c>ApplyDefaultConfig</c>.
         /// </summary>
-        private OpeningViewModel()
+        public OpeningViewModel(IConfigurationManager configurationManager, PluginManagement pluginManagement, ApprovedList approvedList)
         {
-            onlyInstance = this;
+            _configurationManager = configurationManager;
+            _pluginManagement = pluginManagement;
 
-            _configurationManager = new ConfigurationManager();
-            _pluginManagement = new PluginManagement(_configurationManager);
-
-            AddonList = new ApprovedList(_configurationManager).GenerateAddonList();
+            AddonList = approvedList.GenerateAddonList();
 
             DescriptionText = StaticText.SelectAnAddonToSeeMoreInformationAboutIt;
             DeveloperVisibility = Visibility.Hidden;
         }
-
-        /// <summary>
-        /// Fetches the only instance of the OpeningViewModel and creates it if it has not been initialized yet.
-        /// </summary>
-        /// <returns>An instance of OpeningViewModel</returns>
-        public static OpeningViewModel GetInstance
-        { get => (onlyInstance == null) ? new OpeningViewModel() : onlyInstance; }
 
         /*** Notify UI of Changed Binding Items ***/
         /// <summary>

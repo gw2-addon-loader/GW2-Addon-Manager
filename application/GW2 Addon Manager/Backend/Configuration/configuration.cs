@@ -17,6 +17,10 @@ namespace GW2_Addon_Manager
 
         private readonly IConfigurationManager _configurationManager;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configurationManager"></param>
         public Configuration(IConfigurationManager configurationManager)
         {
             _configurationManager = configurationManager;

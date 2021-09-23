@@ -5,13 +5,23 @@ using GW2_Addon_Manager.App.Configuration;
 
 namespace GW2_Addon_Manager
 {
-    class PluginManagement
+    public class PluginManagement
     {
         private readonly IConfigurationManager _configurationManager;
+        private readonly AddonYamlReader _yaml;
+        private readonly GenericUpdaterFactory _updaterFactory;
 
-        public PluginManagement(IConfigurationManager configurationManager)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configurationManager"></param>
+        /// <param name="yaml"></param>
+        /// <param name="updaterFactory"></param>
+        public PluginManagement(IConfigurationManager configurationManager, AddonYamlReader yaml, GenericUpdaterFactory updaterFactory)
         {
             _configurationManager = configurationManager;
+            _yaml = yaml;
+            _updaterFactory = updaterFactory;
         }
 
         /// <summary>
@@ -61,8 +71,8 @@ namespace GW2_Addon_Manager
             string deletemsg = "This will delete any add-ons that are selected and all data associated with them! Are you sure you wish to continue?";
             if (MessageBox.Show(deletemsg, "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                foreach (AddonInfoFromYaml addon in OpeningViewModel.GetInstance.AddonList.Where(add => add.IsSelected == true))
-                    new GenericUpdater(addon, _configurationManager).Delete();
+                foreach (AddonInfo addon in OpeningViewModel.GetInstance.AddonList.Where(add => add.IsSelected == true))
+                    _updaterFactory.Create(addon).Delete();
             }
             DisplayAddonStatus();
         }
@@ -76,8 +86,8 @@ namespace GW2_Addon_Manager
             string disablemsg = "This will disable the selected add-ons until you choose to re-enable them. Do you wish to continue?";
             if (MessageBox.Show(disablemsg, "Disable", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
-                foreach (AddonInfoFromYaml addon in OpeningViewModel.GetInstance.AddonList.Where(add => add.IsSelected == true))
-                    new GenericUpdater(addon, _configurationManager).Disable();
+                foreach (AddonInfo addon in OpeningViewModel.GetInstance.AddonList.Where(add => add.IsSelected == true))
+                    _updaterFactory.Create(addon).Disable();
             }
             DisplayAddonStatus();
         }
@@ -91,8 +101,8 @@ namespace GW2_Addon_Manager
             string enablemsg = "This will enable any of the selected add-ons that are disabled. Do you wish to continue?";
             if (MessageBox.Show(enablemsg, "Enable", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
-                foreach (AddonInfoFromYaml addon in OpeningViewModel.GetInstance.AddonList.Where(add => add.IsSelected == true))
-                    new GenericUpdater(addon, _configurationManager).Enable();
+                foreach (AddonInfo addon in OpeningViewModel.GetInstance.AddonList.Where(add => add.IsSelected == true))
+                    _updaterFactory.Create(addon).Enable();
             }
             DisplayAddonStatus();
         }
@@ -105,20 +115,20 @@ namespace GW2_Addon_Manager
             foreach (var addon in OpeningViewModel.GetInstance.AddonList)
             {
                 var addonConfig =
-                    _configurationManager.UserConfig.AddonsList[addon.folder_name];
+                    _configurationManager.UserConfig.AddonsList[addon.FolderName];
                 if (addonConfig == null) continue;
 
-                addon.addon_name = AddonYamlReader.getAddonInInfo(addon.folder_name).addon_name;
+                addon.AddonName = _yaml.GetAddonInfo(addon.FolderName).AddonName;
                 if (addonConfig.Installed)
                 {
-                    if (addon.folder_name == "arcdps" || addon.folder_name == "buildPad" || addonConfig.Version.Length > 10)
-                        addon.addon_name += " (installed)";
+                    if (addon.FolderName == "arcdps" || addon.FolderName == "buildPad" || addonConfig.Version.Length > 10)
+                        addon.AddonName += " (installed)";
                     else
-                        addon.addon_name += " (" + addonConfig.Version + " installed)";
+                        addon.AddonName += " (" + addonConfig.Version + " installed)";
                 }
 
                 if (addonConfig.Disabled)
-                    addon.addon_name += " (disabled)";
+                    addon.AddonName += " (disabled)";
             }
         }
     }

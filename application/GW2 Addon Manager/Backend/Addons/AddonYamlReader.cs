@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace GW2_Addon_Manager
 {
@@ -8,12 +9,19 @@ namespace GW2_Addon_Manager
     /// </summary>
     class AddonYamlReader
     {
+        private IDeserializer deserializer;
+
+        public AddonYamlReader()
+        {
+            deserializer = new DeserializerBuilder().WithNamingConvention(CamelCaseNamingConvention.Instance).Build();
+        }
+
         /// <summary>
         /// Gets info for an add-on from update.yaml provided by the author or packaged with the application (when the author hasn't written one yet).
         /// </summary>
         /// <param name="name">The name of the addon folder to read from.</param>
         /// <returns>An object with the information from update.yaml</returns>
-        public static AddonInfoFromYaml getAddonInInfo(string name)
+        public AddonInfo GetAddonInfo(string name)
         {
             string yamlPath = $"resources\\addons\\{name}\\update.yaml";
             string placeholderYamlPath = $"resources\\addons\\{name}\\update-placeholder.yaml";
@@ -24,15 +32,15 @@ namespace GW2_Addon_Manager
             else if(File.Exists(placeholderYamlPath))
                 updateFile = File.ReadAllText(placeholderYamlPath);
 
-            return new Deserializer().Deserialize<AddonInfoFromYaml>(updateFile);
+            return deserializer.Deserialize<AddonInfo>(updateFile);
         }
 
         /// <summary>
-        /// Checks for a copy of Update.yaml in the directory given in <paramref name="search_folder"/> and if present copies it to an addon application resource folder specified in <paramref name="name"/>.
+        /// Checks for a copy of Update.yaml in the directory given in <paramref name="searchFolder"/> and if present copies it to an addon application resource folder specified in <paramref name="name"/>.
         /// </summary>
-        public static void CheckForUpdateYaml(string name, string search_folder)
+        public void CheckForUpdateYaml(string name, string searchFolder)
         {
-            string yamlPath = Path.Combine(search_folder, "update.yaml");
+            string yamlPath = Path.Combine(searchFolder, "update.yaml");
             if (File.Exists(yamlPath))
                 File.Copy(yamlPath, $"resources\\addons\\{name}\\update.yaml", true);
         }

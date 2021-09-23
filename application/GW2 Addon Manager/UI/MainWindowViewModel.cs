@@ -13,6 +13,7 @@ namespace GW2_Addon_Manager
     {
         private readonly IConfigurationManager _configurationManager;
         private readonly Configuration _configuration;
+        private readonly SelfUpdate _selfUpdate;
 
         /// <summary>
         /// A string representing a visibility value for the Github releases link.
@@ -36,7 +37,11 @@ namespace GW2_Addon_Manager
         /// </summary>
         public ICommand DownloadSelfUpdate
         {
-            get => new RelayCommand<object>(param => SelfUpdate.Update(), true);
+            get => new RelayCommand<object>(param => {
+                UpdateProgressVisibility = Visibility.Visible;
+                UpdateLinkVisibility = Visibility.Hidden;
+                _selfUpdate.Update();
+                }, true);
         }
 
         /***** Misc *****/
@@ -50,28 +55,22 @@ namespace GW2_Addon_Manager
         /// </summary>
         public string UpdateAvailable { get; set; }
 
-        /* Singleton Setup */
-        private static MainWindowViewModel onlyInstance;
         /// <summary>
         /// This constructor initializes various default properties across the class and then
         /// applies any updated values to them using <c>ApplyDefaultConfig</c>.
         /// </summary>
-        private MainWindowViewModel()
+        public MainWindowViewModel(IConfigurationManager configurationManager, SelfUpdate selfUpdate)
         {
-            onlyInstance = this;
-
-            _configurationManager = new ConfigurationManager();
+            _configurationManager = configurationManager;
             _configuration = new Configuration(_configurationManager);
+            _selfUpdate = selfUpdate;
 
             UpdateLinkVisibility = Visibility.Hidden;
             UpdateProgressVisibility = Visibility.Hidden;
+
+            _selfUpdate.UpdateMessageChanged += (obj, msg) => UpdateAvailable = msg;
+            _selfUpdate.UpdateProgressChanged += (obj, pct) => UpdateDownloadProgress = pct;
         }
-        /// <summary>
-        /// Fetches the only instance of the OpeningViewModel and creates it if it has not been initialized yet.
-        /// </summary>
-        /// <returns>An instance of OpeningViewModel</returns>
-        public static MainWindowViewModel GetInstance
-        { get => (onlyInstance == null) ? new MainWindowViewModel() : onlyInstance; }
 
         /// <summary>
         /// An event used to indicate that a property's value has changed.

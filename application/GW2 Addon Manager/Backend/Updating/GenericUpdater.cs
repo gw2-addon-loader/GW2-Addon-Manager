@@ -10,14 +10,32 @@ using GW2_Addon_Manager.App.Configuration.Model;
 
 namespace GW2_Addon_Manager
 {
+    class GenericUpdaterFactory
+    {
+        private readonly IConfigurationManager _configurationManager;
+        private readonly ApprovedList _list;
+
+        public GenericUpdaterFactory(IConfigurationManager configurationManager, ApprovedList list)
+        {
+            _configurationManager = configurationManager;
+            _list = list;
+        }
+
+        public GenericUpdater Create(AddonInfo addon)
+        {
+            return new GenericUpdater(addon, _configurationManager, _list);
+        }
+    }
+
     class GenericUpdater
     {
         private readonly IConfigurationManager _configurationManager;
 
-        UpdatingViewModel viewModel;
+        //UpdatingViewModel viewModel;
 
         string addon_name;
-        AddonInfoFromYaml addon_info;
+        AddonInfo addonInfo;
+        ApprovedList _list;
 
         string fileName;
         string addon_expanded_path;
@@ -25,12 +43,12 @@ namespace GW2_Addon_Manager
 
         string latestVersion;
 
-        public GenericUpdater(AddonInfoFromYaml addon, IConfigurationManager configurationManager)
+        public GenericUpdater(AddonInfo addon, IConfigurationManager configurationManager, ApprovedList list)
         {
-            addon_name = addon.folder_name;
-            addon_info = addon;
+            addon_name = addon.FolderName;
+            addonInfo = addon;
             _configurationManager = configurationManager;
-            viewModel = UpdatingViewModel.GetInstance;
+            _list = list;
 
             addon_expanded_path = Path.Combine(Path.GetTempPath(), addon_name);
             addon_install_path = Path.Combine(configurationManager.UserConfig.GamePath, "addons\\");
@@ -43,7 +61,7 @@ namespace GW2_Addon_Manager
                 _configurationManager.UserConfig.AddonsList.Where(a => a.Disabled).Select(a => a.Name);
             if (!disabledAddonsNames.Contains(addon_name))
             {
-                if (addon_info.host_type == "github")
+                if (addonInfo.HostType == "github")
                     await GitCheckUpdate();
                 else
                     await StandaloneCheckUpdate();
@@ -59,7 +77,7 @@ namespace GW2_Addon_Manager
         {
             var client = UpdateHelpers.OpenWebClient();
 
-            dynamic release_info = UpdateHelpers.GitReleaseInfo(addon_info.host_url);
+            dynamic release_info = UpdateHelpers.GitReleaseInfo(addonInfo.HostUrl);
             latestVersion = release_info.tag_name;
 
             var currentAddonVersion = _configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addon_name);
@@ -67,21 +85,21 @@ namespace GW2_Addon_Manager
                 return;
 
             string download_link = release_info.assets[0].browser_download_url;
-            viewModel.ProgBarLabel = "Downloading " + addon_info.addon_name + " " + latestVersion;
+            viewModel.ProgBarLabel = "Downloading " + addonInfo.AddonName + " " + latestVersion;
             await Download(download_link, client);
         }
 
         private async Task StandaloneCheckUpdate()
         {
             var client = UpdateHelpers.OpenWebClient();
-            string downloadURL = addon_info.host_url;
+            string downloadURL = addonInfo.HostUrl;
 
-            if (addon_info.version_url != null)
-                latestVersion = client.DownloadString(addon_info.version_url);
+            if (addonInfo.VersionUrl != null)
+                latestVersion = client.DownloadString(addonInfo.VersionUrl);
             else
             {
                 //for self-updating addons' first installation
-                viewModel.ProgBarLabel = "Downloading " + addon_info.addon_name;
+                viewModel.ProgBarLabel = "Downloading " + addonInfo.AddonName;
                 await Download(downloadURL, client);
                 return;
             }
@@ -90,7 +108,7 @@ namespace GW2_Addon_Manager
             if (currentAddonVersion != null && currentAddonVersion.Version == latestVersion)
                 return;
 
-            viewModel.ProgBarLabel = "Downloading " + addon_info.addon_name + " " + latestVersion;
+            viewModel.ProgBarLabel = "Downloading " + addonInfo.AddonName + " " + latestVersion;
             await Download(downloadURL, client);
         }
 
@@ -108,7 +126,7 @@ namespace GW2_Addon_Manager
             //this calls helper method to fetch filename if it is not exposed in URL
             fileName = Path.Combine(
                 Path.GetTempPath(), 
-                ((addon_info.additional_flags != null && addon_info.additional_flags.Contains("obscured-filename")) ? GetFilenameFromWebServer(url) : Path.GetFileName(url))
+                (addonInfo.AdditionalFlags != null && addonInfo.AdditionalFlags.Contains("obscured-filename")) ? GetFilenameFromWebServer(url) : Path.GetFileName(url)
                 );             
 
             if (File.Exists(fileName))
@@ -145,9 +163,9 @@ namespace GW2_Addon_Manager
         /// </summary>
         private void Install()
         {
-            viewModel.ProgBarLabel = "Installing " + addon_info.addon_name;
+            viewModel.ProgBarLabel = "Installing " + addonInfo.AddonName;
 
-            if (addon_info.download_type == "archive")
+            if (addonInfo.DownloadType == "archive")
             {
                 if (Directory.Exists(addon_expanded_path))
                     Directory.Delete(addon_expanded_path, true);
@@ -155,7 +173,7 @@ namespace GW2_Addon_Manager
                 ZipFile.ExtractToDirectory(fileName, addon_expanded_path);
 
 
-                if (addon_info.install_mode != "arc")
+                if (addonInfo.InstallMode != "arc")
                 {
                     FileSystem.CopyDirectory(addon_expanded_path, addon_install_path, true);
                 }
@@ -164,19 +182,19 @@ namespace GW2_Addon_Manager
                     if (!Directory.Exists(Path.Combine(addon_install_path, "arcdps")))
                         Directory.CreateDirectory(Path.Combine(addon_install_path, "arcdps"));
 
-                    File.Copy(Path.Combine(addon_expanded_path, addon_info.plugin_name), Path.Combine(Path.Combine(addon_install_path, "arcdps"), addon_info.plugin_name), true);
+                    File.Copy(Path.Combine(addon_expanded_path, addonInfo.PluginName), Path.Combine(Path.Combine(addon_install_path, "arcdps"), addonInfo.PluginName), true);
                 }
 
                 
             }
             else
             {
-                if (addon_info.install_mode != "arc")
+                if (addonInfo.InstallMode != "arc")
                 {
-                    if (!Directory.Exists(Path.Combine(addon_install_path, addon_info.folder_name)))
-                        Directory.CreateDirectory(Path.Combine(addon_install_path, addon_info.folder_name));
+                    if (!Directory.Exists(Path.Combine(addon_install_path, addonInfo.FolderName)))
+                        Directory.CreateDirectory(Path.Combine(addon_install_path, addonInfo.FolderName));
 
-                    FileSystem.CopyFile(fileName, Path.Combine(Path.Combine(addon_install_path, addon_info.folder_name), Path.GetFileName(fileName)), true);
+                    FileSystem.CopyFile(fileName, Path.Combine(Path.Combine(addon_install_path, addonInfo.FolderName), Path.GetFileName(fileName)), true);
                 }
                 else
                 {
@@ -209,7 +227,7 @@ namespace GW2_Addon_Manager
         public void Disable()
         {
             var addonConfiguration =
-                _configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addon_info.addon_name);
+                _configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addonInfo.AddonName);
             if (addonConfiguration != null && addonConfiguration.Installed)
             {
                 if (!Directory.Exists("Disabled Plugins"))
@@ -217,20 +235,20 @@ namespace GW2_Addon_Manager
 
                 if (!addonConfiguration.Disabled)
                 {
-                    if (addon_info.install_mode != "arc")
+                    if (addonInfo.InstallMode != "arc")
                     {
                         Directory.Move(
-                            Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), addon_info.folder_name),
-                            Path.Combine("Disabled Plugins", addon_info.folder_name)
+                            Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), addonInfo.FolderName),
+                            Path.Combine("Disabled Plugins", addonInfo.FolderName)
                             );
                     }
                     else
                     {
                         //probably broken
-                        if (!Directory.Exists(Path.Combine("Disabled Plugins", addon_info.folder_name)))
-                            Directory.CreateDirectory(Path.Combine("Disabled Plugins", addon_info.folder_name));
+                        if (!Directory.Exists(Path.Combine("Disabled Plugins", addonInfo.FolderName)))
+                            Directory.CreateDirectory(Path.Combine("Disabled Plugins", addonInfo.FolderName));
 
-                        if (addon_info.addon_name.Contains("BuildPad"))
+                        if (addonInfo.AddonName.Contains("BuildPad"))
                         {
                             string buildPadFileName = "";
                             string[] arcFiles = Directory.GetFiles(Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), "arcdps"));
@@ -243,14 +261,14 @@ namespace GW2_Addon_Manager
 
                             File.Move(
                                 Path.Combine(Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), "arcdps"), buildPadFileName),
-                                Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), buildPadFileName)
+                                Path.Combine(Path.Combine("Disabled Plugins", addonInfo.FolderName), buildPadFileName)
                                 );
                         }
                         else
                         {
                             File.Move(
-                                Path.Combine(Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), "arcdps"), addon_info.plugin_name),
-                                Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), addon_info.plugin_name)
+                                Path.Combine(Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), "arcdps"), addonInfo.PluginName),
+                                Path.Combine(Path.Combine("Disabled Plugins", addonInfo.FolderName), addonInfo.PluginName)
                                 );
                         }
                     }
@@ -265,18 +283,18 @@ namespace GW2_Addon_Manager
         public void Enable()
         {
             var addonConfiguration =
-                _configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addon_info.addon_name);
+                _configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addonInfo.AddonName);
             if (addonConfiguration != null && addonConfiguration.Installed)
             {
                 if (addonConfiguration.Disabled)
                 {
 
-                    if (addon_info.install_mode != "arc")
+                    if (addonInfo.InstallMode != "arc")
                     {
                         //non-arc
                         Directory.Move(
-                        Path.Combine("Disabled Plugins", addon_info.folder_name),
-                        Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), addon_info.folder_name)
+                        Path.Combine("Disabled Plugins", addonInfo.FolderName),
+                        Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), addonInfo.FolderName)
                         );
                     }
                     else
@@ -286,26 +304,26 @@ namespace GW2_Addon_Manager
                             Directory.CreateDirectory(Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), "arcdps"));
 
                         //buildpad compatibility check
-                        if (!addon_info.addon_name.Contains("BuildPad"))
+                        if (!addonInfo.AddonName.Contains("BuildPad"))
                         {
                             //non-buildpad
                             File.Move(
-                                Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), addon_info.plugin_name),
-                                Path.Combine(Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), "arcdps"), addon_info.plugin_name)
+                                Path.Combine(Path.Combine("Disabled Plugins", addonInfo.FolderName), addonInfo.PluginName),
+                                Path.Combine(Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), "arcdps"), addonInfo.PluginName)
                                 );
                         }
                         else
                         {
                             //buildpad
                             string buildPadFileName = "";
-                            string[] buildPadFiles = Directory.GetFiles(Path.Combine("Disabled Plugins", addon_info.folder_name));
+                            string[] buildPadFiles = Directory.GetFiles(Path.Combine("Disabled Plugins", addonInfo.FolderName));
 
                             foreach (string someFileName in buildPadFiles)
                                 if (someFileName.Contains("buildpad"))
                                     buildPadFileName = Path.GetFileName(someFileName);
 
                             File.Move(
-                                Path.Combine(Path.Combine("Disabled Plugins", addon_info.folder_name), buildPadFileName),
+                                Path.Combine(Path.Combine("Disabled Plugins", addonInfo.FolderName), buildPadFileName),
                                 Path.Combine(Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), "arcdps"), buildPadFileName)
                                 );
                         }
@@ -323,34 +341,34 @@ namespace GW2_Addon_Manager
         public void Delete()
         {
             var addonConfiguration =
-                _configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addon_info.addon_name);
+                _configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addonInfo.AddonName);
             if (addonConfiguration !=  null && addonConfiguration.Installed)
             {
                 _configurationManager.UserConfig.AddonsList.Remove(addon_name);
 
                 if (addonConfiguration.Disabled)
                 {
-                    FileSystem.DeleteDirectory(Path.Combine("Disabled Plugins", addon_info.folder_name), UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                    FileSystem.DeleteDirectory(Path.Combine("Disabled Plugins", addonInfo.FolderName), UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
                 }
                 else
                 {
-                    if (addon_info.install_mode != "arc")
+                    if (addonInfo.InstallMode != "arc")
                     {
-                        FileSystem.DeleteDirectory(Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), addon_info.folder_name), UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                        FileSystem.DeleteDirectory(Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), addonInfo.FolderName), UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
 
                         //deleting arcdps will delete other addons as well
-                        if (addon_info.folder_name == "arcdps")
+                        if (addonInfo.FolderName == "arcdps")
                         {
-                            foreach (AddonInfoFromYaml adj_info in new ApprovedList(_configurationManager).GenerateAddonList())
+                            foreach (AddonInfo adj_info in _list.GenerateAddonList())
                             {
-                                if (adj_info.install_mode == "arc")
+                                if (adj_info.InstallMode == "arc")
                                 {
                                     var arcDependantConfig =
                                         _configurationManager.UserConfig.AddonsList.First(a =>
-                                            a.Name == adj_info.addon_name);
+                                            a.Name == adj_info.AddonName);
                                     //if arc-dependent plugin is disabled, it won't get deleted since it's not in the /addons/arcdps folder
                                     if (!arcDependantConfig.Disabled)
-                                        _configurationManager.UserConfig.AddonsList.Remove(adj_info.addon_name);
+                                        _configurationManager.UserConfig.AddonsList.Remove(adj_info.AddonName);
                                 }
                             }
                         }
@@ -358,9 +376,9 @@ namespace GW2_Addon_Manager
                     else
                     {
                         //buildpad check
-                        if (!addon_info.addon_name.Contains("BuildPad"))
+                        if (!addonInfo.AddonName.Contains("BuildPad"))
                         {
-                            FileSystem.DeleteFile(Path.Combine(Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), "arcdps"), addon_info.plugin_name), UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                            FileSystem.DeleteFile(Path.Combine(Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, "addons"), "arcdps"), addonInfo.PluginName), UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
                         }
                         else
                         {

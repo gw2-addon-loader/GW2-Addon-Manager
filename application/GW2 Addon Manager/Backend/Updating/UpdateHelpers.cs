@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Windows;
-using GW2_Addon_Manager.App.Configuration;
 using System;
 using System.Text;
 
@@ -46,20 +45,19 @@ namespace GW2_Addon_Manager
 
         public static async void UpdateAll()
         {
-            UpdatingViewModel viewModel = UpdatingViewModel.GetInstance;
+            UpdatingViewModel viewModel = ;
 
-            LoaderSetup settingUp = new LoaderSetup(new ConfigurationManager());
+            LoaderSetup settingUp = ;
             await settingUp.HandleLoaderUpdate();
 
-            List<AddonInfoFromYaml> addons = (List<AddonInfoFromYaml>)Application.Current.Properties["Selected"];
+            List<AddonInfo> addons = (List<AddonInfo>)Application.Current.Properties["Selected"];
             
-            var configurationManager = new ConfigurationManager();
-            foreach (AddonInfoFromYaml addon in addons.Where(add => add != null))
+            foreach (AddonInfo addon in addons.Where(add => add != null))
             {
-                GenericUpdater updater = new GenericUpdater(addon, configurationManager);
+                GenericUpdater updater = new GenericUpdater(addon);
             
-                if(!(addon.additional_flags != null && addon.additional_flags.Contains("self-updating") 
-                     && configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addon.addon_name)?.Installed == true))
+                if(!(addon.AdditionalFlags?.Contains("self-updating")
+                     && configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addon.AddonName)?.Installed == true))
                     await updater.Update();
             }
 

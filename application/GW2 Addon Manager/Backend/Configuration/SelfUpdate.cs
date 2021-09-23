@@ -11,27 +11,34 @@ namespace GW2_Addon_Manager
     /// <summary>
     /// Handles downloading a new version of the application.
     /// </summary>
-    class SelfUpdate
+    public class SelfUpdate
     {
         static readonly string applicationRepoUrl = "https://api.github.com/repos/gw2-addon-loader/GW2-Addon-Manager/releases/latest";
         static readonly string update_folder = "latestRelease";
         static readonly string update_name = "update.zip";
 
-        MainWindowViewModel viewModel;
+        /// <summary>
+        /// 
+        /// </summary>
+        public event UpdateMessageChangedEventHandler UpdateMessageChanged;
 
-        public static void Update()
-        {
-            new SelfUpdate();
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public event UpdateProgressChangedEventHandler UpdateProgressChanged;
 
         /// <summary>
         /// Sets the viewmodel and starts the download of the latest release.
         /// </summary>
-        private SelfUpdate()
+        public SelfUpdate()
         {
-            viewModel = MainWindowViewModel.GetInstance;
-            viewModel.UpdateProgressVisibility = Visibility.Visible;
-            viewModel.UpdateLinkVisibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Update()
+        {
             Task.Run(() => downloadLatestRelease());
         }
 
@@ -49,7 +56,7 @@ namespace GW2_Addon_Manager
             dynamic latestInfo = UpdateHelpers.GitReleaseInfo(applicationRepoUrl);
             string downloadUrl = latestInfo.assets[0].browser_download_url;
 
-            viewModel.UpdateAvailable = $"{StaticText.Downloading} {latestInfo.tag_name}";
+            UpdateMessageChanged?.Invoke(this, $"{StaticText.Downloading} {latestInfo.tag_name}");
 
             Directory.CreateDirectory(update_folder);
             WebClient client = UpdateHelpers.OpenWebClient();
@@ -61,19 +68,19 @@ namespace GW2_Addon_Manager
         /* updating download status on UI */
         private void selfUpdate_DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            viewModel.UpdateAvailable = $"{StaticText.DownloadComplete}!";
+            UpdateMessageChanged?.Invoke(this, $"{StaticText.DownloadComplete}!");
             Application.Current.Properties["update_self"] = true;
         }
         private void selfUpdate_DownloadProgress(object sender, DownloadProgressChangedEventArgs e)
         {
-            viewModel.UpdateDownloadProgress = e.ProgressPercentage;
+            UpdateProgressChanged?.Invoke(this, e.ProgressPercentage);
         }
 
 
         /// <summary>
         /// Starts the self-updater if an application update has been downloaded.
         /// </summary>
-        public static void startUpdater()
+        public void LaunchUpdater()
         {
             if(Application.Current.Properties["update_self"] != null && (bool)Application.Current.Properties["update_self"])
                 Process.Start("UOAOM Updater.exe");

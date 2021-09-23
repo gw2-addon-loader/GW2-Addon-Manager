@@ -33,24 +33,14 @@ namespace GW2_Addon_Manager
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
-        /* Singleton */
-        private static UpdatingViewModel onlyInstance;
         /// <summary>
         /// The constructor sets the label to a placeholder value and disables the "finish" button.
         /// </summary>
-        private UpdatingViewModel()
+        public UpdatingViewModel()
         {
-            onlyInstance = this;
             ProgBarLabel = "Updating Addons";
             CloseBtnEnabled = false;
             BackBtnEnabled = false;
-        }
-        /// <summary>
-        /// Accessor for the one instance of this class; if the instance has not been initialized, does that before returning it.
-        /// </summary>
-        public static UpdatingViewModel GetInstance
-        {
-            get { return (onlyInstance == null) ? new UpdatingViewModel() : onlyInstance; }
         }
     }
 }

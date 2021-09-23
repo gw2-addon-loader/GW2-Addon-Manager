@@ -59,7 +59,7 @@ namespace GW2_Addon_Manager
         /// <param name="e"></param>
         public void addOnList_SelectedIndexChanged(object sender, SelectionChangedEventArgs e)
         {
-            AddonInfoFromYaml selected = e.AddedItems.Count > 0 ? e.AddedItems[0] as AddonInfoFromYaml : null;
+            AddonInfo selected = e.AddedItems.Count > 0 ? e.AddedItems[0] as AddonInfo : null;
             OpeningViewModel.GetInstance.DescriptionText = selected?.description;
             OpeningViewModel.GetInstance.DeveloperText = selected?.developer;
             OpeningViewModel.GetInstance.AddonWebsiteLink = selected?.website;
@@ -96,14 +96,14 @@ namespace GW2_Addon_Manager
                 return;
             }
 
-            List<AddonInfoFromYaml> selectedAddons = new List<AddonInfoFromYaml>();
+            List<AddonInfo> selectedAddons = new List<AddonInfo>();
 
             //the d3d9 wrapper is installed by default and hidden from the list displayed to the user, so it has to be added to this list manually
-            AddonInfoFromYaml wrapper = AddonYamlReader.getAddonInInfo("d3d9_wrapper");
+            AddonInfo wrapper = AddonYamlReader.GetAddonInInfo("d3d9_wrapper");
             wrapper.folder_name = "d3d9_wrapper";
             selectedAddons.Add(wrapper);
 
-            foreach (AddonInfoFromYaml addon in OpeningViewModel.GetInstance.AddonList.Where(add => add.IsSelected == true)) {
+            foreach (AddonInfo addon in OpeningViewModel.GetInstance.AddonList.Where(add => add.IsSelected == true)) {
                 selectedAddons.Add(addon);
             }
 
