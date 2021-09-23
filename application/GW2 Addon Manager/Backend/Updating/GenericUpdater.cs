@@ -13,9 +13,9 @@ namespace GW2_Addon_Manager
     class GenericUpdaterFactory
     {
         private readonly IConfigurationManager _configurationManager;
-        private readonly ApprovedList _list;
+        private readonly AvailableAddonList _list;
 
-        public GenericUpdaterFactory(IConfigurationManager configurationManager, ApprovedList list)
+        public GenericUpdaterFactory(IConfigurationManager configurationManager, AvailableAddonList list)
         {
             _configurationManager = configurationManager;
             _list = list;
@@ -35,7 +35,7 @@ namespace GW2_Addon_Manager
 
         string addon_name;
         AddonInfo addonInfo;
-        ApprovedList _list;
+        AvailableAddonList _list;
 
         string fileName;
         string addon_expanded_path;
@@ -43,7 +43,7 @@ namespace GW2_Addon_Manager
 
         string latestVersion;
 
-        public GenericUpdater(AddonInfo addon, IConfigurationManager configurationManager, ApprovedList list)
+        public GenericUpdater(AddonInfo addon, IConfigurationManager configurationManager, AvailableAddonList list)
         {
             addon_name = addon.FolderName;
             addonInfo = addon;
@@ -218,7 +218,7 @@ namespace GW2_Addon_Manager
                 var newAddonConfig = new AddonData {Name = addon_name, Installed = true, Version = latestVersion};
                 _configurationManager.UserConfig.AddonsList.Add(newAddonConfig);
             }
-            _configurationManager.SaveConfiguration();
+            _configurationManager.Save();
         }
 
 
@@ -274,7 +274,7 @@ namespace GW2_Addon_Manager
                     }
 
                     addonConfiguration.Disabled = true;
-                    _configurationManager.SaveConfiguration();
+                    _configurationManager.Save();
                 }
             }
         }
@@ -332,7 +332,7 @@ namespace GW2_Addon_Manager
                     }
                         
                     addonConfiguration.Disabled = false;
-                    _configurationManager.SaveConfiguration();
+                    _configurationManager.Save();
                 }
             }
         }
@@ -397,7 +397,7 @@ namespace GW2_Addon_Manager
                         _configurationManager.UserConfig.AddonsList.Remove(addon_name);
                     }
                 }
-                _configurationManager.SaveConfiguration();
+                _configurationManager.Save();
             }
         }
 

@@ -63,7 +63,7 @@ namespace GW2_Addon_Manager
             if (_configurationManager.UserConfig.LaunchGame != launchOnClose.IsChecked)
             {
                 _configurationManager.UserConfig.LaunchGame = (bool)launchOnClose.IsChecked;
-                _configurationManager.SaveConfiguration();
+                _configurationManager.Save();
             }
 
             Application.Current.Shutdown();

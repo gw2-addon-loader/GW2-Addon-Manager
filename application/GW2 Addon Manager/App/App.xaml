@@ -8,10 +8,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Components/styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <system:Boolean x:Key="ArcDPS"/>
-            <system:Boolean x:Key="GW2Radial"/>
-            <system:Boolean x:Key="d912pxy"/>
-            <system:Boolean x:Key="gw2hook"/>
             <FontFamily x:Key="MDL2Assets">pack://application:,,,/Resources/#Segoe MDL2 Assets</FontFamily>
         </ResourceDictionary>
        

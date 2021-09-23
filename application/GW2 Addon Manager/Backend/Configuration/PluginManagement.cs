@@ -34,7 +34,7 @@ namespace GW2_Addon_Manager
             if (MessageBox.Show(redownloadmsg, "Warning!", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
                 _configurationManager.UserConfig.AddonsList.Where(a => a.Installed).ToList().ForEach(a => a.Version = "dummy value");
-                _configurationManager.SaveConfiguration();
+                _configurationManager.Save();
                 return true;
             }
             return false;

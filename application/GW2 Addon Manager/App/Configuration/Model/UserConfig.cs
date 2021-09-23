@@ -1,23 +1,20 @@
 ﻿using Localization;
 using System;
+using System.Collections.Generic;
 
-namespace GW2_Addon_Manager.App.Configuration.Model
+namespace GW2_Addon_Manager
 {
     [Serializable]
-    public class UserConfig
+    public record UserConfig(
+        string LoaderVersion,
+        string BinFolder,
+        bool LaunchGame,
+        string ExeName,
+        string Culture,
+        string GamePath,
+        string AddonsHash,
+        Dictionary<string, AddonState> AddonsState)
     {
-        public string LoaderVersion { get; set; }
-
-        public string BinFolder { get; set; }
-
-        public bool LaunchGame { get; set; }
-
-        public string GamePath { get; set; } = "C:\\Program Files\\Guild Wars 2";
-
-        public string ExeName { get; set; }
-
-        public string Culture { get; set; } = CultureConstants.English;
-
-        public AddonsList AddonsList { get; set; } = new AddonsList();
+        public static UserConfig Default => new UserConfig(null, "bin64", false, "Gw2-64.exe", CultureConstants.English, null, null, new Dictionary<string, AddonState>());
     }
 }

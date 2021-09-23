@@ -83,7 +83,7 @@ namespace GW2_Addon_Manager
             ZipFile.ExtractToDirectory(fileName, loaderGamePath);
 
             _configurationManager.UserConfig.LoaderVersion = latestLoaderVersion;
-            _configurationManager.SaveConfiguration();
+            _configurationManager.Save();
         }
 
 

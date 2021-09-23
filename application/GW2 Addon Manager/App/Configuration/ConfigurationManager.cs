@@ -1,21 +1,26 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.IO;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
-using GW2_Addon_Manager.App.Configuration.Model;
 using YamlDotNet.Serialization;
+using Localization;
 
-namespace GW2_Addon_Manager.App.Configuration
+namespace GW2_Addon_Manager
 {
-    /// <inheritdoc />
+    public interface IConfigurationManager
+    {
+        string ApplicationVersion { get; }
+
+        UserConfig UserConfig { get; set; }
+    }
+
     public class ConfigurationManager : IConfigurationManager
     {
         private const string ConfigFileName = "config.xml";
         private const string PathToOldConfigFile = "config.yaml";
 
-        private static readonly UserConfig UserConfigInstance = CreateConfig();
-
-        /// <inheritdoc />
         public string ApplicationVersion
         {
             get
@@ -25,11 +30,22 @@ namespace GW2_Addon_Manager.App.Configuration
             }
         }
 
-        /// <inheritdoc />
-        public UserConfig UserConfig => UserConfigInstance;
+        private UserConfig _userConfig;
+        public UserConfig UserConfig
+        {
+            get => _userConfig;
+            set {
+                _userConfig = value;
+                Save();
+            }
+        }
 
-        /// <inheritdoc />
-        public void SaveConfiguration()
+        public ConfigurationManager()
+        {
+            UserConfig = Load();
+        }
+
+        private void Save()
         {
             var xmlDoc = new XmlDocument();
             var serializer = new XmlSerializer(typeof(UserConfig));
@@ -42,13 +58,13 @@ namespace GW2_Addon_Manager.App.Configuration
             }
         }
 
-        private static UserConfig CreateConfig()
+        private UserConfig Load()
         {
             if (File.Exists(PathToOldConfigFile))
-                return MigrateOldConfig();
+                return Migrate();
 
             if (!File.Exists(ConfigFileName))
-                return new UserConfig();
+                return UserConfig.Default;
 
             var xmlDocu = new XmlDocument();
             xmlDocu.Load(ConfigFileName);
@@ -59,34 +75,29 @@ namespace GW2_Addon_Manager.App.Configuration
                 var serializer = new XmlSerializer(typeof(UserConfig));
                 using (var reader = new XmlTextReader(read))
                 {
-                    return (UserConfig) serializer.Deserialize(reader);
+                    return serializer.Deserialize(reader) as UserConfig;
                 }
             }
         }
 
-        private static UserConfig MigrateOldConfig()
+        private UserConfig Migrate()
         {
             var yamlConfigAsString = File.ReadAllText(PathToOldConfigFile);
-            var deserializer = new Deserializer();
-            var oldUserConfig = deserializer.Deserialize<OldConfig>(yamlConfigAsString);
+#pragma warning disable CS0612 // Type or member is obsolete
+            var oldUserConfig = new Deserializer().Deserialize<OldConfig>(yamlConfigAsString);
+#pragma warning restore CS0612 // Type or member is obsolete
 
-            var newConfig = new UserConfig
-            {
-                BinFolder = oldUserConfig.bin_folder,
-                ExeName = oldUserConfig.exe_name,
-                GamePath = oldUserConfig.game_path,
-                LaunchGame = oldUserConfig.launch_game,
-                LoaderVersion = oldUserConfig.loader_version,
-                AddonsList = new AddonsList {Hash = oldUserConfig.current_addon_list}
-            };
-            foreach (var installedAddon in oldUserConfig.installed)
-                newConfig.AddonsList.Add(new AddonData
-                {
-                    Name = installedAddon.Value,
-                    Installed = true,
-                    Disabled = oldUserConfig.disabled[installedAddon.Key],
-                    Version = oldUserConfig.version[installedAddon.Key]
-                });
+            var newConfig = new UserConfig(
+                oldUserConfig.loader_version,
+                oldUserConfig.bin_folder,
+                oldUserConfig.launch_game,
+                oldUserConfig.exe_name,
+                CultureConstants.English,
+                oldUserConfig.game_path,
+                null,
+                oldUserConfig.installed.ToDictionary(
+                    kv => kv.Key,
+                    kv => new AddonState(kv.Value, oldUserConfig.version[kv.Key], true, oldUserConfig.disabled[kv.Key])));
 
             File.Delete(PathToOldConfigFile);
 

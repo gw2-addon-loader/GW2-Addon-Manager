@@ -101,7 +101,7 @@ namespace GW2_Addon_Manager
                 if (value == _configurationManager.UserConfig.GamePath) return;
                 propertyChanged("GamePath");
                 _configurationManager.UserConfig.GamePath = value;
-                _configurationManager.SaveConfiguration();
+                _configurationManager.Save();
             }
         }
 
@@ -111,7 +111,7 @@ namespace GW2_Addon_Manager
         /// This constructor initializes various default properties across the class and then
         /// applies any updated values to them using <c>ApplyDefaultConfig</c>.
         /// </summary>
-        public OpeningViewModel(IConfigurationManager configurationManager, PluginManagement pluginManagement, ApprovedList approvedList)
+        public OpeningViewModel(IConfigurationManager configurationManager, PluginManagement pluginManagement, AvailableAddonList approvedList)
         {
             _configurationManager = configurationManager;
             _pluginManagement = pluginManagement;

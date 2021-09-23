@@ -14,8 +14,8 @@ namespace GW2_Addon_Manager
     public class SelfUpdate
     {
         static readonly string applicationRepoUrl = "https://api.github.com/repos/gw2-addon-loader/GW2-Addon-Manager/releases/latest";
-        static readonly string update_folder = "latestRelease";
-        static readonly string update_name = "update.zip";
+        static readonly string updateFolder = "latestRelease";
+        static readonly string updateName = "update.zip";
 
         /// <summary>
         /// 
@@ -26,13 +26,6 @@ namespace GW2_Addon_Manager
         /// 
         /// </summary>
         public event UpdateProgressChangedEventHandler UpdateProgressChanged;
-
-        /// <summary>
-        /// Sets the viewmodel and starts the download of the latest release.
-        /// </summary>
-        public SelfUpdate()
-        {
-        }
 
         /// <summary>
         /// 
@@ -49,8 +42,8 @@ namespace GW2_Addon_Manager
         public async Task downloadLatestRelease()
         {
             //perhaps change this to check if downloaded update is latest or not
-            if (Directory.Exists(update_folder))
-                Directory.Delete(update_folder, true);
+            if (Directory.Exists(updateFolder))
+                Directory.Delete(updateFolder, true);
 
             //check application version
             dynamic latestInfo = UpdateHelpers.GitReleaseInfo(applicationRepoUrl);
@@ -58,11 +51,11 @@ namespace GW2_Addon_Manager
 
             UpdateMessageChanged?.Invoke(this, $"{StaticText.Downloading} {latestInfo.tag_name}");
 
-            Directory.CreateDirectory(update_folder);
+            Directory.CreateDirectory(updateFolder);
             WebClient client = UpdateHelpers.OpenWebClient();
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(selfUpdate_DownloadProgress);
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(selfUpdate_DownloadCompleted);
-            await client.DownloadFileTaskAsync(new System.Uri(downloadUrl), Path.Combine(update_folder, update_name));
+            await client.DownloadFileTaskAsync(new System.Uri(downloadUrl), Path.Combine(updateFolder, updateName));
         }
 
         /* updating download status on UI */

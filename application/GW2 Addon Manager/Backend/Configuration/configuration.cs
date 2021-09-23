@@ -1,35 +1,21 @@
 ﻿using System;
 using System.IO;
-using System.IO.Abstractions;
 using System.Windows;
-using GW2_Addon_Manager.App.Configuration;
-using GW2_Addon_Manager.App.Configuration.Model;
 using Localization;
 
 namespace GW2_Addon_Manager
 {
-    /// <summary>
-    /// The <c>configuration</c> class contains various functions dealing with application configuration. 
-    /// </summary>
     public class Configuration
     {
         static readonly string applicationRepoUrl = "https://api.github.com/repos/gw2-addon-loader/GW2-Addon-Manager/releases/latest";
 
         private readonly IConfigurationManager _configurationManager;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="configurationManager"></param>
         public Configuration(IConfigurationManager configurationManager)
         {
             _configurationManager = configurationManager;
         }
 
-        /// <summary>
-        /// <c>SetGamePath</c> both sets the game path for the current application session to <paramref name="path"/> and records it in the configuration file.
-        /// </summary>
-        /// <param name="path">The game path.</param>
         public void SetGamePath(string path)
         {
             try
@@ -39,35 +25,28 @@ namespace GW2_Addon_Manager
             catch (Exception)
             { }
 
-            _configurationManager.UserConfig.GamePath = path;
-            _configurationManager.SaveConfiguration();
+            _configurationManager.UserConfig = _configurationManager.UserConfig with
+            {
+                GamePath = path
+            };
             DetermineSystemType();
         }
 
-        /// <summary>
-        /// <c>SetCulture</c> both sets the culture for the current application session to <paramref name="culture"/> and records it in the configuration file.
-        /// </summary>
-        /// <param name="culture"></param>
         public void SetCulture(string culture)
         {
             Application.Current.Properties["culture"] = culture;
-            _configurationManager.UserConfig.Culture = culture;
-            _configurationManager.SaveConfiguration();
+            _configurationManager.UserConfig = _configurationManager.UserConfig with {
+                Culture = culture
+            };
             RestartApplication();
         }
 
-        /// <summary>
-        /// Restarts the application.
-        /// </summary>
         private void RestartApplication()
         {
             System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
             Application.Current.Shutdown();
         }
 
-        /// <summary>
-        /// Checks if there is a new version of the application available.
-        /// </summary>
         public void CheckSelfUpdates()
         {
             var release_info = UpdateHelpers.GitReleaseInfo(applicationRepoUrl);
@@ -97,7 +76,7 @@ namespace GW2_Addon_Manager
                 _configurationManager.UserConfig.BinFolder = "bin";
                 _configurationManager.UserConfig.ExeName = "Gw2.exe";
             }
-            _configurationManager.SaveConfiguration();
+            _configurationManager.Save();
         }
 
         /// <summary>
@@ -121,7 +100,7 @@ namespace GW2_Addon_Manager
             File.Delete(Path.Combine(Path.Combine(_configurationManager.UserConfig.GamePath, _configurationManager.UserConfig.BinFolder), "d3d9.dll"));
 
             //write cleaned config file
-            _configurationManager.SaveConfiguration();
+            _configurationManager.Save();
         }
     }
 }
