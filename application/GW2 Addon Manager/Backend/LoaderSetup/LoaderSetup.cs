@@ -17,7 +17,9 @@ namespace GW2_Addon_Manager
         UpdatingViewModel viewModel;
         string fileName;
         string latestLoaderVersion;
-        string loader_destination;
+        string loader_dxgi_destination;
+        string loader_d3d11_destination;
+        string loader_self_destionation;
 
         /// <summary>
         /// Constructor; also sets some UI text to indicate that the addon loader is having an update check
@@ -27,7 +29,7 @@ namespace GW2_Addon_Manager
             _configurationManager = configurationManager;
             viewModel = UpdatingViewModel.GetInstance;
             viewModel.ProgBarLabel = "Checking for updates to Addon Loader";
-            loader_game_path = Path.Combine(configurationManager.UserConfig.GamePath, configurationManager.UserConfig.BinFolder);
+            loader_game_path = configurationManager.UserConfig.GamePath;
         }
 
         /// <summary>
@@ -38,11 +40,16 @@ namespace GW2_Addon_Manager
         {
             dynamic releaseInfo = UpdateHelpers.GitReleaseInfo(loader_git_url);
 
-            loader_destination = Path.Combine(loader_game_path, "d3d9.dll");
+            loader_d3d11_destination = Path.Combine(loader_game_root_path, "d3d11.dll");
+            loader_dxgi_destination = Path.Combine(loader_game_root_path, "dxgi.dll");
+            loader_self_destination = Path.Combine(loader_game_root_path, "addonLoader.dll");
 
             latestLoaderVersion = releaseInfo.tag_name;
 
-            if (File.Exists(loader_destination) && _configurationManager.UserConfig.LoaderVersion == latestLoaderVersion)
+            if (File.Exists(loader_d3d11_destination) && 
+               File.Exists(loader_dxgi_destination) && 
+               File.Exists(loader_self_destination) && 
+               _configurationManager.UserConfig.LoaderVersion == latestLoaderVersion)
                 return;
 
             string downloadLink = releaseInfo.assets[0].browser_download_url;
@@ -69,9 +76,15 @@ namespace GW2_Addon_Manager
         {
             viewModel.ProgBarLabel = "Installing Addon Loader";
 
-            if (File.Exists(loader_destination))
-                File.Delete(loader_destination);
-            
+            if (File.Exists(loader_d3d11_destination))
+                File.Delete(loader_d3d11_destination);
+
+            if (File.Exists(loader_dxgi_destination))
+                File.Delete(loader_dxgi_destination);
+
+            if (File.Exists(loader_self_destination))
+                File.Delete(loader_self_destination);
+
             ZipFile.ExtractToDirectory(fileName, loader_game_path);
 
             _configurationManager.UserConfig.LoaderVersion = latestLoaderVersion;
