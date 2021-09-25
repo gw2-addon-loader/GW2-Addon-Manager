@@ -40,9 +40,9 @@ namespace GW2_Addon_Manager
         {
             dynamic releaseInfo = UpdateHelpers.GitReleaseInfo(loader_git_url);
 
-            loader_d3d11_destination = Path.Combine(loader_game_root_path, "d3d11.dll");
-            loader_dxgi_destination = Path.Combine(loader_game_root_path, "dxgi.dll");
-            loader_self_destination = Path.Combine(loader_game_root_path, "addonLoader.dll");
+            loader_d3d11_destination = Path.Combine(loader_game_path, "d3d11.dll");
+            loader_dxgi_destination = Path.Combine(loader_game_path, "dxgi.dll");
+            loader_self_destination = Path.Combine(loader_game_path, "addonLoader.dll");
 
             latestLoaderVersion = releaseInfo.tag_name;
 
