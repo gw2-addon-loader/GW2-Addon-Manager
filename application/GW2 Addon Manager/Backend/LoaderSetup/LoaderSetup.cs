@@ -19,7 +19,7 @@ namespace GW2_Addon_Manager
         string latestLoaderVersion;
         string loader_dxgi_destination;
         string loader_d3d11_destination;
-        string loader_self_destionation;
+        string loader_self_destination;
 
         /// <summary>
         /// Constructor; also sets some UI text to indicate that the addon loader is having an update check
