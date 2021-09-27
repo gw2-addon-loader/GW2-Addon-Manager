@@ -23,24 +23,6 @@ namespace GW2_Addon_Manager
         }
 
         /// <summary>
-        /// <c>SetGamePath</c> both sets the game path for the current application session to <paramref name="path"/> and records it in the configuration file.
-        /// </summary>
-        /// <param name="path">The game path.</param>
-        public void SetGamePath(string path)
-        {
-            try
-            {
-                Application.Current.Properties["game_path"] = path.Replace("\\", "\\\\");
-            }
-            catch (Exception)
-            { }
-
-            _configurationManager.UserConfig.GamePath = path;
-            _configurationManager.SaveConfiguration();
-            DetermineSystemType();
-        }
-
-        /// <summary>
         /// <c>SetCulture</c> both sets the culture for the current application session to <paramref name="culture"/> and records it in the configuration file.
         /// </summary>
         /// <param name="culture"></param>

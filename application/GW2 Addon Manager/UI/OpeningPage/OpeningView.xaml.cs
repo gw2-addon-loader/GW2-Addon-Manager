@@ -102,8 +102,6 @@ namespace GW2_Addon_Manager
         /***** UPDATE button *****/
         private void update_button_clicked(object sender, RoutedEventArgs e)
         {
-            //Try to find the bin folder.
-            _configuration.DetermineSystemType();
             //If bin folder doesn't exist then LoaderSetup intialization will fail.
             if (_configurationManager.UserConfig.BinFolder == null)
             {
@@ -143,6 +141,7 @@ namespace GW2_Addon_Manager
             CommonFileDialogResult result = pathSelectionDialog.ShowDialog();
             if (result == (CommonFileDialogResult)1)
                 OpeningViewModel.GetInstance.GamePath = pathSelectionDialog.FileName;
+            _configuration.DetermineSystemType();
                 
         }
     }
