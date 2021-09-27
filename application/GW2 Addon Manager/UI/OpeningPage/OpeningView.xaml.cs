@@ -26,6 +26,7 @@ namespace GW2_Addon_Manager
 
         private readonly IConfigurationManager _configurationManager;
         private readonly PluginManagement _pluginManagement;
+        private readonly Configuration _configuration;
 
         /// <summary>
         /// This constructor deals with creating or expanding the configuration file, setting the DataContext, and checking for application updates.
@@ -35,9 +36,8 @@ namespace GW2_Addon_Manager
             DataContext = OpeningViewModel.GetInstance;
 
             _configurationManager = new ConfigurationManager();
-            var configuration = new Configuration(_configurationManager);
-            configuration.CheckSelfUpdates();
-            configuration.DetermineSystemType();
+            _configuration = new Configuration(_configurationManager);
+            _configuration.CheckSelfUpdates();
             _pluginManagement = new PluginManagement(_configurationManager);
             _pluginManagement.DisplayAddonStatus();
 
@@ -102,6 +102,8 @@ namespace GW2_Addon_Manager
         /***** UPDATE button *****/
         private void update_button_clicked(object sender, RoutedEventArgs e)
         {
+            //Try to find the bin folder.
+            _configuration.DetermineSystemType();
             //If bin folder doesn't exist then LoaderSetup intialization will fail.
             if (_configurationManager.UserConfig.BinFolder == null)
             {
