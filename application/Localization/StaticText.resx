@@ -234,4 +234,22 @@
   <data name="German" xml:space="preserve">
     <value>Deutsch</value>
   </data>
+  <data name="DeleteAddonsPrompt" xml:space="preserve">
+    <value>This will delete all selected addons and all data associated with them! Are you sure you wish to continue?</value>
+  </data>
+  <data name="DisableAddonsPrompt" xml:space="preserve">
+    <value>This will disable the selected addons until you choose to re-enable them. Do you wish to continue?</value>
+  </data>
+  <data name="EnableAddonsPrompt" xml:space="preserve">
+    <value>This will enable the selected addons. Do you wish to continue?</value>
+  </data>
+  <data name="DeleteTitle" xml:space="preserve">
+    <value>Delete Addons [!]</value>
+  </data>
+  <data name="DisableTitle" xml:space="preserve">
+    <value>Disable Addons</value>
+  </data>
+  <data name="EnableTitle" xml:space="preserve">
+    <value>Enable Addons</value>
+  </data>
 </root>

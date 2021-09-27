@@ -11,7 +11,7 @@ namespace GW2_Addon_Manager
     {
         const string loaderGitUrl = "https://api.github.com/repos/gw2-addon-loader/loader-core/releases/latest";
 
-        private readonly IConfigurationManager _configurationManager;
+        private readonly IConfigurationProvider _configurationManager;
         string loaderGamePath;
 
         string fileName;
@@ -31,7 +31,7 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Constructor; also sets some UI text to indicate that the addon loader is having an update check
         /// </summary>
-        public LoaderSetup(IConfigurationManager configurationManager)
+        public LoaderSetup(IConfigurationProvider configurationManager)
         {
             _configurationManager = configurationManager;
             loaderGamePath = Path.Combine(_configurationManager.UserConfig.GamePath, _configurationManager.UserConfig.BinFolder);

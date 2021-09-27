@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GW2_Addon_Manager.Properties {
+namespace GW2AddonManager.Properties {
     using System;
     
     

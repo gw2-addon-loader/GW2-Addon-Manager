@@ -5,13 +5,13 @@ using Localization;
 
 namespace GW2_Addon_Manager
 {
-    public class Configuration
+    public class OldConfiguration
     {
         static readonly string applicationRepoUrl = "https://api.github.com/repos/gw2-addon-loader/GW2-Addon-Manager/releases/latest";
 
-        private readonly IConfigurationManager _configurationManager;
+        private readonly IConfigurationProvider _configurationManager;
 
-        public Configuration(IConfigurationManager configurationManager)
+        public OldConfiguration(IConfigurationProvider configurationManager)
         {
             _configurationManager = configurationManager;
         }

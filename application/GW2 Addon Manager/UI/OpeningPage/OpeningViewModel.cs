@@ -14,8 +14,8 @@ namespace GW2_Addon_Manager
     /// </summary>
     public class OpeningViewModel : INotifyPropertyChanged
     {
-        private readonly IConfigurationManager _configurationManager;
-        private readonly PluginManagement _pluginManagement;
+        private readonly IConfigurationProvider _configurationManager;
+        private readonly AddonManager _pluginManagement;
 
         /********** UI BINDINGS **********/
 
@@ -111,7 +111,7 @@ namespace GW2_Addon_Manager
         /// This constructor initializes various default properties across the class and then
         /// applies any updated values to them using <c>ApplyDefaultConfig</c>.
         /// </summary>
-        public OpeningViewModel(IConfigurationManager configurationManager, PluginManagement pluginManagement, AvailableAddonList approvedList)
+        public OpeningViewModel(IConfigurationProvider configurationManager, AddonManager pluginManagement, AddonRepository approvedList)
         {
             _configurationManager = configurationManager;
             _pluginManagement = pluginManagement;

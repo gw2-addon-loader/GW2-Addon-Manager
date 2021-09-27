@@ -11,7 +11,7 @@ namespace GW2_Addon_Manager
     /// </summary>
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        private readonly IConfigurationManager _configurationManager;
+        private readonly IConfigurationProvider _configurationManager;
         private readonly Configuration _configuration;
         private readonly SelfUpdate _selfUpdate;
 
@@ -59,7 +59,7 @@ namespace GW2_Addon_Manager
         /// This constructor initializes various default properties across the class and then
         /// applies any updated values to them using <c>ApplyDefaultConfig</c>.
         /// </summary>
-        public MainWindowViewModel(IConfigurationManager configurationManager, SelfUpdate selfUpdate)
+        public MainWindowViewModel(IConfigurationProvider configurationManager, SelfUpdate selfUpdate)
         {
             _configurationManager = configurationManager;
             _configuration = new Configuration(_configurationManager);

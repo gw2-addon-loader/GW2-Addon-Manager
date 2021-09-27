@@ -25,15 +25,15 @@ namespace GW2_Addon_Manager
         static string releases_url = "https://github.com/gw2-addon-loader/GW2-Addon-Manager/releases";
         static string UpdateNotificationFile = "updatenotification.txt";
 
-        private readonly IConfigurationManager _configurationManager;
-        private readonly PluginManagement _pluginManagement;
+        private readonly IConfigurationProvider _configurationManager;
+        private readonly AddonManager _pluginManagement;
 
         /// <summary>
         /// This constructor deals with creating or expanding the configuration file, setting the DataContext, and checking for application updates.
         /// </summary>
         public OpeningView()
         {
-            _configurationManager = new ConfigurationManager();
+            _configurationManager = new ConfigurationProvider();
             var configuration = new Configuration(_configurationManager);
             configuration.CheckSelfUpdates();
             configuration.DetermineSystemType();

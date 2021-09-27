@@ -28,10 +28,10 @@ namespace GW2_Addon_Manager
 
         private void ConfigureServices(ServiceCollection services)
         {
-            services.AddSingleton<AddonYamlReader>();
-            services.AddSingleton<IConfigurationManager, ConfigurationManager>();
-            services.AddSingleton<AvailableAddonList>();
-            services.AddSingleton<GenericUpdaterFactory>();
+            services.AddSingleton<IConfigurationProvider, ConfigurationProvider>();
+            services.AddSingleton<IAddonRepository, AddonRepository>();
+            services.AddSingleton<IAddonUpdaterFactory, AddonUpdaterFactory>();
+            services.AddSingleton<IAddonManager, AddonManager>();
             services.AddSingleton<SelfUpdate>();
             services.AddSingleton<LoaderSetup>();
 
@@ -55,7 +55,7 @@ namespace GW2_Addon_Manager
 
         private void SetCulture()
         {
-            ConfigurationManager configurationManager = new ConfigurationManager();
+            ConfigurationProvider configurationManager = new ConfigurationProvider();
             CultureInfo culture = new CultureInfo(configurationManager.UserConfig.Culture);
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;

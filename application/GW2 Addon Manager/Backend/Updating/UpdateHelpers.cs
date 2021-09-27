@@ -54,7 +54,7 @@ namespace GW2_Addon_Manager
             
             foreach (AddonInfo addon in addons.Where(add => add != null))
             {
-                GenericUpdater updater = new GenericUpdater(addon);
+                AddonUpdater updater = new GenericUpdater(addon);
             
                 if(!(addon.AdditionalFlags?.Contains("self-updating")
                      && configurationManager.UserConfig.AddonsList.FirstOrDefault(a => a.Name == addon.AddonName)?.Installed == true))

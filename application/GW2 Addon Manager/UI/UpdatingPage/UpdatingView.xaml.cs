@@ -14,18 +14,18 @@ namespace GW2_Addon_Manager
     /// </summary>
     public partial class UpdatingView
     {
-        private readonly IConfigurationManager _configurationManager;
+        private readonly IConfigurationProvider _configurationManager;
 
         /// <summary>
         /// Sets the page's DataContext, initializes it, and begins the update process.
         /// </summary>
         public UpdatingView()
         {
-            _configurationManager = new ConfigurationManager();
+            _configurationManager = new ConfigurationProvider();
             DataContext = UpdatingViewModel.GetInstance;
             InitializeComponent();
 
-            LoaderSetup settingUp = new LoaderSetup(new ConfigurationManager());
+            LoaderSetup settingUp = new LoaderSetup(new ConfigurationProvider());
             Task.Run(() => UpdateHelpers.UpdateAll());
 
             launchOnClose.IsChecked = _configurationManager.UserConfig.LaunchGame;

@@ -124,11 +124,29 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This will delete all selected addons and all data associated with them! Are you sure you wish to continue?.
+        /// </summary>
+        public static string DeleteAddonsPrompt {
+            get {
+                return ResourceManager.GetString("DeleteAddonsPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deletes the selected addons and all associated data.
         /// </summary>
         public static string DeleteDescription {
             get {
                 return ResourceManager.GetString("DeleteDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Addons [!].
+        /// </summary>
+        public static string DeleteTitle {
+            get {
+                return ResourceManager.GetString("DeleteTitle", resourceCulture);
             }
         }
         
@@ -160,11 +178,29 @@ namespace Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This will disable the selected addons until you choose to re-enable them. Do you wish to continue?.
+        /// </summary>
+        public static string DisableAddonsPrompt {
+            get {
+                return ResourceManager.GetString("DisableAddonsPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disables the selected addons.
         /// </summary>
         public static string DisableDescription {
             get {
                 return ResourceManager.GetString("DisableDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Addons.
+        /// </summary>
+        public static string DisableTitle {
+            get {
+                return ResourceManager.GetString("DisableTitle", resourceCulture);
             }
         }
         
@@ -183,6 +219,24 @@ namespace Localization {
         public static string Downloading {
             get {
                 return ResourceManager.GetString("Downloading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will enable the selected addons. Do you wish to continue?.
+        /// </summary>
+        public static string EnableAddonsPrompt {
+            get {
+                return ResourceManager.GetString("EnableAddonsPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Addons.
+        /// </summary>
+        public static string EnableTitle {
+            get {
+                return ResourceManager.GetString("EnableTitle", resourceCulture);
             }
         }
         
