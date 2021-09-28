@@ -92,7 +92,6 @@ namespace GW2_Addon_Manager
                 File.Delete(loader_d3d9_destination);
 
             ZipFile.ExtractToDirectory(fileName, loader_game_path);
-            File.Copy(loader_self_destination, loader_d3d9_destination);
 
             _configurationManager.UserConfig.LoaderVersion = latestLoaderVersion;
             _configurationManager.SaveConfiguration();
