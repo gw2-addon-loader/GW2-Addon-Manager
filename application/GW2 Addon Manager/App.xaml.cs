@@ -2,6 +2,7 @@
 using System;
 using System.Globalization;
 using System.IO;
+using System.IO.Abstractions;
 using System.Net;
 using System.Threading;
 using System.Windows;
@@ -28,9 +29,9 @@ namespace GW2_Addon_Manager
 
         private void ConfigureServices(ServiceCollection services)
         {
+            services.AddSingleton<IFileSystem, FileSystem>();
             services.AddSingleton<IConfigurationProvider, ConfigurationProvider>();
             services.AddSingleton<IAddonRepository, AddonRepository>();
-            services.AddSingleton<IAddonUpdaterFactory, AddonUpdaterFactory>();
             services.AddSingleton<IAddonManager, AddonManager>();
             services.AddSingleton<SelfUpdate>();
             services.AddSingleton<LoaderSetup>();

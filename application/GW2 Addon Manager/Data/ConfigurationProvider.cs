@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using YamlDotNet.Serialization;
 using Localization;
 using Newtonsoft.Json;
+using System.IO.Abstractions;
 
 namespace GW2_Addon_Manager
 {
@@ -31,6 +32,8 @@ namespace GW2_Addon_Manager
         }
 
         private Configuration _userConfig;
+        private readonly IFileSystem _fileSystem;
+
         public Configuration UserConfig
         {
             get => _userConfig;
@@ -40,23 +43,24 @@ namespace GW2_Addon_Manager
             }
         }
 
-        public ConfigurationProvider()
+        public ConfigurationProvider(IFileSystem fileSystem)
         {
+            _fileSystem = fileSystem;
             UserConfig = Load();
         }
 
         private void Save()
         {
             var s = JsonConvert.SerializeObject((object)UserConfig);
-            File.WriteAllText(ConfigFileName, s);
+            _fileSystem.File.WriteAllText(ConfigFileName, s);
         }
 
         private Configuration Load()
         {
-            if (!File.Exists(ConfigFileName))
+            if (!_fileSystem.File.Exists(ConfigFileName))
                 return Configuration.Default;
 
-            var s = File.ReadAllText(ConfigFileName);
+            var s = _fileSystem.File.ReadAllText(ConfigFileName);
             return JsonConvert.DeserializeObject<Configuration>(s);
         }
     }

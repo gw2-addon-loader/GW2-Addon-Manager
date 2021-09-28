@@ -47,5 +47,6 @@ namespace GW2_Addon_Manager
         List<string> Conflicts,
         string VersionId,
         bool VersionIdIsHumanReadable,
-        string DownloadUrl);
+        string DownloadUrl,
+        bool SelfUpdate);
 }

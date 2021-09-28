@@ -42,8 +42,8 @@ namespace GW2_Addon_Manager
         public async Task downloadLatestRelease()
         {
             //perhaps change this to check if downloaded update is latest or not
-            if (Directory.Exists(updateFolder))
-                Directory.Delete(updateFolder, true);
+            if (_fileSystem.Directory.Exists(updateFolder))
+                _fileSystem.Directory.Delete(updateFolder, true);
 
             //check application version
             dynamic latestInfo = UpdateHelpers.GitReleaseInfo(applicationRepoUrl);
@@ -51,7 +51,7 @@ namespace GW2_Addon_Manager
 
             UpdateMessageChanged?.Invoke(this, $"{StaticText.Downloading} {latestInfo.tag_name}");
 
-            Directory.CreateDirectory(updateFolder);
+            _fileSystem.Directory.CreateDirectory(updateFolder);
             WebClient client = UpdateHelpers.OpenWebClient();
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(selfUpdate_DownloadProgress);
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(selfUpdate_DownloadCompleted);

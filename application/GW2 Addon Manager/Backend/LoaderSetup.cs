@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.IO;
+using System.IO.Abstractions;
 using System.IO.Compression;
 using System.Net;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace GW2_Addon_Manager
         const string loaderGitUrl = "https://api.github.com/repos/gw2-addon-loader/loader-core/releases/latest";
 
         private readonly IConfigurationProvider _configurationManager;
+        private readonly IFileSystem _fileSystem;
         string loaderGamePath;
 
         string fileName;
@@ -31,9 +33,10 @@ namespace GW2_Addon_Manager
         /// <summary>
         /// Constructor; also sets some UI text to indicate that the addon loader is having an update check
         /// </summary>
-        public LoaderSetup(IConfigurationProvider configurationManager)
+        public LoaderSetup(IConfigurationProvider configurationManager, IFileSystem fileSystem)
         {
             _configurationManager = configurationManager;
+            _fileSystem = fileSystem;
             loaderGamePath = Path.Combine(_configurationManager.UserConfig.GamePath, _configurationManager.UserConfig.BinFolder);
         }
 
@@ -49,7 +52,7 @@ namespace GW2_Addon_Manager
 
             latestLoaderVersion = releaseInfo.tag_name;
 
-            if (File.Exists(loaderDestination) && _configurationManager.UserConfig.LoaderVersion == latestLoaderVersion)
+            if (_fileSystem.File.Exists(loaderDestination) && _configurationManager.UserConfig.LoaderVersion == latestLoaderVersion)
                 return;
 
             string downloadLink = releaseInfo.assets[0].browser_download_url;
@@ -63,8 +66,8 @@ namespace GW2_Addon_Manager
 
             fileName = Path.Combine(Path.GetTempPath(), Path.GetFileName(url));
 
-            if (File.Exists(fileName))
-                File.Delete(fileName);
+            if (_fileSystem.File.Exists(fileName))
+                _fileSystem.File.Delete(fileName);
 
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(loader_DownloadProgressChanged);
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(loader_DownloadCompleted);
@@ -77,8 +80,8 @@ namespace GW2_Addon_Manager
             //_viewModel.ProgBarLabel = "Installing Addon Loader";
             UpdateMessageChanged?.Invoke(this, "Installing Addon Loader");
 
-            if (File.Exists(loaderDestination))
-                File.Delete(loaderDestination);
+            if (_fileSystem.File.Exists(loaderDestination))
+                _fileSystem.File.Delete(loaderDestination);
             
             ZipFile.ExtractToDirectory(fileName, loaderGamePath);
 

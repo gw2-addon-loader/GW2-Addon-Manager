@@ -86,10 +86,6 @@
     <Resource Include="Resources\GW2-UOAOU-UI.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <Resource Include="Resources\GitHub-Mark-32px.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -136,7 +132,7 @@
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="Backend\Configuration\AddonDirectoryUpdater.cs" />
+    <Compile Remove="Old\AddonDirectoryUpdater.cs" />
     <Compile Remove="Tests\ConfigurationTests.cs" />
   </ItemGroup>
   <PropertyGroup>
@@ -145,12 +141,5 @@ move "$(TargetDir)*.dll" "$(TargetDir)resources\plugins"</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
   </ItemGroup>
 </Project>

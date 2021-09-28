@@ -4,6 +4,9 @@ using System.Linq;
 using System.Windows;
 using System.IO;
 using System;
+using System.IO.Compression;
+using System.Threading.Tasks;
+using System.IO.Abstractions;
 
 namespace GW2_Addon_Manager
 {
@@ -23,15 +26,30 @@ namespace GW2_Addon_Manager
         private const string EnabledExtension = ".dll";
 
         private readonly IConfigurationProvider _configurationProvider;
+        private readonly IFileSystem _fileSystem;
 
-        public AddonManager(IConfigurationProvider configurationProvider)
+        public event UpdateMessageChangedEventHandler MessageChanged;
+        public event UpdateProgressChangedEventHandler ProgressChanged;
+
+        private void OnProgressChanged(int i, int n)
+        {
+            ProgressChanged?.Invoke(this, i * 100 / n);
+        }
+
+        private void OnMessageChanged(string msg)
+        {
+            MessageChanged?.Invoke(this, msg);
+        }
+
+        public AddonManager(IConfigurationProvider configurationProvider, IFileSystem fileSystem)
         {
             _configurationProvider = configurationProvider;
+            _fileSystem = fileSystem;
         }
 
         private string FolderPath(AddonInfo addon)
         {
-            return Path.Combine(_configurationProvider.UserConfig.GamePath, AddonsFolder, addon.InstallMode == InstallMode.Binary ? addon.Nickname : ArcDPSFolder);
+            return _fileSystem.Path.Combine(_configurationProvider.UserConfig.GamePath, AddonsFolder, addon.InstallMode == InstallMode.Binary ? addon.Nickname : ArcDPSFolder);
         }
 
         private string DLLPath(AddonInfo addon, AddonState state)
@@ -39,12 +57,12 @@ namespace GW2_Addon_Manager
             var folderPath = FolderPath(addon);
             var extension = state.Disabled ? DisabledExtension : EnabledExtension;
             if(addon.InstallMode == InstallMode.Binary)
-                return Path.Combine(folderPath, AddonPrefix + addon.Nickname + extension);
+                return _fileSystem.Path.Combine(folderPath, AddonPrefix + addon.Nickname + extension);
             else if(addon.InstallMode == InstallMode.ArcDPSAddon) {
                 if(addon.PluginName != null)
-                    return Path.Combine(folderPath, addon.PluginName + extension);
+                    return _fileSystem.Path.Combine(folderPath, addon.PluginName + extension);
                 else {
-                    var files = Directory.GetFiles(folderPath, addon.PluginNamePattern + extension);
+                    var files = _fileSystem.Directory.GetFiles(folderPath, addon.PluginNamePattern + extension);
                     if(files.Length > 0)
                         return files[0];
                     else
@@ -62,12 +80,17 @@ namespace GW2_Addon_Manager
                 return;
 
             var path = DLLPath(addon, state);
-            if(File.Exists(path)) {
-                var newPath = Path.ChangeExtension(path, enable ? EnabledExtension : DisabledExtension);
-                File.Move(path, newPath);
+            if(_fileSystem.File.Exists(path)) {
+                var newPath = _fileSystem.Path.ChangeExtension(path, enable ? EnabledExtension : DisabledExtension);
+                _fileSystem.File.Move(path, newPath);
             }
             else
                 throw new ArgumentException();
+
+            states[addon.Nickname] = state with
+            {
+                Disabled = !enable
+            };
         }
 
         private void Delete(AddonInfo addon, Dictionary<string, AddonState> states)
@@ -76,19 +99,25 @@ namespace GW2_Addon_Manager
             if(!state.Installed)
                 return;
 
-            if(addon.InstallMode == InstallMode.ArcDPSAddon) {
-                var path = DLLPath(addon, state);
-                if(path != null) File.Delete(path);
-                if(addon.Files.Count > 0) {
-                    var folderPath = FolderPath(addon);
-                    foreach (var f in addon.Files) {
-                        var filePath = Path.Combine(folderPath, f);
-                        if(File.Exists(filePath))
-                            File.Delete(filePath);
-                        else if(Directory.Exists(filePath))
-                            Directory.Delete(filePath, true);
-                    }
-                }
+            var folderPath = FolderPath(addon);
+            var files = new List<string>
+            {
+                DLLPath(addon, state)
+            };
+            foreach (var f in addon.Files)
+                files.Add(_fileSystem.Path.Combine(folderPath, f));
+            foreach (var f in state.InstalledFiles)
+                files.Add(_fileSystem.Path.Combine(folderPath, f));
+
+            foreach (var f in files) {
+                if (_fileSystem.File.Exists(f))
+                    _fileSystem.File.Delete(f);
+            }
+
+            foreach(var dir in _fileSystem.Directory.EnumerateDirectories(folderPath, "*", SearchOption.AllDirectories).OrderByDescending(x => x.Length).Append(folderPath)) {
+                try {
+                    _fileSystem.Directory.Delete(dir);
+                } catch(Exception) { }
             }
 
             states[addon.Nickname] = AddonState.Default(state.Nickname);
@@ -97,10 +126,17 @@ namespace GW2_Addon_Manager
         public void Delete(IEnumerable<AddonInfo> addons)
         {
             if (DelayedMessageBox.Show(3, StaticText.DeleteAddonsPrompt, StaticText.DeleteTitle, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
+                int i = 0;
+                int n = addons.Count();
+                OnProgressChanged(i, n);
+
                 var states = new Dictionary<string, AddonState>(_configurationProvider.UserConfig.AddonsState);
                 try {
-                    foreach (AddonInfo addon in addons)
+                    foreach (AddonInfo addon in addons) {
+                        OnMessageChanged($"Deleting {addon.AddonName}...");
                         Delete(addon, states);
+                        OnProgressChanged(++i, n);
+                    }
                 }
                 catch (Exception ex) {
                     // TODO: Logging
@@ -111,38 +147,118 @@ namespace GW2_Addon_Manager
             }
         }
 
-        private void Install(AddonInfo addon, Dictionary<string, AddonState> states)
+        /* 
+         * Credit: Fidel @ StackOverflow
+         * Modified version of their answer at https://stackoverflow.com/a/54616044/9170673
+         */
+        private string GetFilenameFromUrl(string url)
         {
-            var state = states[addon.Nickname];
-            if (state.Installed)
-                return;
+            string result = "";
 
-            // TODO: Finish
+            var req = System.Net.WebRequest.Create(url);
+            req.Method = "GET";
+            using (System.Net.WebResponse resp = req.GetResponse()) {
+                result = _fileSystem.Path.GetFileName(resp.ResponseUri.AbsoluteUri);
+            }
+            return result;
         }
 
-        public void Install(IEnumerable<AddonInfo> addons)
+        private async Task Install(AddonInfo addon, Dictionary<string, AddonState> states)
         {
-            if (DelayedMessageBox.Show(3, StaticText.DeleteAddonsPrompt, StaticText.DeleteTitle, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
-                var states = new Dictionary<string, AddonState>(_configurationProvider.UserConfig.AddonsState);
-                try {
-                    foreach (AddonInfo addon in addons)
-                        Install(addon, states);
-                }
-                catch (Exception ex) {
-                    // TODO: Logging
-                    MessageBox.Show("Error while installing some addons: " + ex.Message, "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+            var state = states[addon.Nickname];
+            if (state.Installed && (state.VersionId == addon.VersionId || addon.SelfUpdate))
+                return;
 
-                _configurationProvider.UserConfig = _configurationProvider.UserConfig with { AddonsState = states };
+            string url = addon.DownloadUrl;
+            string baseFolder = Path.GetTempPath();
+            string fileName = Path.Combine(baseFolder, GetFilenameFromUrl(url));
+
+            if (_fileSystem.File.Exists(fileName))
+                _fileSystem.File.Delete(fileName);
+
+            var client = Utils.OpenWebClient();
+            await client.DownloadFileTaskAsync(url, fileName);
+
+            var absoluteFiles = new List<string>();
+
+            if(addon.DownloadType == DownloadType.Archive) {
+                string folderName = Path.Combine(baseFolder, addon.AddonName);
+                baseFolder = folderName;
+                if (_fileSystem.Directory.Exists(folderName))
+                    _fileSystem.Directory.Delete(folderName, true);
+
+                ZipFile.ExtractToDirectory(fileName, folderName);
+
+                foreach(var fs in _fileSystem.Directory.EnumerateFiles(folderName, "*", SearchOption.AllDirectories)) {
+                    absoluteFiles.Add(fs);
+                }
+            } else
+                absoluteFiles.Add(fileName);
+
+            var destFolder = FolderPath(addon);
+
+            if (state.Installed) {
+                foreach (var f in state.InstalledFiles) {
+                    var fp = _fileSystem.Path.Combine(destFolder, f);
+                    if (_fileSystem.File.Exists(fp))
+                        _fileSystem.File.Delete(fp);
+                }
             }
+
+            var relFiles = new List<string>();
+
+            foreach(var f in absoluteFiles) {
+                var relFile = _fileSystem.Path.GetRelativePath(baseFolder, f);
+                relFiles.Add(relFile);
+                _fileSystem.Directory.CreateDirectory(_fileSystem.Path.GetDirectoryName(relFile));
+                _fileSystem.File.Copy(f, _fileSystem.Path.Combine(destFolder, relFile));
+            }
+
+            states[addon.Nickname] = state with
+            {
+                Installed = true,
+                VersionId = addon.VersionId,
+                InstalledFiles = relFiles
+            };
+
+            _fileSystem.File.Delete(fileName);
+        }
+
+        public async Task Install(IEnumerable<AddonInfo> addons)
+        {
+            int i = 0;
+            int n = addons.Count();
+            OnProgressChanged(i, n);
+
+            var states = new Dictionary<string, AddonState>(_configurationProvider.UserConfig.AddonsState);
+            try {
+                foreach (AddonInfo addon in addons) {
+                    OnMessageChanged($"Installing {addon.AddonName}...");
+                    await Install(addon, states);
+                    OnProgressChanged(++i, n);
+                }
+            }
+            catch (Exception ex) {
+                // TODO: Logging
+                MessageBox.Show("Error while installing some addons: " + ex.Message, "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            _configurationProvider.UserConfig = _configurationProvider.UserConfig with { AddonsState = states };
         }
 
         private void DisableEnable(IEnumerable<AddonInfo> addons, bool enable)
         {
+            int i = 0;
+            int n = addons.Count();
+            OnProgressChanged(i, n);
+
             var states = new Dictionary<string, AddonState>(_configurationProvider.UserConfig.AddonsState);
             try {
-                foreach (AddonInfo addon in addons)
+                foreach (AddonInfo addon in addons) {
+                    OnMessageChanged($"{(enable ? "Enabling" : "Disabling")} {addon.AddonName}...");
                     DisableEnable(addon, states, enable);
+                    OnProgressChanged(++i, n);
+                }
             }
             catch (Exception ex) {
                 // TODO: Logging

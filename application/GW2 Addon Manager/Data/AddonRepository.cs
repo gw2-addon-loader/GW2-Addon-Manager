@@ -4,9 +4,16 @@ using Newtonsoft.Json;
 
 namespace GW2_Addon_Manager
 {
+    public record LoaderInfo();
+    public record ManagerInfo();
+
+    internal record AddonRepositoryInfo(Dictionary<string, AddonInfo> Addons, LoaderInfo Loader, ManagerInfo Manager);
+
     public interface IAddonRepository
     {
         IReadOnlyDictionary<string, AddonInfo> Addons { get; }
+        LoaderInfo Loader { get; }
+        ManagerInfo Manager { get; }
         void Refresh();
     }
 
@@ -15,8 +22,10 @@ namespace GW2_Addon_Manager
         // Master URL
         private const string RepoUrl = "https://gw2-addon-loader.github.io/addon-repo/addons.json";
 
-        Dictionary<string, AddonInfo> _addons;
-        public IReadOnlyDictionary<string, AddonInfo> Addons => _addons;
+        AddonRepositoryInfo _info;
+        public IReadOnlyDictionary<string, AddonInfo> Addons => _info.Addons;
+        public LoaderInfo Loader => _info.Loader;
+        public ManagerInfo Manager => _info.Manager;
 
         public AddonRepository()
         {
@@ -25,9 +34,9 @@ namespace GW2_Addon_Manager
 
         public void Refresh()
         {
-            var client = UpdateHelpers.OpenWebClient();
+            var client = Utils.OpenWebClient();
             var raw = client.DownloadString(RepoUrl);
-            _addons = JsonConvert.DeserializeObject<Dictionary<string, AddonInfo>>(raw);
+            _info = JsonConvert.DeserializeObject<AddonRepositoryInfo>(raw);
         }
     }
 }
