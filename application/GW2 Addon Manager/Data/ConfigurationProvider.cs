@@ -9,7 +9,7 @@ using Localization;
 using Newtonsoft.Json;
 using System.IO.Abstractions;
 
-namespace GW2_Addon_Manager
+namespace GW2AddonManager
 {
     public interface IConfigurationProvider
     {

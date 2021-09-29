@@ -1,4 +1,4 @@
-﻿using GW2_Addon_Manager.App.Configuration;
+﻿using GW2AddonManager.App.Configuration;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using System.Windows.Navigation;
  * Guild Wars 2 Add-On Updater
  */
 
-namespace GW2_Addon_Manager
+namespace GW2AddonManager
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -44,7 +44,7 @@ namespace GW2_Addon_Manager
         //race condition with processes
         private void close_clicked(object sender, RoutedEventArgs e)
         {
-            SelfUpdate.startUpdater();
+            SelfManager.startUpdater();
             System.Windows.Application.Current.Shutdown();
         }
 

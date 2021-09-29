@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows;
 using Localization;
 
-namespace GW2_Addon_Manager
+namespace GW2AddonManager
 {
     public class OldConfiguration
     {

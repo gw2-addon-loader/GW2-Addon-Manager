@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace GW2_Addon_Manager
+namespace GW2AddonManager
 {
     /// <summary>
     /// <c>UpdatingViewModel</c> serves as the DataContext for UpdatingView.xaml, which is the screen displayed during and after the update process.

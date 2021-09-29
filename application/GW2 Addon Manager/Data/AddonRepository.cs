@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace GW2_Addon_Manager
+namespace GW2AddonManager
 {
-    public record LoaderInfo();
-    public record ManagerInfo();
+    public record LoaderInfo(string VersionId, string DownloadUrl, string WrapperNickname)
+    {
+        public AddonInfo Wrapper { get; set; }
+    }
+    public record ManagerInfo(string VersionId, string DownloadUrl);
 
     internal record AddonRepositoryInfo(Dictionary<string, AddonInfo> Addons, LoaderInfo Loader, ManagerInfo Manager);
 
@@ -37,6 +40,7 @@ namespace GW2_Addon_Manager
             var client = Utils.OpenWebClient();
             var raw = client.DownloadString(RepoUrl);
             _info = JsonConvert.DeserializeObject<AddonRepositoryInfo>(raw);
+            _info.Loader.Wrapper = _info.Addons[_info.Loader.WrapperNickname];
         }
     }
 }

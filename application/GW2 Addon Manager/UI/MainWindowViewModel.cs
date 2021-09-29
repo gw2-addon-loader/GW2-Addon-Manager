@@ -2,9 +2,9 @@ using GalaSoft.MvvmLight.Command;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using GW2_Addon_Manager.App.Configuration;
+using GW2AddonManager.App.Configuration;
 
-namespace GW2_Addon_Manager
+namespace GW2AddonManager
 {
     /// <summary>
     /// <c>MainWindowViewModel</c> serves as the DataContext for MainWindow.xaml, which is the main layout for the application.
@@ -13,7 +13,7 @@ namespace GW2_Addon_Manager
     {
         private readonly IConfigurationProvider _configurationManager;
         private readonly Configuration _configuration;
-        private readonly SelfUpdate _selfUpdate;
+        private readonly SelfManager _selfUpdate;
 
         /// <summary>
         /// A string representing a visibility value for the Github releases link.
@@ -59,7 +59,7 @@ namespace GW2_Addon_Manager
         /// This constructor initializes various default properties across the class and then
         /// applies any updated values to them using <c>ApplyDefaultConfig</c>.
         /// </summary>
-        public MainWindowViewModel(IConfigurationProvider configurationManager, SelfUpdate selfUpdate)
+        public MainWindowViewModel(IConfigurationProvider configurationManager, SelfManager selfUpdate)
         {
             _configurationManager = configurationManager;
             _configuration = new Configuration(_configurationManager);

@@ -8,14 +8,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
-using GW2_Addon_Manager.App.Configuration;
+using GW2AddonManager.App.Configuration;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using System.Threading;
 using System.Globalization;
 using System.Windows.Markup;
 
-namespace GW2_Addon_Manager
+namespace GW2AddonManager
 {
     /// <summary>
     /// Code-behind for OpeningView.xaml.

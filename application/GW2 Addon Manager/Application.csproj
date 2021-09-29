@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>GW2_Addon_Manager</RootNamespace>
-    <AssemblyName>GW2 Addon Manager</AssemblyName>
+    <RootNamespace>GW2AddonManager</RootNamespace>
+    <AssemblyName>GW2AddonManager</AssemblyName>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>C:\Users\Matthew Lee\Documents\GitHub\GW2-Updater-Scripts\application\</PublishUrl>
     <Install>true</Install>
@@ -29,7 +29,7 @@
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DocumentationFile>bin\Release\GW2 Addon Manager.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\logo.ico</ApplicationIcon>
@@ -142,4 +142,5 @@ move "$(TargetDir)*.dll" "$(TargetDir)resources\plugins"</PostBuildEvent>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
+  <Import Project="..\Common\Common.projitems" Label="Shared" />
 </Project>

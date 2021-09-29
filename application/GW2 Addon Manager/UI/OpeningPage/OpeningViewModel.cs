@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
-using GW2_Addon_Manager.App.Configuration;
+using GW2AddonManager.App.Configuration;
 using Localization;
 
-namespace GW2_Addon_Manager
+namespace GW2AddonManager
 {
     /// <summary>
     /// <c>OpeningViewModel</c> serves as the DataContext for OpeningView.xaml, which is the first screen encountered upon opening the application.

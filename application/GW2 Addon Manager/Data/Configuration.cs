@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GW2_Addon_Manager
+namespace GW2AddonManager
 {
     [Serializable]
     public record Configuration(
@@ -12,9 +12,9 @@ namespace GW2_Addon_Manager
         string ExeName,
         string Culture,
         string GamePath,
-        ulong AddonsHash,
+        IReadOnlyList<string> LoaderInstalledFiles,
         IReadOnlyDictionary<string, AddonState> AddonsState)
     {
-        public static Configuration Default => new Configuration(null, "bin64", false, "Gw2-64.exe", CultureConstants.English, null, 0, new Dictionary<string, AddonState>());
+        public static Configuration Default => new Configuration(null, "bin64", false, "Gw2-64.exe", CultureConstants.English, null, new List<string>(), new Dictionary<string, AddonState>());
     }
 }

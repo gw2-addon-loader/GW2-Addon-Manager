@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using GW2_Addon_Manager.App.Configuration;
+using GW2AddonManager.App.Configuration;
 
-namespace GW2_Addon_Manager
+namespace GW2AddonManager
 {
     /// <summary>
     /// Interaction logic for Updating.xaml
@@ -25,7 +25,7 @@ namespace GW2_Addon_Manager
             DataContext = UpdatingViewModel.GetInstance;
             InitializeComponent();
 
-            LoaderSetup settingUp = new LoaderSetup(new ConfigurationProvider());
+            LoaderManager settingUp = new LoaderSetup(new ConfigurationProvider());
             Task.Run(() => UpdateHelpers.UpdateAll());
 
             launchOnClose.IsChecked = _configurationManager.UserConfig.LaunchGame;
@@ -42,7 +42,7 @@ namespace GW2_Addon_Manager
 
         private void close_clicked(object sender, RoutedEventArgs e)
         {
-            SelfUpdate.startUpdater();
+            SelfManager.startUpdater();
 
             if ((bool)launchOnClose.IsChecked)
             {
@@ -71,7 +71,7 @@ namespace GW2_Addon_Manager
 
         private void xbutton_clicked(object sender, RoutedEventArgs e)
         {
-            SelfUpdate.startUpdater();
+            SelfManager.startUpdater();
             System.Windows.Application.Current.Shutdown();
         }
 

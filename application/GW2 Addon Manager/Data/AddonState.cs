@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GW2_Addon_Manager
+namespace GW2AddonManager
 {
     [JsonObject]
     public record AddonState(string Nickname, string VersionId, bool Installed, bool Disabled, List<string> InstalledFiles)

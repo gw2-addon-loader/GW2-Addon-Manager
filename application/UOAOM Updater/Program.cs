@@ -1,52 +1,50 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Windows;
 
-namespace UOAOM_Updater
+namespace GW2AddonManager.Updater
 {
     class Program
     {
-        static string update_zip = "latestRelease\\update.zip";
-        static string update_folder = "latestRelease";
+        private static string DownloadPath => Path.Combine(Path.GetTempPath(), "addon-manager.zip");
 
-        static void Main(string[] args)
+        static void Main(string[] _)
         {
-            //race condition handicap. TODO: make this not a race condition
-            //(idk, have another helper process that starts on close button pressed in main app, waits until main app's process is closed, then starts this updater and closes itself?)
-            //
-            //add clause to retry an extraction if it doesn't work?
-            System.Threading.Thread.Sleep(3000);
-
-            if (Directory.Exists(update_folder))
-            {
-                using (FileStream zip = new FileStream(update_zip, FileMode.Open))
-                {
-                    ZipArchive archive = new ZipArchive(zip);
-                    foreach (ZipArchiveEntry entry in archive.Entries)
-                    {
-                        if (string.IsNullOrEmpty(entry.Name))
-                            Directory.CreateDirectory(entry.FullName);
-                        else if (entry.FullName != "UOAOM updater.exe")
-                        {
-                            try
-                            {
-                                entry.ExtractToFile(Path.Combine(Directory.GetCurrentDirectory(), entry.FullName), true);
+            try {
+                bool retry = true;
+                while(retry) {
+                    try {
+                        using (var mutex = new NamedMutex("GW2AddonManager", true)) {
+                            using (var zip = new FileStream(DownloadPath, FileMode.Open)) {
+                                var archive = new ZipArchive(zip);
+                                foreach (var entry in archive.Entries) {
+                                    if (string.IsNullOrEmpty(entry.Name))
+                                        Directory.CreateDirectory(entry.FullName);
+                                    else if (entry.FullName != "Updater.exe") {
+                                        try {
+                                            entry.ExtractToFile(Path.Combine(Directory.GetCurrentDirectory(), entry.FullName), true);
+                                        }
+                                        catch (IOException e) {
+                                            MessageBox.Show($"Error while attempting to extract file '{entry.FullName}': {e.Message}", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                            break;
+                                        }
+                                    }
+                                }
+                                zip.Close();
                             }
-                            catch (IOException)
-                            {
-                                System.Threading.Thread.Sleep(3000);
-                                entry.ExtractToFile(Path.Combine(Directory.GetCurrentDirectory(), entry.FullName), true);
-                            }
-                            
                         }
-                            
                     }
-                    zip.Close();
+                    catch (TimeoutException) {
+                        retry = MessageBox.Show($"The addon manager appears to still be running! Please close the addon manager.\n\nWould you like to try updating again?", "Update Error", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes;
+                    }
                 }
-                Directory.Delete(update_folder, true);
             }
-                
+            catch (Exception e) {
+                MessageBox.Show($"Error while attempting to update: {e.Message}", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
-namespace GW2_Addon_Manager
+namespace GW2AddonManager
 {
     public enum DownloadType
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Abstractions;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -12,22 +13,26 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace GW2_Addon_Manager
+namespace GW2AddonManager
 {
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="message"></param>
     public delegate void UpdateMessageChangedEventHandler(object sender, string message);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="pct"></param>
     public delegate void UpdateProgressChangedEventHandler(object sender, int pct);
+
+    public abstract class UpdateChangedEvents
+    {
+        public event UpdateMessageChangedEventHandler MessageChanged;
+        public event UpdateProgressChangedEventHandler ProgressChanged;
+
+        protected void OnProgressChanged(int i, int n)
+        {
+            ProgressChanged?.Invoke(this, i * 100 / n);
+        }
+
+        protected void OnMessageChanged(string msg)
+        {
+            MessageChanged?.Invoke(this, msg);
+        }
+    }
 
     public static class Constants
     {
@@ -50,7 +55,39 @@ namespace GW2_Addon_Manager
             return client;
         }
 
-        public static string GetRelativePath(this IPath inst, string relativeTo, string path)
+        public static void RemoveFiles(IFileSystem fs, IEnumerable<string> files, string basePath = "")
+        {
+            foreach (var f in files) {
+                var fp = fs.Path.Combine(basePath, f);
+                if (fs.File.Exists(fp))
+                    fs.File.Delete(fp);
+            }
+        }
+
+        public static List<string> ExtractArchiveWithFilesList(string archiveFilePath, string destFolder, IFileSystem fs)
+        {
+            var folderName = fs.Path.Combine(fs.Path.GetTempPath(), fs.Path.GetFileNameWithoutExtension(archiveFilePath));
+            if (fs.Directory.Exists(folderName))
+                fs.Directory.Delete(folderName, true);
+
+            ZipFile.ExtractToDirectory(archiveFilePath, folderName);
+
+            var absoluteFiles = new List<string>();
+            foreach (var f in fs.Directory.EnumerateFiles(folderName, "*", SearchOption.AllDirectories))
+                absoluteFiles.Add(f);
+
+            var relFiles = new List<string>();
+            foreach (var f in absoluteFiles) {
+                var relFile = fs.Path.GetRelativePath(folderName, f);
+                relFiles.Add(relFile);
+                fs.Directory.CreateDirectory(fs.Path.GetDirectoryName(relFile));
+                fs.File.Copy(f, fs.Path.Combine(destFolder, relFile));
+            }
+
+            return relFiles;
+        }
+
+        public static string GetRelativePath(this IPath _, string relativeTo, string path)
         {
             return Path.GetRelativePath(relativeTo, path);
         }

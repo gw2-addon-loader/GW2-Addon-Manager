@@ -4,7 +4,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:l="clr-namespace:Localization;assembly=Localization"
-    x:Class="GW2_Addon_Manager.UpdatingView"
+    x:Class="GW2AddonManager.UpdatingView"
     mc:Ignorable="d"
     d:DesignHeight="400"
     d:DesignWidth="1000"

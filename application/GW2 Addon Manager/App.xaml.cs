@@ -8,7 +8,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace GW2_Addon_Manager
+namespace GW2AddonManager
 {
     /// <summary>
     /// Interaction logic for App.xaml. Currently, the functions here are dedicated solely to application-wide exception handling and error logging.
@@ -16,12 +16,15 @@ namespace GW2_Addon_Manager
     public partial class App
     {
         private ServiceProvider serviceProvider;
+        private NamedMutex _mutex;
 
         /// <summary>
         /// 
         /// </summary>
         public App()
         {
+            _mutex = new NamedMutex("GW2AddonManager", true);
+
             ServiceCollection services = new();
             ConfigureServices(services);
             serviceProvider = services.BuildServiceProvider();
@@ -33,8 +36,8 @@ namespace GW2_Addon_Manager
             services.AddSingleton<IConfigurationProvider, ConfigurationProvider>();
             services.AddSingleton<IAddonRepository, AddonRepository>();
             services.AddSingleton<IAddonManager, AddonManager>();
-            services.AddSingleton<SelfUpdate>();
-            services.AddSingleton<LoaderSetup>();
+            services.AddSingleton<SelfManager>();
+            services.AddSingleton<LoaderManager>();
 
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<OpeningViewModel>();
@@ -49,6 +52,7 @@ namespace GW2_Addon_Manager
             Application.Current.DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(AppDispatcherUnhandledException);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomainUnhandledException);
             SetCulture();
+            Application.Current.Exit += new ExitEventHandler((_, _) => _mutex.Dispose());
 
             Application.Current.MainWindow = serviceProvider.GetService<MainWindow>();
             Application.Current.MainWindow.Show();
@@ -64,6 +68,7 @@ namespace GW2_Addon_Manager
 
         private void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
+            _mutex.Dispose();
             ShowUnhandledException(e);
         }
 
@@ -74,6 +79,7 @@ namespace GW2_Addon_Manager
         /// <param name="e">The exception information.</param>
         private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
+            _mutex.Dispose();
             ShowUnhandledException(e);
         }
 
