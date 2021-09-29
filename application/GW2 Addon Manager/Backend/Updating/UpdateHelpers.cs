@@ -7,26 +7,45 @@ using GW2_Addon_Manager.App.Configuration;
 
 namespace GW2_Addon_Manager
 {
-    class UpdateHelpers
+    static class UpdateHelpers
     {
-        public static dynamic GitReleaseInfo(string gitUrl)
+        public static WebClient GetClient()
         {
             var client = new WebClient();
-            client.Headers.Add("User-Agent", "request");
-            try
-            {
-                string release_info_json = client.DownloadString(gitUrl);
-                return JsonConvert.DeserializeObject(release_info_json);
+            client.Headers.Add("User-Agent", "Gw2 Addon Manager");
 
+            return client;
+        }
+
+        public static string DownloadStringFromGithubAPI(this WebClient wc, string url)
+        {
+            try {
+                return wc.DownloadString(url);
             }
             catch (WebException)
             {
-                //TODO: Add this catch to API calls made at application startup as well
-                MessageBox.Show("Github Servers returned an error; please try again in a few minutes.", "Github API Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                SelfUpdate.startUpdater();
+                MessageBox.Show("Github servers returned an error; please try again in a few minutes.", "Github API Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Application.Current.Shutdown();
-                return null;
+                return "";
             }
+        }
+
+        public static void DownloadFileFromGithubAPI(this WebClient wc, string url, string destPath)
+        {
+            try {
+                wc.DownloadFile(url, destPath);
+            }
+            catch (WebException) {
+                MessageBox.Show("Github servers returned an error; please try again in a few minutes.", "Github API Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown();
+            }
+        }
+
+        public static dynamic GitReleaseInfo(string gitUrl)
+        {
+            var client = UpdateHelpers.GetClient();
+            string release_info_json = client.DownloadStringFromGithubAPI(gitUrl);
+            return JsonConvert.DeserializeObject(release_info_json);
             
         }
 

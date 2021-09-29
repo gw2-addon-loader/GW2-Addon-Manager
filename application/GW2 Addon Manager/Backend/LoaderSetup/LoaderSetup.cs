@@ -61,8 +61,7 @@ namespace GW2_Addon_Manager
         private async Task Download(string url)
         {
             viewModel.ProgBarLabel = "Downloading Addon Loader";
-            var client = new WebClient();
-            client.Headers.Add("User-Agent", "request");
+            var client = UpdateHelpers.GetClient();
 
             fileName = Path.Combine(Path.GetTempPath(), Path.GetFileName(url));
 

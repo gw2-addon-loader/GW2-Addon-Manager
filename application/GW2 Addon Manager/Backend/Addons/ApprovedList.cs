@@ -28,10 +28,9 @@ namespace GW2_Addon_Manager
         public void FetchListFromRepo()
         {
             const string tempFileName = "addonlist";
-            var client = new WebClient();
-            client.Headers.Add("User-Agent", "Gw2 Addon Manager");
+            var client = UpdateHelpers.GetClient();
 
-            var raw = client.DownloadString(RepoUrl + "/branches");
+            var raw = client.DownloadStringFromGithubAPI(RepoUrl + "/branches");
             var result = JsonConvert.DeserializeObject<BranchInfo[]>(raw);
             var master = result.Single(r => r.Name == "master").Commit.Sha;
 
@@ -43,9 +42,7 @@ namespace GW2_Addon_Manager
                 File.Delete(tempFileName);
 
             //fetching new version
-            client = new WebClient();
-            client.Headers.Add("User-Agent", "Gw2 Addon Manager");
-            client.DownloadFile(RepoUrl + "/zipball", tempFileName);
+            client.DownloadFileFromGithubAPI(RepoUrl + "/zipball", tempFileName);
             ZipFile.ExtractToDirectory(tempFileName, AddonFolder);
             var downloaded = Directory.EnumerateDirectories(AddonFolder).First();
             foreach (var entry in Directory.EnumerateFileSystemEntries(downloaded))
