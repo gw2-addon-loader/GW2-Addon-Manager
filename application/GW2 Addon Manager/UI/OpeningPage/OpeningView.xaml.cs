@@ -36,8 +36,7 @@ namespace GW2_Addon_Manager
 
             _configurationManager = new ConfigurationManager();
             var configuration = new Configuration(_configurationManager);
-            configuration.CheckSelfUpdates();
-            configuration.DetermineSystemType();
+            configuration.CheckSelfUpdates();            
             _pluginManagement = new PluginManagement(_configurationManager);
             _pluginManagement.DisplayAddonStatus();
 

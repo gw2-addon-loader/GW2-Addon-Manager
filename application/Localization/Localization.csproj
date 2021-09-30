@@ -10,9 +10,18 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>StaticText.resx</DependentUpon>
     </Compile>
+    <Compile Update="StaticText.es.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StaticText.es.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="StaticText.es.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>StaticText.es.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="StaticText.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StaticText.Designer.cs</LastGenOutput>

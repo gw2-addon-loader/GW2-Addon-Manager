@@ -126,6 +126,13 @@
                     Template="{StaticResource AddonMenuItemControlTemplate}"
                     Style="{StaticResource AddonMenuItemStyle}"
                     />
+                <MenuItem
+                    Header="Spanish"
+                    Command="{Binding Path=ChangeLanguage}"
+                    CommandParameter="{x:Static l:CultureConstants.Spanish}"
+                    Template="{StaticResource AddonMenuItemControlTemplate}"
+                    Style="{StaticResource AddonMenuItemStyle}"
+                    />
             </MenuItem>
         </Menu>
         <TextBlock Text="{Binding UpdateAvailable}"
