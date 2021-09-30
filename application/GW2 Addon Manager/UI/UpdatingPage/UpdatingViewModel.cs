@@ -1,41 +1,23 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
 
 namespace GW2AddonManager
 {
-    /// <summary>
-    /// <c>UpdatingViewModel</c> serves as the DataContext for UpdatingView.xaml, which is the screen displayed during and after the update process.
-    /// </summary>
-    public class UpdatingViewModel : INotifyPropertyChanged
+    public class UpdatingViewModel : ObservableObject
     {
-        /********** UI BINDINGS **********/
-        /// <summary>
-        /// Binding for whether the "FINISH" button is enabled.
-        /// </summary>
-        public bool CloseBtnEnabled { get; set; }
-        /// <summary>
-        /// Binding for whether the "BACK" button is enabled.
-        /// </summary>
-        public bool BackBtnEnabled { get; set; }
-        /// <summary>
-        /// Binding for the label above the progress bar.
-        /// </summary>
-        public string ProgBarLabel { get; set; }
-        /// <summary>
-        /// Binding for the value shown in the progress bar.
-        /// </summary>
-        public int DownloadProgress { get; set; }
+        private bool _closeBtnEnabled;
+        private bool _backBtnEnabled;
+        private string _progBarLabel;
+        private int _downloadProgress;
 
-        /********** Class Structure/Other Methods **********/
+        public bool CloseBtnEnabled { get => _closeBtnEnabled; set => SetProperty(ref _closeBtnEnabled, value); }
+        public bool BackBtnEnabled { get => _backBtnEnabled; set => SetProperty(ref _backBtnEnabled, value); }
+        public string ProgBarLabel { get => _progBarLabel; set => SetProperty(ref _progBarLabel, value); }
+        public int DownloadProgress { get => _downloadProgress; set => SetProperty(ref _downloadProgress, value); }
 
-        /*** Notify UI of Changed Binding Items ***/
-        /// <summary>
-        /// An event used to indicate that a property's value has changed.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// The constructor sets the label to a placeholder value and disables the "finish" button.
-        /// </summary>
         public UpdatingViewModel()
         {
             ProgBarLabel = "Updating Addons";

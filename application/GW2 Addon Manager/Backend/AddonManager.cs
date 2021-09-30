@@ -10,17 +10,19 @@ using System.IO.Abstractions;
 
 namespace GW2AddonManager
 {
-    public interface IAddonManager
+    public interface IAddonManager : IUpdateChangedEvents
     {
         Task Delete(params AddonInfo[] addons);
         Task Disable(params AddonInfo[]  addons);
         Task Enable(params AddonInfo[] addons);
         Task Install(params AddonInfo[] addons);
+
+        string AddonsFolder { get; }
     }
 
     public class AddonManager : UpdateChangedEvents, IAddonManager
     {
-        private const string AddonsFolder = "addons";
+        public string AddonsFolder => _fileSystem.Path.Combine(_configurationProvider.UserConfig.GamePath, "addons");
         private const string AddonPrefix = "gw2addon_";
         private const string ArcDPSFolder = "arcdps";
         private const string DisabledExtension = ".dll_disabled";
@@ -37,7 +39,7 @@ namespace GW2AddonManager
 
         private string FolderPath(AddonInfo addon)
         {
-            return _fileSystem.Path.Combine(_configurationProvider.UserConfig.GamePath, AddonsFolder, addon.InstallMode == InstallMode.Binary ? addon.Nickname : ArcDPSFolder);
+            return _fileSystem.Path.Combine(AddonsFolder, addon.InstallMode == InstallMode.Binary ? addon.Nickname : ArcDPSFolder);
         }
 
         private string DLLPath(AddonInfo addon, AddonState state)

@@ -16,11 +16,13 @@ namespace GW2AddonManager
         string ApplicationVersion { get; }
 
         Configuration UserConfig { get; set; }
+
+        public string ConfigFileName { get; }
     }
 
     public class ConfigurationProvider : IConfigurationProvider
     {
-        private const string ConfigFileName = "config.json";
+        public string ConfigFileName => "config.json";
 
         public string ApplicationVersion
         {

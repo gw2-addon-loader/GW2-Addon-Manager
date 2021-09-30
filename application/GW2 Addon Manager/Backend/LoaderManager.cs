@@ -8,7 +8,13 @@ using System.Threading.Tasks;
 
 namespace GW2AddonManager
 {
-    class LoaderManager : UpdateChangedEvents
+    public interface ILoaderManager : IUpdateChangedEvents
+    {
+        Task Update();
+        void Uninstall();
+    }
+
+    public class LoaderManager : UpdateChangedEvents, ILoaderManager
     {
         private readonly IConfigurationProvider _configurationManager;
         private readonly IAddonRepository _addonRepository;
@@ -60,6 +66,24 @@ namespace GW2AddonManager
             _configurationManager.UserConfig = _configurationManager.UserConfig with {
                 LoaderVersion = _addonRepository.Loader.VersionId,
                 LoaderInstalledFiles = relFiles
+            };
+        }
+
+        public void Uninstall()
+        {
+            if(_configurationManager.UserConfig.LoaderInstalledFiles?.Count > 0) {
+                foreach(var f in _configurationManager.UserConfig.LoaderInstalledFiles)
+                    _fileSystem.File.Delete(_fileSystem.Path.Combine(InstallPath, f));
+            } else {
+                // We don't know for sure what might be installed by the loader, but three files are consistently necessary, so remove those at least
+                _fileSystem.File.Delete(_fileSystem.Path.Combine(InstallPath, "dxgi.dll"));
+                _fileSystem.File.Delete(_fileSystem.Path.Combine(InstallPath, "d3d11.dll"));
+                _fileSystem.File.Delete(_fileSystem.Path.Combine(InstallPath, "bin64", "d3d9.dll"));
+            }
+
+            _configurationManager.UserConfig = _configurationManager.UserConfig with {
+                LoaderInstalledFiles = new List<string>(),
+                LoaderVersion = null
             };
         }
     }

@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:l="clr-namespace:Localization;assembly=Localization"
     x:Class="GW2AddonManager.UpdatingView"
     mc:Ignorable="d"
     d:DesignHeight="400"
@@ -19,10 +18,10 @@
         </Grid.ColumnDefinitions>
 
         <DockPanel Margin="40" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="WhiteSmoke">
-            <Label DockPanel.Dock="Top" Margin="10" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI" FontSize="16" Content="{x:Static l:StaticText.ThankYou}"/>
-            <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Stretch" TextAlignment="Center" Margin="10" TextWrapping="Wrap" Text="{x:Static l:StaticText.ThankYouDescription}"/>
+            <Label DockPanel.Dock="Top" Margin="10" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI" FontSize="16" Content="{x:Static StaticText.ThankYou}"/>
+            <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Stretch" TextAlignment="Center" Margin="10" TextWrapping="Wrap" Text="{x:Static StaticText.ThankYouDescription}"/>
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
-                <TextBlock VerticalAlignment="Center" Text="{x:Static l:StaticText.ViewOnGithub}"/>
+                <TextBlock VerticalAlignment="Center" Text="{x:Static StaticText.ViewOnGithub}"/>
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0">
                         <Hyperlink NavigateUri="https://github.com/gw2-addon-loader/GW2-Addon-Manager" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None">
                             <Image Margin="5" Source="/Resources/GitHub-Mark-32px.png" Height="16"/>

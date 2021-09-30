@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GW2AddonManager {
+namespace GW2AddonManager.Localization {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace GW2AddonManager {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GW2AddonManager.StaticText", typeof(StaticText).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GW2AddonManager.Localization.StaticText", typeof(StaticText).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

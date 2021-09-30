@@ -18,7 +18,13 @@ namespace GW2AddonManager
     public delegate void UpdateMessageChangedEventHandler(object sender, string message);
     public delegate void UpdateProgressChangedEventHandler(object sender, int pct);
 
-    public abstract class UpdateChangedEvents
+    public interface IUpdateChangedEvents
+    {
+        public event UpdateMessageChangedEventHandler MessageChanged;
+        public event UpdateProgressChangedEventHandler ProgressChanged;
+    }
+
+    public abstract class UpdateChangedEvents : IUpdateChangedEvents
     {
         public event UpdateMessageChangedEventHandler MessageChanged;
         public event UpdateProgressChangedEventHandler ProgressChanged;

@@ -17,20 +17,8 @@ using System.Windows.Markup;
 
 namespace GW2AddonManager
 {
-    /// <summary>
-    /// Code-behind for OpeningView.xaml.
-    /// </summary>
     public partial class OpeningView
     {
-        static string releases_url = "https://github.com/gw2-addon-loader/GW2-Addon-Manager/releases";
-        static string UpdateNotificationFile = "updatenotification.txt";
-
-        private readonly IConfigurationProvider _configurationManager;
-        private readonly AddonManager _pluginManagement;
-
-        /// <summary>
-        /// This constructor deals with creating or expanding the configuration file, setting the DataContext, and checking for application updates.
-        /// </summary>
         public OpeningView()
         {
             _configurationManager = new ConfigurationProvider();
@@ -52,11 +40,6 @@ namespace GW2AddonManager
         }
 
         /**** What Add-On Is Selected ****/
-        /// <summary>
-        /// Takes care of description page text updating
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         public void addOnList_SelectedIndexChanged(object sender, SelectionChangedEventArgs e)
         {
             AddonInfo selected = e.AddedItems.Count > 0 ? e.AddedItems[0] as AddonInfo : null;

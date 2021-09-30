@@ -5,20 +5,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using GW2AddonManager.App.Configuration;
+using Localization;
 
 namespace GW2AddonManager
 {
-    /// <summary>
-    /// Interaction logic for Updating.xaml
-    /// </summary>
     public partial class UpdatingView
     {
         private readonly IConfigurationProvider _configurationManager;
 
-        /// <summary>
-        /// Sets the page's DataContext, initializes it, and begins the update process.
-        /// </summary>
         public UpdatingView()
         {
             _configurationManager = new ConfigurationProvider();

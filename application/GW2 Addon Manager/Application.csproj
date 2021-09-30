@@ -102,45 +102,52 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Localization\Localization.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="FodyWeavers.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="CommonServiceLocator" Version="2.0.5" />
+    <PackageReference Include="CommonServiceLocator" Version="2.0.6" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.1.0" />
-    <PackageReference Include="Fody" Version="6.5.3" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
-    <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
-    <PackageReference Include="MvvmLight" Version="5.4.1.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="Ninject" Version="3.3.4" />
-    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="4.7.1" />
-    <PackageReference Include="System.IO.Abstractions" Version="7.0.15" />
-    <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
-    <PackageReference Include="YamlDotNet" Version="8.0.0" />
-    <PackageReference Include="System.Net.Http" Version="4.3.0" />
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.IO.Abstractions" Version="13.2.47" />
     <PackageReference Include="System.ServiceModel.Duplex" Version="4.8.1" />
     <PackageReference Include="System.ServiceModel.NetTcp" Version="4.8.1" />
     <PackageReference Include="System.ServiceModel.Federation" Version="4.8.1" />
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.246501">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="Old\AddonDirectoryUpdater.cs" />
     <Compile Remove="Tests\ConfigurationTests.cs" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(TargetDir)resources\plugins"
 move "$(TargetDir)*.dll" "$(TargetDir)resources\plugins"</PostBuildEvent>
+    <PackageProjectUrl>https://github.com/gw2-addon-loader/GW2-Addon-Manager</PackageProjectUrl>
+    <PackageIcon>Logo.png</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/gw2-addon-loader/GW2-Addon-Manager</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <SignAssembly>false</SignAssembly>
+    <PackageLicenseExpression>MIT License</PackageLicenseExpression>
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Localization\StaticText.Designer.cs">
+      <DependentUpon>StaticText.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Localization\StaticText.resx">
+      <LastGenOutput>StaticText.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
 </Project>

@@ -9,7 +9,12 @@ using System.Windows;
 
 namespace GW2AddonManager
 {
-    public class SelfManager : UpdateChangedEvents
+    public interface ISelfManager : IUpdateChangedEvents
+    {
+        Task Update();
+    }
+
+    public class SelfManager : UpdateChangedEvents, ISelfManager
     {
         private readonly IFileSystem _fileSystem;
         private readonly IAddonRepository _addonRepository;
