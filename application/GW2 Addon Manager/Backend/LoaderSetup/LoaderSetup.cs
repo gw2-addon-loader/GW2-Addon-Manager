@@ -61,17 +61,19 @@ namespace GW2_Addon_Manager
         private async Task Download(string url)
         {
             viewModel.ProgBarLabel = "Downloading Addon Loader";
-            var client = UpdateHelpers.GetClient();
 
             fileName = Path.Combine(Path.GetTempPath(), Path.GetFileName(url));
 
             if (File.Exists(fileName))
                 File.Delete(fileName);
 
-            client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(loader_DownloadProgressChanged);
-            client.DownloadFileCompleted += new AsyncCompletedEventHandler(loader_DownloadCompleted);
+            using (var client = UpdateHelpers.GetClient())
+            {
+                client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(loader_DownloadProgressChanged);
+                client.DownloadFileCompleted += new AsyncCompletedEventHandler(loader_DownloadCompleted);
 
-            await client.DownloadFileTaskAsync(new System.Uri(url), fileName);
+                await client.DownloadFileTaskAsync(new System.Uri(url), fileName);
+            }
             Install();
         }
         private void Install()

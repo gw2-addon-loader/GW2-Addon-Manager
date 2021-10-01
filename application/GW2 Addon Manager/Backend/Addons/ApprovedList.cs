@@ -28,13 +28,15 @@ namespace GW2_Addon_Manager
         public void FetchListFromRepo()
         {
             const string tempFileName = "addonlist";
-            var client = UpdateHelpers.GetClient();
-
-            var raw = client.DownloadStringFromGithubAPI(RepoUrl + "/branches");
+            string raw = null;
+            using(var client = UpdateHelpers.GetClient())
+            {
+                raw = client.DownloadStringFromGithubAPI(RepoUrl + "/branches");
+            }
             var result = JsonConvert.DeserializeObject<BranchInfo[]>(raw);
             var master = result.Single(r => r.Name == "master").Commit.Sha;
 
-            if (master == _configManager.UserConfig.AddonsList.Hash) return;
+            if (master == _configManager.UserConfig.AddonsList.Hash || master is null) return;
 
             if (Directory.Exists(AddonFolder))
                 Directory.Delete(AddonFolder, true);
@@ -42,7 +44,11 @@ namespace GW2_Addon_Manager
                 File.Delete(tempFileName);
 
             //fetching new version
-            client.DownloadFileFromGithubAPI(RepoUrl + "/zipball", tempFileName);
+            using (var client = UpdateHelpers.GetClient())
+            {
+                client.DownloadFileFromGithubAPI(RepoUrl + "/zipball", tempFileName);
+            }
+
             ZipFile.ExtractToDirectory(tempFileName, AddonFolder);
             var downloaded = Directory.EnumerateDirectories(AddonFolder).First();
             foreach (var entry in Directory.EnumerateFileSystemEntries(downloaded))

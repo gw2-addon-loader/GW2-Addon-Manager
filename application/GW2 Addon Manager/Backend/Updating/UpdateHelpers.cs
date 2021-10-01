@@ -43,10 +43,12 @@ namespace GW2_Addon_Manager
 
         public static dynamic GitReleaseInfo(string gitUrl)
         {
-            var client = UpdateHelpers.GetClient();
-            string release_info_json = client.DownloadStringFromGithubAPI(gitUrl);
-            return JsonConvert.DeserializeObject(release_info_json);
-            
+            using (var client = UpdateHelpers.GetClient())
+            {
+                var release_info_json = client.DownloadStringFromGithubAPI(gitUrl);
+                return JsonConvert.DeserializeObject(release_info_json);
+            }
+
         }
 
         public static async void UpdateAll()

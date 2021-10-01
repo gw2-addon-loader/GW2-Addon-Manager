@@ -57,8 +57,6 @@ namespace GW2_Addon_Manager
         /// </summary>
         private async Task GitCheckUpdate()
         {
-            var client = UpdateHelpers.GetClient();
-
             dynamic release_info = UpdateHelpers.GitReleaseInfo(addon_info.host_url);
             latestVersion = release_info.tag_name;
 
@@ -68,21 +66,25 @@ namespace GW2_Addon_Manager
 
             string download_link = release_info.assets[0].browser_download_url;
             viewModel.ProgBarLabel = "Downloading " + addon_info.addon_name + " " + latestVersion;
-            await Download(download_link, client);
+            await Download(download_link);
         }
 
         private async Task StandaloneCheckUpdate()
         {
-            var client = UpdateHelpers.GetClient();
             string downloadURL = addon_info.host_url;
 
             if (addon_info.version_url != null)
-                latestVersion = client.DownloadString(addon_info.version_url);
+            {
+                using(var client = UpdateHelpers.GetClient())
+                {
+                    latestVersion = client.DownloadString(addon_info.version_url);
+                }
+            }
             else
             {
                 //for self-updating addons' first installation
                 viewModel.ProgBarLabel = "Downloading " + addon_info.addon_name;
-                await Download(downloadURL, client);
+                await Download(downloadURL);
                 return;
             }
 
@@ -91,7 +93,7 @@ namespace GW2_Addon_Manager
                 return;
 
             viewModel.ProgBarLabel = "Downloading " + addon_info.addon_name + " " + latestVersion;
-            await Download(downloadURL, client);
+            await Download(downloadURL);
         }
 
 
@@ -102,9 +104,8 @@ namespace GW2_Addon_Manager
         /// </summary>
         /// <param name="url"></param>
         /// <param name="client"></param>
-        private async Task Download(string url, WebClient client)
+        private async Task Download(string url)
         {
-
             //this calls helper method to fetch filename if it is not exposed in URL
             fileName = Path.Combine(
                 Path.GetTempPath(), 
@@ -114,10 +115,13 @@ namespace GW2_Addon_Manager
             if (File.Exists(fileName))
                 File.Delete(fileName);
 
-            client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(addon_DownloadProgressChanged);
-            client.DownloadFileCompleted += new AsyncCompletedEventHandler(addon_DownloadCompleted);            
-            
-            await client.DownloadFileTaskAsync(new System.Uri(url), fileName);
+            using (var client = UpdateHelpers.GetClient())
+            {
+                client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(addon_DownloadProgressChanged);
+                client.DownloadFileCompleted += new AsyncCompletedEventHandler(addon_DownloadCompleted);
+
+                await client.DownloadFileTaskAsync(new System.Uri(url), fileName);
+            }
             Install();
         }
 
