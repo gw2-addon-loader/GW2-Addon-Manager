@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Abstractions;
 using System.IO.Compression;
-using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace GW2AddonManager
 {
@@ -47,20 +41,6 @@ namespace GW2AddonManager
 
     public static class Utils
     {
-        public static TValue? GetNull<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key) where TValue : class
-        {
-            return dict.TryGetValue(key, out var val) ? val : null;
-        }
-
-        public static WebClient OpenWebClient()
-        {
-            var client = new WebClient();
-            var name = typeof(Utils).Assembly.GetName();
-            client.Headers.Add("User-Agent", $"{name.FullName} {name.Version.Major}.{name.Version.Minor}.{name.Version.Build}");
-
-            return client;
-        }
-
         public static void RemoveFiles(IFileSystem fs, IEnumerable<string> files, string basePath = "")
         {
             foreach (var f in files) {

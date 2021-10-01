@@ -40,6 +40,7 @@ namespace GW2AddonManager
         {
             var services = new ServiceCollection()
                           .AddSingleton<IFileSystem, FileSystem>()
+                          .AddSingleton<IHttpClientProvider, HttpClientProvider>()
                           .AddSingleton<IConfigurationProvider, ConfigurationProvider>()
                           .AddSingleton<IAddonRepository, AddonRepository>()
                           .AddSingleton<IAddonManager, AddonManager>()

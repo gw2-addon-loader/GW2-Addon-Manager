@@ -1,10 +1,9 @@
-﻿using Localization;
+﻿using GW2AddonManager.Localization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.IO;
 using System;
-using System.IO.Compression;
 using System.Threading.Tasks;
 using System.IO.Abstractions;
 

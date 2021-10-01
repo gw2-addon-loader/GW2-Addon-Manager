@@ -1,11 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.IO;
-using System.Reflection;
-using System.Xml;
-using System.Xml.Serialization;
-using YamlDotNet.Serialization;
-using Localization;
+﻿using System.Reflection;
 using Newtonsoft.Json;
 using System.IO.Abstractions;
 

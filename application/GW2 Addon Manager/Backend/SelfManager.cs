@@ -1,4 +1,4 @@
-﻿using Localization;
+﻿using GW2AddonManager.Localization;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;

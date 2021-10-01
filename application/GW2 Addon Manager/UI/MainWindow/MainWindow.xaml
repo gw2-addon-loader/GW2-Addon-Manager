@@ -1,6 +1,7 @@
 ﻿<Window
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:l="clr-namespace:GW2AddonManager.Localization"
     x:Class="GW2AddonManager.MainWindow"
     Title="GW2 Addon Manager" Height="600" Width="1130" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
     <Window.Background>
@@ -25,7 +26,7 @@
                   Background="Transparent"
                   Margin="0,0,5,0"
                   >
-                <MenuItem Header="{x:Static StaticText.Language}" HorizontalContentAlignment="Stretch"
+                <MenuItem Header="{x:Static l:StaticText.Language}" HorizontalContentAlignment="Stretch"
                       VerticalContentAlignment="Center"
                       Template="{StaticResource AddonMenuItemControlTemplate}"
                       Style="{StaticResource AddonMenuItemStyle}"
@@ -33,35 +34,35 @@
                       Foreground="DimGray"
                       >
                     <MenuItem
-                    Header="{x:Static StaticText.English}"
+                    Header="{x:Static l:StaticText.English}"
                     Command="{Binding Path=ChangeLanguage}"
                     CommandParameter="{x:Static l:CultureConstants.English}"
                     Template="{StaticResource AddonMenuItemControlTemplate}"
                     Style="{StaticResource AddonMenuItemStyle}"
                     />
                     <MenuItem
-                    Header="{x:Static StaticText.French}"
+                    Header="{x:Static l:StaticText.French}"
                     Command="{Binding Path=ChangeLanguage}"
                     CommandParameter="{x:Static l:CultureConstants.French}"
                     Template="{StaticResource AddonMenuItemControlTemplate}"
                     Style="{StaticResource AddonMenuItemStyle}"
                     />
                     <MenuItem
-                    Header="{x:Static StaticText.German}"
+                    Header="{x:Static l:StaticText.German}"
                     Command="{Binding Path=ChangeLanguage}"
                     CommandParameter="{x:Static l:CultureConstants.German}"
                     Template="{StaticResource AddonMenuItemControlTemplate}"
                     Style="{StaticResource AddonMenuItemStyle}"
                     />
                     <MenuItem
-                    Header="{x:Static StaticText.Chinese}"
+                    Header="{x:Static l:StaticText.Chinese}"
                     Command="{Binding Path=ChangeLanguage}"
                     CommandParameter="{x:Static l:CultureConstants.Chinese}"
                     Template="{StaticResource AddonMenuItemControlTemplate}"
                     Style="{StaticResource AddonMenuItemStyle}"
                     />
                     <MenuItem
-                    Header="{x:Static StaticText.Korean}"
+                    Header="{x:Static l:StaticText.Korean}"
                     Command="{Binding Path=ChangeLanguage}"
                     CommandParameter="{x:Static l:CultureConstants.Korean}"
                     Template="{StaticResource AddonMenuItemControlTemplate}"
@@ -84,9 +85,9 @@
                     RequestNavigate="Hyperlink_RequestNavigate" 
                     TextDecorations="None" 
                     FocusVisualStyle="{x:Null}"
-                    ToolTip="{x:Static StaticText.ProgramsNotManagedByThisApplication}"
+                    ToolTip="{x:Static l:StaticText.ProgramsNotManagedByThisApplication}"
                     >
-                     <TextBlock Text="{x:Static StaticText.CompanionApplicationsWithLeadingSpace}" FontFamily="Microsoft YaHei UI"/>
+                     <TextBlock Text="{x:Static l:StaticText.CompanionApplicationsWithLeadingSpace}" FontFamily="Microsoft YaHei UI"/>
                 </Hyperlink>
             </TextBlock>
 
@@ -108,14 +109,14 @@
                 Width="50"
                 Height="20"
                 Visibility="{Binding UpdateLinkVisibility}"
-                Content="{x:Static StaticText.Update}"
+                Content="{x:Static l:StaticText.Update}"
                 Background="Transparent"
                 Foreground="DimGray"
                 FontFamily="Microsoft YaHei UI Light"
                 BorderBrush="DimGray"
                 BorderThickness="1"
                 Command="{Binding Path=DownloadSelfUpdate}"
-                ToolTip="{x:Static StaticText.UpdateDescription}"
+                ToolTip="{x:Static l:StaticText.UpdateDescription}"
                 />
             <ProgressBar
                 HorizontalAlignment="Left"

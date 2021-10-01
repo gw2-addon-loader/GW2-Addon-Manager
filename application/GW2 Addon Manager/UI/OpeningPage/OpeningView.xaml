@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:l="clr-namespace:GW2AddonManager.Localization"
     x:Class="GW2AddonManager.OpeningView"
     mc:Ignorable="d"
     d:DesignHeight="450"
@@ -25,12 +26,12 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <DockPanel HorizontalAlignment="Stretch" Grid.Column="0" Background="#99FFFFFF">
-            <Label DockPanel.Dock="Top" FontSize="18" FontFamily="Microsoft YaHei UI" HorizontalAlignment="Center" Foreground="DimGray" Content="{x:Static StaticText.AddOns}" FontWeight="Bold"/>
-            <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Padding="8" FontSize="13" FontFamily="Microsoft YaHei UI" Text="{x:Static StaticText.SelectAllAddonsDescription}" HorizontalAlignment="Center"/>
+            <Label DockPanel.Dock="Top" FontSize="18" FontFamily="Microsoft YaHei UI" HorizontalAlignment="Center" Foreground="DimGray" Content="{x:Static l:StaticText.AddOns}" FontWeight="Bold"/>
+            <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Padding="8" FontSize="13" FontFamily="Microsoft YaHei UI" Text="{x:Static l:StaticText.SelectAllAddonsDescription}" HorizontalAlignment="Center"/>
             <ListBox DockPanel.Dock="Bottom" Name="addons"
-                         ItemsSource="{Binding AddonList}"
+                         ItemsSource="{Binding Addons}"
                          ItemContainerStyle="{StaticResource AddonListItem}"
-                         SelectionChanged="addOnList_SelectedIndexChanged"
+                         SelectedItem="{Binding SelectedAddon}"
                          BorderThickness="0"
                          Background="WhiteSmoke"
                      SelectionMode="Extended"
@@ -67,7 +68,7 @@
                 <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" FontSize="18" FontFamily="Microsoft YaHei UI" HorizontalAlignment="Stretch" Foreground="DimGray" Content="{x:Static StaticText.Description}" FontWeight="Bold"/>
+            <Label Grid.Row="0" Grid.Column="0" FontSize="18" FontFamily="Microsoft YaHei UI" HorizontalAlignment="Stretch" Foreground="DimGray" Content="{x:Static l:StaticText.Description}" FontWeight="Bold"/>
 
             <TextBlock Grid.Row="0" Grid.Column="1" FontSize="13"
                         FontFamily="Microsoft YaHei UI"
@@ -76,7 +77,7 @@
                         HorizontalAlignment="Stretch"
                         Visibility="{Binding DeveloperVisibility}"
                         >
-                    <TextBlock Text="{x:Static StaticText.DevelopersColonSpace}"/>
+                    <TextBlock Text="{x:Static l:StaticText.DevelopersColonSpace}"/>
                     <Hyperlink NavigateUri="{Binding AddonWebsiteLink, TargetNullValue=about:blank}" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None" FocusVisualStyle="{x:Null}">
                         <TextBlock Text="{Binding DeveloperText}"/>
                     </Hyperlink>
@@ -100,19 +101,19 @@
               VerticalAlignment="Stretch"
               FontFamily="Microsoft JhengHei Light"
               Visibility="{Binding Path=AnyAddonSelected, Converter={StaticResource BoolToVisConverter}}">
-                <MenuItem Header="{x:Static StaticText.ManageSelected}"
+                <MenuItem Header="{x:Static l:StaticText.ManageSelected}"
                       Height="35"
                       Template="{StaticResource AddonMenuItemControlTemplate}"
                       Style="{StaticResource AddonMenuItemStyle}">
-                    <MenuItem Header="{x:Static StaticText.Delete}" Command="{Binding Path=DeleteSelected}" Style="{StaticResource AddonMenuItemStyle}"
+                    <MenuItem Header="{x:Static l:StaticText.Delete}" Command="{Binding Path=DeleteSelected}" Style="{StaticResource AddonMenuItemStyle}"
                           Template="{StaticResource AddonMenuItemControlTemplate}"
-                          ToolTip="{x:Static StaticText.DeleteDescription}"/>
-                    <MenuItem Header="{x:Static StaticText.Disable}" Command="{Binding Path=DisableSelected}" Style="{StaticResource AddonMenuItemStyle}"
+                          ToolTip="{x:Static l:StaticText.DeleteDescription}"/>
+                    <MenuItem Header="{x:Static l:StaticText.Disable}" Command="{Binding Path=DisableSelected}" Style="{StaticResource AddonMenuItemStyle}"
                           Template="{StaticResource AddonMenuItemControlTemplate}"
-                          ToolTip="{x:Static StaticText.DisableDescription}"/>
-                    <MenuItem Header="{x:Static StaticText.ReEnable}" Command="{Binding Path=EnableSelected}" Style="{StaticResource AddonMenuItemStyle}"
+                          ToolTip="{x:Static l:StaticText.DisableDescription}"/>
+                    <MenuItem Header="{x:Static l:StaticText.ReEnable}" Command="{Binding Path=EnableSelected}" Style="{StaticResource AddonMenuItemStyle}"
                           Template="{StaticResource AddonMenuItemControlTemplate}"
-                          ToolTip="{x:Static StaticText.ReEnableDescription}"/>
+                          ToolTip="{x:Static l:StaticText.ReEnableDescription}"/>
                 </MenuItem>
             </Menu>
 
@@ -123,11 +124,11 @@
                     Width="130"
               Background="WhiteSmoke"
               FontFamily="Microsoft JhengHei Light"
-                      ToolTip="{x:Static StaticText.ResetToCleanInstallDescription}"
-                    Content="{x:Static StaticText.ResetToCleanInstall}"
+                      ToolTip="{x:Static l:StaticText.ResetToCleanInstallDescription}"
+                    Content="{x:Static l:StaticText.ResetToCleanInstall}"
                       Visibility="{Binding Path=NoAddonSelected, Converter={StaticResource BoolToVisConverter}}"/>
 
-            <TextBlock FontFamily="Microsoft JhengHei Light" VerticalAlignment="Center" Foreground="White" Margin="15,0,5,0" FontSize="14" Text="{x:Static StaticText.GamePath}"/>
+            <TextBlock FontFamily="Microsoft JhengHei Light" VerticalAlignment="Center" Foreground="White" Margin="15,0,5,0" FontSize="14" Text="{x:Static l:StaticText.GamePath}"/>
             <TextBox Text="{Binding GamePath}"
                  Margin="0,0,5,0"
                  VerticalAlignment="Center"
@@ -146,8 +147,8 @@
                 Padding="5"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Content="{x:Static StaticText.SelectDirectory}"
-                ToolTip="{x:Static StaticText.SelectDirectoryDescription}"
+                Content="{x:Static l:StaticText.SelectDirectory}"
+                ToolTip="{x:Static l:StaticText.SelectDirectoryDescription}"
                 Background="WhiteSmoke"
                 FontFamily="Microsoft YaHei UI Light"
                 Height="35"
@@ -155,7 +156,7 @@
                 Style="{StaticResource BigContentButton}"
             />
 
-            <Button x:Name="nextPage" Content="{x:Static StaticText.UpdateAllUpperCase}"
+            <Button x:Name="nextPage" Content="{x:Static l:StaticText.UpdateAllUpperCase}"
                 DockPanel.Dock="Right"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right"

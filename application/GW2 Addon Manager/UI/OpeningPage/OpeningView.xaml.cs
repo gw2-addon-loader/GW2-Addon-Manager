@@ -1,19 +1,12 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
-using GW2AddonManager.App.Configuration;
-using Application = System.Windows.Application;
-using MessageBox = System.Windows.MessageBox;
-using System.Threading;
-using System.Globalization;
-using System.Windows.Markup;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GW2AddonManager
 {
@@ -21,34 +14,8 @@ namespace GW2AddonManager
     {
         public OpeningView()
         {
-            _configurationManager = new ConfigurationProvider();
-            var configuration = new Configuration(_configurationManager);
-            configuration.CheckSelfUpdates();
-            configuration.DetermineSystemType();
-            _pluginManagement = new PluginManagement(_configurationManager);
-            _pluginManagement.DisplayAddonStatus();
-
-            DataContext = OpeningViewModel.GetInstance;
-
             InitializeComponent();
-            //update notification
-            if (File.Exists(UpdateNotificationFile))
-            {
-                Process.Start(releases_url);
-                File.Delete(UpdateNotificationFile);
-            }
-        }
-
-        /**** What Add-On Is Selected ****/
-        public void addOnList_SelectedIndexChanged(object sender, SelectionChangedEventArgs e)
-        {
-            AddonInfo selected = e.AddedItems.Count > 0 ? e.AddedItems[0] as AddonInfo : null;
-            OpeningViewModel.GetInstance.DescriptionText = selected?.description;
-            OpeningViewModel.GetInstance.DeveloperText = selected?.developer;
-            OpeningViewModel.GetInstance.AddonWebsiteLink = selected?.website;
-
-            OpeningViewModel.GetInstance.DeveloperVisibility = selected != null ? Visibility.Visible : Visibility.Hidden;
-            OpeningViewModel.GetInstance.AnyAddonSelected = addons.SelectedItems.Count > 0;
+            DataContext = App.Current.Services.GetService<OpeningViewModel>();
         }
 
         private void SelectDirectoryBtn_OnClick(object sender, RoutedEventArgs e)
@@ -102,7 +69,7 @@ namespace GW2AddonManager
             e.Handled = true;
         }
 
-        private void addons_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        private void addons_KeyUp(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Escape) {
                 addons.SelectedItems.Clear();
