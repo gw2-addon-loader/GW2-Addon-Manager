@@ -70,10 +70,10 @@ namespace GW2_Addon_Manager.App
             e.Handled = true;
             LogError(logPath, e);
             string errmsg = "An unhandled exception occurred." + "\n" + e.Exception.Message + (e.Exception.InnerException != null ? "\n" + e.Exception.InnerException.Message : "");
-            if (MessageBox.Show(errmsg, "Critical Error", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
-            {
-                Application.Current.Shutdown();
-            }
+            if (!(e?.Exception?.InnerException is WebException))
+                MessageBox.Show(errmsg, "Critical Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            Application.Current.Shutdown();
         }
 
         /// <summary>
@@ -85,11 +85,10 @@ namespace GW2_Addon_Manager.App
             LogError(logPath, e);
             Exception exc = (Exception) e.ExceptionObject;
             string errmsg = "An unhandled exception occurred." + "\n" + exc.Message + (exc.InnerException != null ? "\n" + exc.InnerException.Message : "");
-            if (MessageBox.Show(errmsg, "Critical Error", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
-            {
-                Application.Current.Shutdown();
-            }
+            if (!(exc?.InnerException is WebException))
+                MessageBox.Show(errmsg, "Critical Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
+            Application.Current.Shutdown();
         }
 
         /// <summary>

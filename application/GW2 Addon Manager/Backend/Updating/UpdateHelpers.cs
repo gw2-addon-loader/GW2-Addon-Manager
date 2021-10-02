@@ -22,11 +22,10 @@ namespace GW2_Addon_Manager
             try {
                 return wc.DownloadString(url);
             }
-            catch (WebException)
+            catch (WebException ex)
             {
-                MessageBox.Show("Github servers returned an error; please try again in a few minutes.", "Github API Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                Application.Current.Shutdown();
-                return "";
+                MessageBox.Show("Github servers returned an error; please try again in a few minutes.\n\nThe error was: " + ex.Message, "Github API Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw ex;
             }
         }
 
@@ -35,9 +34,9 @@ namespace GW2_Addon_Manager
             try {
                 wc.DownloadFile(url, destPath);
             }
-            catch (WebException) {
-                MessageBox.Show("Github servers returned an error; please try again in a few minutes.", "Github API Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                Application.Current.Shutdown();
+            catch (WebException ex) {
+                MessageBox.Show("Github servers returned an error; please try again in a few minutes.\n\nThe error was: " + ex.Message, "Github API Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw ex;
             }
         }
 
