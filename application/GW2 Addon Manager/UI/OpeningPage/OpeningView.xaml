@@ -142,7 +142,7 @@
                  FontFamily="Consolas"
                  />
             <Button Name="SelectDirectoryBtn"
-                Click="SelectDirectoryBtn_OnClick"
+                Command="{Binding Path=SelectDirectory}"
                 Margin="0,0,15,0"
                 Padding="5"
                 HorizontalAlignment="Left"

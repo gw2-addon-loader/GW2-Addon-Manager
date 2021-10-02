@@ -18,7 +18,7 @@ namespace GW2AddonManager
         public event UpdateProgressChangedEventHandler ProgressChanged;
     }
 
-    public abstract class UpdateChangedEvents : IUpdateChangedEvents
+    public abstract class UpdateChangedEvents : IUpdateChangedEvents, IProgress<float>
     {
         public event UpdateMessageChangedEventHandler MessageChanged;
         public event UpdateProgressChangedEventHandler ProgressChanged;
@@ -32,6 +32,8 @@ namespace GW2AddonManager
         {
             MessageChanged?.Invoke(this, msg);
         }
+
+        public void Report(float value) => OnProgressChanged((int)(value * 100), 100);
     }
 
     public static class Constants

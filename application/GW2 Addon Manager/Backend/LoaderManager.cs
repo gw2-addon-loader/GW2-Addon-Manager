@@ -20,16 +20,18 @@ namespace GW2AddonManager
         private readonly IAddonRepository _addonRepository;
         private readonly IAddonManager _addonManager;
         private readonly IFileSystem _fileSystem;
+        private readonly IHttpClientProvider _httpClientProvider;
 
         public string InstallPath => _configurationManager.UserConfig.GamePath;
         private string DownloadPath => _fileSystem.Path.Combine(_fileSystem.Path.GetTempPath(), "addon-loader.zip");
 
-        public LoaderManager(IConfigurationProvider configurationManager, IAddonRepository addonRepository, IAddonManager addonManager, IFileSystem fileSystem)
+        public LoaderManager(IConfigurationProvider configurationManager, IAddonRepository addonRepository, IAddonManager addonManager, IFileSystem fileSystem, IHttpClientProvider httpClientProvider)
         {
             _configurationManager = configurationManager;
             _addonRepository = addonRepository;
             _addonManager = addonManager;
             _fileSystem = fileSystem;
+            _httpClientProvider = httpClientProvider;
         }
 
         public async Task Update()
@@ -41,16 +43,15 @@ namespace GW2AddonManager
 
             OnMessageChanged("Downloading Addon Loader");
 
-            var client = Utils.OpenWebClient();
-            client.DownloadProgressChanged += new DownloadProgressChangedEventHandler((_, e) => OnProgressChanged(e.ProgressPercentage, 100));
-            client.DownloadFileCompleted += new AsyncCompletedEventHandler((_, _) => OnProgressChanged(100, 100));
-
             var fileName = DownloadPath;
 
             if (_fileSystem.File.Exists(fileName))
                 _fileSystem.File.Delete(fileName);
 
-            await client.DownloadFileTaskAsync(new System.Uri(_addonRepository.Loader.DownloadUrl), fileName);
+            using (var fs = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                await _httpClientProvider.Client.DownloadAsync(_addonRepository.Loader.DownloadUrl, fs, this);
+            }
 
             Install(fileName);
         }

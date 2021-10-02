@@ -4,6 +4,7 @@ using Microsoft.Toolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using Ookii.Dialogs.Wpf;
 
 namespace GW2AddonManager
 {
@@ -33,26 +34,23 @@ namespace GW2AddonManager
         public bool AnyAddonSelected => _selectedAddon is not null;
         public bool NoAddonSelected => !AnyAddonSelected;
 
+        public ICommand SelectDirectory => new RelayCommand(() =>
+                                           {
+                                               var pathSelectionDialog = new VistaFolderBrowserDialog();
+                                               if (pathSelectionDialog.ShowDialog() ?? false)
+                                                   _configurationProvider.UserConfig = _configurationProvider.UserConfig with
+                                                   {
+                                                       GamePath = pathSelectionDialog.SelectedPath
+                                                   };
+                                           });
 
-        public ICommand DisableSelected
-        {
-            get => new RelayCommand<AddonInfo[]>(addons => _addonManager.Disable(addons));
-        }
+        public ICommand DisableSelected => new RelayCommand<AddonInfo[]>(addons => _addonManager.Disable(addons));
 
-        public ICommand EnableSelected
-        {
-            get => new RelayCommand<AddonInfo[]>(addons => _addonManager.Enable(addons));
-        }
+        public ICommand EnableSelected => new RelayCommand<AddonInfo[]>(addons => _addonManager.Enable(addons));
 
-        public ICommand DeleteSelected
-        {
-            get => new RelayCommand<AddonInfo[]>(addons => _addonManager.Delete(addons));
-        }
+        public ICommand DeleteSelected => new RelayCommand<AddonInfo[]>(addons => _addonManager.Delete(addons));
 
-        public ICommand CleanInstall
-        {
-            get => new RelayCommand<object>(_ => _coreManager.Uninstall());
-        }
+        public ICommand CleanInstall => new RelayCommand(() => _coreManager.Uninstall());
 
         public string GamePath => _configurationProvider.UserConfig.GamePath;
 

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Abstractions;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -18,13 +19,17 @@ namespace GW2AddonManager
     {
         private readonly IFileSystem _fileSystem;
         private readonly IAddonRepository _addonRepository;
+        private readonly IHttpClientProvider _httpClientProvider;
+        private readonly IConfigurationProvider _configurationProvider;
 
         private string DownloadPath => _fileSystem.Path.Combine(_fileSystem.Path.GetTempPath(), "addon-manager.zip");
 
-        public SelfManager(IFileSystem fileSystem, IAddonRepository addonRepository)
+        public SelfManager(IFileSystem fileSystem, IAddonRepository addonRepository, IHttpClientProvider httpClientProvider, IConfigurationProvider configurationProvider)
         {
             _fileSystem = fileSystem;
             _addonRepository = addonRepository;
+            _httpClientProvider = httpClientProvider;
+            _configurationProvider = configurationProvider;
         }
 
         public async Task Update()
@@ -32,22 +37,21 @@ namespace GW2AddonManager
             if(_fileSystem.File.Exists(DownloadPath))
                 _fileSystem.File.Delete(DownloadPath);
 
-            if (_fileSystem.Directory.Exists(updateFolder))
-                _fileSystem.Directory.Delete(updateFolder, true);
+            if(_configurationProvider.ApplicationVersion == _addonRepository.Manager.VersionId)
+                return;
 
             OnMessageChanged($"{StaticText.Downloading} {_addonRepository.Manager.VersionId}");
 
-            _fileSystem.Directory.CreateDirectory(updateFolder);
-            WebClient client = UpdateHelpers.OpenWebClient();
-            client.DownloadProgressChanged += new DownloadProgressChangedEventHandler((_, e) => OnProgressChanged(e.ProgressPercentage, 100));
-            client.DownloadFileCompleted += new AsyncCompletedEventHandler((_, _) => {
-                OnProgressChanged(100, 100);
-                OnMessageChanged($"{StaticText.DownloadComplete}!");
-                Process.Start("UOAOM Updater.exe");
-                Application.Current.Shutdown();
-            });
+            using(var fs = new FileStream(DownloadPath, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                await _httpClientProvider.Client.DownloadAsync(_addonRepository.Manager.DownloadUrl, fs, this);
+            }
 
-            await client.DownloadFileTaskAsync(new System.Uri(downloadUrl), Path.Combine(updateFolder, updateName));
+            OnMessageChanged($"{StaticText.DownloadComplete}!");
+            Thread.Sleep(1000);
+
+            _ = Process.Start("UOAOM Updater.exe");
+            Application.Current.Shutdown();
         }
     }
 }
