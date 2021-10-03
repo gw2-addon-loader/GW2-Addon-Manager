@@ -1,0 +1,80 @@
+﻿<Page 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:l="clr-namespace:GW2AddonManager.Localization"
+    xmlns:a="clr-namespace:GW2AddonManager"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance Type=a:UpdatingViewModel}"
+    x:Class="GW2AddonManager.UpdatingView"
+    d:DesignHeight="400"
+    d:DesignWidth="1000"
+    ShowsNavigationUI="False" Background="#99FFFFFF"
+    >
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Margin="40" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="WhiteSmoke">
+            <Label DockPanel.Dock="Top" Margin="10" HorizontalAlignment="Center" FontFamily="Microsoft YaHei UI" FontSize="16" Content="{x:Static l:StaticText.ThankYou}"/>
+            <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Stretch" TextAlignment="Center" Margin="10" TextWrapping="Wrap" Text="{x:Static l:StaticText.ThankYouDescription}"/>
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
+                <TextBlock VerticalAlignment="Center" Text="{x:Static l:StaticText.ViewOnGithub}"/>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0">
+                        <Hyperlink NavigateUri="https://github.com/gw2-addon-loader/GW2-Addon-Manager" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="None">
+                            <Image Margin="5" Source="/Resources/GitHub-Mark-32px.png" Height="16"/>
+                        </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+        </DockPanel>
+
+        <Grid Grid.Column="2" Margin="40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Name="currentTask" Grid.Row="1" Grid.ColumnSpan="2" Margin="5" Content="{Binding ProgBarLabel, FallbackValue='&lt;Current Task&gt;'}" FontFamily="Leelawadee UI" FontSize="14"/>
+            <ProgressBar Value="{Binding DownloadProgress}" Grid.Row="2" Grid.ColumnSpan="2" Margin="5" Height="20" Name="overall_progressBar" VerticalAlignment="Stretch" Foreground="#E53DBDC3"/>
+            <Button Grid.Column="0" Grid.Row="3"
+                    x:Name="closeProgram"
+                    Padding="10"
+                    Margin="10"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    Content="CLOSE"
+                    Foreground="White"
+                    Background="#CC6795AA"
+                    FontFamily="Microsoft YaHei UI"
+                    FontSize="16"
+                    BorderThickness="1"
+                    BorderBrush="#FF6E6E6E"
+                    IsEnabled="{Binding CloseBtnEnabled}"
+                    Style="{StaticResource BigContentButton}" FontWeight="Bold"
+                    />
+            <CheckBox x:Name="launchOnClose"
+                      Content="Launch game when closing"
+                      Grid.Row="3"
+                      Grid.Column="1"
+                      FontFamily="Microsoft YaHei UI"
+                      FontSize="14"
+                      VerticalAlignment="Center"
+                      VerticalContentAlignment="Center"
+                      HorizontalAlignment="Left"
+                      Margin="5">
+            </CheckBox>
+        </Grid>
+
+    </Grid>
+</Page>
