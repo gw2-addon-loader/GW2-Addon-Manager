@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="Resources/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <FontFamily x:Key="MDL2Assets">pack://application:,,,/Fonts/#GW2AMMDL2Assets</FontFamily>
+            <local:ArrayMultiValueConverter x:Key="ArrayMultiValueConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

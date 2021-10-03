@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.IO.Abstractions;
 using System.IO.Compression;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace GW2AddonManager
 {
@@ -93,6 +95,19 @@ namespace GW2AddonManager
         public static string GetRelativePath(this IPath _, string relativeTo, string path)
         {
             return Path.GetRelativePath(relativeTo, path);
+        }
+    }
+
+    public class ArrayMultiValueConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            return values.Clone();
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            return (object[])value;
         }
     }
 }

@@ -18,10 +18,10 @@ namespace GW2AddonManager
             DataContext = App.Current.Services.GetService<OpeningViewModel>();
         }
 
-        private void addons_KeyUp(object sender, KeyEventArgs e)
+        private void AddonsList_KeyUp(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Escape) {
-                addons.SelectedItems.Clear();
+                AddonsList.SelectedItems.Clear();
             }
         }
     }

@@ -11,6 +11,7 @@
     d:DesignHeight="450"
     d:DesignWidth="1000"
     ShowsNavigationUI="False"
+    Name="OpeningViewPage"
     >
 
     <Page.Resources>
@@ -30,26 +31,32 @@
         <DockPanel HorizontalAlignment="Stretch" Grid.Column="0" Background="#99FFFFFF">
             <Label DockPanel.Dock="Top" FontSize="18" FontFamily="Microsoft YaHei UI" HorizontalAlignment="Center" Foreground="DimGray" Content="{x:Static l:StaticText.AddOns}" FontWeight="Bold"/>
             <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Padding="8" FontSize="13" FontFamily="Microsoft YaHei UI" Text="{x:Static l:StaticText.SelectAllAddonsDescription}" HorizontalAlignment="Center"/>
-            <ListBox DockPanel.Dock="Bottom" Name="addons"
+            <ListBox DockPanel.Dock="Bottom" Name="AddonsList"
                          ItemsSource="{Binding Addons}"
                          ItemContainerStyle="{StaticResource AddonListItem}"
-                         SelectedItem="{Binding SelectedAddon}"
+                         SelectedItem="{Binding SelectedAddon, Mode=TwoWay}"
                          BorderThickness="0"
                          Background="WhiteSmoke"
-                     SelectionMode="Extended"
-                     KeyUp="addons_KeyUp"
+                         SelectionMode="Extended"
+                         KeyUp="AddonsList_KeyUp"
                          Style="{DynamicResource ScrollableAddonListBox}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" ToolTip="{Binding tooltip}">
-                            <CheckBox Name="TheCheckBox"
+                        <StackPanel Orientation="Horizontal" ToolTip="{Binding Tooltip}">
+                            <CheckBox Name="AddonIsSelected"
                                       Padding="5,5,0,5"
                                       VerticalAlignment="Center"
-                                      IsChecked="{Binding IsSelected, Mode=TwoWay}"
-                                      Style="{StaticResource AddonListCheckBox}"
-                                      />
-                            <Label Name="add_name"
-                                       Content="{Binding addon_name}"
+                                      Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}, Path=DataContext.CheckAddon}"
+                                      Style="{StaticResource AddonListCheckBox}">
+                                <CheckBox.CommandParameter>
+                                    <MultiBinding Converter="{StaticResource ArrayMultiValueConverter}">
+                                        <Binding Path="DataContext" RelativeSource="{x:Static RelativeSource.Self}"/>
+                                        <Binding Path="IsChecked" RelativeSource="{x:Static RelativeSource.Self}"/>
+                                    </MultiBinding>
+                                </CheckBox.CommandParameter>
+                            </CheckBox>
+                            <Label Name="DisplayName"
+                                       Content="{Binding AddonName}"
                                        VerticalAlignment="Center"
                                        FontFamily="Microsoft YaHei UI"
                                        Foreground="DimGray"
@@ -90,7 +97,7 @@
                         Name="descriptionTextBlock"
                         TextWrapping="Wrap"
                         FontFamily="Microsoft JhengHei UI Light"
-                        Text="{Binding DescriptionText, NotifyOnTargetUpdated=True}" FontSize="13"/>
+                        Text="{Binding DescriptionText}" FontSize="13"/>
         </Grid>
 
         <DockPanel Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Height="50">
@@ -102,7 +109,7 @@
               Background="WhiteSmoke"
               VerticalAlignment="Stretch"
               FontFamily="Microsoft JhengHei Light"
-              Visibility="{Binding Path=AnyAddonSelected, Converter={StaticResource BoolToVisConverter}}">
+              Visibility="{Binding Path=AnyAddonChecked, Converter={StaticResource BoolToVisConverter}}">
                 <MenuItem Header="{x:Static l:StaticText.ManageSelected}"
                       Height="35"
                       Template="{StaticResource AddonMenuItemControlTemplate}"
@@ -128,7 +135,7 @@
               FontFamily="Microsoft JhengHei Light"
                       ToolTip="{x:Static l:StaticText.ResetToCleanInstallDescription}"
                     Content="{x:Static l:StaticText.ResetToCleanInstall}"
-                      Visibility="{Binding Path=NoAddonSelected, Converter={StaticResource BoolToVisConverter}}"/>
+                      Visibility="{Binding Path=NoAddonChecked, Converter={StaticResource BoolToVisConverter}}"/>
 
             <TextBlock FontFamily="Microsoft JhengHei Light" VerticalAlignment="Center" Foreground="White" Margin="15,0,5,0" FontSize="14" Text="{x:Static l:StaticText.GamePath}"/>
             <TextBox Text="{Binding GamePath, Mode=OneWay}"

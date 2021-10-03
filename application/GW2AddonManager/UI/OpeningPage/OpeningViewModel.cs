@@ -5,43 +5,53 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using Ookii.Dialogs.Wpf;
+using System.Linq;
+using System.Windows.Controls;
 
 namespace GW2AddonManager
 {
-    public class OpeningViewModel : ObservableObject
+    public class OpeningViewModel : DependentObservableObject
     {
         private AddonInfo _selectedAddon = null;
-        private ObservableCollection<int> _selectedAddons = new ObservableCollection<int>();
+        private ObservableCollection<AddonInfo> _checkedAddons = new ObservableCollection<AddonInfo>();
         private ObservableCollection<AddonInfo> _addons = new ObservableCollection<AddonInfo>();
         private readonly IConfigurationProvider _configurationProvider;
         private readonly IAddonManager _addonManager;
         private readonly IAddonRepository _addonRepository;
         private readonly ICoreManager _coreManager;
 
-        public ObservableCollection<int> SelectedAddons { get => _selectedAddons; }
+        public ObservableCollection<AddonInfo> CheckedAddons { get => _checkedAddons; }
 
         public ObservableCollection<AddonInfo> Addons { get => _addons; }
 
+        [DependsOn("SelectedAddon")]
         public string DescriptionText => _selectedAddon?.Description ?? StaticText.SelectAnAddonToSeeMoreInformationAboutIt;
+        [DependsOn("SelectedAddon")]
         public string DeveloperText => _selectedAddon?.Developer ?? "";
+        [DependsOn("SelectedAddon")]
         public string AddonWebsiteLink => _selectedAddon?.Website ?? "";
+        [DependsOn("SelectedAddon")]
+        public Visibility DeveloperVisibility => _selectedAddon?.Developer is not null ? Visibility.Visible : Visibility.Hidden;
 
         public AddonInfo SelectedAddon { get => _selectedAddon; set => SetProperty(ref _selectedAddon, value); }
 
-        public Visibility DeveloperVisibility => _selectedAddon?.Developer is not null ? Visibility.Visible : Visibility.Hidden;
 
-
-        public bool AnyAddonSelected => _selectedAddon is not null;
-        public bool NoAddonSelected => !AnyAddonSelected;
+        [DependsOn("CheckedAddons")]
+        public bool AnyAddonChecked => CheckedAddons.Count > 0;
+        [DependsOn("AnyAddonChecked")]
+        public bool NoAddonChecked => !AnyAddonChecked;
 
         public ICommand SelectDirectory => new RelayCommand(() =>
                                            {
                                                var pathSelectionDialog = new VistaFolderBrowserDialog();
                                                if (pathSelectionDialog.ShowDialog() ?? false)
+                                               {
                                                    _configurationProvider.UserConfig = _configurationProvider.UserConfig with
                                                    {
                                                        GamePath = pathSelectionDialog.SelectedPath
                                                    };
+                                                   OnPropertyChanged("GamePath");
+                                               }
                                            });
 
         public ICommand DisableSelected => new RelayCommand<AddonInfo[]>(addons => _addonManager.Disable(addons));
@@ -52,6 +62,16 @@ namespace GW2AddonManager
 
         public ICommand CleanInstall => new RelayCommand(() => _coreManager.Uninstall());
 
+        public ICommand CheckAddon => new RelayCommand<object[]>(x => {
+            bool isChecked = (bool)x[1];
+            AddonInfo addonInfo = (AddonInfo)x[0];
+
+            if(isChecked)
+                CheckedAddons.Add(addonInfo);
+            else
+                _ = CheckedAddons.Remove(addonInfo);
+        });
+
         public string GamePath => _configurationProvider.UserConfig.GamePath;
 
         public OpeningViewModel(IConfigurationProvider configurationProvider, IAddonManager addonManager, IAddonRepository addonRepository, ICoreManager coreManager)
@@ -60,7 +80,9 @@ namespace GW2AddonManager
             _addonManager = addonManager;
             _addonRepository = addonRepository;
             _coreManager = coreManager;
-            _addons = new ObservableCollection<AddonInfo>(_addonRepository.Addons.Values);
+            _addons = new ObservableCollection<AddonInfo>(_addonRepository.Addons.Values.OrderBy(x => x.AddonName));
+
+            CheckedAddons.CollectionChanged += (src, e) => OnPropertyChanged("CheckedAddons");
         }
     }
 }

@@ -55,8 +55,12 @@ namespace GW2AddonManager
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
+            #if !DEBUG
             Application.Current.DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(AppDispatcherUnhandledException);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomainUnhandledException);
+            #endif
+
             _serviceProvider.GetService<ICoreManager>().UpdateCulture();
             Application.Current.Exit += new ExitEventHandler((_, _) => ClearMutex());
 
