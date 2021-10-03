@@ -21,10 +21,9 @@
 
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="0" x:Name="windowControls" VerticalAlignment="Top" Height="Auto" Margin="40,0,100,0">
-            <Button x:Name="close" Content="&#xE106;" Click="close_clicked" Width="30" Height = "35" DockPanel.Dock="Right" Background="#77FFFFFF" Foreground="Black" FontSize="16" BorderThickness="0" Style="{StaticResource navbarclose}" FontFamily="{StaticResource MDL2Assets}"/>
-            <Button x:Name="minimize" Content="&#xE949;" Click="minimize_clicked" Width="30" Height = "35" DockPanel.Dock="Right" HorizontalAlignment="Right" Background="#77FFFFFF" Foreground="Black" FontSize="16" BorderThickness="0" FontFamily="{StaticResource MDL2Assets}"/>
-            <Label PreviewMouseDown="TitleBar_MouseHeld"/>
+        <DockPanel PreviewMouseDown="TitleBar_MouseHeld" Background="Transparent" Grid.Row="0" x:Name="windowControls" VerticalAlignment="Top" Height="Auto" Margin="40,0,100,0">
+            <Button x:Name="close" Content="&#xef2c;" Click="close_clicked" Width="30" Height = "35" DockPanel.Dock="Right" Background="#77FFFFFF" Foreground="Black" FontSize="16" BorderThickness="0" Style="{StaticResource navbarclose}" FontFamily="{StaticResource MDL2Assets}"/>
+            <Button x:Name="minimize" Content="&#xef2d;" Click="minimize_clicked" Width="30" Height = "35" DockPanel.Dock="Right" HorizontalAlignment="Right" Background="#77FFFFFF" Foreground="Black" FontSize="16" BorderThickness="0" FontFamily="{StaticResource MDL2Assets}"/>
 
             <Menu x:Name="settings_list"
                   VerticalAlignment="Center"
@@ -85,10 +84,10 @@
                      <TextBlock Text="Wiki " FontFamily="Microsoft YaHei UI"/>
                 </Hyperlink>
                 |
-                <Hyperlink 
-                    NavigateUri="https://github.com/gw2-addon-loader/GW2-Addon-Manager/wiki/Other-Useful-Programs" 
-                    RequestNavigate="Hyperlink_RequestNavigate" 
-                    TextDecorations="None" 
+                <Hyperlink
+                    NavigateUri="https://github.com/gw2-addon-loader/GW2-Addon-Manager/wiki/Other-Useful-Programs"
+                    RequestNavigate="Hyperlink_RequestNavigate"
+                    TextDecorations="None"
                     FocusVisualStyle="{x:Null}"
                     ToolTip="{x:Static l:StaticText.ProgramsNotManagedByThisApplication}"
                     >
@@ -132,6 +131,8 @@
                 Visibility="{Binding UpdateProgressVisibility}"
                 Value="{Binding UpdateDownloadProgress}"
                 />
+
+
         </DockPanel>
 
         <Label Grid.Row="1" FontWeight="Bold" FontSize="40" Foreground="DimGray" Margin="30,0,0,0" FontFamily="Microsoft JhengHei UI Light" Width="Auto" HorizontalAlignment="Left" Content="Guild Wars 2 Unofficial Addon Manager"/>

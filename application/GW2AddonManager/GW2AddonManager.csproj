@@ -16,9 +16,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\GW2AMMDL2Assets.ttf" />
     <None Remove="Resources\GitHub-Mark-32px.png" />
     <None Remove="Resources\GW2-UOAOU-UI.png" />
-    <None Remove="Resources\segoe-mdl2-assets.ttf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Localization\StaticText.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StaticText.resx</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -39,8 +44,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Localization\StaticText.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StaticText.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
@@ -53,11 +62,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Fonts\GW2AMMDL2Assets.ttf" />
     <Resource Include="Resources\GitHub-Mark-32px.png" />
     <Resource Include="Resources\GW2-UOAOU-UI.png" />
-    <Resource Include="Resources\segoe-mdl2-assets.ttf">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
 
   <Import Project="..\Common\Common.projitems" Label="Shared" />

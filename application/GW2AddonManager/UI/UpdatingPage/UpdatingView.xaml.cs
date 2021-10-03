@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace GW2AddonManager
 {
-    public partial class UpdatingView
+    public partial class UpdatingView : Page, IHyperlinkHandler
     {
         public UpdatingView()
         {
@@ -29,14 +29,6 @@ namespace GW2AddonManager
         private void minimize_clicked(object sender, RoutedEventArgs e)
         {
             (Parent as Window).WindowState = WindowState.Minimized;
-        }
-
-
-        /***** Hyperlink Handler *****/
-        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
-        {
-            _ = Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
-            e.Handled = true;
         }
 
         private void back_clicked(object sender, RoutedEventArgs e)

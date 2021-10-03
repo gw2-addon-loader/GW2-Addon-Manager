@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Abstractions;
 using System.IO.Compression;
@@ -41,8 +42,22 @@ namespace GW2AddonManager
         public const string AddonFolder = "resources\\addons";
     }
 
+    public interface IHyperlinkHandler
+    {
+
+    }
+
     public static class Utils
     {
+        public static void Hyperlink_RequestNavigate(this IHyperlinkHandler win, object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            _ = Process.Start(new ProcessStartInfo {
+                FileName = e.Uri.AbsoluteUri,
+                UseShellExecute = true
+            });
+            e.Handled = true;
+        }
+
         public static void RemoveFiles(IFileSystem fs, IEnumerable<string> files, string basePath = "")
         {
             foreach (var f in files) {

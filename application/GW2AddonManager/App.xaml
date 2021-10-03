@@ -8,7 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <FontFamily x:Key="MDL2Assets">pack://application:,,,/Resources/segoe-mdl2-assets.ttf</FontFamily>
+            <FontFamily x:Key="MDL2Assets">pack://application:,,,/Fonts/#GW2AMMDL2Assets</FontFamily>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
