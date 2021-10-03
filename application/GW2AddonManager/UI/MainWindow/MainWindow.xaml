@@ -136,6 +136,6 @@
 
         <Label Grid.Row="1" FontWeight="Bold" FontSize="40" Foreground="DimGray" Margin="30,0,0,0" FontFamily="Microsoft JhengHei UI Light" Width="Auto" HorizontalAlignment="Left" Content="Guild Wars 2 Unofficial Addon Manager"/>
 
-        <Frame x:Name="mainFrame" Source="OpeningPage/OpeningView.xaml" NavigationUIVisibility="Hidden" Grid.Row="2" VerticalAlignment="Stretch" Margin="40,0,100,0"/>
+        <Frame x:Name="mainFrame" Source="../OpeningPage/OpeningView.xaml" NavigationUIVisibility="Hidden" Grid.Row="2" VerticalAlignment="Stretch" Margin="40,0,100,0"/>
     </Grid>
 </Window>
