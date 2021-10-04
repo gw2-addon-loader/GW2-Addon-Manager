@@ -20,6 +20,7 @@
     <None Remove="Fonts\GW2AMMDL2Assets.ttf" />
     <None Remove="Resources\GitHub-Mark-32px.png" />
     <None Remove="Resources\GW2-UOAOU-UI.png" />
+    <None Remove="Resources\Popup_Heading.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,6 +67,7 @@
     <Resource Include="Fonts\GW2AMMDL2Assets.ttf" />
     <Resource Include="Resources\GitHub-Mark-32px.png" />
     <Resource Include="Resources\GW2-UOAOU-UI.png" />
+    <Resource Include="Resources\Popup_Heading.png" />
   </ItemGroup>
 
   <Import Project="..\Common\Common.projitems" Label="Shared" />

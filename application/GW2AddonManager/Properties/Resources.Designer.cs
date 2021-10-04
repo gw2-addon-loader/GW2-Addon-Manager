@@ -89,5 +89,15 @@ namespace GW2AddonManager.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Popup_Heading {
+            get {
+                object obj = ResourceManager.GetObject("Popup_Heading", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

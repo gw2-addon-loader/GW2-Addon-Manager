@@ -13,11 +13,10 @@ namespace GW2AddonManager
             DataContext = App.Current.Services.GetService<MainWindowViewModel>();
         }
 
-        /***************************** NAV BAR *****************************/
         private void TitleBar_MouseHeld(object sender, MouseButtonEventArgs e)
         {
             if (e.OriginalSource == sender && e.ChangedButton == MouseButton.Left)
-                Application.Current.MainWindow.DragMove();
+                DragMove();
         }
 
         private void close_clicked(object sender, RoutedEventArgs e) => Application.Current.Shutdown();
