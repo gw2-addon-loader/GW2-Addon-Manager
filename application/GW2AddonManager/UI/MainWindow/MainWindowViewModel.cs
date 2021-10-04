@@ -21,7 +21,7 @@ namespace GW2AddonManager
 
         public ICommand ChangeLanguage
         {
-            get => new RelayCommand<string>(param => _coreManager.UpdateCulture());
+            get => new RelayCommand<string>(param => _coreManager.UpdateCulture(param));
         }
 
         public ICommand DownloadSelfUpdate

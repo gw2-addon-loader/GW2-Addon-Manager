@@ -13,7 +13,7 @@ namespace GW2AddonManager
     public interface ICoreManager
     {
         void Uninstall();
-        void UpdateCulture();
+        void UpdateCulture(string constant);
     }
 
     public class CoreManager : ICoreManager
@@ -49,11 +49,23 @@ namespace GW2AddonManager
             Application.Current.Shutdown();
         }
 
-        public void UpdateCulture()
+        public void UpdateCulture(string constant)
         {
+            bool needsChange = constant != _configurationProvider.UserConfig.Culture;
+            if (needsChange)
+            {
+                _configurationProvider.UserConfig = _configurationProvider.UserConfig with
+                {
+                    Culture = constant
+                };
+            }
+
             CultureInfo culture = new CultureInfo(_configurationProvider.UserConfig.Culture);
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
+
+            if (needsChange)
+                App.Current.ReopenMainWindow();
         }
     }
 }

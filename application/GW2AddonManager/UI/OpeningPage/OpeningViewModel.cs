@@ -38,8 +38,6 @@ namespace GW2AddonManager
 
         [DependsOn("CheckedAddons")]
         public bool AnyAddonChecked => CheckedAddons.Count > 0;
-        [DependsOn("AnyAddonChecked")]
-        public bool NoAddonChecked => !AnyAddonChecked;
 
         public ICommand SelectDirectory => new RelayCommand(() =>
                                            {
@@ -82,7 +80,7 @@ namespace GW2AddonManager
             _coreManager = coreManager;
             _addons = new ObservableCollection<AddonInfo>(_addonRepository.Addons.Values.OrderBy(x => x.AddonName));
 
-            CheckedAddons.CollectionChanged += (src, e) => OnPropertyChanged("CheckedAddons");
+            CheckedAddons.CollectionChanged += (_, _) => OnPropertyChanged("CheckedAddons");
         }
     }
 }

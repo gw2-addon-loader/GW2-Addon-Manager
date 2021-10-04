@@ -47,7 +47,7 @@ namespace GW2AddonManager
                           .AddTransient<MainWindowViewModel>()
                           .AddTransient<OpeningViewModel>()
                           .AddTransient<UpdatingViewModel>()
-                          .AddSingleton<MainWindow>();
+                          .AddTransient<MainWindow>();
 
             return services.BuildServiceProvider();
         }
@@ -61,11 +61,21 @@ namespace GW2AddonManager
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomainUnhandledException);
             #endif
 
-            _serviceProvider.GetService<ICoreManager>().UpdateCulture();
+            _serviceProvider.GetService<ICoreManager>().UpdateCulture(_serviceProvider.GetService<IConfigurationProvider>().UserConfig.Culture);
             Application.Current.Exit += new ExitEventHandler((_, _) => ClearMutex());
 
             Application.Current.MainWindow = _serviceProvider.GetService<MainWindow>();
             Application.Current.MainWindow.Show();
+        }
+
+        internal void ReopenMainWindow()
+        {
+            var oldWindow = Application.Current.MainWindow;
+            Application.Current.MainWindow = _serviceProvider.GetService<MainWindow>();
+            Application.Current.MainWindow.Show();
+            Application.Current.MainWindow.Top = oldWindow.Top;
+            Application.Current.MainWindow.Left = oldWindow.Left;
+            oldWindow.Close();
         }
 
         private void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)

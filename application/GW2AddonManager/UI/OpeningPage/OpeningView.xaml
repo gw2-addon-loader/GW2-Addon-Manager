@@ -109,11 +109,9 @@
               Background="WhiteSmoke"
               VerticalAlignment="Stretch"
               FontFamily="Microsoft JhengHei Light"
-              Visibility="{Binding Path=AnyAddonChecked, Converter={StaticResource BoolToVisConverter}}">
+                      IsEnabled="{Binding AnyAddonChecked}">
                 <MenuItem Header="{x:Static l:StaticText.ManageSelected}"
-                      Height="35"
-                      Template="{StaticResource AddonMenuItemControlTemplate}"
-                      Style="{StaticResource AddonMenuItemStyle}">
+                      Height="35">
                     <MenuItem Header="{x:Static l:StaticText.Delete}" Command="{Binding Path=DeleteSelected}" Style="{StaticResource AddonMenuItemStyle}"
                           Template="{StaticResource AddonMenuItemControlTemplate}"
                           ToolTip="{x:Static l:StaticText.DeleteDescription}"/>
@@ -134,8 +132,7 @@
               Background="WhiteSmoke"
               FontFamily="Microsoft JhengHei Light"
                       ToolTip="{x:Static l:StaticText.ResetToCleanInstallDescription}"
-                    Content="{x:Static l:StaticText.ResetToCleanInstall}"
-                      Visibility="{Binding Path=NoAddonChecked, Converter={StaticResource BoolToVisConverter}}"/>
+                    Content="{x:Static l:StaticText.ResetToCleanInstall}"/>
 
             <TextBlock FontFamily="Microsoft JhengHei Light" VerticalAlignment="Center" Foreground="White" Margin="15,0,5,0" FontSize="14" Text="{x:Static l:StaticText.GamePath}"/>
             <TextBox Text="{Binding GamePath, Mode=OneWay}"
