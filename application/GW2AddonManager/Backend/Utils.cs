@@ -69,6 +69,12 @@ namespace GW2AddonManager
             }
         }
 
+        public static void DeleteIfExists(this IFile f, string path)
+        {
+            if(f.Exists(path))
+                f.Delete(path);
+        }
+
         public static List<string> ExtractArchiveWithFilesList(string archiveFilePath, string destFolder, IFileSystem fs)
         {
             var folderName = fs.Path.Combine(fs.Path.GetTempPath(), fs.Path.GetFileNameWithoutExtension(archiveFilePath));

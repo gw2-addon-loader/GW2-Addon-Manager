@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="French" xml:space="preserve">
     <value>Français</value>
@@ -251,5 +251,14 @@
   </data>
   <data name="EnableTitle" xml:space="preserve">
     <value>Enable Addons</value>
+  </data>
+  <data name="ResetToCleanInstallWarning" xml:space="preserve">
+    <value>This will delete ALL ADDONS and ALL DATA related to them, as well as the Addon Manager's data. Are you sure you wish to continue?</value>
+  </data>
+  <data name="ResetToCleanInstallDone" xml:space="preserve">
+    <value>All addons and data deleted. The manager will now close.</value>
+  </data>
+  <data name="NoGamePath" xml:space="preserve">
+    <value>Cannot proceed, no game path has been set!</value>
   </data>
 </root>

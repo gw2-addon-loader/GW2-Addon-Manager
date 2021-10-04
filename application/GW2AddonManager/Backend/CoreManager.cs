@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GW2AddonManager.Localization;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO.Abstractions;
@@ -33,6 +34,15 @@ namespace GW2AddonManager
 
         public void Uninstall()
         {
+            if(_configurationProvider.UserConfig.GamePath is null || !_fileSystem.Directory.Exists(_configurationProvider.UserConfig.GamePath))
+            {
+                _ = MessageBox.Show(StaticText.NoGamePath, StaticText.ResetToCleanInstall, MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (MessageBox.Show(StaticText.ResetToCleanInstallWarning, StaticText.ResetToCleanInstall, MessageBoxButton.YesNo, MessageBoxImage.Hand, MessageBoxResult.No) != MessageBoxResult.Yes)
+                return;
+
             _loaderManager.Uninstall();
 
             if (_fileSystem.Directory.Exists(_addonManager.AddonsFolder))
@@ -45,6 +55,8 @@ namespace GW2AddonManager
 
             if(_fileSystem.File.Exists(_configurationProvider.ConfigFileName))
                 _fileSystem.File.Delete(_configurationProvider.ConfigFileName);
+
+            _ = MessageBox.Show(StaticText.ResetToCleanInstallDone, StaticText.ResetToCleanInstall, MessageBoxButton.OK);
 
             Application.Current.Shutdown();
         }

@@ -322,6 +322,15 @@ namespace GW2AddonManager.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot proceed, no game path has been set!.
+        /// </summary>
+        public static string NoGamePath {
+            get {
+                return ResourceManager.GetString("NoGamePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Options.
         /// </summary>
         public static string Options {
@@ -372,6 +381,24 @@ namespace GW2AddonManager.Localization {
         public static string ResetToCleanInstallDescription {
             get {
                 return ResourceManager.GetString("ResetToCleanInstallDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All addons and data deleted. The manager will now close..
+        /// </summary>
+        public static string ResetToCleanInstallDone {
+            get {
+                return ResourceManager.GetString("ResetToCleanInstallDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will delete ALL ADDONS and ALL DATA related to them, as well as the Addon Manager&apos;s data. Are you sure you wish to continue?.
+        /// </summary>
+        public static string ResetToCleanInstallWarning {
+            get {
+                return ResourceManager.GetString("ResetToCleanInstallWarning", resourceCulture);
             }
         }
         
