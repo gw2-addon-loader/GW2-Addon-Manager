@@ -36,11 +36,11 @@ namespace GW2AddonManager
         {
             if(_configurationProvider.UserConfig.GamePath is null || !_fileSystem.Directory.Exists(_configurationProvider.UserConfig.GamePath))
             {
-                _ = MessageBox.Show(StaticText.NoGamePath, StaticText.ResetToCleanInstall, MessageBoxButton.OK, MessageBoxImage.Error);
+                _ = Popup.Show(StaticText.NoGamePath, StaticText.ResetToCleanInstall, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            if (MessageBox.Show(StaticText.ResetToCleanInstallWarning, StaticText.ResetToCleanInstall, MessageBoxButton.YesNo, MessageBoxImage.Hand, MessageBoxResult.No) != MessageBoxResult.Yes)
+            if (Popup.Show(StaticText.ResetToCleanInstallWarning, StaticText.ResetToCleanInstall, MessageBoxButton.YesNo, MessageBoxImage.Hand) != MessageBoxResult.Yes)
                 return;
 
             _loaderManager.Uninstall();
@@ -56,7 +56,7 @@ namespace GW2AddonManager
             if(_fileSystem.File.Exists(_configurationProvider.ConfigFileName))
                 _fileSystem.File.Delete(_configurationProvider.ConfigFileName);
 
-            _ = MessageBox.Show(StaticText.ResetToCleanInstallDone, StaticText.ResetToCleanInstall, MessageBoxButton.OK);
+            _ = Popup.Show(StaticText.ResetToCleanInstallDone, StaticText.ResetToCleanInstall, MessageBoxButton.OK);
 
             Application.Current.Shutdown();
         }

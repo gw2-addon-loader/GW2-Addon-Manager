@@ -28,7 +28,7 @@ namespace GW2AddonManager.Updater
                                             entry.ExtractToFile(Path.Combine(Directory.GetCurrentDirectory(), entry.FullName), true);
                                         }
                                         catch (IOException e) {
-                                            _ = MessageBox.Show($"Error while attempting to extract file '{entry.FullName}': {e.Message}", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                            _ = Popup.Show($"Error while attempting to extract file '{entry.FullName}': {e.Message}", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
                                             break;
                                         }
                                     }
@@ -38,12 +38,12 @@ namespace GW2AddonManager.Updater
                         }
                     }
                     catch (TimeoutException) {
-                        retry = MessageBox.Show($"The addon manager appears to still be running! Please close the addon manager.\n\nWould you like to try updating again?", "Update Error", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes;
+                        retry = Popup.Show($"The addon manager appears to still be running! Please close the addon manager.\n\nWould you like to try updating again?", "Update Error", MessageBoxButton.YesNo, MessageBoxImage.Error) == MessageBoxResult.Yes;
                     }
                 }
             }
             catch (Exception e) {
-                _ = MessageBox.Show($"Error while attempting to update: {e.Message}", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _ = Popup.Show($"Error while attempting to update: {e.Message}", "Update Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

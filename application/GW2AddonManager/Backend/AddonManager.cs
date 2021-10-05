@@ -116,7 +116,7 @@ namespace GW2AddonManager
 
         public Task Delete(params AddonInfo[] addons)
         {
-            if (MessageBox.Show(StaticText.DeleteAddonsPrompt, StaticText.DeleteTitle, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
+            if (Popup.Show(StaticText.DeleteAddonsPrompt, StaticText.DeleteTitle, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
                 int i = 0;
                 int n = addons.Length;
                 OnProgressChanged(i, n);
@@ -131,7 +131,7 @@ namespace GW2AddonManager
                 }
                 catch (Exception ex) {
                     // TODO: Logging
-                    MessageBox.Show("Error while deleting some addons: " + ex.Message, "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Popup.Show("Error while deleting some addons: " + ex.Message, "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
                 _configurationProvider.UserConfig = _configurationProvider.UserConfig with { AddonsState = states };
@@ -212,7 +212,7 @@ namespace GW2AddonManager
             }
             catch (Exception ex) {
                 // TODO: Logging
-                MessageBox.Show("Error while installing some addons: " + ex.Message, "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Popup.Show("Error while installing some addons: " + ex.Message, "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             _configurationProvider.UserConfig = _configurationProvider.UserConfig with { AddonsState = states };
@@ -234,13 +234,13 @@ namespace GW2AddonManager
             }
             catch (Exception ex) {
                 // TODO: Logging
-                MessageBox.Show($"Error while {(enable ? "enabling" : "disabling")} some addons: " + ex.Message, "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Popup.Show($"Error while {(enable ? "enabling" : "disabling")} some addons: " + ex.Message, "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         public Task Disable(params AddonInfo[] addons)
         {
-            if (MessageBox.Show(StaticText.DisableAddonsPrompt, StaticText.DisableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes) {
+            if (Popup.Show(StaticText.DisableAddonsPrompt, StaticText.DisableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes) {
                 DisableEnable(false, addons);
             }
 
@@ -249,7 +249,7 @@ namespace GW2AddonManager
 
         public Task Enable(params AddonInfo[] addons)
         {
-            if (MessageBox.Show(StaticText.EnableAddonsPrompt, StaticText.EnableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes) {
+            if (Popup.Show(StaticText.EnableAddonsPrompt, StaticText.EnableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes) {
                 DisableEnable(true, addons);
             }
 

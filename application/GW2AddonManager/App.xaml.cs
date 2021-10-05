@@ -66,8 +66,6 @@ namespace GW2AddonManager
 
             Application.Current.MainWindow = _serviceProvider.GetService<MainWindow>();
             Application.Current.MainWindow.Show();
-
-            new Popup("Test content", "Test title", MessageBoxButton.YesNoCancel, MessageBoxImage.Error).ShowDialog();
         }
 
         internal void ReopenMainWindow()
@@ -96,7 +94,7 @@ namespace GW2AddonManager
         {
             //LogError(logPath, e);
             string errmsg = "An unhandled exception occurred." + "\n" + e.Exception.Message + (e.Exception.InnerException != null ? "\n" + e.Exception.InnerException.Message : "");
-            if (MessageBox.Show(errmsg, "Critical Error", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+            if (Popup.Show(errmsg, "Critical Error", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                 Application.Current.Shutdown();
         }
 
@@ -105,7 +103,7 @@ namespace GW2AddonManager
             //LogError(logPath, e);
             Exception exc = (Exception)e.ExceptionObject;
             string errmsg = "An unhandled exception occurred." + "\n" + exc.Message + (exc.InnerException != null ? "\n" + exc.InnerException.Message : "");
-            if (MessageBox.Show(errmsg, "Critical Error", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+            if (Popup.Show(errmsg, "Critical Error", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                 Application.Current.Shutdown();
         }
     }
