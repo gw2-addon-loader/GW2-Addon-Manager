@@ -19,9 +19,9 @@ namespace GW2AddonManager
     /// </summary>
     public partial class Popup : Window
     {
-        public Popup(MessageBoxButton buttons)
+        public Popup(string content, string title = "Message Box", MessageBoxButton buttons = MessageBoxButton.OK, MessageBoxImage image = MessageBoxImage.None)
         {
-            var vm = new PopupViewModel(buttons);
+            var vm = new PopupViewModel(content, title, buttons, image);
             DataContext = vm;
             vm.RequestClose += (_, _) => Close();
             InitializeComponent();

@@ -4,8 +4,48 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Popup" Height="350" Width="800" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
-    <Window.Background>
+        Title="Popup" Height="350" Width="800" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen" Background="Transparent">
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" Stretch="Uniform" Source="/Resources/Popup_Heading.png"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20" Margin="0,0,0,10" Text="{Binding Title}"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75*"/>
+                <ColumnDefinition Width="250*"/>
+                <ColumnDefinition Width="1600*"/>
+                <ColumnDefinition Width="75*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/Popup_Repeat.png" Stretch="Fill"/>
+            </Grid.Background>
+
+            <Viewbox Visibility="{Binding ErrorVisible}" Grid.Column="1" Margin="20,0,10,20">
+                <TextBlock Text="&#xEA39;" FontFamily="{StaticResource MDL2Assets}" Foreground="Red"/>
+            </Viewbox>
+            <Viewbox Visibility="{Binding WarningVisible}" Grid.Column="1" Margin="20,0,10,20">
+                <TextBlock Text="&#xE7BA;" FontFamily="{StaticResource MDL2Assets}" Foreground="Orange"/>
+            </Viewbox>
+            <Viewbox Visibility="{Binding InfoVisible}" Grid.Column="1" Margin="20,0,10,20">
+                <TextBlock Text="&#xE946;" FontFamily="{StaticResource MDL2Assets}" Foreground="DarkCyan"/>
+            </Viewbox>
+            <Viewbox Visibility="{Binding QuestionVisible}" Grid.Column="1" Margin="20,0,10,20">
+                <TextBlock Text="&#xE897;" FontFamily="{StaticResource MDL2Assets}" Foreground="DarkCyan"/>
+            </Viewbox>
+            
+            <TextBlock Grid.Column="2" Padding="10" Text="{Binding Content}"/>
+        </Grid>
+
+
+        <Image Grid.Row="2" Stretch="Uniform" Source="/Resources/Popup_Footer.png"/>
+
+    </Grid>
+    <!--<Window.Background>
         <ImageBrush ImageSource="/Resources/Popup_Heading.png" Stretch="Uniform" AlignmentY="Top" />
     </Window.Background>
     <DockPanel Background="Transparent" PreviewMouseDown="TitleBar_MouseHeld">
@@ -52,5 +92,5 @@
                     Cancel</Button>
             </StackPanel>
         </Grid>
-    </DockPanel>
+    </DockPanel>-->
 </Window>

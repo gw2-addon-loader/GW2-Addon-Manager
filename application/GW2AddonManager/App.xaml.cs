@@ -66,6 +66,8 @@ namespace GW2AddonManager
 
             Application.Current.MainWindow = _serviceProvider.GetService<MainWindow>();
             Application.Current.MainWindow.Show();
+
+            new Popup("Test content", "Test title", MessageBoxButton.YesNoCancel, MessageBoxImage.Error).ShowDialog();
         }
 
         internal void ReopenMainWindow()

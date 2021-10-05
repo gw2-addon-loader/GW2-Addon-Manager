@@ -17,11 +17,20 @@ namespace GW2AddonManager
 
         public MessageBoxResult Result { get; private set; }
         public MessageBoxButton Buttons { get; init; }
+        public MessageBoxImage Image { get; init; }
+
+        public string Title { get; init; }
+        public string Content { get; init; }
 
         public Visibility YesVisible => Buttons == MessageBoxButton.YesNoCancel || Buttons == MessageBoxButton.YesNo ? Visibility.Visible : Visibility.Collapsed;
         public Visibility NoVisible => Buttons == MessageBoxButton.YesNoCancel || Buttons == MessageBoxButton.YesNo ? Visibility.Visible : Visibility.Collapsed;
         public Visibility OkVisible => Buttons == MessageBoxButton.OK || Buttons == MessageBoxButton.OKCancel ? Visibility.Visible : Visibility.Collapsed;
         public Visibility CancelVisible => Buttons == MessageBoxButton.OKCancel || Buttons == MessageBoxButton.YesNoCancel ? Visibility.Visible : Visibility.Collapsed;
+
+        public Visibility ErrorVisible => Image == MessageBoxImage.Error ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility WarningVisible => Image == MessageBoxImage.Warning ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility InfoVisible => Image == MessageBoxImage.Information ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility QuestionVisible => Image == MessageBoxImage.Question ? Visibility.Visible : Visibility.Collapsed;
 
         public ICommand ButtonClick => new RelayCommand<MessageBoxResult>(btn =>
         {
@@ -29,9 +38,12 @@ namespace GW2AddonManager
             RequestClose?.Invoke(this, null);
         });
 
-        public PopupViewModel(MessageBoxButton buttons)
+        public PopupViewModel(string content, string title, MessageBoxButton buttons, MessageBoxImage image)
         {
+            Content = content;
+            Title = title;
             Buttons = buttons;
+            Image = image;
         }
     }
 }
