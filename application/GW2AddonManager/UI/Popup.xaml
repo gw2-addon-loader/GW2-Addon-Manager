@@ -71,7 +71,7 @@
                     <Button.CommandParameter>
                         <MessageBoxResult>OK</MessageBoxResult>
                     </Button.CommandParameter>
-                    OK
+                    Ok
                 </Button>
                 <Button x:Name="Yes" Visibility="{Binding YesVisible}">
                     <Button.CommandParameter>
