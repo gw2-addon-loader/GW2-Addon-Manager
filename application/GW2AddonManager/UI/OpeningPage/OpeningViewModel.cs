@@ -15,7 +15,6 @@ namespace GW2AddonManager
         private AddonInfo _selectedAddon = null;
         private ObservableCollection<AddonInfo> _checkedAddons = new ObservableCollection<AddonInfo>();
         private ObservableCollection<AddonInfo> _addons = new ObservableCollection<AddonInfo>();
-        private readonly IConfigurationProvider _configurationProvider;
         private readonly IAddonManager _addonManager;
         private readonly IAddonRepository _addonRepository;
         private readonly ICoreManager _coreManager;
@@ -39,19 +38,6 @@ namespace GW2AddonManager
         [DependsOn("CheckedAddons")]
         public bool AnyAddonChecked => CheckedAddons.Count > 0;
 
-        public ICommand SelectDirectory => new RelayCommand(() =>
-                                           {
-                                               var pathSelectionDialog = new VistaFolderBrowserDialog();
-                                               if (pathSelectionDialog.ShowDialog() ?? false)
-                                               {
-                                                   _configurationProvider.UserConfig = _configurationProvider.UserConfig with
-                                                   {
-                                                       GamePath = pathSelectionDialog.SelectedPath
-                                                   };
-                                                   OnPropertyChanged("GamePath");
-                                               }
-                                           });
-
         public ICommand DisableSelected => new RelayCommand<AddonInfo[]>(addons => _addonManager.Disable(addons));
 
         public ICommand EnableSelected => new RelayCommand<AddonInfo[]>(addons => _addonManager.Enable(addons));
@@ -70,11 +56,14 @@ namespace GW2AddonManager
                 _ = CheckedAddons.Remove(addonInfo);
         });
 
-        public string GamePath => _configurationProvider.UserConfig.GamePath;
+        //FIXME
+        public bool HasPendingChanges = true;
+        public Visibility PendingChangesVisibility => HasPendingChanges ? Visibility.Visible : Visibility.Collapsed;
 
-        public OpeningViewModel(IConfigurationProvider configurationProvider, IAddonManager addonManager, IAddonRepository addonRepository, ICoreManager coreManager)
+        public string MainButtonText => HasPendingChanges ? StaticText.ApplyChangesAndPlay : StaticText.Play;
+
+        public OpeningViewModel(IAddonManager addonManager, IAddonRepository addonRepository, ICoreManager coreManager)
         {
-            _configurationProvider = configurationProvider;
             _addonManager = addonManager;
             _addonRepository = addonRepository;
             _coreManager = coreManager;

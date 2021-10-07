@@ -1,5 +1,6 @@
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Ookii.Dialogs.Wpf;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,6 +10,7 @@ namespace GW2AddonManager
     {
         private readonly ISelfManager _selfManager;
         private readonly ICoreManager _coreManager;
+        private readonly IConfigurationProvider _configurationProvider;
         private Visibility _updateLinkVisibility;
         private Visibility _updateProgressVisibility;
         private int _updateDownloadProgress;
@@ -34,10 +36,26 @@ namespace GW2AddonManager
             });
         }
 
-        public MainWindowViewModel(ISelfManager selfManager, ICoreManager coreManager)
+        public string GamePath => _configurationProvider.UserConfig.GamePath;
+
+        public ICommand ChangeGamePath => new RelayCommand(() =>
+        {
+            var pathSelectionDialog = new VistaFolderBrowserDialog();
+            if (pathSelectionDialog.ShowDialog() ?? false)
+            {
+                _configurationProvider.UserConfig = _configurationProvider.UserConfig with
+                {
+                    GamePath = pathSelectionDialog.SelectedPath
+                };
+                OnPropertyChanged("GamePath");
+            }
+        });
+
+        public MainWindowViewModel(ISelfManager selfManager, ICoreManager coreManager, IConfigurationProvider configurationProvider)
         {
             _selfManager = selfManager;
             _coreManager = coreManager;
+            _configurationProvider = configurationProvider;
 
             UpdateLinkVisibility = Visibility.Hidden;
             UpdateProgressVisibility = Visibility.Hidden;

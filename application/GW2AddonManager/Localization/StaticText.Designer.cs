@@ -70,11 +70,38 @@ namespace GW2AddonManager.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply Changes.
+        /// </summary>
+        public static string ApplyChanges {
+            get {
+                return ResourceManager.GetString("ApplyChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply Changes and Play.
+        /// </summary>
+        public static string ApplyChangesAndPlay {
+            get {
+                return ResourceManager.GetString("ApplyChangesAndPlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Available.
         /// </summary>
         public static string Available {
             get {
                 return ResourceManager.GetString("Available", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change….
+        /// </summary>
+        public static string ChangeGamePath {
+            get {
+                return ResourceManager.GetString("ChangeGamePath", resourceCulture);
             }
         }
         
@@ -115,7 +142,7 @@ namespace GW2AddonManager.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
+        ///   Looks up a localized string similar to Delete selected.
         /// </summary>
         public static string Delete {
             get {
@@ -169,7 +196,7 @@ namespace GW2AddonManager.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable.
+        ///   Looks up a localized string similar to Disable selected.
         /// </summary>
         public static string Disable {
             get {
@@ -277,7 +304,7 @@ namespace GW2AddonManager.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Game path.
+        ///   Looks up a localized string similar to Game path:.
         /// </summary>
         public static string GamePath {
             get {
@@ -340,6 +367,15 @@ namespace GW2AddonManager.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Play.
+        /// </summary>
+        public static string Play {
+            get {
+                return ResourceManager.GetString("Play", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Programs for GW2 not managed by the Addon Manager.
         /// </summary>
         public static string ProgramsNotManagedByThisApplication {
@@ -349,7 +385,7 @@ namespace GW2AddonManager.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Re-Enable.
+        ///   Looks up a localized string similar to Enable selected.
         /// </summary>
         public static string ReEnable {
             get {
@@ -403,7 +439,7 @@ namespace GW2AddonManager.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select all addons that you would like to install or update..
+        ///   Looks up a localized string similar to Select all addons that you would like to manage..
         /// </summary>
         public static string SelectAllAddonsDescription {
             get {
@@ -417,24 +453,6 @@ namespace GW2AddonManager.Localization {
         public static string SelectAnAddonToSeeMoreInformationAboutIt {
             get {
                 return ResourceManager.GetString("SelectAnAddonToSeeMoreInformationAboutIt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select Directory.
-        /// </summary>
-        public static string SelectDirectory {
-            get {
-                return ResourceManager.GetString("SelectDirectory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Manage the game at the location in the text box.
-        /// </summary>
-        public static string SelectDirectoryDescription {
-            get {
-                return ResourceManager.GetString("SelectDirectoryDescription", resourceCulture);
             }
         }
         
@@ -462,15 +480,6 @@ namespace GW2AddonManager.Localization {
         public static string Update {
             get {
                 return ResourceManager.GetString("Update", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to UPDATE.
-        /// </summary>
-        public static string UpdateAllUpperCase {
-            get {
-                return ResourceManager.GetString("UpdateAllUpperCase", resourceCulture);
             }
         }
         

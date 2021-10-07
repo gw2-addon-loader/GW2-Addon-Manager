@@ -133,7 +133,7 @@
     <value>Language</value>
   </data>
   <data name="GamePath" xml:space="preserve">
-    <value>Game path</value>
+    <value>Game path:</value>
   </data>
   <data name="ProgramsNotManagedByThisApplication" xml:space="preserve">
     <value>Programs for GW2 not managed by the Addon Manager</value>
@@ -171,26 +171,23 @@
   <data name="UpdateDescription" xml:space="preserve">
     <value>This will download the application update and then restart the program.</value>
   </data>
-  <data name="SelectDirectory" xml:space="preserve">
-    <value>Select Directory</value>
-  </data>
-  <data name="SelectDirectoryDescription" xml:space="preserve">
-    <value>Manage the game at the location in the text box</value>
+  <data name="ChangeGamePath" xml:space="preserve">
+    <value>Change…</value>
   </data>
   <data name="AddOns" xml:space="preserve">
     <value>Addons</value>
   </data>
   <data name="SelectAllAddonsDescription" xml:space="preserve">
-    <value>Select all addons that you would like to install or update.</value>
+    <value>Select all addons that you would like to manage.</value>
   </data>
   <data name="ManageSelected" xml:space="preserve">
     <value>Manage Selected</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Delete selected</value>
   </data>
   <data name="Disable" xml:space="preserve">
-    <value>Disable</value>
+    <value>Disable selected</value>
   </data>
   <data name="DeleteDescription" xml:space="preserve">
     <value>Deletes the selected addons and all associated data</value>
@@ -199,7 +196,7 @@
     <value>Disables the selected addons</value>
   </data>
   <data name="ReEnable" xml:space="preserve">
-    <value>Re-Enable</value>
+    <value>Enable selected</value>
   </data>
   <data name="ReEnableDescription" xml:space="preserve">
     <value>Enables the selected addons if they are disabled</value>
@@ -210,8 +207,8 @@
   <data name="ResetToCleanInstallDescription" xml:space="preserve">
     <value>Deletes all addons and plugins from Guild Wars 2.</value>
   </data>
-  <data name="UpdateAllUpperCase" xml:space="preserve">
-    <value>UPDATE</value>
+  <data name="ApplyChanges" xml:space="preserve">
+    <value>Apply Changes</value>
   </data>
   <data name="SelectAnAddonToSeeMoreInformationAboutIt" xml:space="preserve">
     <value>Select an add-on to see more information about it.</value>
@@ -260,5 +257,11 @@
   </data>
   <data name="NoGamePath" xml:space="preserve">
     <value>Cannot proceed, no game path has been set!</value>
+  </data>
+  <data name="ApplyChangesAndPlay" xml:space="preserve">
+    <value>Apply Changes and Play</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Play</value>
   </data>
 </root>
