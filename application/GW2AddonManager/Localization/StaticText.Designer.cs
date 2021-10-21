@@ -97,6 +97,15 @@ namespace GW2AddonManager.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot Proceed.
+        /// </summary>
+        public static string CannotProceedTitle {
+            get {
+                return ResourceManager.GetString("CannotProceedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change….
         /// </summary>
         public static string ChangeGamePath {
@@ -345,6 +354,15 @@ namespace GW2AddonManager.Localization {
         public static string ManageSelected {
             get {
                 return ResourceManager.GetString("ManageSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No addons are selected for this action, please select some addons and try again..
+        /// </summary>
+        public static string NoAddonsSelected {
+            get {
+                return ResourceManager.GetString("NoAddonsSelected", resourceCulture);
             }
         }
         

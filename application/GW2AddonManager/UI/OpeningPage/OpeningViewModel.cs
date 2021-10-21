@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Ookii.Dialogs.Wpf;
 using System.Linq;
 using System.Windows.Controls;
+using System;
 
 namespace GW2AddonManager
 {
@@ -38,11 +39,11 @@ namespace GW2AddonManager
         [DependsOn("CheckedAddons")]
         public bool AnyAddonChecked => CheckedAddons.Count > 0;
 
-        public ICommand DisableSelected => new RelayCommand<AddonInfo[]>(addons => _addonManager.Disable(addons));
+        public ICommand DisableSelected => new RelayCommand(() => _addonManager.Disable(CheckedAddons));
 
-        public ICommand EnableSelected => new RelayCommand<AddonInfo[]>(addons => _addonManager.Enable(addons));
+        public ICommand EnableSelected => new RelayCommand(() => _addonManager.Enable(CheckedAddons));
 
-        public ICommand DeleteSelected => new RelayCommand<AddonInfo[]>(addons => _addonManager.Delete(addons));
+        public ICommand DeleteSelected => new RelayCommand(() => _addonManager.Delete(CheckedAddons));
 
         public ICommand CleanInstall => new RelayCommand(() => _coreManager.Uninstall());
 
@@ -56,11 +57,15 @@ namespace GW2AddonManager
                 _ = CheckedAddons.Remove(addonInfo);
         });
 
-        //FIXME
-        public bool HasPendingChanges = true;
-        public Visibility PendingChangesVisibility => HasPendingChanges ? Visibility.Visible : Visibility.Collapsed;
+        private string _log = "";
+        public string Log
+        {
+            get => _log;
+            set => SetProperty(ref _log, value);
+        }
 
-        public string MainButtonText => HasPendingChanges ? StaticText.ApplyChangesAndPlay : StaticText.Play;
+        [DependsOn("Log")]
+        public Visibility LogVisibility => Log.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
 
         public OpeningViewModel(IAddonManager addonManager, IAddonRepository addonRepository, ICoreManager coreManager)
         {
@@ -70,6 +75,12 @@ namespace GW2AddonManager
             _addons = new ObservableCollection<AddonInfo>(_addonRepository.Addons.Values.OrderBy(x => x.AddonName));
 
             CheckedAddons.CollectionChanged += (_, _) => OnPropertyChanged("CheckedAddons");
+            _coreManager.Log += _coreManager_Log;
+        }
+
+        private void _coreManager_Log(object sender, LogEventArgs eventArgs)
+        {
+            Log += eventArgs.Message + Environment.NewLine;
         }
     }
 }

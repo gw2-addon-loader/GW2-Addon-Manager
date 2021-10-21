@@ -11,25 +11,31 @@ using System.Windows;
 
 namespace GW2AddonManager
 {
+    public record LogEventArgs(string Message);
+    public delegate void LogEventHandler(object sender, LogEventArgs eventArgs);
+
     public interface ICoreManager
     {
         void Uninstall();
         void UpdateCulture(string constant);
+
+        event LogEventHandler Log;
+        event EventHandler Uninstalling;
+        void AddLog(string msg);
     }
 
     public class CoreManager : ICoreManager
     {
         private readonly IConfigurationProvider _configurationProvider;
         private readonly IFileSystem _fileSystem;
-        private readonly ILoaderManager _loaderManager;
-        private readonly IAddonManager _addonManager;
 
-        public CoreManager(IConfigurationProvider configurationProvider, IFileSystem fileSystem, ILoaderManager loaderManager, IAddonManager addonManager)
+        public event LogEventHandler Log;
+        public event EventHandler Uninstalling;
+
+        public CoreManager(IConfigurationProvider configurationProvider, IFileSystem fileSystem)
         {
             _configurationProvider = configurationProvider;
             _fileSystem = fileSystem;
-            _loaderManager = loaderManager;
-            _addonManager = addonManager;
         }
 
         public void Uninstall()
@@ -43,10 +49,7 @@ namespace GW2AddonManager
             if (Popup.Show(StaticText.ResetToCleanInstallWarning, StaticText.ResetToCleanInstall, MessageBoxButton.YesNo, MessageBoxImage.Hand) != MessageBoxResult.Yes)
                 return;
 
-            _loaderManager.Uninstall();
-
-            if (_fileSystem.Directory.Exists(_addonManager.AddonsFolder))
-                _fileSystem.Directory.Delete(_addonManager.AddonsFolder, true);
+            Uninstalling?.Invoke(this, new EventArgs());
 
             _configurationProvider.UserConfig = _configurationProvider.UserConfig with
             {
@@ -78,6 +81,11 @@ namespace GW2AddonManager
 
             if (needsChange)
                 App.Current.ReopenMainWindow();
+        }
+
+        public void AddLog(string msg)
+        {
+            Log?.Invoke(this, new LogEventArgs(msg));
         }
     }
 }

@@ -11,17 +11,16 @@ namespace GW2AddonManager
 {
     public interface IAddonManager : IUpdateChangedEvents
     {
-        Task Delete(params AddonInfo[] addons);
-        Task Disable(params AddonInfo[]  addons);
-        Task Enable(params AddonInfo[] addons);
-        Task Install(params AddonInfo[] addons);
+        Task Delete(IEnumerable<AddonInfo> addons);
+        Task Disable(IEnumerable<AddonInfo> addons);
+        Task Enable(IEnumerable<AddonInfo> addons);
+        Task Install(IEnumerable<AddonInfo> addons);
 
         string AddonsFolder { get; }
     }
 
     public class AddonManager : UpdateChangedEvents, IAddonManager
     {
-        public string AddonsFolder => _fileSystem.Path.Combine(_configurationProvider.UserConfig.GamePath, "addons");
         private const string AddonPrefix = "gw2addon_";
         private const string ArcDPSFolder = "arcdps";
         private const string DisabledExtension = ".dll_disabled";
@@ -30,12 +29,17 @@ namespace GW2AddonManager
         private readonly IConfigurationProvider _configurationProvider;
         private readonly IFileSystem _fileSystem;
         private readonly IHttpClientProvider _httpClientProvider;
+        private readonly ICoreManager _coreManager;
+        
+        public string AddonsFolder => _fileSystem.Path.Combine(_configurationProvider.UserConfig.GamePath, "addons");
 
-        public AddonManager(IConfigurationProvider configurationProvider, IFileSystem fileSystem, IHttpClientProvider httpClientProvider)
+        public AddonManager(IConfigurationProvider configurationProvider, IFileSystem fileSystem, IHttpClientProvider httpClientProvider, ICoreManager coreManager)
         {
             _configurationProvider = configurationProvider;
             _fileSystem = fileSystem;
             _httpClientProvider = httpClientProvider;
+            _coreManager = coreManager;
+            coreManager.Uninstalling += (_, _) => Uninstall();
         }
 
         private string FolderPath(AddonInfo addon)
@@ -68,7 +72,10 @@ namespace GW2AddonManager
         {
             var state = states[addon.Nickname];
             if (!state.Installed || state.Disabled == !enable)
+            {
+                _coreManager.AddLog($"Skipping {addon.AddonName}, not installed or already in desired state.");
                 return;
+            }
 
             var path = DLLPath(addon, state);
             if(_fileSystem.File.Exists(path)) {
@@ -76,7 +83,12 @@ namespace GW2AddonManager
                 _fileSystem.File.Move(path, newPath);
             }
             else
-                throw new ArgumentException();
+            {
+                _coreManager.AddLog($"Could not {(enable ? "enable" : "disable")} {addon.AddonName}, expected addon path '{path}' does not exist!");
+                return;
+            }
+
+            _coreManager.AddLog($"{(enable ? "Enabled" : "Disabled")} {addon.AddonName}.");
 
             states[addon.Nickname] = state with
             {
@@ -88,7 +100,12 @@ namespace GW2AddonManager
         {
             var state = states[addon.Nickname];
             if(!state.Installed)
+            {
+                _coreManager.AddLog($"Skipping {addon.AddonName}, not installed.");
                 return;
+            }
+
+            _coreManager.AddLog($"Deleting {addon.AddonName}...");
 
             var folderPath = FolderPath(addon);
             var files = new List<string>
@@ -102,23 +119,36 @@ namespace GW2AddonManager
 
             foreach (var f in files) {
                 if (_fileSystem.File.Exists(f))
+                {
+                    _coreManager.AddLog($"Deleting file '{f}'...");
                     _fileSystem.File.Delete(f);
+                }
             }
 
-            foreach(var dir in _fileSystem.Directory.EnumerateDirectories(folderPath, "*", SearchOption.AllDirectories).OrderByDescending(x => x.Length).Append(folderPath)) {
+            foreach(var dir in _fileSystem.Directory.EnumerateDirectories(folderPath, "*", SearchOption.AllDirectories).OrderByDescending(x => x.Length).Append(folderPath))
+            {
+                _coreManager.AddLog($"Deleting directory '{dir}'...");
                 try {
                     _fileSystem.Directory.Delete(dir);
                 } catch(Exception) { }
             }
 
             states[addon.Nickname] = AddonState.Default(state.Nickname);
+
+            _coreManager.AddLog($"Deleted {addon.AddonName}.");
         }
 
-        public Task Delete(params AddonInfo[] addons)
+        public async Task Delete(IEnumerable<AddonInfo> addons)
         {
+            if(addons == null)
+            {
+                _ = Popup.Show(StaticText.NoAddonsSelected, StaticText.CannotProceedTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             if (Popup.Show(StaticText.DeleteAddonsPrompt, StaticText.DeleteTitle, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
                 int i = 0;
-                int n = addons.Length;
+                int n = addons.Count();
                 OnProgressChanged(i, n);
 
                 var states = new Dictionary<string, AddonState>(_configurationProvider.UserConfig.AddonsState);
@@ -129,15 +159,15 @@ namespace GW2AddonManager
                         OnProgressChanged(++i, n);
                     }
                 }
-                catch (Exception ex) {
-                    // TODO: Logging
-                    Popup.Show("Error while deleting some addons: " + ex.Message, "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                catch (Exception ex)
+                {
+                    _coreManager.AddLog($"Exception while deleting addons ({string.Join(", ", addons.Select(x => x.AddonName))}): {ex.Message}");
+
+                    _ = Popup.Show("Error while deleting some addons: " + ex.Message, "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
                 _configurationProvider.UserConfig = _configurationProvider.UserConfig with { AddonsState = states };
             }
-
-            return Task.CompletedTask;
         }
 
         /* 
@@ -160,7 +190,12 @@ namespace GW2AddonManager
         {
             var state = states[addon.Nickname];
             if (state.Installed && (state.VersionId == addon.VersionId || addon.SelfUpdate))
+            {
+                _coreManager.AddLog($"Skipping {addon.AddonName}, already installed and at the right version or self-updating.");
                 return;
+            }
+
+            _coreManager.AddLog($"Installing {addon.AddonName}...");
 
             var url = addon.DownloadUrl;
             var baseFolder = Path.GetTempPath();
@@ -175,8 +210,13 @@ namespace GW2AddonManager
                 await _httpClientProvider.Client.DownloadAsync(url, fs, this);
             }
 
+            _coreManager.AddLog($"Downloaded {addon.AddonName}.");
+
             if (state.Installed)
+            {
                 Utils.RemoveFiles(_fileSystem, state.InstalledFiles, destFolder);
+                _coreManager.AddLog($"Removed existing installation of {addon.AddonName}.");
+            }
 
             List<string> relFiles;
 
@@ -194,12 +234,20 @@ namespace GW2AddonManager
             };
 
             _fileSystem.File.Delete(fileName);
+
+            _coreManager.AddLog($"Installed {addon.AddonName}.");
         }
 
-        public async Task Install(params AddonInfo[] addons)
+        public async Task Install(IEnumerable<AddonInfo> addons)
         {
+            if (addons == null)
+            {
+                _ = Popup.Show(StaticText.NoAddonsSelected, StaticText.CannotProceedTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             int i = 0;
-            int n = addons.Length;
+            int n = addons.Count();
             OnProgressChanged(i, n);
 
             var states = new Dictionary<string, AddonState>(_configurationProvider.UserConfig.AddonsState);
@@ -210,18 +258,19 @@ namespace GW2AddonManager
                     OnProgressChanged(++i, n);
                 }
             }
-            catch (Exception ex) {
-                // TODO: Logging
-                Popup.Show("Error while installing some addons: " + ex.Message, "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            catch (Exception ex)
+            {
+                _coreManager.AddLog($"Exception while installing addons ({string.Join(", ", addons.Select(x => x.AddonName))}): {ex.Message}");
+                _ = Popup.Show("Error while installing some addons: " + ex.Message, "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             _configurationProvider.UserConfig = _configurationProvider.UserConfig with { AddonsState = states };
         }
 
-        private void DisableEnable(bool enable, params AddonInfo[] addons)
+        private void DisableEnable(bool enable, IEnumerable<AddonInfo> addons)
         {
             int i = 0;
-            int n = addons.Length;
+            int n = addons.Count();
             OnProgressChanged(i, n);
 
             var states = new Dictionary<string, AddonState>(_configurationProvider.UserConfig.AddonsState);
@@ -232,14 +281,21 @@ namespace GW2AddonManager
                     OnProgressChanged(++i, n);
                 }
             }
-            catch (Exception ex) {
-                // TODO: Logging
-                Popup.Show($"Error while {(enable ? "enabling" : "disabling")} some addons: " + ex.Message, "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            catch (Exception ex)
+            {
+                _coreManager.AddLog($"Exception while {(enable ? "enabling" : "disabling")} addons ({string.Join(", ", addons.Select(x => x.AddonName))}): {ex.Message}");
+                _ = Popup.Show($"Error while {(enable ? "enabling" : "disabling")} some addons: " + ex.Message, "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        public Task Disable(params AddonInfo[] addons)
+        public Task Disable(IEnumerable<AddonInfo> addons)
         {
+            if (addons == null)
+            {
+                _ = Popup.Show(StaticText.NoAddonsSelected, StaticText.CannotProceedTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                return Task.CompletedTask;
+            }
+
             if (Popup.Show(StaticText.DisableAddonsPrompt, StaticText.DisableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes) {
                 DisableEnable(false, addons);
             }
@@ -247,13 +303,25 @@ namespace GW2AddonManager
             return Task.CompletedTask;
         }
 
-        public Task Enable(params AddonInfo[] addons)
+        public Task Enable(IEnumerable<AddonInfo> addons)
         {
+            if (addons == null)
+            {
+                _ = Popup.Show(StaticText.NoAddonsSelected, StaticText.CannotProceedTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                return Task.CompletedTask;
+            }
+
             if (Popup.Show(StaticText.EnableAddonsPrompt, StaticText.EnableTitle, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes) {
                 DisableEnable(true, addons);
             }
 
             return Task.CompletedTask;
+        }
+
+        public void Uninstall()
+        {
+            if (_fileSystem.Directory.Exists(AddonsFolder))
+                _fileSystem.Directory.Delete(AddonsFolder, true);
         }
     }
 }

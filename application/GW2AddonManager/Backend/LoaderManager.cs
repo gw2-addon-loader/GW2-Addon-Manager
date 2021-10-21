@@ -25,18 +25,19 @@ namespace GW2AddonManager
         public string InstallPath => _configurationProvider.UserConfig.GamePath;
         private string DownloadPath => _fileSystem.Path.Combine(_fileSystem.Path.GetTempPath(), "addon-loader.zip");
 
-        public LoaderManager(IConfigurationProvider configurationProvider, IAddonRepository addonRepository, IAddonManager addonManager, IFileSystem fileSystem, IHttpClientProvider httpClientProvider)
+        public LoaderManager(IConfigurationProvider configurationProvider, IAddonRepository addonRepository, IAddonManager addonManager, IFileSystem fileSystem, IHttpClientProvider httpClientProvider, ICoreManager coreManager)
         {
             _configurationProvider = configurationProvider;
             _addonRepository = addonRepository;
             _addonManager = addonManager;
             _fileSystem = fileSystem;
             _httpClientProvider = httpClientProvider;
+            coreManager.Uninstalling += (_, _) => Uninstall();
         }
 
         public async Task Update()
         {
-            await _addonManager.Install(_addonRepository.Loader.Wrapper);
+            await _addonManager.Install(new List<AddonInfo> { _addonRepository.Loader.Wrapper });
 
             if (_addonRepository.Loader.VersionId == _configurationProvider.UserConfig.LoaderVersion)
                 return;

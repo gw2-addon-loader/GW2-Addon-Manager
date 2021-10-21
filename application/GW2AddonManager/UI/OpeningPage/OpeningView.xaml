@@ -69,7 +69,7 @@
         </DockPanel>
         <Grid Grid.Column="2" Margin="0,0,-0.4,0" Background="#99FFFFFF">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" MinHeight="30"/>
+                <RowDefinition Height="2*" MinHeight="30"/>
                 <RowDefinition Height="5"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -106,9 +106,8 @@
                         Text="{Binding DescriptionText}" FontSize="13"/>
             </Grid>
             <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" Visibility="{Binding PendingChangesVisibility}"/>
-            <Grid Grid.Row="2" Visibility="{Binding PendingChangesVisibility}">
-                <!-- FIXME -->
-                <TextBlock>Dummy</TextBlock>
+            <Grid Grid.Row="2" Visibility="{Binding LogVisibility}">
+                <TextBox IsEnabled="False" Text="{Binding Log}" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"/>
             </Grid>
         </Grid>
 
@@ -155,7 +154,7 @@
                       ToolTip="{x:Static l:StaticText.ResetToCleanInstallDescription}"
                     Content="{x:Static l:StaticText.ResetToCleanInstall}"/>
 
-            <xkct:SplitButton x:Name="nextPage" Content="{Binding MainButtonText}" d:Content="Play"
+            <xkct:SplitButton x:Name="nextPage" Content="{x:Static l:StaticText.Play}" d:Content="Play"
                 DockPanel.Dock="Right"
                 MinWidth="200"
                 VerticalAlignment="Center"
