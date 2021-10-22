@@ -30,7 +30,7 @@ namespace GW2AddonManager
             }
         }
 
-        private AddonInfo _selectedAddon;
+        private AddonInfoCheck _selectedAddon;
         private readonly IAddonManager _addonManager;
         private readonly IAddonRepository _addonRepository;
         private readonly ICoreManager _coreManager;
@@ -40,15 +40,18 @@ namespace GW2AddonManager
         public IEnumerable<AddonInfo> CheckedAddons { get => Addons.Where(x => x.AddonChecked).Select(x => x.Addon); }
 
         [DependsOn("SelectedAddon")]
-        public string DescriptionText => _selectedAddon?.Description ?? StaticText.SelectAnAddonToSeeMoreInformationAboutIt;
+        public string DescriptionText => _selectedAddon?.Addon.Description ?? StaticText.SelectAnAddonToSeeMoreInformationAboutIt;
         [DependsOn("SelectedAddon")]
-        public string DeveloperText => _selectedAddon?.Developer ?? "";
+        public string DeveloperText => _selectedAddon?.Addon.Developer ?? "";
         [DependsOn("SelectedAddon")]
-        public string AddonWebsiteLink => _selectedAddon?.Website ?? "";
+        public string AddonWebsiteLink => _selectedAddon?.Addon.Website ?? "";
         [DependsOn("SelectedAddon")]
-        public Visibility DeveloperVisibility => _selectedAddon?.Developer is not null ? Visibility.Visible : Visibility.Hidden;
+        public Visibility DeveloperVisibility => _selectedAddon?.Addon.Developer is not null ? Visibility.Visible : Visibility.Hidden;
 
-        public AddonInfo SelectedAddon { get => _selectedAddon; set => SetProperty(ref _selectedAddon, value); }
+        public AddonInfoCheck SelectedAddon {
+            get => _selectedAddon;
+            set => SetProperty(ref _selectedAddon, value);
+        }
 
 
         [DependsOn("Addons")]
@@ -62,6 +65,8 @@ namespace GW2AddonManager
         public ICommand EnableSelected => new RelayCommand(() => _addonManager.Enable(CheckedAddons));
 
         public ICommand DeleteSelected => new RelayCommand(() => _addonManager.Delete(CheckedAddons));
+
+        public ICommand InstallSelected => new RelayCommand(() => _addonManager.Install(CheckedAddons));
 
         public ICommand CleanInstall => new RelayCommand(() => _coreManager.Uninstall());
 

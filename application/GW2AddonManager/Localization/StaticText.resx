@@ -184,10 +184,10 @@
     <value>Manage Selected</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Delete selected</value>
+    <value>Delete</value>
   </data>
   <data name="Disable" xml:space="preserve">
-    <value>Disable selected</value>
+    <value>Disable</value>
   </data>
   <data name="DeleteDescription" xml:space="preserve">
     <value>Deletes the selected addons and all associated data</value>
@@ -196,7 +196,7 @@
     <value>Disables the selected addons</value>
   </data>
   <data name="ReEnable" xml:space="preserve">
-    <value>Enable selected</value>
+    <value>Enable</value>
   </data>
   <data name="ReEnableDescription" xml:space="preserve">
     <value>Enables the selected addons if they are disabled</value>
@@ -269,5 +269,11 @@
   </data>
   <data name="NoAddonsSelected" xml:space="preserve">
     <value>No addons are selected for this action, please select some addons and try again.</value>
+  </data>
+  <data name="Install" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="InstallDescription" xml:space="preserve">
+    <value>Installs the selected addons</value>
   </data>
 </root>

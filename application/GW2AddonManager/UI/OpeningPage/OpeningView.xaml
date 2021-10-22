@@ -11,7 +11,7 @@
     d:DesignHeight="464"
     d:DesignWidth="990"
     ShowsNavigationUI="False"
-    Name="OpeningViewPage"
+    x:Name="OpeningViewPage"
     >
 
     <Page.Resources>
@@ -53,7 +53,7 @@
                          Style="{DynamicResource ScrollableAddonListBox}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" ToolTip="{Binding Tooltip}">
+                        <StackPanel Orientation="Horizontal">
                             <CheckBox Name="AddonIsSelected"
                                       Padding="5,5,0,5"
                                       VerticalAlignment="Center"
@@ -111,7 +111,7 @@
                         FontFamily="Microsoft JhengHei UI Light"
                         Text="{Binding DescriptionText}" FontSize="13"/>
             </Grid>
-            <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" Visibility="{Binding PendingChangesVisibility}"/>
+            <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" Visibility="{Binding LogVisibility}"/>
             <Grid Grid.Row="2" Visibility="{Binding LogVisibility}">
                 <TextBox IsEnabled="False" Text="{Binding Log}" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"/>
             </Grid>
@@ -122,34 +122,39 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="{x:Static l:StaticText.Delete}" Command="{Binding Path=DeleteSelected}"
+            <Button Grid.Column="0" Content="{x:Static l:StaticText.Install}" Command="{Binding Path=InstallSelected}"
                       HorizontalContentAlignment="Center"
                       VerticalContentAlignment="Center"
-                    HorizontalAlignment="Left"
-                      Height="35"
-                    Width="130"
+                    HorizontalAlignment="Stretch"
+                      Height="35" Margin="2"
+              Background="WhiteSmoke"
+                          ToolTip="{x:Static l:StaticText.InstallDescription}"/>
+            <Button Grid.Column="1" Content="{x:Static l:StaticText.Delete}" Command="{Binding Path=DeleteSelected}"
+                      HorizontalContentAlignment="Center"
+                      VerticalContentAlignment="Center"
+                    HorizontalAlignment="Stretch"
+                      Height="35" Margin="2"
               Background="WhiteSmoke"
                           ToolTip="{x:Static l:StaticText.DeleteDescription}"/>
-            <Button Grid.Column="1" Content="{x:Static l:StaticText.Disable}" Command="{Binding Path=DisableSelected}"
+            <Button Grid.Column="2" Content="{x:Static l:StaticText.Disable}" Command="{Binding Path=DisableSelected}"
                       HorizontalContentAlignment="Center"
                       VerticalContentAlignment="Center"
-                      Height="35"
-                    Width="130"
+                      Height="35" Margin="2"
               Background="WhiteSmoke"
                           ToolTip="{x:Static l:StaticText.DisableDescription}"/>
-            <Button Grid.Column="2" Content="{x:Static l:StaticText.ReEnable}" Command="{Binding Path=EnableSelected}"
+            <Button Grid.Column="3" Content="{x:Static l:StaticText.ReEnable}" Command="{Binding Path=EnableSelected}"
                       HorizontalContentAlignment="Center"
                       VerticalContentAlignment="Center"
-                    HorizontalAlignment="Right"
-                      Height="35"
-                    Width="130"
+                    HorizontalAlignment="Stretch"
+                      Height="35" Margin="2"
               Background="WhiteSmoke"
                           ToolTip="{x:Static l:StaticText.ReEnableDescription}"/>
         </Grid>
 
         <DockPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Height="50">
-                <Button Command="{Binding Path=CleanInstall}"
+            <Button Command="{Binding Path=CleanInstall}"
                       HorizontalContentAlignment="Center"
                       VerticalContentAlignment="Center"
                       Height="35"

@@ -151,7 +151,7 @@ namespace GW2AddonManager.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete selected.
+        ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
             get {
@@ -205,7 +205,7 @@ namespace GW2AddonManager.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable selected.
+        ///   Looks up a localized string similar to Disable.
         /// </summary>
         public static string Disable {
             get {
@@ -331,6 +331,24 @@ namespace GW2AddonManager.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Install.
+        /// </summary>
+        public static string Install {
+            get {
+                return ResourceManager.GetString("Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installs the selected addons.
+        /// </summary>
+        public static string InstallDescription {
+            get {
+                return ResourceManager.GetString("InstallDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 한국인.
         /// </summary>
         public static string Korean {
@@ -403,7 +421,7 @@ namespace GW2AddonManager.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable selected.
+        ///   Looks up a localized string similar to Enable.
         /// </summary>
         public static string ReEnable {
             get {
