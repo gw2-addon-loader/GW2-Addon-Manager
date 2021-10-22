@@ -124,27 +124,27 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="{x:Static l:StaticText.Install}" Command="{Binding Path=InstallSelected}"
+            <Button Grid.Column="0" Content="{x:Static l:StaticText.Install}" Command="{Binding Path=InstallSelected}" IsEnabled="{Binding CanInstallAny}"
                       HorizontalContentAlignment="Center"
                       VerticalContentAlignment="Center"
                     HorizontalAlignment="Stretch"
                       Height="35" Margin="2"
               Background="WhiteSmoke"
                           ToolTip="{x:Static l:StaticText.InstallDescription}"/>
-            <Button Grid.Column="1" Content="{x:Static l:StaticText.Delete}" Command="{Binding Path=DeleteSelected}"
+            <Button Grid.Column="1" Content="{x:Static l:StaticText.Delete}" Command="{Binding Path=DeleteSelected}" IsEnabled="{Binding CanDeleteAny}"
                       HorizontalContentAlignment="Center"
                       VerticalContentAlignment="Center"
                     HorizontalAlignment="Stretch"
                       Height="35" Margin="2"
               Background="WhiteSmoke"
                           ToolTip="{x:Static l:StaticText.DeleteDescription}"/>
-            <Button Grid.Column="2" Content="{x:Static l:StaticText.Disable}" Command="{Binding Path=DisableSelected}"
+            <Button Grid.Column="2" Content="{x:Static l:StaticText.Disable}" Command="{Binding Path=DisableSelected}" IsEnabled="{Binding CanDisableAny}"
                       HorizontalContentAlignment="Center"
                       VerticalContentAlignment="Center"
                       Height="35" Margin="2"
               Background="WhiteSmoke"
                           ToolTip="{x:Static l:StaticText.DisableDescription}"/>
-            <Button Grid.Column="3" Content="{x:Static l:StaticText.ReEnable}" Command="{Binding Path=EnableSelected}"
+            <Button Grid.Column="3" Content="{x:Static l:StaticText.ReEnable}" Command="{Binding Path=EnableSelected}" IsEnabled="{Binding CanEnableAny}"
                       HorizontalContentAlignment="Center"
                       VerticalContentAlignment="Center"
                     HorizontalAlignment="Stretch"

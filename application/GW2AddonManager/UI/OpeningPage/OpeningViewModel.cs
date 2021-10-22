@@ -96,6 +96,24 @@ namespace GW2AddonManager
         [DependsOn("Log")]
         public Visibility LogVisibility => Log.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
 
+        [DependsOn("Addons")]
+        public bool CanInstallAny => CheckedAddons.Any(x => {
+            bool exists = _configurationProvider.UserConfig.AddonsState.TryGetValue(x.Nickname, out AddonState state);
+            return exists && !state.Installed || !exists;
+        });
+        [DependsOn("Addons")]
+        public bool CanDeleteAny => CheckedAddons.Any(x => {
+            return _configurationProvider.UserConfig.AddonsState.TryGetValue(x.Nickname, out AddonState state) && state.Installed;
+        });
+        [DependsOn("Addons")]
+        public bool CanEnableAny => CheckedAddons.Any(x => {
+            return _configurationProvider.UserConfig.AddonsState.TryGetValue(x.Nickname, out AddonState state) && state.Disabled;
+        });
+        [DependsOn("Addons")]
+        public bool CanDisableAny => CheckedAddons.Any(x => {
+            return _configurationProvider.UserConfig.AddonsState.TryGetValue(x.Nickname, out AddonState state) && !state.Disabled;
+        });
+
         public OpeningViewModel(IAddonManager addonManager, IAddonRepository addonRepository, ICoreManager coreManager, IConfigurationProvider configurationProvider)
         {
             _addonManager = addonManager;
