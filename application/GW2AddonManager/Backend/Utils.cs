@@ -83,6 +83,9 @@ namespace GW2AddonManager
 
             ZipFile.ExtractToDirectory(archiveFilePath, folderName);
 
+            if(fs.Directory.GetFiles(folderName).Length == 0 && fs.Directory.GetDirectories(folderName).Length == 1)
+                folderName = fs.Directory.GetDirectories(folderName)[0];
+
             var absoluteFiles = new List<string>();
             foreach (var f in fs.Directory.EnumerateFiles(folderName, "*", SearchOption.AllDirectories))
                 absoluteFiles.Add(f);
@@ -91,7 +94,7 @@ namespace GW2AddonManager
             foreach (var f in absoluteFiles) {
                 var relFile = fs.Path.GetRelativePath(folderName, f);
                 relFiles.Add(relFile);
-                fs.Directory.CreateDirectory(fs.Path.GetDirectoryName(relFile));
+                _ = fs.Directory.CreateDirectory(fs.Path.GetDirectoryName(fs.Path.Combine(destFolder, relFile)));
                 fs.File.Copy(f, fs.Path.Combine(destFolder, relFile));
             }
 

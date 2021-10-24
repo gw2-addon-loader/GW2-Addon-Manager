@@ -108,30 +108,35 @@ namespace GW2AddonManager
             _coreManager.AddLog($"Deleting {addon.AddonName}...");
 
             var folderPath = FolderPath(addon);
-            var files = new List<string>
-            {
-                DLLPath(addon, state)
-            };
-            foreach (var f in addon.Files)
-                files.Add(_fileSystem.Path.Combine(folderPath, f));
-            foreach (var f in state.InstalledFiles)
-                files.Add(_fileSystem.Path.Combine(folderPath, f));
 
-            foreach (var f in files) {
-                if (_fileSystem.File.Exists(f))
+            if(_fileSystem.Directory.Exists(folderPath))
+            {
+                var files = new List<string>
                 {
-                    _coreManager.AddLog($"Deleting file '{f}'...");
-                    _fileSystem.File.Delete(f);
-                }
-            }
+                    DLLPath(addon, state)
+                };
+                foreach (var f in addon.Files)
+                    files.Add(_fileSystem.Path.Combine(folderPath, f));
+                foreach (var f in state.InstalledFiles)
+                    files.Add(_fileSystem.Path.Combine(folderPath, f));
 
-            foreach(var dir in _fileSystem.Directory.EnumerateDirectories(folderPath, "*", SearchOption.AllDirectories).OrderByDescending(x => x.Length).Append(folderPath))
-            {
-                _coreManager.AddLog($"Deleting directory '{dir}'...");
-                try {
-                    _fileSystem.Directory.Delete(dir);
-                } catch(Exception) { }
-            }
+                foreach (var f in files) {
+                    if (_fileSystem.File.Exists(f))
+                    {
+                        _coreManager.AddLog($"Deleting file '{f}'...");
+                        _fileSystem.File.Delete(f);
+                    }
+                }
+
+                foreach(var dir in _fileSystem.Directory.EnumerateDirectories(folderPath, "*", SearchOption.AllDirectories).OrderByDescending(x => x.Length).Append(folderPath))
+                {
+                    _coreManager.AddLog($"Deleting directory '{dir}'...");
+                    try {
+                        _fileSystem.Directory.Delete(dir);
+                    } catch(Exception) { }
+                }
+            } else
+                _coreManager.AddLog($"Directory '{folderPath}' does not exist, addon does not appear to be installed?");
 
             states[addon.Nickname] = AddonState.Default(state.Nickname);
 
@@ -176,6 +181,9 @@ namespace GW2AddonManager
          */
         private string GetFilenameFromUrl(string url)
         {
+            if(url.EndsWith(".zip") || url.EndsWith(".dll"))
+                return url[(url.LastIndexOf('/') + 1)..];
+
             string result = "";
 
             var req = System.Net.WebRequest.Create(url);
@@ -183,12 +191,14 @@ namespace GW2AddonManager
             using (System.Net.WebResponse resp = req.GetResponse()) {
                 result = _fileSystem.Path.GetFileName(resp.ResponseUri.AbsoluteUri);
             }
-            return result;
+            return result[(result.LastIndexOf('/') + 1)..];
         }
 
         private async Task Install(AddonInfo addon, Dictionary<string, AddonState> states)
         {
-            var state = states[addon.Nickname];
+            if(!states.TryGetValue(addon.Nickname, out var state))
+                state = AddonState.Default(addon.Nickname);
+
             if (state.Installed && (state.VersionId == addon.VersionId || addon.SelfUpdate))
             {
                 _coreManager.AddLog($"Skipping {addon.AddonName}, already installed and at the right version or self-updating.");
@@ -223,8 +233,13 @@ namespace GW2AddonManager
             if (addon.DownloadType == DownloadType.Archive)
                 relFiles = Utils.ExtractArchiveWithFilesList(fileName, destFolder, _fileSystem);
             else
-                relFiles = new List<string>{ _fileSystem.Path.GetRelativePath(baseFolder, fileName) };
+            {
+                var relFile = _fileSystem.Path.GetRelativePath(baseFolder, fileName);
+                _ = _fileSystem.Directory.CreateDirectory(destFolder);
+                _fileSystem.File.Copy(fileName, _fileSystem.Path.Combine(destFolder, relFile), true);
 
+                relFiles = new List<string> { relFile };
+            }
 
             states[addon.Nickname] = state with
             {

@@ -60,13 +60,13 @@ namespace GW2AddonManager
         [DependsOn("Addons")]
         public bool NotAllAddonsChecked => Addons.Any(x => !x.AddonChecked);
 
-        public ICommand DisableSelected => new RelayCommand(() => _addonManager.Disable(CheckedAddons));
+        public ICommand DisableSelected => new RelayCommand(async () => { await _addonManager.Disable(CheckedAddons); OnPropertyChanged("Addons"); });
 
-        public ICommand EnableSelected => new RelayCommand(() => _addonManager.Enable(CheckedAddons));
+        public ICommand EnableSelected => new RelayCommand(async () => { await _addonManager.Enable(CheckedAddons); OnPropertyChanged("Addons"); });
 
-        public ICommand DeleteSelected => new RelayCommand(() => _addonManager.Delete(CheckedAddons));
+        public ICommand DeleteSelected => new RelayCommand(async () => { await _addonManager.Delete(CheckedAddons); OnPropertyChanged("Addons"); });
 
-        public ICommand InstallSelected => new RelayCommand(() => _addonManager.Install(CheckedAddons));
+        public ICommand InstallSelected => new RelayCommand(async () => { await _addonManager.Install(CheckedAddons); OnPropertyChanged("Addons"); });
 
         public ICommand CleanInstall => new RelayCommand(() => _coreManager.Uninstall());
 
