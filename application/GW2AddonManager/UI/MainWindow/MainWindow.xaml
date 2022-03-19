@@ -17,6 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
@@ -89,23 +90,23 @@
                     RequestNavigate="Hyperlink_RequestNavigate"
                     TextDecorations="None"
                     FocusVisualStyle="{x:Null}"
-                    ToolTip="{x:Static l:StaticText.ProgramsNotManagedByThisApplication}"
-                    >
-                     <TextBlock Text="{x:Static l:StaticText.CompanionApplicationsWithLeadingSpace}" FontFamily="Microsoft YaHei UI"/>
+                    ToolTip="{x:Static l:StaticText.ProgramsNotManagedByThisApplication}">
+                    <TextBlock Text="{x:Static l:StaticText.CompanionApplicationsWithLeadingSpace}" FontFamily="Microsoft YaHei UI"/>
                 </Hyperlink>
             </TextBlock>
 
             <TextBlock FontFamily="Microsoft JhengHei Light" VerticalAlignment="Center" Margin="15,0,5,0" Text="{x:Static l:StaticText.GamePath}"/>
             <TextBox Text="{Binding GamePath, Mode=OneWay}"
-                 Margin="0,0,5,0"
-                 VerticalAlignment="Center"
-                 Width="350"
-                 Padding="3"
-                 VerticalContentAlignment="Center"
-                 Background="LightGray"
-                 BorderThickness="0"
-                 FontFamily="Consolas"
-                 />
+                     IsReadOnly="True"
+                     Margin="0,0,5,0"
+                     VerticalAlignment="Center"
+                     Width="350"
+                     Padding="3"
+                     VerticalContentAlignment="Center"
+                     Background="LightGray"
+                     BorderThickness="0"
+                     FontFamily="Consolas"
+                     />
             <Button Name="SelectDirectoryBtn"
                 Command="{Binding Path=ChangeGamePath}"
                 Padding="2"
@@ -115,14 +116,21 @@
                 Background="WhiteSmoke"
                 FontFamily="Microsoft YaHei UI Light"
                 BorderBrush="LightGray"
-                Style="{StaticResource BigContentButton}"
-            />
-
+                Style="{StaticResource BigContentButton}"/>
 
         </DockPanel>
 
-        <Label Grid.Row="1" FontWeight="Bold" FontSize="40" Foreground="DimGray" Margin="30,0,0,0" FontFamily="Microsoft JhengHei UI Light" Width="Auto" HorizontalAlignment="Left" Content="Guild Wars 2 Unofficial Addon Manager"/>
+        <Label x:Name="missingGamePath" 
+               Content="{x:Static l:StaticText.SetGamePathRequired}" 
+               Visibility="{Binding Path=GamePathMissing, Converter={StaticResource BoolVisibilityConverter}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" 
+               Grid.Row="1" 
+               FontFamily="Microsoft JhengHei UI Light" 
+               FontWeight="Bold" 
+               FontSize="18" 
+               HorizontalContentAlignment="Center"/>
 
-        <Frame x:Name="mainFrame" Source="../OpeningPage/OpeningView.xaml" NavigationUIVisibility="Hidden" Grid.Row="2" VerticalAlignment="Stretch" Margin="40,0,100,0"/>
+        <Label Grid.Row="2" FontWeight="Bold" FontSize="40" Foreground="DimGray" Margin="30,0,0,0" FontFamily="Microsoft JhengHei UI Light" Width="Auto" HorizontalAlignment="Left" Content="Guild Wars 2 Unofficial Addon Manager"/>
+
+        <Frame x:Name="mainFrame" Source="../OpeningPage/OpeningView.xaml" NavigationUIVisibility="Hidden" Grid.Row="3" VerticalAlignment="Stretch" Margin="40,0,100,0"/>
     </Grid>
 </Window>

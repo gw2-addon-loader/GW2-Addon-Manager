@@ -38,6 +38,8 @@ namespace GW2AddonManager
 
         public string GamePath => _configurationProvider.UserConfig.GamePath;
 
+        public bool GamePathMissing => _configurationProvider.UserConfig.GamePath == null || _configurationProvider.UserConfig.GamePath == string.Empty;
+
         public ICommand ChangeGamePath => new RelayCommand(() =>
         {
             var pathSelectionDialog = new VistaFolderBrowserDialog();
@@ -47,7 +49,8 @@ namespace GW2AddonManager
                 {
                     GamePath = pathSelectionDialog.SelectedPath
                 };
-                OnPropertyChanged("GamePath");
+                OnPropertyChanged(nameof(GamePath));
+                OnPropertyChanged(nameof(GamePathMissing));
             }
         });
 

@@ -35,7 +35,7 @@ namespace GW2AddonManager
         private readonly IAddonRepository _addonRepository;
         private readonly ICoreManager _coreManager;
         private readonly IConfigurationProvider _configurationProvider;
-
+              
         public ObservableCollection<AddonInfoCheck> Addons { get; } = new ObservableCollection<AddonInfoCheck>();
         public IEnumerable<AddonInfo> CheckedAddons { get => Addons.Where(x => x.AddonChecked).Select(x => x.Addon); }
 
@@ -52,7 +52,6 @@ namespace GW2AddonManager
             get => _selectedAddon;
             set => SetProperty(ref _selectedAddon, value);
         }
-
 
         [DependsOn("Addons")]
         public bool AnyAddonChecked => Addons.Any(x => x.AddonChecked);
@@ -97,20 +96,20 @@ namespace GW2AddonManager
         public Visibility LogVisibility => Log.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
 
         [DependsOn("Addons")]
-        public bool CanInstallAny => CheckedAddons.Any(x => {
+        public bool CanInstallAny => _configurationProvider.UserConfig.GamePath != null && CheckedAddons.Any(x => {
             bool exists = _configurationProvider.UserConfig.AddonsState.TryGetValue(x.Nickname, out AddonState state);
             return exists && !state.Installed || !exists;
         });
         [DependsOn("Addons")]
-        public bool CanDeleteAny => CheckedAddons.Any(x => {
+        public bool CanDeleteAny => _configurationProvider.UserConfig.GamePath != null && CheckedAddons.Any(x => {
             return _configurationProvider.UserConfig.AddonsState.TryGetValue(x.Nickname, out AddonState state) && state.Installed;
         });
         [DependsOn("Addons")]
-        public bool CanEnableAny => CheckedAddons.Any(x => {
+        public bool CanEnableAny => _configurationProvider.UserConfig.GamePath != null && CheckedAddons.Any(x => {
             return _configurationProvider.UserConfig.AddonsState.TryGetValue(x.Nickname, out AddonState state) && state.Disabled;
         });
         [DependsOn("Addons")]
-        public bool CanDisableAny => CheckedAddons.Any(x => {
+        public bool CanDisableAny => _configurationProvider.UserConfig.GamePath != null && CheckedAddons.Any(x => {
             return _configurationProvider.UserConfig.AddonsState.TryGetValue(x.Nickname, out AddonState state) && !state.Disabled;
         });
 
