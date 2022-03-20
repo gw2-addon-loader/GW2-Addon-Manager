@@ -119,4 +119,14 @@ namespace GW2AddonManager
             return (object[])value;
         }
     }
+
+    public class BoolVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (bool)value ? Visibility.Visible : (object)Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+    }
 }

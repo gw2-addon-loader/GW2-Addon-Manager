@@ -10,6 +10,7 @@
             </ResourceDictionary.MergedDictionaries>
             <FontFamily x:Key="MDL2Assets">pack://application:,,,/Fonts/#GW2AMMDL2Assets</FontFamily>
             <local:ArrayMultiValueConverter x:Key="ArrayMultiValueConverter"/>
+            <local:BoolVisibilityConverter x:Key="BoolVisibilityConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
