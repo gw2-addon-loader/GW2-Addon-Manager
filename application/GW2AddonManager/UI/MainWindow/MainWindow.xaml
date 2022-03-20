@@ -8,12 +8,12 @@
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance Type=a:MainWindowViewModel}"
     x:Class="GW2AddonManager.MainWindow"
-    Title="GW2 Addon Manager" Height="600" Width="1130" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
+    Title="GW2 Addon Manager" Height="650" Width="1130" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <ImageBrush ImageSource="/Resources/GW2-UOAOU-UI.png"/>
     </Window.Background>
 
-    <Grid Margin="0,40,0,0">
+    <Grid Margin="0,45,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

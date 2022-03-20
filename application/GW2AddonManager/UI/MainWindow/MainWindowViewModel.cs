@@ -38,7 +38,7 @@ namespace GW2AddonManager
 
         public string GamePath => _configurationProvider.UserConfig.GamePath;
 
-        public bool GamePathMissing => _configurationProvider.UserConfig.GamePath == null || _configurationProvider.UserConfig.GamePath == string.Empty;
+        public bool GamePathMissing => string.IsNullOrEmpty(GamePath);
 
         public ICommand ChangeGamePath => new RelayCommand(() =>
         {
