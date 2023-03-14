@@ -17,7 +17,6 @@ namespace GW2_Addon_Manager
         UpdatingViewModel viewModel;
         string fileName;
         string latestLoaderVersion;
-        string loader_d3d9_destination;
         string loader_dxgi_destination;
         string loader_d3d11_destination;
         string loader_self_destination;
@@ -42,16 +41,14 @@ namespace GW2_Addon_Manager
             dynamic releaseInfo = UpdateHelpers.GitReleaseInfo(loader_git_url);
 
             loader_d3d11_destination = Path.Combine(loader_game_path, "d3d11.dll");
-            loader_dxgi_destination = Path.Combine(loader_game_path, "dxgi.dll");
+            loader_dxgi_destination = Path.Combine(loader_game_path, "bin64/cef/dxgi.dll");
             loader_self_destination = Path.Combine(loader_game_path, "addonLoader.dll");
-            loader_d3d9_destination = Path.Combine(loader_game_path, "bin64/d3d9.dll");
 
             latestLoaderVersion = releaseInfo.tag_name;
 
             if (File.Exists(loader_d3d11_destination) && 
                File.Exists(loader_dxgi_destination) && 
                File.Exists(loader_self_destination) &&
-               File.Exists(loader_d3d9_destination) &&
                _configurationManager.UserConfig.LoaderVersion == latestLoaderVersion)
                 return;
 
@@ -88,9 +85,6 @@ namespace GW2_Addon_Manager
 
             if (File.Exists(loader_self_destination))
                 File.Delete(loader_self_destination);
-
-            if (File.Exists(loader_d3d9_destination))
-                File.Delete(loader_d3d9_destination);
 
             ZipFile.ExtractToDirectory(fileName, loader_game_path);
 
