@@ -284,7 +284,7 @@
                                             />
                                     </Storyboard>
                                 </BeginStoryboard>
-                                
+
                             </EventTrigger>
                         </TextBlock.Triggers>
                         <!--  -->
@@ -337,6 +337,19 @@
                 Padding="5"
                 BorderBrush="#FFC9C9C9"
                 Style="{StaticResource BigContentButton}" FontWeight="Bold"
+                />
+        <Button Grid.Row="3" x:Name="reinstallLoader" Content="{x:Static l:StaticText.ReinstallLoader}"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Right"
+            Margin="0,0,263,25"
+            Foreground="White"
+            Background="#7FABEFF9"
+            FontFamily="Microsoft YaHei UI"
+            FontSize="17"
+            BorderThickness="1"
+            Padding="5"
+            BorderBrush="#FFC9C9C9"
+            Style="{StaticResource BigContentButton}" FontWeight="Bold" Click="reinstallLoader_Click"
                 />
 
     </Grid>

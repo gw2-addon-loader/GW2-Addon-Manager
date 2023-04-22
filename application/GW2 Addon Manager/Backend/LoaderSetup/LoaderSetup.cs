@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using GW2_Addon_Manager.App.Configuration;
@@ -17,7 +19,7 @@ namespace GW2_Addon_Manager
         UpdatingViewModel viewModel;
         string fileName;
         string latestLoaderVersion;
-        string loader_dxgi_destination;
+        string[] loader_dxgi_destination;
         string loader_d3d11_destination;
         string loader_self_destination;
 
@@ -36,18 +38,20 @@ namespace GW2_Addon_Manager
         /// Checks for update to addon loader and downloads if a new release is available
         /// </summary>
         /// <returns></returns>
-        public async Task HandleLoaderUpdate()
+        public async Task HandleLoaderUpdate(bool force)
         {
             dynamic releaseInfo = UpdateHelpers.GitReleaseInfo(loader_git_url);
 
             loader_d3d11_destination = Path.Combine(loader_game_path, "d3d11.dll");
-            loader_dxgi_destination = Path.Combine(loader_game_path, "bin64/cef/dxgi.dll");
+            loader_dxgi_destination = new string[] { Path.Combine(loader_game_path, "bin64/cef/dxgi.dll"),
+                                       Path.Combine(loader_game_path, "bin64/dxgi.dll"),
+                                       Path.Combine(loader_game_path, "dxgi.dll") };
             loader_self_destination = Path.Combine(loader_game_path, "addonLoader.dll");
 
             latestLoaderVersion = releaseInfo.tag_name;
 
-            if (File.Exists(loader_d3d11_destination) && 
-               File.Exists(loader_dxgi_destination) && 
+            if (!force && File.Exists(loader_d3d11_destination) &&
+               loader_dxgi_destination.All(File.Exists) && 
                File.Exists(loader_self_destination) &&
                _configurationManager.UserConfig.LoaderVersion == latestLoaderVersion)
                 return;
@@ -80,8 +84,9 @@ namespace GW2_Addon_Manager
             if (File.Exists(loader_d3d11_destination))
                 File.Delete(loader_d3d11_destination);
 
-            if (File.Exists(loader_dxgi_destination))
-                File.Delete(loader_dxgi_destination);
+            foreach (var x in loader_dxgi_destination)
+                if (File.Exists(x))
+                    File.Delete(x);
 
             if (File.Exists(loader_self_destination))
                 File.Delete(loader_self_destination);

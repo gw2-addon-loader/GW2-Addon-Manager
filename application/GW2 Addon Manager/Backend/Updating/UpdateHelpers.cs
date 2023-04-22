@@ -55,7 +55,7 @@ namespace GW2_Addon_Manager
             UpdatingViewModel viewModel = UpdatingViewModel.GetInstance;
 
             LoaderSetup settingUp = new LoaderSetup(new ConfigurationManager());
-            await settingUp.HandleLoaderUpdate();
+            await settingUp.HandleLoaderUpdate((bool)Application.Current.Properties["ForceLoader"]);
 
             List<AddonInfoFromYaml> addons = (List<AddonInfoFromYaml>)Application.Current.Properties["Selected"];
             

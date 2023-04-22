@@ -122,7 +122,24 @@ namespace GW2_Addon_Manager
                 selectedAddons.Add(addon);
             }
 
+            Application.Current.Properties["ForceLoader"] = false;
             Application.Current.Properties["Selected"] = selectedAddons;
+
+            this.NavigationService.Navigate(new Uri("UI/UpdatingPage/UpdatingView.xaml", UriKind.Relative));
+        }
+
+        private void reinstallLoader_Click(object sender, RoutedEventArgs e)
+        {
+            //If bin folder doesn't exist then LoaderSetup intialization will fail.
+            if (_configurationManager.UserConfig.BinFolder == null)
+            {
+                MessageBox.Show("Unable to locate Guild Wars 2 /bin/ or /bin64/ folder." + Environment.NewLine + "Please verify Game Path is correct.",
+                                "Unable to Update", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            Application.Current.Properties["ForceLoader"] = true;
+            Application.Current.Properties["Selected"] = new List<AddonInfoFromYaml>();
 
             this.NavigationService.Navigate(new Uri("UI/UpdatingPage/UpdatingView.xaml", UriKind.Relative));
         }
