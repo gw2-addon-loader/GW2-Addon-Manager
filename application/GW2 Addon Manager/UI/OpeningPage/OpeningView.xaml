@@ -325,9 +325,8 @@
         </Menu>
 
         <Button Grid.Row="3" x:Name="nextPage" Content="{x:Static l:StaticText.UpdateAllUpperCase}"
-                VerticalAlignment="Bottom"
-                HorizontalAlignment="Right"
-                Margin="0,10,175,25"
+                HorizontalAlignment="Left"
+                Margin="872,10,0,25"
                 Foreground="White"
                 Background="#7FABEFF9"
                 Click="update_button_clicked"
