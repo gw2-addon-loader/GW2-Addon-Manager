@@ -199,4 +199,7 @@
   <data name="SelectAnAddonToSeeMoreInformationAboutIt" xml:space="preserve">
     <value>Sélectionnez un add-on pour voir plus d'information à son sujet.</value>
   </data>
+  <data name="ReinstallLoader" xml:space="preserve">
+    <value>Réinstaller le chargeur d'addons</value>
+  </data>
 </root>
